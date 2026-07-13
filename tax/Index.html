@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Australian PAYG Tax Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12203a;
+    --slate:#3e5c76;
+    --slate-soft:#7089a3;
+    --amber:#d98e2b;
+    --amber-deep:#b06f16;
+    --paper:#f5f4f0;
+    --card:#ffffff;
+    --line:#dcdcd4;
+    --line-soft:#e9e8e2;
+    --text:#1f2430;
+    --text-soft:#5b6472;
+    --good:#3f7d5c;
+    --warn:#b3512b;
+    --br-0:#c9d4dd;
+    --br-1:#a9c4b8;
+    --br-2:#d9b46a;
+    --br-3:#cf8f5c;
+    --br-4:#b25c4f;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    background-image:
+      linear-gradient(var(--line-soft) 1px, transparent 1px);
+    background-size: 100% 42px;
+    color:var(--text);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.5;
+    padding:0 0 80px 0;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  header.masthead{
+    border-bottom:3px solid var(--ink);
+    padding:40px 0 22px 0;
+    background:var(--paper);
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--amber-deep);
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Newsreader',serif;
+    font-weight:600;
+    font-size:44px;
+    line-height:1.05;
+    margin:0 0 10px 0;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+  .sub{
+    font-size:16px;
+    color:var(--text-soft);
+    max-width:640px;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns: 380px 1fr;
+    gap:28px;
+    margin-top:32px;
+  }
+  @media (max-width: 860px){
+    .grid{grid-template-columns:1fr;}
+  }
+
+  .panel{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:2px;
+  }
+  .panel-head{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    font-weight:600;
+    color:var(--slate);
+    padding:14px 20px;
+    border-bottom:1px solid var(--line-soft);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .panel-body{padding:22px 20px 24px 20px;}
+
+  label.field-label{
+    display:block;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--ink);
+    margin-bottom:6px;
+    margin-top:20px;
+  }
+  label.field-label:first-child{margin-top:0;}
+  .hint{font-size:11.5px;color:var(--text-soft);margin-top:5px;line-height:1.45;}
+
+  select, input[type=number]{
+    width:100%;
+    font-family:'JetBrains Mono',monospace;
+    font-size:16px;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    background:#fff;
+    color:var(--ink);
+    font-weight:500;
+  }
+  select:focus, input:focus{
+    outline:2px solid var(--amber);
+    outline-offset:1px;
+    border-color:var(--amber-deep);
+  }
+
+  .freq-row{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:6px;
+    margin-top:6px;
+  }
+  .freq-btn{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    text-align:center;
+    padding:9px 4px;
+    border:1px solid var(--line);
+    background:#fff;
+    cursor:pointer;
+    color:var(--text-soft);
+    border-radius:2px;
+    font-weight:600;
+    letter-spacing:.02em;
+  }
+  .freq-btn.active{
+    background:var(--ink);
+    border-color:var(--ink);
+    color:#fff;
+  }
+
+  .toggle-row{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-top:18px;
+    cursor:pointer;
+  }
+  .toggle-row input{width:16px;height:16px;margin-top:2px;accent-color:var(--amber-deep);}
+  .toggle-row .t-label{font-size:13.5px;font-weight:600;color:var(--ink);}
+  .toggle-row .t-hint{font-size:11.5px;color:var(--text-soft);margin-top:2px;}
+
+  /* Results side */
+  .headline-figure{
+    padding:26px 24px 22px 24px;
+    border-bottom:1px solid var(--line-soft);
+  }
+  .hf-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--slate);
+    font-weight:600;
+  }
+  .hf-value{
+    font-family:'Newsreader',serif;
+    font-size:52px;
+    font-weight:600;
+    color:var(--ink);
+    line-height:1;
+    margin:8px 0 4px 0;
+  }
+  .hf-value sup{font-size:20px;font-weight:500;}
+  .hf-sub{font-size:13px;color:var(--text-soft);}
+  .hf-sub b{color:var(--good);font-weight:600;}
+
+  table.period-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:0;
+  }
+  table.period-table th, table.period-table td{
+    text-align:right;
+    padding:11px 20px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:13.5px;
+    border-bottom:1px solid var(--line-soft);
+  }
+  table.period-table th:first-child, table.period-table td:first-child{
+    text-align:left;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    color:var(--ink);
+  }
+  table.period-table th{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--text-soft);
+    font-weight:600;
+    border-bottom:1px solid var(--line);
+  }
+  table.period-table tr.current td{background:#fbf3e7;}
+  table.period-table td.net{color:var(--good);font-weight:600;}
+
+  .breakdown{padding:22px 20px 6px 20px;}
+  .bd-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding:9px 0;
+    border-bottom:1px solid var(--line-soft);
+    font-size:13.5px;
+  }
+  .bd-row .k{color:var(--text-soft);}
+  .bd-row .k .note{display:block;font-size:11px;color:#9aa2ab;margin-top:2px;}
+  .bd-row .v{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--ink);}
+  .bd-row.total{border-bottom:none;border-top:2px solid var(--ink);margin-top:6px;padding-top:14px;}
+  .bd-row.total .v{font-size:16px;}
+  .bd-row.net .v{color:var(--good);font-size:16px;}
+
+  /* bracket chart */
+  .chart-wrap{padding:4px 20px 22px 20px;}
+  .stackbar{
+    display:flex;
+    height:34px;
+    width:100%;
+    border-radius:2px;
+    overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .stackbar div{height:100%;}
+  .legend{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:8px;
+    margin-top:14px;
+  }
+  .legend-item{
+    font-size:11.5px;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    font-family:'JetBrains Mono',monospace;
+    color:var(--text-soft);
+  }
+  .legend-swatch{width:11px;height:11px;border-radius:2px;flex-shrink:0;}
+  .legend-item b{color:var(--ink);font-weight:600;}
+
+  .div293-panel{
+    margin:28px 0 0 0;
+    border:1px solid #e3cfa3;
+    background:#fbf6ea;
+  }
+  .div293-flag{
+    background:var(--amber-deep);
+    color:#fff;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    padding:9px 20px;
+  }
+  .div293-head-row{
+    padding:18px 20px 4px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .div293-head{
+    font-family:'Newsreader',serif;
+    font-weight:600;
+    font-size:20px;
+    color:var(--ink);
+  }
+  .div293-head span{
+    font-family:'Inter',sans-serif;
+    font-weight:400;
+    font-size:14px;
+    color:var(--text-soft);
+  }
+  .div293-when{
+    font-size:11.5px;
+    color:var(--amber-deep);
+    font-weight:600;
+    max-width:280px;
+    text-align:right;
+  }
+  .div293-body{padding:6px 20px 0 20px;}
+  .div293-panel .bd-row{border-bottom:1px solid #ecdfc0;}
+  .div293-panel .bd-row.total{border-top:2px solid var(--amber-deep);}
+  .div293-note{
+    font-size:12px;
+    color:var(--text-soft);
+    padding:14px 20px 18px 20px;
+    line-height:1.6;
+    border-top:1px dashed #e3cfa3;
+    margin-top:8px;
+  }
+
+  footer.notes{
+    max-width:1080px;
+    margin:44px auto 0 auto;
+    padding:0 24px;
+  }
+  .notes-box{
+    border:1px solid var(--line);
+    background:#fbfaf7;
+    padding:20px 22px;
+    font-size:12.5px;
+    color:var(--text-soft);
+    line-height:1.65;
+  }
+  .notes-box h3{
+    font-family:'Newsreader',serif;
+    font-size:15px;
+    color:var(--ink);
+    margin:0 0 10px 0;
+    font-weight:600;
+  }
+  .notes-box ul{margin:0;padding-left:18px;}
+  .notes-box li{margin-bottom:6px;}
+  .notes-box a{color:var(--amber-deep);}
+  .year-badge{
+    display:inline-block;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    background:var(--ink);
+    color:#fff;
+    padding:2px 8px;
+    border-radius:10px;
+    margin-left:8px;
+    vertical-align:middle;
+  }
+</style>
+</head>
+<body>
+
+<div id="jsWarning" style="background:#b3512b;color:#fff;padding:14px 24px;font-size:14px;line-height:1.5;font-weight:500;">
+  ⚠️ The calculator's script isn't running, so no figures will update. This usually means you're viewing the file in a preview window (e.g. tapping the attachment in a chat or the Files app). <b>Fix:</b> open this file in a proper browser — on iPhone, tap the Share icon and choose "Open in Safari"; on Android, open it with Chrome.
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Individual &middot; Resident for tax purposes &middot; Working in Australia</div>
+    <h1>PAYG &amp; Income Tax Calculator</h1>
+    <div class="sub">Estimate your Australian income tax, Medicare levy and take‑home pay across weekly, fortnightly, monthly and annual pay cycles &mdash; based on ATO resident tax rates by financial year.</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="grid">
+
+    <!-- INPUT PANEL -->
+    <div class="panel">
+      <div class="panel-head">Your details</div>
+      <div class="panel-body">
+
+        <label class="field-label">Financial year</label>
+        <select id="taxYear">
+          <option value="2022-23">2022–23</option>
+          <option value="2023-24">2023–24</option>
+          <option value="2024-25">2024–25</option>
+          <option value="2025-26" selected>2025–26</option>
+          <option value="2026-27">2026–27</option>
+          <option value="2027-28">2027–28 (planned)</option>
+        </select>
+        <div class="hint" id="yearNote"></div>
+
+        <label class="field-label">Salary amount</label>
+        <input type="number" id="incomeInput" min="0" step="1" value="90000" inputmode="decimal">
+        <div class="freq-row" id="freqRow">
+          <div class="freq-btn" data-freq="weekly">Weekly</div>
+          <div class="freq-btn" data-freq="fortnightly">Fortnightly</div>
+          <div class="freq-btn" data-freq="monthly">Monthly</div>
+          <div class="freq-btn active" data-freq="annually">Annual</div>
+        </div>
+        <div class="hint">Enter the amount for whichever frequency you're paid — the calculator converts it automatically. Assumes this figure is your full taxable salary (before tax, no other deductions).</div>
+
+        <label class="toggle-row" for="privateHealth">
+          <input type="checkbox" id="privateHealth" checked>
+          <span>
+            <span class="t-label">I hold private hospital cover</span>
+            <span class="t-hint">Appropriate private patient hospital insurance. Affects whether the Medicare Levy Surcharge applies.</span>
+          </span>
+        </label>
+
+        <label class="toggle-row" for="familyStatus">
+          <input type="checkbox" id="familyStatus">
+          <span>
+            <span class="t-label">Assess as a family (spouse/dependents)</span>
+            <span class="t-hint">Uses family income thresholds for the Medicare Levy Surcharge instead of the single threshold.</span>
+          </span>
+        </label>
+
+        <label class="toggle-row" for="helpDebt">
+          <input type="checkbox" id="helpDebt">
+          <span>
+            <span class="t-label">I have a HELP / HECS debt</span>
+            <span class="t-hint">Adds the compulsory study &amp; training loan repayment on top of PAYG tax.</span>
+          </span>
+        </label>
+
+        <label class="field-label">Extra voluntary super (salary sacrifice, $/yr)</label>
+        <input type="number" id="extraSuper" min="0" step="100" value="0" inputmode="decimal">
+        <div class="hint">On top of employer Super Guarantee. Only feeds into the Division 293 estimate below — it doesn't change your take‑home pay figures, since salary sacrifice is a separate arrangement with your employer.</div>
+
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="panel">
+      <div class="panel-head">Result <span id="resultYearBadge" class="year-badge"></span></div>
+
+      <div class="headline-figure">
+        <div class="hf-label">Estimated take‑home pay (annual)</div>
+        <div class="hf-value" id="netAnnual">$0</div>
+        <div class="hf-sub">Effective tax rate <b id="effRate">0%</b> &middot; gross annual salary <span id="grossAnnualEcho">$0</span></div>
+      </div>
+
+      <table class="period-table" id="periodTable">
+        <thead>
+          <tr><th>Pay cycle</th><th>Gross</th><th>PAYG withheld</th><th>Net pay</th></tr>
+        </thead>
+        <tbody id="periodTableBody"></tbody>
+      </table>
+
+      <div class="breakdown">
+        <div class="bd-row">
+          <div class="k">Taxable income (annual)</div>
+          <div class="v" id="bdTaxable">$0</div>
+        </div>
+        <div class="bd-row">
+          <div class="k">Gross income tax<span class="note">Progressive marginal brackets</span></div>
+          <div class="v" id="bdIncomeTax">$0</div>
+        </div>
+        <div class="bd-row">
+          <div class="k">Low Income Tax Offset<span class="note">Non‑refundable offset</span></div>
+          <div class="v" id="bdLito">&minus;$0</div>
+        </div>
+        <div class="bd-row">
+          <div class="k">Medicare levy<span class="note">2%, phased in for low incomes</span></div>
+          <div class="v" id="bdMedicare">$0</div>
+        </div>
+        <div class="bd-row" id="mlsRow">
+          <div class="k">Medicare Levy Surcharge<span class="note">No private hospital cover</span></div>
+          <div class="v" id="bdMls">$0</div>
+        </div>
+        <div class="bd-row" id="helpRow" style="display:none;">
+          <div class="k">HELP / HECS repayment<span class="note">Compulsory study loan repayment</span></div>
+          <div class="v" id="bdHelp">$0</div>
+        </div>
+        <div class="bd-row total">
+          <div class="k">Total annual tax &amp; levies</div>
+          <div class="v" id="bdTotal">$0</div>
+        </div>
+        <div class="bd-row net">
+          <div class="k">Net annual income</div>
+          <div class="v" id="bdNet">$0</div>
+        </div>
+      </div>
+
+      <div class="chart-wrap">
+        <div class="hf-label" style="margin-bottom:10px;">How your income falls across tax brackets</div>
+        <div class="stackbar" id="bracketBar"></div>
+        <div class="legend" id="bracketLegend"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="div293-panel" id="div293Panel" style="display:none;">
+    <div class="div293-flag">Separate ATO bill &mdash; not part of your pay or the figures above</div>
+    <div class="div293-head-row">
+      <div class="div293-head">Division 293 tax <span>&middot; high income super</span></div>
+      <div class="div293-when">Assessed after you lodge your tax return, typically 2&ndash;4 weeks after your notice of assessment</div>
+    </div>
+    <div class="div293-body">
+      <div class="bd-row">
+        <div class="k">Income + concessional super contributions<span class="note">Tested against the $250,000 threshold</span></div>
+        <div class="v" id="d293Combined">$0</div>
+      </div>
+      <div class="bd-row">
+        <div class="k">Employer Super Guarantee<span class="note" id="d293SgNote">12% of ordinary time earnings</span></div>
+        <div class="v" id="d293Sg">$0</div>
+      </div>
+      <div class="bd-row" id="d293ExtraRow">
+        <div class="k">Voluntary salary sacrifice</div>
+        <div class="v" id="d293Extra">$0</div>
+      </div>
+      <div class="bd-row total">
+        <div class="k">Estimated Division 293 tax<span class="note">15% on the lesser of contributions, or the excess over $250,000</span></div>
+        <div class="v" id="d293Tax">$0</div>
+      </div>
+    </div>
+    <div class="div293-note">This amount is <b>never withheld through PAYG</b> and doesn't reduce your pay packet. The ATO bills it directly once your tax return and super fund's contribution data are both processed &mdash; you then choose to pay it personally or have it released from your super balance.</div>
+  </div>
+</div>
+
+<footer class="notes">
+  <div class="notes-box">
+    <h3>Notes &amp; assumptions</h3>
+    <ul>
+      <li>Assumes you are an <b>Australian resident for tax purposes</b>, employed in Australia, with no other income, deductions, dependants beyond what's stated above, or reportable fringe benefits. Non-residents and working holiday makers are taxed differently.</li>
+      <li>PAYG figures are calculated by annualising your income, applying the full-year formula, then dividing back down. This closely matches employer withholding but won't be cent-for-cent identical to the ATO's official per-period withholding schedules (NAT 1004/1006 etc.), which use their own rounding rules — use the <a href="https://www.ato.gov.au/calculators-and-tools/tax-withheld-for-individuals" target="_blank" rel="noopener">ATO's withholding calculator</a> if you need an exact payroll figure.</li>
+      <li>The Medicare Levy Surcharge here uses individual/family income thresholds only — it doesn't account for dependent children (which raise the family threshold) or other adjustments to "income for MLS purposes" (e.g. reportable fringe benefits, super contributions).</li>
+      <li>HELP/HECS repayments for 2025&ndash;26 and 2026&ndash;27 use the ATO's current marginal repayment system. Earlier years use the pre-reform flat-rate schedule, indexed proportionally from the published 2024&ndash;25 table — treat these as indicative only.</li>
+      <li>2026&ndash;27 Medicare Levy Surcharge and low-income threshold figures are carried over from 2025&ndash;26 pending the ATO's official indexed figures. 2027&ndash;28 income tax rates are legislated; HELP thresholds for that year are estimated from historical indexation trends, not yet officially published.</li>
+      <li>Division 293 tax (the extra 15% on concessional super contributions for high income earners) is shown as a separate estimate when your income plus concessional contributions exceeds the $250,000 threshold. It assumes only employer Super Guarantee plus any voluntary salary sacrifice you enter &mdash; it doesn't account for other employers, defined benefit funds, reportable fringe benefits, or investment losses that also count towards "Division 293 income". Unlike the figures above, it's <b>not</b> withheld through PAYG — the ATO bills it separately after your return is assessed.</li>
+      <li>This tool is for general estimation only and is not tax advice. Figures are based on ATO rates believed current as of July 2026 — always confirm against <a href="https://www.ato.gov.au" target="_blank" rel="noopener">ato.gov.au</a> or a registered tax agent before making decisions.</li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+// ---------- Tax data ----------
+const TAX_YEARS = {
+  "2022-23": {
+    label: "2022–23",
+    brackets: [
+      {min:0,max:18200,rate:0},
+      {min:18200,max:45000,rate:0.19},
+      {min:45000,max:120000,rate:0.325},
+      {min:120000,max:180000,rate:0.37},
+      {min:180000,max:Infinity,rate:0.45}
+    ],
+    medicareLower:24276, medicareUpper:30345,
+    mlsSingle:[90000,105000,140000], mlsFamily:[180000,210000,280000],
+    helpThreshold:48361, helpLegacy:true,
+    sgRate:0.105, concessionalCap:27500,
+    note:"Pre Stage-3 tax cuts. 19% / 32.5% brackets."
+  },
+  "2023-24": {
+    label: "2023–24",
+    brackets: [
+      {min:0,max:18200,rate:0},
+      {min:18200,max:45000,rate:0.19},
+      {min:45000,max:120000,rate:0.325},
+      {min:120000,max:180000,rate:0.37},
+      {min:180000,max:Infinity,rate:0.45}
+    ],
+    medicareLower:26000, medicareUpper:32500,
+    mlsSingle:[93000,108000,144000], mlsFamily:[186000,216000,288000],
+    helpThreshold:51550, helpLegacy:true,
+    sgRate:0.11, concessionalCap:27500,
+    note:"Last year before the Stage-3+ tax cuts took effect."
+  },
+  "2024-25": {
+    label: "2024–25",
+    brackets: [
+      {min:0,max:18200,rate:0},
+      {min:18200,max:45000,rate:0.16},
+      {min:45000,max:135000,rate:0.30},
+      {min:135000,max:190000,rate:0.37},
+      {min:190000,max:Infinity,rate:0.45}
+    ],
+    medicareLower:27222, medicareUpper:34027,
+    mlsSingle:[97000,113000,151000], mlsFamily:[194000,226000,302000],
+    helpThreshold:54435, helpLegacy:true,
+    sgRate:0.115, concessionalCap:30000,
+    note:"Stage-3+ cuts in effect: 16% / 30% brackets."
+  },
+  "2025-26": {
+    label: "2025–26",
+    brackets: [
+      {min:0,max:18200,rate:0},
+      {min:18200,max:45000,rate:0.16},
+      {min:45000,max:135000,rate:0.30},
+      {min:135000,max:190000,rate:0.37},
+      {min:190000,max:Infinity,rate:0.45}
+    ],
+    medicareLower:28011, medicareUpper:35013,
+    mlsSingle:[101000,118000,158000], mlsFamily:[202000,236000,316000],
+    helpThreshold:67000, helpT2:125000, helpBase2:8700, helpCap:179286, helpLegacy:false,
+    sgRate:0.12, concessionalCap:30000,
+    note:"Current financial year through to 30 June 2026. HELP moved to a marginal repayment system."
+  },
+  "2026-27": {
+    label: "2026–27",
+    brackets: [
+      {min:0,max:18200,rate:0},
+      {min:18200,max:45000,rate:0.15},
+      {min:45000,max:135000,rate:0.30},
+      {min:135000,max:190000,rate:0.37},
+      {min:190000,max:Infinity,rate:0.45}
+    ],
+    medicareLower:28011, medicareUpper:35013,
+    mlsSingle:[101000,118000,158000], mlsFamily:[202000,236000,316000],
+    helpThreshold:69528, helpT2:129717, helpBase2:9028, helpCap:186050, helpLegacy:false,
+    sgRate:0.12, concessionalCap:32500,
+    note:"Legislated tax cut: second bracket falls from 16% to 15% from 1 July 2026. MLS/Medicare low-income thresholds shown are 2025–26 figures pending official indexation."
+  },
+  "2027-28": {
+    label: "2027–28 (planned)",
+    brackets: [
+      {min:0,max:18200,rate:0},
+      {min:18200,max:45000,rate:0.14},
+      {min:45000,max:135000,rate:0.30},
+      {min:135000,max:190000,rate:0.37},
+      {min:190000,max:Infinity,rate:0.45}
+    ],
+    medicareLower:28011, medicareUpper:35013,
+    mlsSingle:[101000,118000,158000], mlsFamily:[202000,236000,316000],
+    helpThreshold:72150, helpT2:134610, helpBase2:9369, helpCap:193070, helpLegacy:false,
+    sgRate:0.12, concessionalCap:32500,
+    estimated:true,
+    note:"Legislated tax cut: second bracket falls further to 14% from 1 July 2027. Medicare/MLS/HELP thresholds are projected via historical indexation trends, not yet officially published — treat as indicative."
+  }
+};
+
+const DIV293_THRESHOLD = 250000; // unchanged since 1 July 2017
+
+function calcMSCB(concessionalCap, sgRate){
+  // ATO formula: concessional contributions cap x 100 / SG charge percentage, rounded down to nearest $10
+  return Math.floor((concessionalCap * 100 / (sgRate * 100)) / 10) * 10;
+}
+
+function calcDiv293(taxableIncome, cfg, extraSalarySacrifice){
+  const mscb = calcMSCB(cfg.concessionalCap, cfg.sgRate);
+  const sgEligible = Math.min(taxableIncome, mscb);
+  const employerSG = sgEligible * cfg.sgRate;
+  const rawConcessional = employerSG + extraSalarySacrifice;
+  // Div293 "taxable contributions" disregard any amount over the concessional cap
+  const div293Contributions = Math.min(rawConcessional, cfg.concessionalCap);
+  const combined = taxableIncome + div293Contributions;
+  let tax = 0;
+  if(combined > DIV293_THRESHOLD){
+    const taxableAmt = Math.min(div293Contributions, combined - DIV293_THRESHOLD);
+    tax = taxableAmt * 0.15;
+  }
+  return {mscb, employerSG, div293Contributions, combined, tax};
+}
+
+const LEGACY_BASE_BREAKS = [54435,62850,66620,70618,74855,79346,84107,89154,94503,100174,106185,112556,119309,126467,134056,142100,150626,159663];
+const LEGACY_RATES = [0.01,0.02,0.025,0.03,0.035,0.04,0.045,0.05,0.055,0.06,0.065,0.07,0.075,0.08,0.085,0.09,0.095,0.10];
+
+const PERIODS = {
+  weekly:      {label:"Weekly",      n:52},
+  fortnightly: {label:"Fortnightly", n:26},
+  monthly:     {label:"Monthly",     n:12},
+  annually:    {label:"Annual",      n:1}
+};
+
+// ---------- Calculations ----------
+function calcIncomeTax(income, brackets){
+  let tax = 0;
+  for(const b of brackets){
+    if(income > b.min){
+      const upper = Math.min(income, b.max);
+      tax += (upper - b.min) * b.rate;
+    }
+  }
+  return tax;
+}
+
+function calcLITO(income){
+  if(income <= 37500) return 700;
+  if(income <= 45000) return Math.max(0, 700 - (income - 37500) * 0.05);
+  if(income <= 66667) return Math.max(0, 325 - (income - 45000) * 0.015);
+  return 0;
+}
+
+function calcMedicareLevy(income, cfg){
+  if(income <= cfg.medicareLower) return 0;
+  if(income <= cfg.medicareUpper) return (income - cfg.medicareLower) * 0.10;
+  return income * 0.02;
+}
+
+function calcMLS(income, hasCover, isFamily, cfg){
+  if(hasCover) return {rate:0, amount:0};
+  const tiers = isFamily ? cfg.mlsFamily : cfg.mlsSingle;
+  if(income <= tiers[0]) return {rate:0, amount:0};
+  let rate = income <= tiers[1] ? 0.01 : (income <= tiers[2] ? 0.0125 : 0.015);
+  return {rate, amount: income * rate};
+}
+
+function buildLegacyHelpTable(threshold){
+  const ratio = threshold / 54435;
+  const breaks = LEGACY_BASE_BREAKS.map(b => b * ratio);
+  const table = [{max: breaks[0], rate: 0}];
+  for(let i=0;i<LEGACY_RATES.length;i++){
+    const max = (i+1 < breaks.length) ? breaks[i+1] : Infinity;
+    table.push({max, rate: LEGACY_RATES[i]});
+  }
+  return table;
+}
+
+function calcHelp(income, cfg){
+  if(!cfg) return 0;
+  if(cfg.helpLegacy){
+    const table = buildLegacyHelpTable(cfg.helpThreshold);
+    for(const row of table){
+      if(income <= row.max) return income * row.rate;
+    }
+    return income * 0.10;
+  } else {
+    const {helpThreshold:th, helpT2:t2, helpBase2:base2, helpCap:cap} = cfg;
+    if(income <= th) return 0;
+    if(income <= t2) return (income - th) * 0.15;
+    if(income <= cap) return base2 + (income - t2) * 0.17;
+    return income * 0.10;
+  }
+}
+
+function fmt(n){
+  return '$' + Math.round(n).toLocaleString('en-AU');
+}
+
+// ---------- UI wiring ----------
+const yearSelect = document.getElementById('taxYear');
+
+let currentFreq = 'annually';
+document.querySelectorAll('.freq-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.freq-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFreq = btn.dataset.freq;
+    render();
+  });
+});
+
+['incomeInput','privateHealth','familyStatus','helpDebt','taxYear','extraSuper'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', render);
+  document.getElementById(id).addEventListener('change', render);
+});
+
+const BRACKET_COLORS = ['#c9d4dd','#a9c4b8','#d9b46a','#cf8f5c','#b25c4f'];
+
+function render(){
+  const yearKey = yearSelect.value;
+  const cfg = TAX_YEARS[yearKey];
+  document.getElementById('yearNote').textContent = cfg.note || '';
+  document.getElementById('resultYearBadge').textContent = cfg.label;
+
+  const rawInput = parseFloat(document.getElementById('incomeInput').value) || 0;
+  const grossAnnual = rawInput * PERIODS[currentFreq].n;
+
+  const hasCover = document.getElementById('privateHealth').checked;
+  const isFamily = document.getElementById('familyStatus').checked;
+  const hasHelp = document.getElementById('helpDebt').checked;
+
+  const incomeTaxGross = calcIncomeTax(grossAnnual, cfg.brackets);
+  const lito = calcLITO(grossAnnual);
+  const incomeTaxPayable = Math.max(0, incomeTaxGross - lito);
+  const medicare = calcMedicareLevy(grossAnnual, cfg);
+  const mls = calcMLS(grossAnnual, hasCover, isFamily, cfg);
+  const help = hasHelp ? calcHelp(grossAnnual, cfg) : 0;
+
+  const totalTax = incomeTaxPayable + medicare + mls.amount + help;
+  const netAnnual = grossAnnual - totalTax;
+  const effRate = grossAnnual > 0 ? (totalTax / grossAnnual) * 100 : 0;
+
+  // Headline
+  document.getElementById('netAnnual').innerHTML = fmt(netAnnual) + '<sup>/yr</sup>';
+  document.getElementById('effRate').textContent = effRate.toFixed(1) + '%';
+  document.getElementById('grossAnnualEcho').textContent = fmt(grossAnnual);
+
+  // Period table
+  const tbody = document.getElementById('periodTableBody');
+  tbody.innerHTML = '';
+  Object.keys(PERIODS).forEach(key=>{
+    const p = PERIODS[key];
+    const gross = grossAnnual / p.n;
+    const tax = totalTax / p.n;
+    const net = netAnnual / p.n;
+    const tr = document.createElement('tr');
+    if(key === currentFreq) tr.classList.add('current');
+    tr.innerHTML = `<td>${p.label}</td><td>${fmt(gross)}</td><td>${fmt(tax)}</td><td class="net">${fmt(net)}</td>`;
+    tbody.appendChild(tr);
+  });
+
+  // Breakdown
+  document.getElementById('bdTaxable').textContent = fmt(grossAnnual);
+  document.getElementById('bdIncomeTax').textContent = fmt(incomeTaxGross);
+  document.getElementById('bdLito').textContent = '\u2212' + fmt(lito);
+  document.getElementById('bdMedicare').textContent = fmt(medicare);
+
+  const mlsRow = document.getElementById('mlsRow');
+  if(hasCover){
+    mlsRow.style.display = 'none';
+  } else {
+    mlsRow.style.display = 'flex';
+    document.getElementById('bdMls').textContent = mls.amount > 0 ? fmt(mls.amount) + ' (' + (mls.rate*100).toFixed(2) + '%)' : '$0';
+  }
+
+  const helpRow = document.getElementById('helpRow');
+  if(hasHelp){
+    helpRow.style.display = 'flex';
+    document.getElementById('bdHelp').textContent = fmt(help);
+  } else {
+    helpRow.style.display = 'none';
+  }
+
+  document.getElementById('bdTotal').textContent = fmt(totalTax);
+  document.getElementById('bdNet').textContent = fmt(netAnnual);
+
+  // Division 293
+  const extraSuper = parseFloat(document.getElementById('extraSuper').value) || 0;
+  const d293 = calcDiv293(grossAnnual, cfg, extraSuper);
+  const d293Panel = document.getElementById('div293Panel');
+  if(d293.tax > 0){
+    d293Panel.style.display = 'block';
+    document.getElementById('d293Combined').textContent = fmt(d293.combined);
+    document.getElementById('d293Sg').textContent = fmt(d293.employerSG);
+    document.getElementById('d293SgNote').textContent = (cfg.sgRate*100).toFixed(1) + '% of earnings up to the ' + fmt(d293.mscb) + ' contribution base';
+    const extraRow = document.getElementById('d293ExtraRow');
+    if(extraSuper > 0){
+      extraRow.style.display = 'flex';
+      document.getElementById('d293Extra').textContent = fmt(extraSuper);
+    } else {
+      extraRow.style.display = 'none';
+    }
+    document.getElementById('d293Tax').textContent = fmt(d293.tax);
+  } else {
+    d293Panel.style.display = 'none';
+  }
+
+  // Bracket chart
+  const bar = document.getElementById('bracketBar');
+  const legend = document.getElementById('bracketLegend');
+  bar.innerHTML = '';
+  legend.innerHTML = '';
+  const topForScale = Math.max(grossAnnual, cfg.brackets[cfg.brackets.length-2].max * 1.05, 60000);
+  cfg.brackets.forEach((b, i) => {
+    const amountInBracket = grossAnnual > b.min ? Math.min(grossAnnual, b.max) - b.min : 0;
+    if(amountInBracket <= 0) return;
+    const widthPct = (amountInBracket / topForScale) * 100;
+    const seg = document.createElement('div');
+    seg.style.width = widthPct + '%';
+    seg.style.background = BRACKET_COLORS[i];
+    seg.title = (b.rate*100)+'% bracket: ' + fmt(amountInBracket);
+    bar.appendChild(seg);
+
+    const li = document.createElement('div');
+    li.className = 'legend-item';
+    const upperLabel = b.max === Infinity ? '+' : fmt(b.max);
+    li.innerHTML = `<span class="legend-swatch" style="background:${BRACKET_COLORS[i]}"></span><span><b>${(b.rate*100).toFixed(0)}%</b> bracket &middot; ${fmt(amountInBracket)} taxed</span>`;
+    legend.appendChild(li);
+  });
+}
+
+function init(){
+  try{
+    document.getElementById('jsWarning').style.display = 'none';
+    render();
+  }catch(err){
+    var w = document.getElementById('jsWarning');
+    if(w){
+      w.style.display = 'block';
+      w.textContent = '⚠️ The calculator hit an error and cannot run: ' + err.message + ' — please report this.';
+    }
+  }
+}
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+</script>
+
+</body>
+</html>
