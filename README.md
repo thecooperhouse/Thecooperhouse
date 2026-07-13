@@ -1,4 +1,5 @@
 ## Hi there 👋
+Just learning how to set up a basic website and publish a couple of html files that i created with the help of AI
 
 <!--
 **thecooperhouse/Thecooperhouse** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
