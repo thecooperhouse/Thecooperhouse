@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Race Board 2026 — F1 &amp; MotoGP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --asphalt:#12161d; --panel:#1a2029; --panel-2:#20272f; --line:#2c343f;
+    --ink:#e8ebef; --ink-dim:#9aa4b1;
+    --f1:#ff2800; --moto:#2ec5ff; --timing-purple:#c39bff;
+    --gold:#f2c14e; --silver:#c8cfd8; --bronze:#d29a6b; --sprint:#ffd166;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+  body{
+    background:var(--asphalt); color:var(--ink);
+    font-family:'IBM Plex Sans',system-ui,sans-serif; line-height:1.45; min-height:100vh;
+    background-image:repeating-linear-gradient(90deg, transparent 0 96px, rgba(255,255,255,.015) 96px 97px);
+  }
+  header{padding:28px 20px 18px;max-width:1080px;margin:0 auto}
+  .kicker{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim)}
+  h1{font-family:'Chakra Petch',sans-serif;font-size:clamp(1.7rem,4.5vw,2.6rem);font-weight:700;letter-spacing:.01em;line-height:1.1;margin-top:6px}
+  h1 .f1c{color:var(--f1)} h1 .motoc{color:var(--moto)}
+  .asof{margin-top:8px;color:var(--ink-dim);font-size:.85rem}
+  .asof strong{color:var(--ink);font-weight:600}
+
+  .tabs{max-width:1080px;margin:10px auto 0;padding:0 20px;display:flex;gap:10px}
+  .tab{flex:1;appearance:none;border:1px solid var(--line);background:var(--panel);color:var(--ink-dim);
+    font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;
+    padding:12px 10px;border-radius:var(--radius);cursor:pointer;border-bottom:3px solid var(--line);
+    transition:color .15s,border-color .15s,background .15s}
+  .tab[aria-selected="true"]{color:var(--ink);background:var(--panel-2)}
+  .tab.f1[aria-selected="true"]{border-bottom-color:var(--f1)}
+  .tab.moto[aria-selected="true"]{border-bottom-color:var(--moto)}
+  .tab:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+  main{max-width:1080px;margin:0 auto;padding:18px 20px 60px}
+  section.series{display:none}
+  section.series.active{display:block}
+
+  .parc-ferme{border:1px dashed var(--line);border-radius:var(--radius);
+    background:repeating-linear-gradient(45deg, rgba(255,255,255,.03) 0 14px, transparent 14px 28px),var(--panel);
+    padding:16px 18px;margin-bottom:22px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+  .parc-ferme .pf-text{max-width:640px}
+  .pf-title{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.04em;text-transform:uppercase}
+  .pf-sub{color:var(--ink-dim);font-size:.85rem;margin-top:2px}
+  .watch-toggle{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;background:var(--panel-2);
+    border:1px solid var(--line);border-radius:8px;padding:10px 14px;font-weight:600;font-size:.92rem}
+  .watch-toggle input{width:20px;height:20px;accent-color:var(--gold);cursor:pointer}
+
+  .spoiler{position:relative}
+  .spoiler .shield{position:absolute;inset:0;z-index:3;border-radius:var(--radius);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:16px;
+    background:repeating-linear-gradient(-45deg, rgba(0,0,0,.55) 0 16px, rgba(0,0,0,.4) 16px 32px);
+    backdrop-filter:blur(2px);border:1px dashed var(--line)}
+  .spoiler .shield .flag{font-size:1.5rem}
+  .spoiler .shield p{font-size:.85rem;color:var(--ink);max-width:340px}
+  .spoiler .shield p.small{color:var(--ink-dim);font-size:.76rem}
+  .spoiler > .veil{filter:blur(14px);pointer-events:none;user-select:none}
+  .spoiler.revealed .shield{display:none}
+  .spoiler.revealed > .veil{filter:none;pointer-events:auto;user-select:auto}
+
+  h2{font-family:'Chakra Petch',sans-serif;font-size:1.15rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    margin:26px 0 12px;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";display:inline-block;width:14px;height:14px;border-radius:3px}
+  .f1-series h2::before{background:var(--f1)}
+  .moto-series h2::before{background:var(--moto)}
+
+  .board{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--panel)}
+  table{width:100%;border-collapse:collapse;font-size:.92rem}
+  thead th{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-dim);font-weight:600;text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  tbody td{padding:8px 12px;border-bottom:1px solid rgba(44,52,63,.5)}
+  tbody tr:last-child td{border-bottom:none}
+  td.pos{font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);width:44px}
+  td.pts{font-family:'IBM Plex Mono',monospace;font-weight:600;text-align:right;width:70px}
+  td.team{color:var(--ink-dim);font-size:.85rem}
+  tbody tr.p1 td{background:rgba(195,155,255,.08)}
+  tbody tr.p1 td.pos{color:var(--timing-purple);font-weight:700}
+  tbody tr.p1 td.name{color:var(--timing-purple);font-weight:600}
+  .name{font-weight:500}
+
+  details.secondary{margin-top:12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel)}
+  details.secondary summary{cursor:pointer;padding:11px 14px;font-family:'Chakra Petch',sans-serif;font-weight:600;
+    font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim);list-style:none}
+  details.secondary summary::-webkit-details-marker{display:none}
+  details.secondary summary::after{content:" ▸"}
+  details.secondary[open] summary::after{content:" ▾"}
+
+  .races{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+  .race{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);overflow:hidden;display:flex;flex-direction:column}
+  .race-head{padding:11px 14px;border-bottom:1px solid var(--line);display:flex;align-items:baseline;justify-content:space-between;gap:8px;background:var(--panel-2)}
+  .race-head .rd{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--ink-dim);letter-spacing:.12em}
+  .race-head .gp{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:.98rem}
+  .race-head .date{font-size:.75rem;color:var(--ink-dim);white-space:nowrap;text-align:right}
+  .circuit-record{padding:8px 14px;border-bottom:1px solid var(--line);font-size:.76rem;color:var(--ink-dim);
+    display:flex;gap:8px;align-items:baseline;background:rgba(195,155,255,.05)}
+  .circuit-record .lbl{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--timing-purple);flex:none}
+  .circuit-record .val strong{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-weight:600}
+  .race-body{padding:12px 14px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .block-label{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink-dim);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+  .block-label.sprint::before{content:"S";display:inline-flex;align-items:center;justify-content:center;
+    width:15px;height:15px;border-radius:3px;background:var(--sprint);color:#1a1a1a;font-weight:700;font-size:.62rem}
+  .podium{display:flex;flex-direction:column;gap:5px}
+  .step{display:flex;align-items:center;gap:9px;font-size:.9rem;flex-wrap:wrap}
+  .medal{width:20px;height:20px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+    font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:700;color:#14161a}
+  .m1{background:var(--gold)} .m2{background:var(--silver)} .m3{background:var(--bronze)}
+  .step .who{font-weight:500}
+  .step .tm{color:var(--ink-dim);font-size:.78rem}
+  .chip{font-family:'IBM Plex Mono',monospace;font-size:.72rem;padding:1px 7px;border-radius:4px;margin-left:auto;white-space:nowrap}
+  .chip.gap{color:var(--ink);background:var(--panel-2);border:1px solid var(--line)}
+  .chip.wintime{color:var(--gold);background:rgba(242,193,78,.08);border:1px solid rgba(242,193,78,.35)}
+  .flrow{margin-top:6px;font-size:.78rem;color:var(--ink-dim);display:flex;gap:6px;align-items:baseline}
+  .flrow .flbadge{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;color:var(--timing-purple);
+    border:1px solid rgba(195,155,255,.4);border-radius:4px;padding:1px 5px;flex:none}
+  .flrow strong{color:var(--ink);font-weight:600}
+  .flrow .fltime{font-family:'IBM Plex Mono',monospace;color:var(--timing-purple)}
+  .fn{font-size:.74rem;color:var(--ink-dim);border-top:1px dashed var(--line);padding-top:8px;margin-top:auto}
+  .race.latest{border-color:rgba(242,193,78,.45)}
+  .race.latest .race-head .gp::after{content:"LATEST";font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;
+    color:var(--gold);border:1px solid rgba(242,193,78,.5);border-radius:4px;padding:2px 6px;margin-left:8px;vertical-align:2px}
+
+  .next-up{margin-top:16px;padding:12px 16px;border-left:3px solid;border-radius:0 var(--radius) var(--radius) 0;
+    background:var(--panel);font-size:.9rem;color:var(--ink-dim)}
+  .f1-series .next-up{border-color:var(--f1)}
+  .moto-series .next-up{border-color:var(--moto)}
+  .next-up strong{color:var(--ink)}
+
+  footer{max-width:1080px;margin:0 auto;padding:0 20px 40px;color:var(--ink-dim);font-size:.78rem;line-height:1.6}
+  footer .rule{border-top:1px solid var(--line);padding-top:14px}
+  footer p{margin-bottom:8px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="kicker">Points board · 2026 season · updated 13 July 2026 · v2 — timing &amp; records edition (Daniel's suggestions)</div>
+  <h1><span class="f1c">Formula 1</span> &amp; <span class="motoc">MotoGP</span> Race Board</h1>
+  <p class="asof">Standings, podiums, finishing gaps, fastest laps and all-time circuit records for every Grand Prix and Sprint. The most recent round in each series stays <strong>hidden until you tick the box</strong> to confirm you've watched it.</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Championship">
+  <button class="tab f1" id="tab-f1" role="tab" aria-selected="true" aria-controls="panel-f1">🏎 Formula 1</button>
+  <button class="tab moto" id="tab-moto" role="tab" aria-selected="false" aria-controls="panel-moto">🏍 MotoGP</button>
+</div>
+
+<main>
+
+<section class="series f1-series active" id="panel-f1" role="tabpanel" aria-labelledby="tab-f1">
+  <div class="parc-ferme">
+    <div class="pf-text">
+      <div class="pf-title">🔒 Spoiler protection — British Grand Prix (Rd 9, 5 July)</div>
+      <div class="pf-sub">The British GP + Sprint results and the current standings are hidden until you confirm you've watched. Your choice is remembered for next time.</div>
+    </div>
+    <label class="watch-toggle"><input type="checkbox" id="watched-f1"> I've watched the British GP</label>
+  </div>
+
+  <h2>Drivers' Championship</h2>
+  <div class="spoiler" id="spoiler-f1-standings">
+    <div class="shield"><div class="flag">🏁</div>
+      <p><strong>Standings hidden</strong> — they'd give away the British GP result.</p>
+      <p class="small">Tick "I've watched the British GP" above to reveal.</p>
+    </div>
+    <div class="veil">
+      <div class="board"><table>
+        <thead><tr><th>Pos</th><th>Driver</th><th>Team</th><th style="text-align:right">Pts</th></tr></thead>
+        <tbody id="f1-standings"></tbody>
+      </table></div>
+      <details class="secondary"><summary>Constructors' Championship</summary>
+        <div class="board" style="border:none"><table>
+          <thead><tr><th>Pos</th><th>Team</th><th style="text-align:right">Pts</th></tr></thead>
+          <tbody id="f1-constructors"></tbody>
+        </table></div>
+      </details>
+    </div>
+  </div>
+
+  <h2>Race by race — podiums, gaps &amp; fastest laps</h2>
+  <div class="races" id="f1-races"></div>
+
+  <div class="next-up">📅 <strong>Next round:</strong> Belgian Grand Prix, Spa-Francorchamps — 19 July 2026. Remaining sprints in 2026: Netherlands (Zandvoort) and Singapore.</div>
+</section>
+
+<section class="series moto-series" id="panel-moto" role="tabpanel" aria-labelledby="tab-moto">
+  <div class="parc-ferme">
+    <div class="pf-text">
+      <div class="pf-title">🔒 Spoiler protection — German Grand Prix, Sachsenring (Rd 11, 12 July)</div>
+      <div class="pf-sub">The German GP + Sprint results and the current standings are hidden until you confirm you've watched. Your choice is remembered for next time.</div>
+    </div>
+    <label class="watch-toggle"><input type="checkbox" id="watched-moto"> I've watched the German GP</label>
+  </div>
+
+  <h2>Riders' Championship</h2>
+  <div class="spoiler" id="spoiler-moto-standings">
+    <div class="shield"><div class="flag">🏁</div>
+      <p><strong>Standings hidden</strong> — they'd give away the German GP result.</p>
+      <p class="small">Tick "I've watched the German GP" above to reveal.</p>
+    </div>
+    <div class="veil">
+      <div class="board"><table>
+        <thead><tr><th>Pos</th><th>Rider</th><th>Team</th><th style="text-align:right">Pts</th></tr></thead>
+        <tbody id="moto-standings"></tbody>
+      </table></div>
+      <p style="font-size:.76rem;color:var(--ink-dim);margin-top:8px">Maverick Viñales (Red Bull KTM Tech3) completes the standings after an injury-disrupted first half of the season.</p>
+    </div>
+  </div>
+
+  <h2>Round by round — podiums, gaps &amp; fastest laps</h2>
+  <div class="races" id="moto-races"></div>
+
+  <div class="next-up">📅 <strong>Summer break.</strong> Next round: British Grand Prix, Silverstone — 7–9 August 2026. Every MotoGP round includes a Saturday Tissot Sprint.</div>
+</section>
+
+</main>
+
+<footer>
+  <div class="rule">
+    <p><strong>How to read the timing data:</strong> the gold chip next to the winner is their total race time; the chips next to P2 and P3 are how far behind they finished (≈ marks a figure reported to the nearest tenth or as "around X seconds" rather than official timing). "FL" is the fastest lap of that race and who set it — the driver/rider who set it wasn't always on the podium.</p>
+    <p><strong>Circuit records:</strong> for F1 the "circuit best" is the official race lap record — the fastest lap ever set during a race on the current layout (F1's 2026-spec cars are around 2s/lap slower, so most records date from the 2018–2025 era). For MotoGP it's the all-time circuit record, which in bike racing usually falls in qualifying; where the record fell during a 2026 weekend the card says so.</p>
+    <p>Data snapshot compiled 13 July 2026 from official series results, timing reports and press coverage. Individual fastest laps for each podium finisher come from the full FIA/FIM timing sheets, which aren't all published in citable form — where a podium finisher also set the race's overall fastest lap you'll see it against their name. Ask Claude for a refreshed version after future rounds; the spoiler shield moves to the newest race automatically.</p>
+    <p>F1 sprint rounds in 2026: China, Miami, Canada, Great Britain, Netherlands, Singapore. The F1 Bahrain &amp; Saudi Arabian GPs were cancelled (22-round calendar); MotoGP's Qatar GP moved to 8 November.</p>
+  </div>
+</footer>
+
+<script>
+/* ============ DATA ============ */
+const F1_STANDINGS = [
+  ["Kimi Antonelli","Mercedes",179],["George Russell","Mercedes",154],
+  ["Lewis Hamilton","Ferrari",147],["Charles Leclerc","Ferrari",108],
+  ["Lando Norris","McLaren",97],["Oscar Piastri","McLaren",82],
+  ["Max Verstappen","Red Bull",76],["Isack Hadjar","Red Bull",52],
+  ["Pierre Gasly","Alpine",42],["Liam Lawson","Racing Bulls",39],
+  ["Arvid Lindblad","Racing Bulls",20],["Oliver Bearman","Haas",18],
+  ["Franco Colapinto","Alpine",18],["Gabriel Bortoleto","Audi",6],
+  ["Carlos Sainz","Williams",6],["Alexander Albon","Williams",5],
+  ["Esteban Ocon","Haas",3],["Fernando Alonso","Aston Martin",1],
+  ["Nico Hülkenberg","Audi",0],["Valtteri Bottas","Cadillac",0],
+  ["Sergio Pérez","Cadillac",0],["Lance Stroll","Aston Martin",0]
+];
+const F1_CONSTRUCTORS = [
+  ["Mercedes",333],["Ferrari",255],["McLaren",179],["Red Bull Racing",128],
+  ["Alpine",60],["Racing Bulls",59],["Haas",21],["Williams",11],
+  ["Audi",6],["Aston Martin",1],["Cadillac",0]
+];
+
+/* podium entries: [name, team, chip] — chip is winner's race time for P1, gap for P2/P3, or null */
+const F1_RACES = [
+  {rd:1,gp:"Australian GP",circuit:"Albert Park, Melbourne",date:"8 Mar",
+   record:{t:"1:19.813",who:"C. Leclerc",ev:"2024 Australian GP"},
+   race:{podium:[["George Russell","Mercedes","1:23:06.801"],["Kimi Antonelli","Mercedes","+2.974s"],["Charles Leclerc","Ferrari","+15.519s"]],
+         fl:{who:"Max Verstappen"}}},
+  {rd:2,gp:"Chinese GP",circuit:"Shanghai International",date:"14–15 Mar",
+   record:{t:"1:32.238",who:"M. Schumacher",ev:"2004 Chinese GP"},
+   sprint:{podium:[["George Russell","Mercedes",null],["Charles Leclerc","Ferrari",null],["Lewis Hamilton","Ferrari",null]]},
+   race:{podium:[["Kimi Antonelli","Mercedes","1:33:15.607"],["George Russell","Mercedes","+5.515s"],["Lewis Hamilton","Ferrari","+25.267s"]],
+         fl:{who:"Kimi Antonelli"}}},
+  {rd:3,gp:"Japanese GP",circuit:"Suzuka",date:"29 Mar",
+   record:{t:"1:30.965",who:"K. Antonelli",ev:"2025 Japanese GP"},
+   race:{podium:[["Kimi Antonelli","Mercedes","1:28:03.403"],["Oscar Piastri","McLaren","+13.722s"],["Charles Leclerc","Ferrari","+15.270s"]],
+         fl:{who:"Kimi Antonelli"}}},
+  {rd:4,gp:"Miami GP",circuit:"Miami International Autodrome",date:"2–3 May",
+   record:{t:"1:29.708",who:"M. Verstappen",ev:"2023 Miami GP"},
+   sprint:{podium:[["Lando Norris","McLaren",null],["Oscar Piastri","McLaren",null],["Charles Leclerc","Ferrari",null]]},
+   race:{podium:[["Kimi Antonelli","Mercedes","1:33:19.273"],["Lando Norris","McLaren","+3.264s"],["Oscar Piastri","McLaren","+27.092s"]],
+         fl:{who:"Lando Norris"}}},
+  {rd:5,gp:"Canadian GP",circuit:"Circuit Gilles Villeneuve",date:"23–24 May",
+   record:{t:"1:13.078",who:"V. Bottas",ev:"2019 Canadian GP"},
+   sprint:{podium:[["George Russell","Mercedes",null],["Lando Norris","McLaren",null],["Kimi Antonelli","Mercedes",null]]},
+   race:{podium:[["Kimi Antonelli","Mercedes","1:28:15.758"],["Lewis Hamilton","Ferrari","+10.768s"],["Max Verstappen","Red Bull","+11.276s"]],
+         fl:{who:"Kimi Antonelli",t:"1:14.210"}}},
+  {rd:6,gp:"Monaco GP",circuit:"Circuit de Monaco",date:"7 Jun",
+   record:{t:"1:12.909",who:"L. Hamilton",ev:"2021 Monaco GP"},
+   race:{podium:[["Kimi Antonelli","Mercedes","2:23:31.243"],["Lewis Hamilton","Ferrari","+6.271s"],["Pierre Gasly","Alpine","+20.369s"]],
+         fl:{who:"Kimi Antonelli"}},
+   note:"Gasly reinstated to P3 after Alpine's successful right of review (time penalties overturned). Race time includes a red-flag stoppage."},
+  {rd:7,gp:"Barcelona-Catalunya GP",circuit:"Circuit de Barcelona-Catalunya",date:"14 Jun",
+   record:{t:"1:16.330",who:"M. Verstappen",ev:"2023 Spanish GP (current layout)"},
+   race:{podium:[["Lewis Hamilton","Ferrari","1:32:28.105"],["George Russell","Mercedes","+19.561s"],["Lando Norris","McLaren","+23.719s"]],
+         fl:{who:"Lewis Hamilton"}},
+   note:"Hamilton's first Ferrari win; first all-British podium since 1968."},
+  {rd:8,gp:"Austrian GP",circuit:"Red Bull Ring",date:"28 Jun",
+   record:{t:"1:05.619",who:"C. Sainz",ev:"2020 Austrian GP"},
+   race:{podium:[["George Russell","Mercedes","1:26:37.979"],["Max Verstappen","Red Bull","+1.611s"],["Kimi Antonelli","Mercedes","+1.986s"]],
+         fl:{who:"Kimi Antonelli"}}},
+  {rd:9,gp:"British GP",circuit:"Silverstone",date:"4–5 Jul",latest:true,
+   record:{t:"1:27.097",who:"M. Verstappen",ev:"2020 British GP"},
+   sprint:{podium:[["Kimi Antonelli","Mercedes",null],["Lewis Hamilton","Ferrari","+2.745s"],["Lando Norris","McLaren","≈ +9.7s"]]},
+   race:{podium:[["Charles Leclerc","Ferrari","1:27:11.335"],["George Russell","Mercedes","+0.427s"],["Lewis Hamilton","Ferrari","+0.772s"]],
+         fl:{who:"Kimi Antonelli",t:"1:31.777",extra:"set on lap 38 while chasing the lead, before his late issue — he finished 16th"}},
+   note:"Leclerc's first win of 2026 and Ferrari's 250th."}
+];
+
+const MOTO_STANDINGS = [
+  ["Jorge Martín","Aprilia Racing",208],["Ai Ogura","Trackhouse Aprilia",194],
+  ["Marc Márquez","Ducati Lenovo",190],["Marco Bezzecchi","Aprilia Racing",186],
+  ["Fabio Di Giannantonio","VR46 Ducati",184],["Raúl Fernández","Trackhouse Aprilia",159],
+  ["Pedro Acosta","Red Bull KTM",148],["Francesco Bagnaia","Ducati Lenovo",143],
+  ["Álex Márquez","Gresini Ducati",87],["Luca Marini","Honda HRC",79],
+  ["Fermín Aldeguer","Gresini Ducati",76],["Enea Bastianini","KTM Tech3",76],
+  ["Brad Binder","Red Bull KTM",64],["Fabio Quartararo","Monster Yamaha",55],
+  ["Diogo Moreira","LCR Honda",48],["Franco Morbidelli","VR46 Ducati",46],
+  ["Johann Zarco","LCR Honda",34],["Joan Mir","Honda HRC",26],
+  ["Álex Rins","Monster Yamaha",21],["Jack Miller","Pramac Yamaha",19],
+  ["Toprak Razgatlıoğlu","Pramac Yamaha",12]
+];
+
+const MOTO_RACES = [
+  {rd:1,gp:"Thai GP",circuit:"Chang International, Buriram",date:"28 Feb–1 Mar",
+   record:{t:"1:28.700",who:"F. Bagnaia",ev:"2024 Thai GP"},
+   sprint:{podium:[["Pedro Acosta","KTM",null],["Marc Márquez","Ducati","+0.108s"],["Raúl Fernández","Trackhouse Aprilia",null]]},
+   race:{podium:[["Marco Bezzecchi","Aprilia",null],["Pedro Acosta","KTM",null],["Raúl Fernández","Trackhouse Aprilia",null]]},
+   note:"Márquez dropped one place in the Sprint for a last-corner move on Acosta. Márquez retired from the GP with a rear puncture."},
+  {rd:2,gp:"Brazilian GP",circuit:"Autódromo Ayrton Senna, Goiânia",date:"21–22 Mar",
+   record:{txt:"All-time record reset across the 2026 weekend on the resurfaced track (Di Giannantonio pole). Historic best: 1:25.440 — W. Rainey, 1989 (500cc)."},
+   sprint:{podium:[["Marc Márquez","Ducati",null],["Fabio Di Giannantonio","VR46 Ducati","≈ +0.2s"],["Jorge Martín","Aprilia",null]]},
+   race:{podium:[["Marco Bezzecchi","Aprilia",null],["Jorge Martín","Aprilia","≈ +3s"],["Fabio Di Giannantonio","VR46 Ducati",null]]},
+   note:"First Brazilian GP in 21 years. Race shortened from 31 to 23 laps due to track degradation."},
+  {rd:3,gp:"Americas GP",circuit:"COTA, Austin",date:"28–29 Mar",
+   record:{t:"2:00.864",who:"M. Viñales",ev:"2024 Americas GP",broken:"Broken by F. Di Giannantonio in 2026 qualifying (new lap record)."},
+   sprint:{podium:[["Jorge Martín","Aprilia",null],["Francesco Bagnaia","Ducati",null],["Enea Bastianini","KTM Tech3",null]]},
+   race:{podium:[["Marco Bezzecchi","Aprilia",null],["Jorge Martín","Aprilia","+2.036s"],["Pedro Acosta","KTM",null]]},
+   note:"Acosta lost Sprint P3 to a tyre-pressure penalty, promoting Bastianini. Bezzecchi's fifth straight GP win — a start-to-finish masterclass that broke the all-time consecutive-laps-led record."},
+  {rd:4,gp:"Spanish GP",circuit:"Jerez – Ángel Nieto",date:"25–26 Apr",
+   record:{t:"1:35.610",who:"F. Quartararo",ev:"2025 Spanish GP"},
+   sprint:{podium:[["Marc Márquez","Ducati",null],["Francesco Bagnaia","Ducati","≈ +3s"],["Franco Morbidelli","VR46 Ducati",null]]},
+   race:{podium:[["Álex Márquez","Gresini Ducati",null],["Marco Bezzecchi","Aprilia","≈ +2s"],["Fabio Di Giannantonio","VR46 Ducati",null]]},
+   note:"First flag-to-flag Sprint in MotoGP history after sudden rain — Márquez crashed, swapped bikes and still won it."},
+  {rd:5,gp:"French GP",circuit:"Bugatti Circuit, Le Mans",date:"9–10 May",
+   record:{t:"1:29.324",who:"F. Quartararo",ev:"2025 French GP"},
+   sprint:{podium:[["Jorge Martín","Aprilia",null],["Francesco Bagnaia","Ducati",null],["Marco Bezzecchi","Aprilia",null]]},
+   race:{podium:[["Jorge Martín","Aprilia",null],["Marco Bezzecchi","Aprilia","+0.477s"],["Ai Ogura","Trackhouse Aprilia",null]]},
+   note:"First-ever Aprilia 1-2-3 in the premier class. Marc Márquez injured in a Sprint highsider, missing the GP and Catalunya."},
+  {rd:6,gp:"Catalan GP",circuit:"Barcelona-Catalunya",date:"16–17 May",
+   record:{t:"1:37.536",who:"Á. Márquez",ev:"2025 Catalan GP"},
+   sprint:{podium:[["Álex Márquez","Gresini Ducati",null],["Pedro Acosta","KTM","+0.041s"],["Fabio Di Giannantonio","VR46 Ducati",null]]},
+   race:{podium:[["Fabio Di Giannantonio","VR46 Ducati",null],["Fermín Aldeguer","Gresini Ducati",null],["Francesco Bagnaia","Ducati",null]]},
+   note:"Closest Sprint finish in MotoGP history (0.041s). Twice red-flagged GP; the podium was settled after post-race tyre-pressure penalties, so official gaps aren't representative."},
+  {rd:7,gp:"Italian GP",circuit:"Mugello",date:"30–31 May",
+   record:{t:"1:44.169",who:"M. Márquez",ev:"2025 Italian GP",broken:"Broken by M. Bezzecchi's pole lap in 2026 qualifying (new lap record)."},
+   sprint:{podium:[["Raúl Fernández","Trackhouse Aprilia",null],["Jorge Martín","Aprilia","+1.289s"],["Fabio Di Giannantonio","VR46 Ducati",null]]},
+   race:{podium:[["Marco Bezzecchi","Aprilia",null],["Jorge Martín","Aprilia",null],["Francesco Bagnaia","Ducati",null]]},
+   note:"Fernández's maiden Sprint win. Bagnaia saved P3 by 0.034s over Ogura to deny an all-Aprilia podium. Martín also set a new all-time MotoGP top-speed record here: 368.6 km/h."},
+  {rd:8,gp:"Hungarian GP",circuit:"Balaton Park",date:"6–7 Jun",
+   record:{t:"1:36.518",who:"M. Márquez",ev:"2025 Hungarian GP"},
+   sprint:{podium:[["Marc Márquez","Ducati",null],["Pedro Acosta","KTM",null],["Marco Bezzecchi","Aprilia",null]]},
+   race:{podium:[["Marc Márquez","Ducati",null],["Pedro Acosta","KTM","+1.343s"],["Francesco Bagnaia","Ducati",null]]},
+   note:"Márquez's 100th win across all classes — a perfect treble. Martín took out Bezzecchi at Turn 1; both title leaders scored zero."},
+  {rd:9,gp:"Czech GP",circuit:"Brno",date:"20–21 Jun",
+   record:{t:"1:51.139",who:"A. Ogura",ev:"2026 qualifying (all-time record)"},
+   sprint:{podium:[["Francesco Bagnaia","Ducati",null],["Ai Ogura","Trackhouse Aprilia","≈ +0.2s"],["Marc Márquez","Ducati",null]]},
+   race:{podium:[["Marc Márquez","Ducati",null],["Ai Ogura","Trackhouse Aprilia","+0.421s"],["Francesco Bagnaia","Ducati",null]],
+         fl:{who:"Fabio Di Giannantonio",t:"1:53.122",extra:"a new race lap record, set on the final lap from P4"}},
+   note:"Bezzecchi banned from the GP after striking a marshal following his Sprint crash. Bagnaia held off Di Giannantonio for P3 by 0.169s."},
+  {rd:10,gp:"Dutch GP",circuit:"TT Circuit Assen",date:"27–28 Jun",
+   record:{t:"1:30.540",who:"F. Bagnaia",ev:"2024 Dutch TT"},
+   sprint:{podium:[["Raúl Fernández","Trackhouse Aprilia",null],["Ai Ogura","Trackhouse Aprilia","+0.362s"],["Fabio Di Giannantonio","VR46 Ducati",null]]},
+   race:{podium:[["Ai Ogura","Trackhouse Aprilia","40:21.905"],["Raúl Fernández","Trackhouse Aprilia","+2.004s"],["Jorge Martín","Aprilia",null]]},
+   note:"Ogura's maiden win — first Japanese premier-class victory in 22 years. Trackhouse went 1-2 in both races; Aprilia locked out the top four in qualifying."},
+  {rd:11,gp:"German GP",circuit:"Sachsenring",date:"11–12 Jul",latest:true,
+   record:{t:"1:19.041",who:"M. Márquez",ev:"2026 qualifying (all-time record)"},
+   sprint:{podium:[["Marc Márquez","Ducati",null],["Álex Márquez","Gresini Ducati","+0.3s"],["Fabio Di Giannantonio","VR46 Ducati","+0.8s"]]},
+   race:{podium:[["Marc Márquez","Ducati",null],["Ai Ogura","Trackhouse Aprilia",null],["Raúl Fernández","Trackhouse Aprilia",null]]},
+   note:"A perfect Márquez weekend — pole (all-time record), Sprint win in a first-ever Ducati Sprint 1-2-3, then a record-equalling 10th premier-class win at the same circuit. Bezzecchi missed both races with a broken collarbone from qualifying."}
+];
+
+/* ============ RENDER ============ */
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+
+function renderStandings(rows, tbodyId){
+  document.getElementById(tbodyId).innerHTML = rows.map((r,i)=>
+    `<tr class="${i===0?'p1':''}"><td class="pos">${i+1}</td><td class="name">${esc(r[0])}</td><td class="team">${esc(r[1])}</td><td class="pts">${r[2]}</td></tr>`
+  ).join("");
+}
+function renderConstructors(rows, tbodyId){
+  document.getElementById(tbodyId).innerHTML = rows.map((r,i)=>
+    `<tr class="${i===0?'p1':''}"><td class="pos">${i+1}</td><td class="name">${esc(r[0])}</td><td class="pts">${r[1]}</td></tr>`
+  ).join("");
+}
+function podiumHTML(list){
+  return `<div class="podium">`+list.map((p,i)=>{
+    const chip = p[2] ? `<span class="chip ${i===0?'wintime':'gap'}">${esc(p[2])}</span>` : "";
+    return `<div class="step"><span class="medal m${i+1}">${i+1}</span><span class="who">${esc(p[0])}</span><span class="tm">${esc(p[1])}</span>${chip}</div>`;
+  }).join("")+`</div>`;
+}
+function flHTML(fl){
+  if(!fl) return "";
+  const t = fl.t ? ` <span class="fltime">${esc(fl.t)}</span>` : "";
+  const x = fl.extra ? ` <span>— ${esc(fl.extra)}</span>` : "";
+  return `<div class="flrow"><span class="flbadge">FL</span><span>Fastest lap: <strong>${esc(fl.who)}</strong>${t}${x}</span></div>`;
+}
+function sessionBlock(label, cls, sess){
+  return `<div><div class="block-label ${cls}">${label}</div>${podiumHTML(sess.podium)}${flHTML(sess.fl)}</div>`;
+}
+function recordHTML(rec){
+  if(!rec) return "";
+  if(rec.txt) return `<div class="circuit-record"><span class="lbl">⏱ Circuit best</span><span class="val">${esc(rec.txt)}</span></div>`;
+  const brk = rec.broken ? ` <em>${esc(rec.broken)}</em>` : "";
+  return `<div class="circuit-record"><span class="lbl">⏱ Circuit best</span><span class="val"><strong>${esc(rec.t)}</strong> — ${esc(rec.who)}, ${esc(rec.ev)}.${brk}</span></div>`;
+}
+function raceCard(r, seriesKey){
+  const blocks = [];
+  if(r.sprint) blocks.push(sessionBlock("Sprint","sprint",r.sprint));
+  blocks.push(sessionBlock("Grand Prix","",r.race));
+  const inner = `
+    <div class="race-head">
+      <div><div class="rd">ROUND ${r.rd}</div><div class="gp">${esc(r.gp)}</div></div>
+      <div class="date">${esc(r.circuit)}<br>${esc(r.date)}</div>
+    </div>
+    ${recordHTML(r.record)}
+    <div class="race-body">${blocks.join("")}${r.note?`<div class="fn">${esc(r.note)}</div>`:""}</div>`;
+  if(r.latest){
+    return `<div class="race latest spoiler" data-latest="${seriesKey}">
+      <div class="shield"><div class="flag">🔒</div>
+        <p><strong>${esc(r.gp)} results hidden</strong></p>
+        <p class="small">Tick the box above once you've watched the race.</p>
+      </div>
+      <div class="veil">${inner}</div>
+    </div>`;
+  }
+  return `<div class="race">${inner}</div>`;
+}
+function renderRaces(list, containerId, seriesKey){
+  document.getElementById(containerId).innerHTML = list.map(r=>raceCard(r,seriesKey)).join("");
+}
+
+renderStandings(F1_STANDINGS,"f1-standings");
+renderConstructors(F1_CONSTRUCTORS,"f1-constructors");
+renderRaces(F1_RACES,"f1-races","f1");
+renderStandings(MOTO_STANDINGS,"moto-standings");
+renderRaces(MOTO_RACES,"moto-races","moto");
+
+/* ============ SPOILER STATE (persistent) ============ */
+const LATEST = { f1:"f1-2026-r9", moto:"moto-2026-r11" }; // change these ids when new rounds are added
+const STORAGE_KEY = "raceboard:watched";
+let state = { f1:{}, moto:{} };
+let storageOk = typeof window.storage !== "undefined";
+
+async function loadState(){
+  if(!storageOk) return;
+  try{
+    const res = await window.storage.get(STORAGE_KEY);
+    if(res && res.value) state = JSON.parse(res.value);
+  }catch(e){ /* first visit — key doesn't exist yet */ }
+}
+async function saveState(){
+  if(!storageOk) return;
+  try{ await window.storage.set(STORAGE_KEY, JSON.stringify(state)); }
+  catch(e){ console.error("Could not save watched state", e); }
+}
+function applySeries(key){
+  const watched = !!(state[key] && state[key][LATEST[key]]);
+  document.getElementById("watched-"+key).checked = watched;
+  document.querySelectorAll(`[data-latest="${key}"]`).forEach(el=>el.classList.toggle("revealed",watched));
+  const st = document.getElementById(`spoiler-${key}-standings`);
+  if(st) st.classList.toggle("revealed",watched);
+}
+function wireToggle(key){
+  document.getElementById("watched-"+key).addEventListener("change",e=>{
+    state[key] = state[key]||{};
+    state[key][LATEST[key]] = e.target.checked;
+    applySeries(key);
+    saveState();
+  });
+}
+wireToggle("f1"); wireToggle("moto");
+loadState().then(()=>{ applySeries("f1"); applySeries("moto"); });
+
+/* ============ TABS ============ */
+const tabs = [["tab-f1","panel-f1"],["tab-moto","panel-moto"]];
+tabs.forEach(([tid,pid])=>{
+  document.getElementById(tid).addEventListener("click",()=>{
+    tabs.forEach(([t,p])=>{
+      const sel = t===tid;
+      document.getElementById(t).setAttribute("aria-selected",sel?"true":"false");
+      document.getElementById(p).classList.toggle("active",sel);
+    });
+  });
+});
+</script>
+</body>
+</html>
