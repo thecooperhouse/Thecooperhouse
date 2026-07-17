@@ -55,29 +55,6 @@
             margin-top: 8px;
             color: #666;
         }
-
-        footer {
-            max-width: 700px;
-            margin: 50px auto 0;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-            text-align: center;
-            color: #999;
-            font-size: 13px;
-        }
-
-        footer .visits {
-            margin-bottom: 12px;
-        }
-
-        footer .flags {
-            display: flex;
-            justify-content: center;
-        }
-
-        footer img {
-            border: 0;
-        }
     </style>
 
 </head>
@@ -104,34 +81,6 @@
 </a>
 
 </div>
-
-<footer>
-    <div class="visits" id="visit-counter" style="display:none;">
-        Visits: <span id="visit-count">–</span>
-    </div>
-
-    <div class="flags">
-        <!-- Top 5 visitor locations, tracked by Flag Counter (geolocates by IP at country level) -->
-        <a href="https://info.flagcounter.com/hjoY"><img src="https://s01.flagcounter.com/count2/hjoY/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_5/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
-    </div>
-</footer>
-
-<script>
-    // Simple page-visit counter using the free CounterAPI service.
-    // Counts every page load. If the service is unreachable, the
-    // counter row simply stays hidden rather than showing an error.
-    (function () {
-        fetch("https://api.counterapi.dev/v1/thecooperhouse/homepage/up")
-            .then(function (r) { return r.json(); })
-            .then(function (data) {
-                if (data && typeof data.count === "number") {
-                    document.getElementById("visit-count").textContent = data.count.toLocaleString();
-                    document.getElementById("visit-counter").style.display = "block";
-                }
-            })
-            .catch(function () { /* silently hide if unavailable */ });
-    })();
-</script>
 
 </body>
 </html>
