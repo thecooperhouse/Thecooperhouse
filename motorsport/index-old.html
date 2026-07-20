@@ -142,7 +142,7 @@
 <body>
 
 <header>
-  <div class="kicker">Points board · 2026 season · updated 20 July 2026 · v3 — Belgian GP + MotoGP fastest-lap backfill</div>
+  <div class="kicker">Points board · 2026 season · updated 13 July 2026 · v2 — timing &amp; records edition (Daniel's suggestions)</div>
   <h1><span class="f1c">Formula 1</span> &amp; <span class="motoc">MotoGP</span> Race Board</h1>
   <p class="asof">Standings, podiums, finishing gaps, fastest laps and all-time circuit records for every Grand Prix and Sprint. The most recent round in each series stays <strong>hidden until you tick the box</strong> to confirm you've watched it.</p>
 </header>
@@ -157,17 +157,17 @@
 <section class="series f1-series active" id="panel-f1" role="tabpanel" aria-labelledby="tab-f1">
   <div class="parc-ferme">
     <div class="pf-text">
-      <div class="pf-title">🔒 Spoiler protection — Belgian Grand Prix (Rd 10, 19 July)</div>
-      <div class="pf-sub">The Belgian GP result and the current standings are hidden until you confirm you've watched. Your choice is remembered for next time.</div>
+      <div class="pf-title">🔒 Spoiler protection — British Grand Prix (Rd 9, 5 July)</div>
+      <div class="pf-sub">The British GP + Sprint results and the current standings are hidden until you confirm you've watched. Your choice is remembered for next time.</div>
     </div>
-    <label class="watch-toggle"><input type="checkbox" id="watched-f1"> I've watched the Belgian GP</label>
+    <label class="watch-toggle"><input type="checkbox" id="watched-f1"> I've watched the British GP</label>
   </div>
 
   <h2>Drivers' Championship</h2>
   <div class="spoiler" id="spoiler-f1-standings">
     <div class="shield"><div class="flag">🏁</div>
-      <p><strong>Standings hidden</strong> — they'd give away the Belgian GP result.</p>
-      <p class="small">Tick "I've watched the Belgian GP" above to reveal.</p>
+      <p><strong>Standings hidden</strong> — they'd give away the British GP result.</p>
+      <p class="small">Tick "I've watched the British GP" above to reveal.</p>
     </div>
     <div class="veil">
       <div class="board"><table>
@@ -186,7 +186,7 @@
   <h2>Race by race — podiums, gaps &amp; fastest laps</h2>
   <div class="races" id="f1-races"></div>
 
-  <div class="next-up">📅 <strong>Next round:</strong> Hungarian Grand Prix, Hungaroring — 26 July 2026, the last race before the summer break. Remaining sprints in 2026: Netherlands (Zandvoort) and Singapore.</div>
+  <div class="next-up">📅 <strong>Next round:</strong> Belgian Grand Prix, Spa-Francorchamps — 19 July 2026. Remaining sprints in 2026: Netherlands (Zandvoort) and Singapore.</div>
 </section>
 
 <section class="series moto-series" id="panel-moto" role="tabpanel" aria-labelledby="tab-moto">
@@ -225,7 +225,7 @@
   <div class="rule">
     <p><strong>How to read the timing data:</strong> the gold chip next to the winner is their total race time; the chips next to P2 and P3 are how far behind they finished (≈ marks a figure reported to the nearest tenth or as "around X seconds" rather than official timing). "FL" is the fastest lap of that race and who set it — the driver/rider who set it wasn't always on the podium.</p>
     <p><strong>Circuit records:</strong> for F1 the "circuit best" is the official race lap record — the fastest lap ever set during a race on the current layout (F1's 2026-spec cars are around 2s/lap slower, so most records date from the 2018–2025 era). For MotoGP it's the all-time circuit record, which in bike racing usually falls in qualifying; where the record fell during a 2026 weekend the card says so.</p>
-    <p>Data snapshot compiled 20 July 2026 from official series results, timing reports and press coverage. Race fastest-lap times are now shown for every F1 and every MotoGP Grand Prix — the Hungary, Assen and Sachsenring fastest laps missing from v2 have been backfilled from published race reports. One gap remains approximate: Verstappen's P3 margin at Spa was reported to the nearest tenth in every citable source, hence the ≈. Sprint fastest laps are rarely published; Catalunya’s is shown. Per-podium-finisher individual fastest laps also come from the full FIA/FIM timing sheets — where a podium finisher set the race’s overall fastest lap you’ll see it against their name. Ask Claude for a refreshed version after future rounds; the spoiler shield moves to the newest race automatically.</p>
+    <p>Data snapshot compiled 17 July 2026 from official series results, timing reports and press coverage. Race fastest-lap times are shown for every F1 Grand Prix and for every MotoGP Grand Prix except Hungary, Assen and Sachsenring, where the official time wasn’t published in a citable source at time of writing — the fastest-lap data for those lives on the official timing sheets and can be added on the next refresh. Sprint fastest laps are rarely published; Catalunya’s is shown. Per-podium-finisher individual fastest laps also come from the full FIA/FIM timing sheets — where a podium finisher set the race’s overall fastest lap you’ll see it against their name. Ask Claude for a refreshed version after future rounds; the spoiler shield moves to the newest race automatically.</p>
     <p>F1 sprint rounds in 2026: China, Miami, Canada, Great Britain, Netherlands, Singapore. The F1 Bahrain &amp; Saudi Arabian GPs were cancelled (22-round calendar); MotoGP's Qatar GP moved to 8 November.</p>
   </div>
 </footer>
@@ -233,22 +233,22 @@
 <script>
 /* ============ DATA ============ */
 const F1_STANDINGS = [
-  ["Kimi Antonelli","Mercedes",204],["Lewis Hamilton","Ferrari",159],
-  ["George Russell","Mercedes",154],["Charles Leclerc","Ferrari",126],
-  ["Lando Norris","McLaren",103],["Oscar Piastri","McLaren",92],
-  ["Max Verstappen","Red Bull",91],["Isack Hadjar","Red Bull",60],
+  ["Kimi Antonelli","Mercedes",179],["George Russell","Mercedes",154],
+  ["Lewis Hamilton","Ferrari",147],["Charles Leclerc","Ferrari",108],
+  ["Lando Norris","McLaren",97],["Oscar Piastri","McLaren",82],
+  ["Max Verstappen","Red Bull",76],["Isack Hadjar","Red Bull",52],
   ["Pierre Gasly","Alpine",42],["Liam Lawson","Racing Bulls",39],
-  ["Arvid Lindblad","Racing Bulls",22],["Franco Colapinto","Alpine",19],
-  ["Oliver Bearman","Haas",18],["Gabriel Bortoleto","Audi",10],
+  ["Arvid Lindblad","Racing Bulls",20],["Oliver Bearman","Haas",18],
+  ["Franco Colapinto","Alpine",18],["Gabriel Bortoleto","Audi",6],
   ["Carlos Sainz","Williams",6],["Alexander Albon","Williams",5],
   ["Esteban Ocon","Haas",3],["Fernando Alonso","Aston Martin",1],
   ["Nico Hülkenberg","Audi",0],["Valtteri Bottas","Cadillac",0],
   ["Sergio Pérez","Cadillac",0],["Lance Stroll","Aston Martin",0]
 ];
 const F1_CONSTRUCTORS = [
-  ["Mercedes",358],["Ferrari",285],["McLaren",195],["Red Bull Racing",151],
-  ["Alpine",61],["Racing Bulls",61],["Haas",21],["Williams",11],
-  ["Audi",10],["Aston Martin",1],["Cadillac",0]
+  ["Mercedes",333],["Ferrari",255],["McLaren",179],["Red Bull Racing",128],
+  ["Alpine",60],["Racing Bulls",59],["Haas",21],["Williams",11],
+  ["Audi",6],["Aston Martin",1],["Cadillac",0]
 ];
 
 /* podium entries: [name, team, chip] — chip is winner's race time for P1, gap for P2/P3, or null */
@@ -290,17 +290,12 @@ const F1_RACES = [
    record:{t:"1:05.619",who:"C. Sainz",ev:"2020 Austrian GP"},
    race:{podium:[["George Russell","Mercedes","1:26:37.979"],["Max Verstappen","Red Bull","+1.611s"],["Kimi Antonelli","Mercedes","+1.986s"]],
          fl:{who:"Kimi Antonelli",t:"1:10.374",extra:"set on lap 59 while closing on Verstappen"}}},
-  {rd:9,gp:"British GP",circuit:"Silverstone",date:"4–5 Jul",
+  {rd:9,gp:"British GP",circuit:"Silverstone",date:"4–5 Jul",latest:true,
    record:{t:"1:27.097",who:"M. Verstappen",ev:"2020 British GP"},
    sprint:{podium:[["Kimi Antonelli","Mercedes",null],["Lewis Hamilton","Ferrari","+2.745s"],["Lando Norris","McLaren","≈ +9.7s"]]},
    race:{podium:[["Charles Leclerc","Ferrari","1:27:11.335"],["George Russell","Mercedes","+0.427s"],["Lewis Hamilton","Ferrari","+0.772s"]],
          fl:{who:"Kimi Antonelli",t:"1:31.777",extra:"set on lap 38 while chasing the lead, before his late issue — he finished 16th"}},
-   note:"Leclerc's first win of 2026 and Ferrari's 250th."},
-  {rd:10,gp:"Belgian GP",circuit:"Spa-Francorchamps",date:"19 Jul",latest:true,
-   record:{t:"1:44.701",who:"S. Pérez",ev:"2024 Belgian GP"},
-   race:{podium:[["Kimi Antonelli","Mercedes","1:24:42.479"],["Charles Leclerc","Ferrari","+1.952s"],["Max Verstappen","Red Bull","≈ +11.5s"]],
-         fl:{who:"Lando Norris",t:"1:48.890",extra:"set on lap 44 — the final lap — after his grid penalty left him recovering to P7"}},
-   note:"Antonelli's sixth win of 2026, retaking the lead from Leclerc on lap 34 after Ferrari undercut him at the VSC. Russell out on lap 1 — an energy-deployment failure left him swamped, then contact with Hamilton (5s penalty) pitched him into the gravel. Verstappen's P3 was Red Bull's 300th podium."}
+   note:"Leclerc's first win of 2026 and Ferrari's 250th."}
 ];
 
 const MOTO_STANDINGS = [
@@ -364,8 +359,7 @@ const MOTO_RACES = [
   {rd:8,gp:"Hungarian GP",circuit:"Balaton Park",date:"6–7 Jun",
    record:{t:"1:36.518",who:"M. Márquez",ev:"2025 Hungarian GP"},
    sprint:{podium:[["Marc Márquez","Ducati",null],["Pedro Acosta","KTM",null],["Marco Bezzecchi","Aprilia",null]]},
-   race:{podium:[["Marc Márquez","Ducati",null],["Pedro Acosta","KTM","+1.343s"],["Francesco Bagnaia","Ducati",null]],
-         fl:{who:"Marc Márquez",t:"1:38.313",extra:"set on lap 20 of 26 to break Acosta's resistance"}},
+   race:{podium:[["Marc Márquez","Ducati",null],["Pedro Acosta","KTM","+1.343s"],["Francesco Bagnaia","Ducati",null]]},
    note:"Márquez's 100th win across all classes — a perfect treble. Martín took out Bezzecchi at Turn 1; both title leaders scored zero."},
   {rd:9,gp:"Czech GP",circuit:"Brno",date:"20–21 Jun",
    record:{t:"1:51.139",who:"A. Ogura",ev:"2026 qualifying (all-time record)"},
@@ -376,14 +370,12 @@ const MOTO_RACES = [
   {rd:10,gp:"Dutch GP",circuit:"TT Circuit Assen",date:"27–28 Jun",
    record:{t:"1:30.540",who:"F. Bagnaia",ev:"2024 Dutch TT"},
    sprint:{podium:[["Raúl Fernández","Trackhouse Aprilia",null],["Ai Ogura","Trackhouse Aprilia","+0.362s"],["Fabio Di Giannantonio","VR46 Ducati",null]]},
-   race:{podium:[["Ai Ogura","Trackhouse Aprilia","40:21.905"],["Raúl Fernández","Trackhouse Aprilia","+2.004s"],["Jorge Martín","Aprilia","+3.512s"]],
-         fl:{who:"Ai Ogura",t:"1:32.483",extra:"set on lap 15 during his charge back to the leaders"}},
+   race:{podium:[["Ai Ogura","Trackhouse Aprilia","40:21.905"],["Raúl Fernández","Trackhouse Aprilia","+2.004s"],["Jorge Martín","Aprilia",null]]},
    note:"Ogura's maiden win — first Japanese premier-class victory in 22 years. Trackhouse went 1-2 in both races; Aprilia locked out the top four in qualifying."},
   {rd:11,gp:"German GP",circuit:"Sachsenring",date:"11–12 Jul",latest:true,
    record:{t:"1:19.041",who:"M. Márquez",ev:"2026 qualifying (all-time record)"},
    sprint:{podium:[["Marc Márquez","Ducati",null],["Álex Márquez","Gresini Ducati","+0.3s"],["Fabio Di Giannantonio","VR46 Ducati","+0.8s"]]},
-   race:{podium:[["Marc Márquez","Ducati","40:53.148"],["Ai Ogura","Trackhouse Aprilia","+1.996s"],["Raúl Fernández","Trackhouse Aprilia","+5.104s"]],
-         fl:{who:"Marc Márquez",t:"1:21.088",extra:"set on lap 3, answering Álex's early challenge — it stood for the rest of the race"}},
+   race:{podium:[["Marc Márquez","Ducati",null],["Ai Ogura","Trackhouse Aprilia",null],["Raúl Fernández","Trackhouse Aprilia",null]]},
    note:"A perfect Márquez weekend — pole (all-time record), Sprint win in a first-ever Ducati Sprint 1-2-3, then a record-equalling 10th premier-class win at the same circuit. Bezzecchi missed both races with a broken collarbone from qualifying."}
 ];
 
@@ -454,7 +446,7 @@ renderStandings(MOTO_STANDINGS,"moto-standings");
 renderRaces(MOTO_RACES,"moto-races","moto");
 
 /* ============ SPOILER STATE (persistent) ============ */
-const LATEST = { f1:"f1-2026-r10", moto:"moto-2026-r11" }; // change these ids when new rounds are added
+const LATEST = { f1:"f1-2026-r9", moto:"moto-2026-r11" }; // change these ids when new rounds are added
 const STORAGE_KEY = "raceboard:watched";
 let state = { f1:{}, moto:{} };
 let storageOk = typeof window.storage !== "undefined";
