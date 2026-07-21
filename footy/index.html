@@ -117,6 +117,50 @@
   .broncos ul.notes li::before{background:var(--gold)}
   .stoke ul.notes li::before{background:var(--stoke-red)}
 
+
+  /* ===== next game highlight ===== */
+  .nextgame{margin:0 28px 26px;border-radius:14px;padding:0;overflow:hidden;border:1px solid var(--card-edge);background:rgba(0,0,0,.28)}
+  .ng-head{padding:9px 16px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
+  .broncos .ng-head{background:linear-gradient(90deg,var(--maroon),rgba(118,35,64,.25));color:var(--gold)}
+  .stoke .ng-head{background:linear-gradient(90deg,var(--stoke-deep),rgba(160,31,43,.25));color:var(--porcelain)}
+  .ng-body{padding:18px 20px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
+  @media(max-width:560px){.ng-body{grid-template-columns:1fr}}
+  .ng-match{font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;font-size:27px;line-height:1.05}
+  .ng-meta{font-size:13px;color:var(--mut);margin-top:7px;line-height:1.7}
+  .ng-meta b{color:var(--paper);font-weight:600}
+  .ng-when{text-align:right;font-variant-numeric:tabular-nums}
+  @media(max-width:560px){.ng-when{text-align:left}}
+  .ng-when .d{font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:34px;line-height:1}
+  .broncos .ng-when .d{color:var(--gold)} .stoke .ng-when .d{color:var(--stoke-red)}
+  .ng-when .t{font-size:12px;color:var(--mut);letter-spacing:.06em}
+
+  /* ===== maths panel ===== */
+  .maths{margin:0 28px 26px;border:1px solid var(--card-edge);border-radius:14px;background:rgba(0,0,0,.28);padding:20px 22px}
+  .maths h4{font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:20px;margin-bottom:4px}
+  .verdict{display:inline-block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;padding:5px 11px;border-radius:999px;margin-bottom:14px;
+    background:rgba(224,90,90,.14);color:var(--bad);border:1px solid rgba(224,90,90,.45)}
+  .eq{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:13px;background:rgba(0,0,0,.4);border-left:3px solid var(--gold);
+    padding:11px 14px;border-radius:0 8px 8px 0;margin:12px 0;color:#e9e2f0;line-height:1.85;overflow-x:auto}
+  .maths p{font-size:14px;margin:10px 0;color:#ded6e6}
+  .maths .small{font-size:12.5px;color:var(--mut)}
+  table.req td,table.req th{padding:6px 8px}
+  table.req .danger{color:var(--bad);font-weight:700}
+  table.req .ok{color:var(--draw)}
+
+  /* ===== movement columns ===== */
+  .moves{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:6px}
+  @media(max-width:640px){.moves{grid-template-columns:1fr}}
+  .mv h5{font-family:'Big Shoulders Display',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:13px;margin-bottom:9px}
+  .mv.in h5{color:var(--good)} .mv.out h5{color:var(--bad)}
+  ul.mvlist{list-style:none}
+  ul.mvlist li{font-size:13.5px;padding:7px 0;border-bottom:1px solid rgba(43,37,51,.6);line-height:1.5}
+  ul.mvlist li:last-child{border-bottom:none}
+  ul.mvlist b{font-weight:600}
+  ul.mvlist span{color:var(--mut)}
+  .tag-conf{display:inline-block;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border-radius:4px;margin-left:6px;vertical-align:1px}
+  .tag-conf.c{background:rgba(62,201,126,.16);color:var(--good);border:1px solid rgba(62,201,126,.4)}
+  .tag-conf.r{background:rgba(201,178,62,.13);color:var(--draw);border:1px solid rgba(201,178,62,.4)}
+
   footer{max-width:1060px;margin:0 auto;padding:0 20px 48px;color:var(--mut);font-size:12px;line-height:1.7}
   footer b{color:var(--paper)}
   @media(prefers-reduced-motion:no-preference){
@@ -131,12 +175,13 @@
 <header>
   <p class="kick">Two clubs · Two hemispheres · One dashboard</p>
   <h1 class="display"><span class="bri">Broncos</span> <span class="amp">&amp;</span> <span class="stk">Stoke City</span></h1>
-  <p class="sub">Season snapshot as at Saturday 18 July 2026</p>
+  <p class="sub">Season snapshot as at Tuesday 21 July 2026 · Round 20 complete</p>
 </header>
 
 <div class="dates">
+  <div class="date-chip"><span class="dot g"></span><span><b>Broncos next</b> · Sat 25 Jul · Cowboys away</span></div>
+  <div class="date-chip"><span class="dot r"></span><span><b>Stoke next</b> · Fri 7 Aug · Oldham (Carabao Cup)</span></div>
   <div class="date-chip"><span class="dot g"></span><span><b>NRL Grand Final</b> · Sun 4 Oct · Accor Stadium</span></div>
-  <div class="date-chip"><span class="dot r"></span><span><b>Stoke's 2026/27 opener</b> · Sat 8 Aug · Oldham at home (three weeks away)</span></div>
 </div>
 
 <main>
@@ -145,62 +190,173 @@
   <section class="club broncos">
     <div class="club-head">
       <h2 class="display">Brisbane Broncos</h2>
-      <span class="tag">NRL 2026 · Reigning Premiers · Round 20 of 27</span>
+      <span class="tag">NRL 2026 · Reigning Premiers · 13th · Round 20 complete</span>
     </div>
+
+    <div class="nextgame">
+      <div class="ng-head">Next game</div>
+      <div class="ng-body">
+        <div>
+          <div class="ng-match">Cowboys <span style="color:var(--mut)">v</span> Broncos</div>
+          <p class="ng-meta">
+            <b>Where:</b> Queensland Country Bank Stadium, Townsville — away<br>
+            <b>Who:</b> North Queensland Cowboys, 8th on the ladder<br>
+            <b>Why it matters:</b> the Cowboys hold the final finals spot. A Brisbane win is the only result that keeps the maths breathing.
+          </p>
+        </div>
+        <div class="ng-when">
+          <div class="d">SAT 25 JUL</div>
+          <div class="t">7:30pm AEST · Round 21</div>
+        </div>
+      </div>
+    </div>
+
     <div class="grid">
       <div class="col">
-        <h3>Latest result — the season-saver</h3>
+        <h3>Latest results</h3>
         <div class="scoreline">
-          <p class="win-note">Won by 2 · Thu 16 Jul · CommBank Stadium · Crowd 15,437</p>
-          <div class="score-row"><span class="team-n">Panthers</span><span class="big-score">12 – 14</span><span class="team-n">Broncos</span></div>
-          <p class="score-meta">Tries: Jordan Riki (4'), Kotoni Staggs (22'), Josiah Karapani (68'). Trailed 12–8 at the break before Karapani's late try and Walsh's conversion sealed it. Reece Walsh had a hand in everything — 3 try assists, 3 line-break assists — and the defence held the ladder-leading Panthers to just two tries.</p>
+          <p class="win-note">Won by 2 · Thu 16 Jul · CommBank Stadium · Round 20</p>
+          <div class="score-row"><span class="team-n">Panthers</span><span class="big-score">12 &ndash; 14</span><span class="team-n">Broncos</span></div>
+          <p class="score-meta">The streak-breaker. Brisbane trailed at the break before edging the ladder-leading Panthers, holding the competition's best attack to two tries and ending a five-game losing run at the last possible moment.</p>
         </div>
 
         <h3 class="later">Last six games</h3>
         <div class="form-wrap">
           <div class="form-row">
-            <div class="pill l"><span>Dragons 26–30</span>L</div>
-            <div class="pill l"><span>Titans 23–28</span>L</div>
-            <div class="pill l"><span>Souths 6–48</span>L</div>
-            <div class="pill l"><span>Roosters 18–24</span>L</div>
-            <div class="pill l"><span>Sharks 16–28</span>L</div>
-            <div class="pill w"><span>Panthers 14–12</span>W</div>
+            <div class="pill l"><span>R14 Titans</span>L</div>
+            <div class="pill l"><span>R15 Souths</span>L</div>
+            <div class="pill l"><span>R17 Roosters</span>L</div>
+            <div class="pill l"><span>R18 Sharks</span>L</div>
+            <div class="pill w"><span>R20 Panthers</span>W</div>
+            <div class="pill d" style="opacity:.35"><span>R21 Cowboys</span>?</div>
           </div>
         </div>
 
+        <h3 class="later">The run home — all seven remaining</h3>
+        <table>
+          <thead><tr><th>Rd</th><th>Date</th><th>Opponent</th><th>H/A</th></tr></thead>
+          <tbody>
+            <tr class="me"><td>21</td><td>25 Jul</td><td>Cowboys</td><td>Away</td></tr>
+            <tr><td>22</td><td>1 Aug</td><td>Knights</td><td>Home</td></tr>
+            <tr><td>23</td><td>8 Aug</td><td>Dolphins</td><td>Away</td></tr>
+            <tr><td>24</td><td>15 Aug</td><td>Warriors</td><td>Home</td></tr>
+            <tr><td>25</td><td>21 Aug</td><td>Raiders</td><td>Away</td></tr>
+            <tr><td>26</td><td>27 Aug</td><td>Storm</td><td>Home</td></tr>
+            <tr><td>27</td><td>3 Sep</td><td>Bulldogs</td><td>Away</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">No byes left. Five of the seven are against sides currently in or around the eight — there is no soft landing anywhere in this list.</p>
+
         <h3 class="later">2026 by the numbers</h3>
         <div class="stats">
-          <div class="stat"><b>~11th</b><span>Ladder position — outside the eight</span></div>
-          <div class="stat"><b>1st</b><span>Where Penrith sit — and Brisbane just beat them</span></div>
-          <div class="stat"><b>7</b><span>Rounds left to make a finals charge</span></div>
-          <div class="stat"><b>43,764</b><span>Avg Suncorp crowd — best in the comp</span></div>
-          <div class="stat"><b>26–22</b><span>2025 Grand Final win v Storm</span></div>
-          <div class="stat"><b>30–24</b><span>Feb loss to Hull KR, World Club Challenge</span></div>
+          <div class="stat"><b>13th</b><span>Ladder position after Round 20</span></div>
+          <div class="stat"><b>6&ndash;11</b><span>Win&ndash;loss record, 18 comp points</span></div>
+          <div class="stat"><b>&minus;124</b><span>Points differential — 4th worst</span></div>
+          <div class="stat"><b>7</b><span>Games left, all must-win</span></div>
+          <div class="stat"><b>6</b><span>Points behind 8th with 14 available</span></div>
+          <div class="stat"><b>2&ndash;7</b><span>Home record at Suncorp — the season's real problem</span></div>
         </div>
       </div>
+
       <div class="col">
         <h3>Where they sit</h3>
         <table>
-          <thead><tr><th>#</th><th>Team</th><th class="num">Pts</th></tr></thead>
+          <thead><tr><th>#</th><th>Team</th><th class="num">Pts</th><th class="num">+/&minus;</th></tr></thead>
           <tbody>
-            <tr class="faint"><td>1</td><td>Panthers</td><td class="num">24+</td></tr>
-            <tr class="faint"><td>2</td><td>Warriors</td><td class="num">20+</td></tr>
-            <tr class="faint"><td colspan="3" style="text-align:center">· · · top eight · · ·</td></tr>
-            <tr class="faint"><td>10</td><td>Wests Tigers</td><td class="num">16</td></tr>
-            <tr class="me"><td>~11</td><td>Broncos</td><td class="num">14</td></tr>
-            <tr class="faint"><td>12</td><td>Raiders</td><td class="num">12</td></tr>
+            <tr class="faint"><td>1</td><td>Panthers</td><td class="num">32</td><td class="num">+278</td></tr>
+            <tr class="faint"><td>2</td><td>Warriors</td><td class="num">30</td><td class="num">+202</td></tr>
+            <tr class="faint"><td>3</td><td>Roosters</td><td class="num">30</td><td class="num">+84</td></tr>
+            <tr class="faint"><td>4</td><td>Sharks</td><td class="num">28</td><td class="num">+125</td></tr>
+            <tr class="faint"><td>5</td><td>Dolphins</td><td class="num">26</td><td class="num">+84</td></tr>
+            <tr class="faint"><td>6</td><td>Knights</td><td class="num">26</td><td class="num">+37</td></tr>
+            <tr class="faint"><td>7</td><td>Rabbitohs</td><td class="num">24</td><td class="num">+76</td></tr>
+            <tr class="faint"><td>8</td><td>Cowboys</td><td class="num">24</td><td class="num">&minus;36</td></tr>
+            <tr class="faint"><td colspan="4" style="text-align:center">· · · finals cut-off · · ·</td></tr>
+            <tr class="faint"><td>9</td><td>Sea Eagles</td><td class="num">22</td><td class="num">+126</td></tr>
+            <tr class="faint"><td>10</td><td>Bulldogs</td><td class="num">22</td><td class="num">&minus;70</td></tr>
+            <tr class="faint"><td>11</td><td>Storm</td><td class="num">20</td><td class="num">&minus;10</td></tr>
+            <tr class="faint"><td>12</td><td>Raiders</td><td class="num">20</td><td class="num">&minus;81</td></tr>
+            <tr class="me"><td>13</td><td>Broncos</td><td class="num">18</td><td class="num">&minus;124</td></tr>
+            <tr class="faint"><td>14</td><td>Wests Tigers</td><td class="num">18</td><td class="num">&minus;162</td></tr>
           </tbody>
         </table>
-        <p class="table-note">Approximate mid-Round-20 picture — points and positions shift this weekend. The premiership defence has been rough: a horror injury run (Walsh, Haas both sidelined earlier in the year) and a five-game slide before Thursday's win. The eight is still reachable, but there's little margin left.</p>
+        <p class="table-note">Byes are worth 2 points in the NRL, so teams with a bye still to come bank points without playing. Brisbane has used all three of theirs.</p>
 
         <h3 class="later">Worth knowing</h3>
         <ul class="notes">
-          <li>Adam Reynolds is carrying fitness niggles but insists he'll see out the run home as skipper.</li>
-          <li>Kotoni Staggs leads the club's try-scoring and made 10 tackle busts against Penrith alone.</li>
-          <li>Michael Maguire is chasing back-to-back titles in just his second year in charge.</li>
-          <li>Dolphins v Cowboys closes Round 20 at Suncorp on Sunday — results Brisbane will watch closely.</li>
+          <li>Adam Reynolds announced in February that 2026 is his final NRL season — the run home is a farewell tour whether or not it reaches September.</li>
+          <li>Payne Haas told the club in February he intends to leave at the end of the year.</li>
+          <li>Injuries gutted the title defence early: Walsh, Haas, Hunt, Mozer and Jensen all missed extended stretches.</li>
+          <li>Michael Maguire is in his second year, chasing back-to-back titles from 13th on the ladder.</li>
         </ul>
       </div>
+    </div>
+
+    <div class="maths">
+      <h4>Can the Broncos still make the eight?</h4>
+      <div class="verdict">Mathematically alive · realistically almost gone</div>
+
+      <p><b>Step 1 — the ceiling.</b> Brisbane has 18 points with 7 games left and no byes remaining. Two points per win:</p>
+      <div class="eq">18 + (7 × 2) = <b>32 points maximum</b>  ← requires winning all seven</div>
+
+      <p><b>Step 2 — the floor they must clear.</b> Twelve teams sit above them. Five of those twelve must finish below 32 points (or tie on 32 with worse differential) for Brisbane to reach 8th.</p>
+
+      <p><b>Step 3 — what each rival is allowed to do.</b> Byes are guaranteed points, so a team's "floor" is its current total plus 2 for each bye still to come. That floor determines how many of their remaining games they may win before they lock Brisbane out:</p>
+
+      <table class="req">
+        <thead><tr><th>Rival</th><th class="num">Now</th><th class="num">Floor</th><th class="num">Games</th><th>Can win at most</th></tr></thead>
+        <tbody>
+          <tr><td>Panthers</td><td class="num">32</td><td class="num">32</td><td class="num">7</td><td class="danger">Already uncatchable</td></tr>
+          <tr><td>Warriors</td><td class="num">30</td><td class="num">30</td><td class="num">7</td><td class="danger">0 of 7</td></tr>
+          <tr><td>Roosters</td><td class="num">30</td><td class="num">30</td><td class="num">7</td><td class="danger">0 of 7</td></tr>
+          <tr><td>Sharks</td><td class="num">28</td><td class="num">28</td><td class="num">7</td><td class="danger">1 of 7</td></tr>
+          <tr><td>Dolphins</td><td class="num">26</td><td class="num">28</td><td class="num">6</td><td class="danger">1 of 6</td></tr>
+          <tr><td>Knights</td><td class="num">26</td><td class="num">28</td><td class="num">6</td><td class="danger">1 of 6</td></tr>
+          <tr><td>Cowboys</td><td class="num">24</td><td class="num">26</td><td class="num">6</td><td class="ok">2 of 6</td></tr>
+          <tr><td>Rabbitohs</td><td class="num">24</td><td class="num">24</td><td class="num">7</td><td class="ok">3 of 7</td></tr>
+          <tr><td>Sea Eagles</td><td class="num">22</td><td class="num">24</td><td class="num">6</td><td class="ok">3 of 6</td></tr>
+          <tr><td>Bulldogs</td><td class="num">22</td><td class="num">22</td><td class="num">7</td><td class="ok">4 of 7</td></tr>
+          <tr><td>Storm</td><td class="num">20</td><td class="num">22</td><td class="num">6</td><td class="ok">4 of 6</td></tr>
+          <tr><td>Raiders</td><td class="num">20</td><td class="num">22</td><td class="num">6</td><td class="ok">4 of 6</td></tr>
+        </tbody>
+      </table>
+
+      <p><b>Step 4 — the verdict.</b> Penrith cannot be caught at all: their current 32 already equals Brisbane's absolute maximum, and Brisbane's differential of &minus;124 loses every tiebreak. So Brisbane is chasing eight places among the remaining eleven, needing five of them to collapse.</p>
+
+      <div class="eq">Brisbane wins 7/7        →  32 pts
+Warriors &amp; Roosters win 0/7   →  30 pts each
+Sharks / Dolphins / Knights ≤1  →  30 pts each
+… and Brisbane's &minus;124 differential still loses any tie on 32</div>
+
+      <p class="small">Put plainly: Brisbane must win every remaining game — including away trips to the Cowboys, Dolphins, Raiders and Bulldogs, and home games against the Knights, Warriors and Storm — while the Warriors and Roosters lose all seven of theirs and three more contenders win no more than one apiece. Each of those is unlikely on its own; together they compound into something close to zero. The elimination is not yet formal, but any single loss from here makes it formal immediately.</p>
+
+      <p class="small"><b>The one caveat:</b> Brisbane's terrible differential (&minus;124) means ties don't help them. Even reaching 32 points and drawing level with a rival almost certainly still leaves them outside the eight. In practice they need those five teams to finish clearly below 32, not merely level with it.</p>
+    </div>
+
+    <div class="maths" style="border-color:rgba(247,185,21,.28)">
+      <h4>Ins and outs — Broncos</h4>
+      <p class="small" style="margin-top:0">Confirmed club announcements versus reported speculation. Player movement reporting is noisy at this time of year; treat the amber tags as unconfirmed.</p>
+      <div class="moves">
+        <div class="mv out">
+          <h5>↗ Leaving</h5>
+          <ul class="mvlist">
+            <li><b>Adam Reynolds</b> <span class="tag-conf c">Confirmed</span><br><span>Retiring from the NRL at season's end. Announced 9 Feb 2026.</span></li>
+            <li><b>Payne Haas</b> <span class="tag-conf c">Confirmed</span><br><span>Advised the club on 8 Feb 2026 he will depart at the end of 2026. Destination not confirmed at the time of writing.</span></li>
+            <li><b>Grant Anderson</b> <span class="tag-conf c">Confirmed</span><br><span>Released to the Warriors from 2027 as part of the Barnett deal.</span></li>
+            <li><b>Ben Hunt</b> <span class="tag-conf r">Unresolved</span><br><span>Off contract; his management advised in April he wants to play on in 2027. A salary-cap question rather than a done deal.</span></li>
+          </ul>
+        </div>
+        <div class="mv in">
+          <h5>↘ Joining</h5>
+          <ul class="mvlist">
+            <li><b>Mitch Barnett</b> <span class="tag-conf c">Confirmed</span><br><span>Warriors captain, signed 16 Apr 2026 on a three-year deal from 2027.</span></li>
+            <li><b>Cory Paix</b> <span class="tag-conf c">Re-signed</span><br><span>Extended to the end of 2028.</span></li>
+            <li><b>Antonio Verhoeven</b> <span class="tag-conf c">Re-signed</span><br><span>Three-year contract from 2027.</span></li>
+            <li><b>Phillip Coates</b> <span class="tag-conf c">Re-signed</span><br><span>Academy graduate, one-year extension for 2027.</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="small">Already gone this season: Selwyn Cobbo (Dolphins), Kobe Hetherington (Manly), Jock Madden (Wests Tigers), Coby Black (Raiders), Fletcher Baker (Bulldogs), Tyson Smoothy (Wakefield). Arrived for 2026: Grant Anderson, Tom Duffy, Aublix Tawha.</p>
     </div>
   </section>
 
@@ -208,62 +364,122 @@
   <section class="club stoke">
     <div class="club-head">
       <h2 class="display">Stoke City</h2>
-      <span class="tag">EFL Championship · 2025/26 complete · Finished 17th</span>
+      <span class="tag">EFL Championship · 2025/26 finished 17th · Pre-season</span>
     </div>
+
+    <div class="nextgame">
+      <div class="ng-head">Next competitive game</div>
+      <div class="ng-body">
+        <div>
+          <div class="ng-match">Stoke City <span style="color:var(--mut)">v</span> Oldham Athletic</div>
+          <p class="ng-meta">
+            <b>Where:</b> bet365 Stadium — home<br>
+            <b>Who:</b> Oldham Athletic, in the <b>Carabao Cup first round</b> (not the league opener)<br>
+            <b>Then:</b> Championship season begins <b>Sat 15 Aug v Swansea City</b> at home
+          </p>
+        </div>
+        <div class="ng-when">
+          <div class="d">FRI 7 AUG</div>
+          <div class="t">Carabao Cup R1 · ~7pm BST</div>
+        </div>
+      </div>
+    </div>
+
     <div class="grid">
       <div class="col">
-        <h3>How the season ended</h3>
+        <h3>How last season ended</h3>
         <div class="scoreline">
-          <p class="win-note">Final record · 46 games</p>
+          <p class="win-note">Final 2025/26 record · 46 games · 55 points</p>
           <div class="score-row"><span class="team-n">W 15</span><span class="big-score">D 10</span><span class="team-n">L 21</span></div>
-          <p class="score-meta">A season of two halves: Stoke flew out of the blocks and sat 2nd after 14 games, but an injury crisis from December sent form off a cliff. They fell out of the play-off race and back to familiar mid-table territory, finishing 17th of 24 — safely clear of trouble, one place better than 2024/25.</p>
+          <p class="score-meta">A season of two halves. Stoke sat 2nd after 14 games before an injury crisis from December sent form off a cliff. They won just one of their final eight and lost the last four, sliding to 17th — clear of danger, but a long way from where November promised.</p>
         </div>
+
+        <h3 class="later">Opening fixtures — 2026/27</h3>
+        <table>
+          <thead><tr><th>Date</th><th>Opponent</th><th>H/A</th><th>Comp</th></tr></thead>
+          <tbody>
+            <tr><td>28 Jul</td><td>Everton</td><td>Home</td><td>Friendly</td></tr>
+            <tr class="me"><td>7 Aug</td><td>Oldham Athletic</td><td>Home</td><td>Carabao Cup</td></tr>
+            <tr><td>15 Aug</td><td>Swansea City</td><td>Home</td><td>Championship</td></tr>
+            <tr><td>22 Aug</td><td>Southampton</td><td>Away</td><td>Championship</td></tr>
+            <tr><td>29 Aug</td><td>Wolves</td><td>Away</td><td>Championship</td></tr>
+            <tr><td>1 Sep</td><td>Norwich City</td><td>Home</td><td>Championship</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">A brutal start: Southampton, Wolves and Norwich — three of last season's Premier League drop-outs and promotion favourites — inside the opening month.</p>
 
         <h3 class="later">2025/26 by the numbers</h3>
         <div class="stats">
-          <div class="stat"><b>17th</b><span>Final league position (18th the year before)</span></div>
-          <div class="stat"><b>2nd</b><span>League position after 14 games — the high-water mark</span></div>
-          <div class="stat"><b>10</b><span>League goals for top scorer Sorba Thomas</span></div>
-          <div class="stat"><b>11</b><span>Assists for Thomas too — the club's engine</span></div>
-          <div class="stat"><b>27,421</b><span>Best bet365 crowd of the season, v Coventry</span></div>
-          <div class="stat"><b>R4</b><span>FA Cup exit (EFL Cup: round two)</span></div>
+          <div class="stat"><b>17th</b><span>Final position (18th the year before)</span></div>
+          <div class="stat"><b>2nd</b><span>Position after 14 games — the high point</span></div>
+          <div class="stat"><b>55</b><span>Points from 46 games</span></div>
+          <div class="stat"><b>1/8</b><span>Wins in the final eight matches</span></div>
+          <div class="stat"><b>50th</b><span>Second-tier season — a club landmark</span></div>
+          <div class="stat"><b>9th</b><span>Consecutive Championship campaign</span></div>
         </div>
-
-        <h3 class="later">Season shape — where they finished</h3>
-        <table>
-          <thead><tr><th>#</th><th>Team zone</th><th class="num">Note</th></tr></thead>
-          <tbody>
-            <tr class="faint"><td>1–2</td><td>Automatic promotion</td><td class="num">—</td></tr>
-            <tr class="faint"><td>3–6</td><td>Play-offs</td><td class="num">Out of reach by spring</td></tr>
-            <tr class="me"><td>17</td><td>Stoke City</td><td class="num">W15 D10 L21</td></tr>
-            <tr class="faint"><td>22–24</td><td>Relegation</td><td class="num">Never in danger late on</td></tr>
-          </tbody>
-        </table>
       </div>
+
       <div class="col">
-        <h3>Key men</h3>
+        <h3>Looking to 2026/27</h3>
         <ul class="notes">
-          <li><b>Sorba Thomas</b> — 10 goals, 11 assists, 45 appearances. Involved in more than a third of everything good Stoke did.</li>
-          <li><b>Million Manhoef</b> — 7 goals and 4 assists in another ever-present campaign.</li>
-          <li><b>Divin Mubama</b> — 5 goals as the young striker option.</li>
-          <li><b>Mark Robins</b> — the man who kept them up on the final day of 24/25 got a full season, delivered stability, and stays on for 2026/27.</li>
+          <li>The Championship expands its play-offs from four teams to six this season — a meaningfully wider door for a club that finished 17th.</li>
+          <li>A new club crest debuts, reviving the 1977&ndash;92 badge: bottle kiln, Staffordshire knot, red-and-white stripes.</li>
+          <li><b>Stuart Harvey</b> appointed technical director in May, joining sporting director Jon Walters in a restructured recruitment setup.</li>
+          <li>Mark Robins stays on for his second full season, backed by owner John Coates with real money — Stoke have been among the Championship's bigger spenders this window.</li>
+          <li>For Brisbane viewing: a 3pm Saturday kick-off in Stoke lands around midnight AEST.</li>
         </ul>
 
-        <h3 class="later">Looking to 2026/27</h3>
+        <h3 class="later">Squad shape</h3>
         <ul class="notes">
-          <li>The new season kicks off <b>Saturday 8 August</b>, at home to Oldham — a landmark 50th season at second-tier level and a 9th straight in the Championship.</li>
-          <li>A new club crest debuts, reviving the 1977–92 badge: bottle kiln, Staffordshire knot, red-and-white stripes.</li>
-          <li>The question of the summer: keep Sorba Thomas away from Premier League suitors, and add the goals that were the missing piece when the side was 2nd in November.</li>
-          <li>For Brisbane viewing: a 3pm Saturday kick-off in Stoke lands at midnight AEST — one for the night owls.</li>
+          <li><b>Sorba Thomas</b> — last season's engine (10 goals, 11 assists) and the name most linked with a move away.</li>
+          <li><b>Million Manhoef</b> — 7 goals, 4 assists, another ever-present campaign.</li>
+          <li><b>Viktor Johansson</b> — retains the number 1 shirt despite Josh Griffiths arriving.</li>
+          <li><b>Róbert Boženík</b> — switches to the number 9 shirt for 26/27.</li>
         </ul>
       </div>
+    </div>
+
+    <div class="maths" style="border-color:rgba(221,55,67,.28)">
+      <h4>Ins and outs — Stoke City</h4>
+      <p class="small" style="margin-top:0">The window opened 15 June and closes 1 September, so this list will keep moving. Amber tags are press speculation, not club announcements.</p>
+      <div class="moves">
+        <div class="mv in">
+          <h5>↘ Joining</h5>
+          <ul class="mvlist">
+            <li><b>Ethan Galbraith</b> <span class="tag-conf c">Confirmed</span><br><span>Midfielder from Swansea City, reported £10m plus add-ons — a statement signing and squad number 8.</span></li>
+            <li><b>Svante Ingelsson</b> <span class="tag-conf c">Confirmed</span><br><span>Midfielder from Sheffield Wednesday, around £1m on a three-year deal. Number 6.</span></li>
+            <li><b>Djibril Soumaré</b> <span class="tag-conf c">Confirmed</span><br><span>Midfielder, from Braga. Number 27.</span></li>
+            <li><b>Luke Graham</b> <span class="tag-conf c">Confirmed</span><br><span>Centre-half from Dundee on a four-year contract. Number 5.</span></li>
+            <li><b>Josh Griffiths</b> <span class="tag-conf c">Confirmed</span><br><span>Goalkeeper. Number 24.</span></li>
+            <li><b>Milan Smit</b> <span class="tag-conf c">Confirmed</span><br><span>Striker — loan from Go Ahead Eagles made permanent, £4.75m.</span></li>
+            <li><b>Jack Moylan</b> <span class="tag-conf r">Rumoured</span><br><span>Lincoln City winger, linked but not agreed.</span></li>
+            <li><b>Joel Piroe</b> <span class="tag-conf r">Rumoured</span><br><span>Leeds United forward; Leeds have reportedly set an asking price.</span></li>
+          </ul>
+        </div>
+        <div class="mv out">
+          <h5>↗ Leaving</h5>
+          <ul class="mvlist">
+            <li><b>Lewis Baker</b> <span class="tag-conf c">Confirmed</span><br><span>Released on the retained list, 14 May.</span></li>
+            <li><b>Steven N'Zonzi</b> <span class="tag-conf c">Confirmed</span><br><span>Released on the retained list, 14 May.</span></li>
+            <li><b>Sorba Thomas</b> <span class="tag-conf r">Rumoured</span><br><span>Everton reported to be interested. Still in the squad and holding the number 7 shirt — the summer's key retention question.</span></li>
+            <li><b>Ben Wilmot</b> <span class="tag-conf r">Rumoured</span><br><span>Linked with West Ham. Still squad-numbered at 16.</span></li>
+            <li><b>Ben Pearson</b> <span class="tag-conf r">Rumoured</span><br><span>Reportedly may be moved on to make room for the new midfielders.</span></li>
+            <li><b>Sam Gallagher</b> <span class="tag-conf r">Rumoured</span><br><span>Reported the club would allow the 30-year-old to leave.</span></li>
+            <li><b>Tatsuki Seko</b> <span class="tag-conf r">Rumoured</span><br><span>Said to be open to a move after two years at the club.</span></li>
+            <li><b>Sydney Agina</b> <span class="tag-conf r">Rumoured</span><br><span>Possible loan for the 18-year-old right-back.</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="small">The pattern is clear: four central-midfield arrivals in one window, with Pearson and Seko squeezed. Stoke have spent heavily and are being backed to push for the newly expanded six-team play-off zone rather than settle for another mid-table year.</p>
     </div>
   </section>
 
 </main>
 
 <footer>
-  <p><b>Sources &amp; caveats:</b> compiled 18 July 2026 from NRL match centres, ladder trackers and club season records. The NRL ladder shown is approximate — Round 20 finishes this weekend (Titans v Sea Eagles and Dolphins v Cowboys on Sunday), so points and positions will move. Stoke's 2025/26 figures are final-season numbers; 2026/27 fixture details are as currently listed and may change.</p>
+  <p><b>Sources &amp; caveats:</b> compiled 21 July 2026. NRL ladder, results and fixtures from Zero Tackle's Round 20 ladder and NRL match centres; Broncos squad movements from club announcements as catalogued on the 2026 Brisbane Broncos season record. Stoke fixtures from the club and Goal.com listings; transfers from Sports Mole's confirmed-transfer tracker, BBC/AOL reporting and Stoke City's squad-number announcement of 10 July.</p>
+  <p><b>Corrections from the previous version of this page:</b> the Broncos were shown at ~11th on 14 points; they are 13th on 18. The ladder table has been rebuilt with actual points and differentials. Stoke's "8 August v Oldham" league opener was incorrect on two counts — the Oldham match is a Carabao Cup first-round tie on 7 August, and the Championship season starts 15 August at home to Swansea.</p>
+  <p><b>On player movement:</b> items marked <span style="color:var(--good)">Confirmed</span> come from club or league announcements. Items marked <span style="color:var(--draw)">Rumoured</span> come from press reporting and may never happen. The Stoke window closes 1 September and the NRL's 2027 signing period runs well past that, so both lists will date quickly.</p>
 </footer>
 
 </body>
