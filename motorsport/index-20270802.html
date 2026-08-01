@@ -12,7 +12,7 @@
     --asphalt:#12161d; --panel:#1a2029; --panel-2:#20272f; --line:#2c343f;
     --ink:#e8ebef; --ink-dim:#9aa4b1;
     --f1:#ff2800; --moto:#2ec5ff; --timing-purple:#c39bff;
-    --gold:#f2c14e; --silver:#c8cfd8; --bronze:#d29a6b; --sprint:#ffd166; --confirm:#5ede8e;
+    --gold:#f2c14e; --silver:#c8cfd8; --bronze:#d29a6b; --sprint:#ffd166;
     --radius:10px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -134,28 +134,6 @@
   .moto-series .next-up{border-color:var(--moto)}
   .next-up strong{color:var(--ink)}
 
-  td.cal-date{font-family:'IBM Plex Mono',monospace;white-space:nowrap;text-align:right;color:var(--ink)}
-  .cal-note{color:var(--ink-dim);font-size:.74rem;margin-top:2px}
-  .sprint-chip{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:3px;
-    background:var(--sprint);color:#1a1a1a;font-weight:700;font-size:.62rem;font-family:'IBM Plex Mono',monospace;margin-left:7px;vertical-align:1px}
-  .cal-foot{font-size:.76rem;color:var(--ink-dim);margin-top:8px}
-  .cal-foot .sprint-chip{margin-left:0;margin-right:5px}
-
-  .news{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);overflow:hidden}
-  .news-item{padding:13px 16px;border-bottom:1px solid rgba(44,52,63,.5);position:relative}
-  .news-item:last-child{border-bottom:none}
-  .news-item.spoiler .shield{border-radius:0;padding:12px}
-  .news-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:4px}
-  .news-title{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:.95rem}
-  .tag{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;
-    padding:2px 7px;border-radius:4px;border:1px solid;flex:none}
-  .tag.confirmed{color:var(--confirm);border-color:rgba(94,222,142,.45);background:rgba(94,222,142,.08)}
-  .tag.rumour{color:var(--gold);border-color:rgba(242,193,78,.45);background:rgba(242,193,78,.08)}
-  .tag.watch{color:var(--timing-purple);border-color:rgba(195,155,255,.45);background:rgba(195,155,255,.08)}
-  .news-body{font-size:.86rem;color:var(--ink-dim);line-height:1.5}
-  .news-body strong{color:var(--ink);font-weight:600}
-  .news-foot{font-size:.76rem;color:var(--ink-dim);margin-top:8px}
-
   footer{max-width:1080px;margin:0 auto;padding:0 20px 40px;color:var(--ink-dim);font-size:.78rem;line-height:1.6}
   footer .rule{border-top:1px solid var(--line);padding-top:14px}
   footer p{margin-bottom:8px}
@@ -164,9 +142,9 @@
 <body>
 
 <header>
-  <div class="kicker">Points board · 2026 season · updated 2 August 2026 · v5 — remaining calendars &amp; paddock news added</div>
+  <div class="kicker">Points board · 2026 season · updated 27 July 2026 · v4 — Hungarian GP added, F1 into the summer break</div>
   <h1><span class="f1c">Formula 1</span> &amp; <span class="motoc">MotoGP</span> Race Board</h1>
-  <p class="asof">Standings, podiums, finishing gaps, fastest laps and all-time circuit records for every Grand Prix and Sprint — plus the remaining calendar and a paddock news &amp; rumours feed for each series. The most recent round in each series stays <strong>hidden until you tick the box</strong> to confirm you've watched it.</p>
+  <p class="asof">Standings, podiums, finishing gaps, fastest laps and all-time circuit records for every Grand Prix and Sprint. The most recent round in each series stays <strong>hidden until you tick the box</strong> to confirm you've watched it.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Championship">
@@ -209,17 +187,6 @@
   <div class="races" id="f1-races"></div>
 
   <div class="next-up">📅 <strong>Summer break.</strong> Next round: Dutch Grand Prix, Zandvoort — 21–23 August 2026, and a sprint weekend. Remaining sprints in 2026: Netherlands and Singapore. Zandvoort's contract ends after this year, so it's the last Dutch GP for now.</div>
-
-  <h2>Remaining 2026 calendar</h2>
-  <div class="board"><table>
-    <thead><tr><th>Rd</th><th>Grand Prix</th><th>Circuit</th><th style="text-align:right">Date</th></tr></thead>
-    <tbody id="f1-calendar"></tbody>
-  </table></div>
-  <p class="cal-foot"><span class="sprint-chip">S</span>= sprint weekend. Dates per formula1.com as of 2 August 2026. The season-closing Qatar and Abu Dhabi rounds remain scheduled but, as noted below, aren't guaranteed.</p>
-
-  <h2>Paddock news &amp; rumours</h2>
-  <div class="news" id="f1-news"></div>
-  <p class="news-foot">Snapshot compiled 2 August 2026 from official announcements and paddock press (formula1.com, ESPN, Sky, PlanetF1, Crash, Motorsport Week). Items tagged <em>Rumour</em> or <em>One to watch</em> are unconfirmed reporting — enjoy with the usual silly-season salt.</p>
 </section>
 
 <section class="series moto-series" id="panel-moto" role="tabpanel" aria-labelledby="tab-moto">
@@ -250,17 +217,6 @@
   <div class="races" id="moto-races"></div>
 
   <div class="next-up">📅 <strong>Summer break.</strong> Next round: British Grand Prix, Silverstone — 7–9 August 2026. Every MotoGP round includes a Saturday Tissot Sprint.</div>
-
-  <h2>Remaining 2026 calendar</h2>
-  <div class="board"><table>
-    <thead><tr><th>Rd</th><th>Grand Prix</th><th>Circuit</th><th style="text-align:right">Date</th></tr></thead>
-    <tbody id="moto-calendar"></tbody>
-  </table></div>
-  <p class="cal-foot">Every round includes a Saturday Sprint. Dates reflect the March calendar reshuffle: Qatar moved from April to 6–8 November, pushing Portimão and the Valencia finale back one week each.</p>
-
-  <h2>Paddock news &amp; rumours</h2>
-  <div class="news" id="moto-news"></div>
-  <p class="news-foot">Snapshot compiled 2 August 2026 from official announcements and paddock press (motogp.com, Crash, GPOne, Cycle News). Items tagged <em>Rumour</em> or <em>One to watch</em> are unconfirmed reporting. One story is spoiler-shielded because it relates to the German GP weekend.</p>
 </section>
 
 </main>
@@ -270,8 +226,7 @@
     <p><strong>How to read the timing data:</strong> the gold chip next to the winner is their total race time; the chips next to P2 and P3 are how far behind they finished (≈ marks a figure reported to the nearest tenth or as "around X seconds" rather than official timing). "FL" is the fastest lap of that race and who set it — the driver/rider who set it wasn't always on the podium.</p>
     <p><strong>Circuit records:</strong> for F1 the "circuit best" is the official race lap record — the fastest lap ever set during a race on the current layout (F1's 2026-spec cars are around 2s/lap slower, so most records date from the 2018–2025 era). For MotoGP it's the all-time circuit record, which in bike racing usually falls in qualifying; where the record fell during a 2026 weekend the card says so.</p>
     <p>Data snapshot compiled 27 July 2026 from official series results, timing reports and press coverage. The Hungarian GP round has been taken from the FIA provisional race classification, so the winner's time, both podium gaps and the fastest lap are official rather than press-reported. Race fastest-lap times are shown for every F1 and every MotoGP Grand Prix. One gap remains approximate: Verstappen's P3 margin at Spa was reported to the nearest tenth in every citable source, hence the ≈. Sprint fastest laps are rarely published; Catalunya’s is shown. Per-podium-finisher individual fastest laps also come from the full FIA/FIM timing sheets — where a podium finisher set the race’s overall fastest lap you’ll see it against their name. Ask Claude for a refreshed version after future rounds; the spoiler shield moves to the newest race automatically.</p>
-    <p>F1 sprint rounds in 2026: China, Miami, Canada, Great Britain, Netherlands, Singapore. The Bahrain &amp; Saudi Arabian GPs were cancelled in March, cutting the calendar to 22 rounds; on 26 July F1 confirmed the Bahrain GP will be run at Sepang, Malaysia on 2–4 October under the Bahrain name, taking the season back to 23. The season-closing Qatar and Abu Dhabi rounds are unchanged for now but not guaranteed. MotoGP's Qatar GP moved to 6–8 November, which pushed Portimão to 20–22 November and the Valencia finale to 27–29 November.</p>
-    <p><strong>Remaining calendars &amp; news:</strong> the remaining-race tables were verified against formula1.com and motogp.com on 2 August 2026, and the news panels are a snapshot of the same date drawn from official team/series announcements and paddock press. Confirmed items are officially announced; Rumour and One-to-watch items are reporting only and may well change — that's half the fun. Ask Claude for a refreshed version to update both.</p>
+    <p>F1 sprint rounds in 2026: China, Miami, Canada, Great Britain, Netherlands, Singapore. The Bahrain &amp; Saudi Arabian GPs were cancelled in March, cutting the calendar to 22 rounds; on 26 July F1 confirmed the Bahrain GP will be run at Sepang, Malaysia on 2–4 October under the Bahrain name, taking the season back to 23. The season-closing Qatar and Abu Dhabi rounds are unchanged for now but not guaranteed. MotoGP's Qatar GP moved to 8 November.</p>
   </div>
 </footer>
 
@@ -437,67 +392,6 @@ const MOTO_RACES = [
    note:"A perfect Márquez weekend — pole (all-time record), Sprint win in a first-ever Ducati Sprint 1-2-3, then a record-equalling 10th premier-class win at the same circuit. Bezzecchi missed both races with a broken collarbone from qualifying."}
 ];
 
-/* ============ REMAINING CALENDARS (as of 2 Aug 2026) ============ */
-const F1_CALENDAR = [
-  {rd:12,gp:"Dutch GP",circuit:"Zandvoort",date:"21–23 Aug",sprint:true,note:"Final Dutch GP — contract ends after 2026"},
-  {rd:13,gp:"Italian GP",circuit:"Monza",date:"4–6 Sep"},
-  {rd:14,gp:"Spanish GP",circuit:"Madring, Madrid",date:"11–13 Sep",note:"Circuit debut"},
-  {rd:15,gp:"Azerbaijan GP",circuit:"Baku City Circuit",date:"24–26 Sep"},
-  {rd:16,gp:"Bahrain GP",circuit:"Sepang, Malaysia",date:"2–4 Oct",note:"Relocated from Sakhir — runs under the Bahrain GP name"},
-  {rd:17,gp:"Singapore GP",circuit:"Marina Bay",date:"9–11 Oct",sprint:true},
-  {rd:18,gp:"United States GP",circuit:"COTA, Austin",date:"23–25 Oct"},
-  {rd:19,gp:"Mexico City GP",circuit:"Hermanos Rodríguez",date:"30 Oct–1 Nov"},
-  {rd:20,gp:"São Paulo GP",circuit:"Interlagos",date:"6–8 Nov"},
-  {rd:21,gp:"Las Vegas GP",circuit:"Las Vegas Strip Circuit",date:"19–21 Nov"},
-  {rd:22,gp:"Qatar GP",circuit:"Lusail",date:"27–29 Nov"},
-  {rd:23,gp:"Abu Dhabi GP",circuit:"Yas Marina",date:"4–6 Dec",note:"Season finale"}
-];
-const MOTO_CALENDAR = [
-  {rd:12,gp:"British GP",circuit:"Silverstone",date:"7–9 Aug"},
-  {rd:13,gp:"Aragon GP",circuit:"MotorLand Aragón",date:"28–30 Aug"},
-  {rd:14,gp:"San Marino GP",circuit:"Misano",date:"11–13 Sep"},
-  {rd:15,gp:"Austrian GP",circuit:"Red Bull Ring",date:"18–20 Sep"},
-  {rd:16,gp:"Japanese GP",circuit:"Motegi",date:"2–4 Oct"},
-  {rd:17,gp:"Indonesian GP",circuit:"Mandalika",date:"9–11 Oct"},
-  {rd:18,gp:"Australian GP",circuit:"Phillip Island",date:"23–25 Oct"},
-  {rd:19,gp:"Malaysian GP",circuit:"Sepang",date:"30 Oct–1 Nov"},
-  {rd:20,gp:"Qatar GP",circuit:"Lusail",date:"6–8 Nov",note:"Rescheduled from April"},
-  {rd:21,gp:"Portuguese GP",circuit:"Portimão",date:"20–22 Nov",note:"Moved back one week"},
-  {rd:22,gp:"Valencia GP",circuit:"Ricardo Tormo",date:"27–29 Nov",note:"Season finale — moved back one week"}
-];
-
-/* ============ NEWS & RUMOURS (snapshot 2 Aug 2026) ============
-   tag: "confirmed" | "rumour" | "watch". body is trusted HTML.
-   spoiler:true shields the item behind the series' watched-checkbox. */
-const F1_NEWS = [
-  {tag:"rumour",title:"Verstappen–McLaren: the story of the break",
-   body:"Max Verstappen's Red Bull exit clause — requiring a top-two championship position at the summer break — is now live, and his manager Raymond Vermeulen has publicly confirmed the clause exists for the first time. PlanetF1 reports negotiations with <strong>McLaren</strong> for 2027 are in their closing stages; ESPN's sources call the link wide of the mark, and Verstappen himself will only offer \"there's nothing to say\". Red Bull reportedly tried to buy the clause out in June and was refused. If it happens, a straight swap sending <strong>Oscar Piastri</strong> to Red Bull is the mooted domino."},
-  {tag:"confirmed",title:"Leclerc signs long-term Ferrari extension",
-   body:"Announced before Monaco: a multi-year deal keeping <strong>Charles Leclerc</strong> at Ferrari into the next decade — now the longest contract on the grid, and the biggest non-Verstappen name off the 2027 board."},
-  {tag:"watch",title:"Alonso expected to decide his future over the break",
-   body:"Aston Martin's Newey-designed, Honda-powered 2026 car has delivered a single point all season. <strong>Fernando Alonso</strong> is widely reported to be weighing retirement during the shutdown — if the upgrades don't bite, year 26 of his career may not happen."},
-  {tag:"watch",title:"Mercedes' fine print: both seats technically open",
-   body:"<strong>George Russell</strong> is reportedly on a \"1+1\" that auto-renews for 2027 on performance targets, and <strong>Kimi Antonelli</strong> is considered certain to stay — but neither is formally confirmed beyond 2026 yet."},
-  {tag:"rumour",title:"Midfield movers: Haas and Aston the likeliest",
-   body:"With more than half the grid out of contract for 2027, the paddock consensus is that <strong>Aston Martin</strong> and <strong>Haas</strong> are the clearest sources of movement. <strong>Esteban Ocon</strong> is under pressure to keep his Haas seat, while <strong>Franco Colapinto</strong>'s mid-season revival has strengthened his hand at Alpine."}
-];
-const MOTO_NEWS = [
-  {tag:"confirmed",title:"Acosta joins factory Ducati for 2027",
-   body:"<strong>Pedro Acosta</strong> has signed a two-year deal to partner <strong>Marc Márquez</strong> (himself committed through 2028) at the factory Ducati team when the 850cc era begins — one of the most coveted pairings in the sport's next chapter."},
-  {tag:"confirmed",title:"Bagnaia leaves Ducati for Aprilia",
-   body:"Announced at Assen: <strong>Francesco Bagnaia</strong> swaps Ducati red for Noale on a four-year contract, forming an all-Italian factory line-up with <strong>Marco Bezzecchi</strong> from 2027."},
-  {tag:"confirmed",title:"Yamaha reboot: Martín and Ogura in, Quartararo and Rins out",
-   body:"Yamaha has signed <strong>Jorge Martín</strong> and <strong>Ai Ogura</strong> for 2027–28, bidding farewell to <strong>Fabio Quartararo</strong> and <strong>Álex Rins</strong>. Quartararo's two-year <strong>Honda HRC</strong> deal was announced on 21 July — his second seat is between Diogo Moreira and Moto2 phenom David Alonso, while Alberto Puig steps back to an advisory role with Mikihiko Kawase taking over as team manager."},
-  {tag:"confirmed",title:"KTM rebuilt; Gresini locks in Mir and Holgado",
-   body:"Red Bull KTM's all-new 2027 pairing is <strong>Álex Márquez</strong> and <strong>Fabio Di Giannantonio</strong> — leaving long-serving <strong>Brad Binder</strong> without a seat. Gresini has signed 2020 champion <strong>Joan Mir</strong> alongside rookie <strong>Dani Holgado</strong>."},
-  {tag:"rumour",title:"Bulega to VR46 \"close\"; Tech3 seats still open",
-   body:"WorldSBK star <strong>Nicolò Bulega</strong> is expected to be announced at VR46 Ducati for 2027 alongside Fermín Aldeguer — his camp says a deal is close. The two Tech3 KTM seats remain the main vacancy, with Guenther Steiner said to want one experienced rider plus a rookie."},
-  {tag:"confirmed",title:"Silverstone: Lecuona subs for the injured Aldeguer",
-   body:"<strong>Fermín Aldeguer</strong> misses the British GP as he recovers from the T7 vertebra fracture from his Assen practice crash — he's cleared to resume training from 15 August and targets a return at Aragon. <strong>Iker Lecuona</strong>, fresh from his maiden WorldSBK race win at Donington, stands in at Gresini, having impressed with seventh subbing at Balaton Park in June."},
-  {tag:"watch",title:"Bezzecchi races the clock for Silverstone",spoiler:true,
-   body:"After surgery on the collarbone he broke in Sachsenring qualifying, <strong>Marco Bezzecchi</strong> completed four runs on an Aprilia RSV4 at Misano on 29 July with his rehab \"proceeding as planned\". He faces a medical check at Silverstone on Thursday 6 August — he won the British GP last year and has vowed to be on the grid."}
-];
-
 /* ============ RENDER ============ */
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
 
@@ -557,36 +451,12 @@ function raceCard(r, seriesKey){
 function renderRaces(list, containerId, seriesKey){
   document.getElementById(containerId).innerHTML = list.map(r=>raceCard(r,seriesKey)).join("");
 }
-function renderCalendar(list, tbodyId){
-  document.getElementById(tbodyId).innerHTML = list.map(r=>
-    `<tr><td class="pos">${r.rd}</td><td class="name">${esc(r.gp)}${r.sprint?'<span class="sprint-chip">S</span>':''}</td><td class="team">${esc(r.circuit)}${r.note?`<div class="cal-note">${esc(r.note)}</div>`:''}</td><td class="cal-date">${esc(r.date)}</td></tr>`
-  ).join("");
-}
-const NEWS_TAGS = { confirmed:["confirmed","Confirmed"], rumour:["rumour","Rumour"], watch:["watch","One to watch"] };
-function newsItemHTML(n, seriesKey){
-  const [cls,label] = NEWS_TAGS[n.tag];
-  const inner = `<div class="news-head"><span class="tag ${cls}">${label}</span><span class="news-title">${esc(n.title)}</span></div><div class="news-body">${n.body}</div>`;
-  if(n.spoiler){
-    return `<div class="news-item spoiler" data-latest="${seriesKey}">
-      <div class="shield"><div class="flag">🔒</div><p class="small">Story hidden — it relates to the latest round's weekend. Tick the watched box above to reveal.</p></div>
-      <div class="veil">${inner}</div>
-    </div>`;
-  }
-  return `<div class="news-item">${inner}</div>`;
-}
-function renderNews(list, containerId, seriesKey){
-  document.getElementById(containerId).innerHTML = list.map(n=>newsItemHTML(n,seriesKey)).join("");
-}
 
 renderStandings(F1_STANDINGS,"f1-standings");
 renderConstructors(F1_CONSTRUCTORS,"f1-constructors");
 renderRaces(F1_RACES,"f1-races","f1");
-renderCalendar(F1_CALENDAR,"f1-calendar");
-renderNews(F1_NEWS,"f1-news","f1");
 renderStandings(MOTO_STANDINGS,"moto-standings");
 renderRaces(MOTO_RACES,"moto-races","moto");
-renderCalendar(MOTO_CALENDAR,"moto-calendar");
-renderNews(MOTO_NEWS,"moto-news","moto");
 
 /* ============ SPOILER STATE (persistent) ============ */
 const LATEST = { f1:"f1-2026-r11", moto:"moto-2026-r11" }; // change these ids when new rounds are added
