@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motorcycle Trips — The Cooperhouse</title>
+    <meta name="description" content="Planned and completed motorcycle rides — routes, ride cards and roadside notes.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Archivo+Expanded:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --ink: #1b1f24;
+            --ink-soft: #4b5563;
+            --ink-faint: #8a929c;
+            --bg: #eef0f2;
+            --card-bg: #ffffff;
+            --line: #d8dce1;
+
+            --trip-a: #a8501c;   /* clay / dirt road */
+            --trip-b: #2f4858;   /* range blue */
+
+            --st-proposed: #a8501c;
+            --st-booked:   #0e5e45;
+            --st-ridden:   #6b7280;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Archivo', Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            margin: 0;
+            padding: 40px 20px 40px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 760px; margin: auto; }
+
+        /* ---------- Header ---------- */
+
+        .back {
+            display: inline-block;
+            font-size: 12.5px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: var(--ink-faint);
+            text-decoration: none;
+            margin-bottom: 26px;
+        }
+        .back:hover { color: var(--trip-a); }
+
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin: 0 0 6px;
+        }
+
+        h1 {
+            font-family: 'Archivo Expanded', 'Archivo', Arial, sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            margin: 0 0 8px;
+        }
+
+        .intro {
+            font-size: 15px;
+            color: var(--ink-soft);
+            margin: 0;
+            max-width: 52ch;
+        }
+
+        /* ---------- Next ride strip ---------- */
+
+        .next {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            background: var(--trip-b);
+            color: #fff;
+            border-radius: 14px;
+            padding: 20px 24px;
+            margin: 30px 0 26px;
+        }
+        .next::after {
+            content: "";
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 5px;
+            background: linear-gradient(180deg, var(--trip-a), #d98a3a);
+        }
+        .next .n-label {
+            font-size: 10.5px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.65);
+            margin-bottom: 4px;
+        }
+        .next .n-title {
+            font-family: 'Archivo Expanded', 'Archivo', Arial, sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .next .n-when {
+            font-size: 13.5px;
+            color: rgba(255,255,255,0.78);
+            margin-top: 3px;
+        }
+        .next .n-count {
+            margin-left: auto;
+            text-align: right;
+            line-height: 1;
+        }
+        .next .n-num {
+            font-family: 'Archivo Expanded', 'Archivo', Arial, sans-serif;
+            font-size: 34px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+        .next .n-unit {
+            font-size: 10.5px;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.65);
+            margin-top: 6px;
+        }
+
+        /* ---------- Filters ---------- */
+
+        .filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+        .chip {
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            background: transparent;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 7px 14px;
+            cursor: pointer;
+            transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+        }
+        .chip:hover { border-color: var(--ink-faint); }
+        .chip[aria-pressed="true"] {
+            background: var(--ink);
+            border-color: var(--ink);
+            color: #fff;
+        }
+        .chip .count {
+            font-variant-numeric: tabular-nums;
+            opacity: 0.55;
+            margin-left: 5px;
+        }
+
+        /* ---------- Ride cards ---------- */
+
+        .ride {
+            position: relative;
+            overflow: hidden;
+            background: var(--card-bg);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 22px 24px 20px 28px;
+            margin: 14px 0;
+        }
+        .ride::after {
+            content: "";
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 5px;
+            background: linear-gradient(180deg, var(--stripe), var(--trip-b));
+        }
+        .ride--proposed { --stripe: var(--st-proposed); }
+        .ride--booked   { --stripe: var(--st-booked); }
+        .ride--ridden   { --stripe: var(--st-ridden); }
+
+        .ride-head {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 4px;
+        }
+
+        .status {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--stripe);
+            border: 1px solid currentColor;
+            border-radius: 999px;
+            padding: 3px 9px;
+        }
+
+        .when {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+        }
+
+        .ride h2 {
+            font-family: 'Archivo Expanded', 'Archivo', Arial, sans-serif;
+            font-size: 19px;
+            font-weight: 700;
+            margin: 6px 0 4px;
+        }
+
+        .route {
+            font-size: 13px;
+            color: var(--stripe);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .blurb {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--ink-soft);
+            margin: 0 0 16px;
+            max-width: 58ch;
+        }
+
+        /* stat row */
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            margin-bottom: 14px;
+        }
+        .stat {
+            flex: 1 1 0;
+            min-width: 96px;
+            padding: 11px 14px 11px 0;
+        }
+        .stat + .stat { padding-left: 14px; border-left: 1px solid var(--line); }
+        .stat .k {
+            font-size: 9.5px;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 3px;
+        }
+        .stat .v {
+            font-size: 14px;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* day-split bar */
+        .split { margin-bottom: 16px; }
+        .split-bar {
+            display: flex;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            background: #e6e9ec;
+        }
+        .split-bar span { display: block; height: 100%; }
+        .split-bar span:nth-child(1) { background: var(--stripe); }
+        .split-bar span:nth-child(2) { background: var(--trip-b); opacity: 0.75; }
+        .split-bar span:nth-child(3) { background: var(--ink-faint); opacity: 0.6; }
+        .split-key {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 7px;
+            font-size: 11.5px;
+            color: var(--ink-faint);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* links */
+        .links { display: flex; flex-wrap: wrap; gap: 8px; }
+        .btn {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-decoration: none;
+            border-radius: 8px;
+            padding: 8px 13px;
+            border: 1px solid var(--line);
+            color: var(--ink);
+            background: #fff;
+            transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+        }
+        .btn:hover { border-color: var(--stripe); color: var(--stripe); transform: translateY(-1px); }
+        .btn--primary {
+            background: var(--ink);
+            border-color: var(--ink);
+            color: #fff;
+        }
+        .btn--primary:hover { background: var(--stripe); border-color: var(--stripe); color: #fff; }
+        .btn .ext { opacity: 0.55; font-weight: 500; margin-left: 5px; }
+
+        .empty {
+            text-align: center;
+            color: var(--ink-faint);
+            font-size: 14px;
+            padding: 30px 0;
+        }
+
+        /* ---------- Footer ---------- */
+
+        footer {
+            max-width: 760px;
+            margin: 48px auto 0;
+            padding-top: 18px;
+            border-top: 1px solid var(--line);
+            text-align: center;
+            color: var(--ink-faint);
+            font-size: 12.5px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 560px) {
+            body { padding: 28px 14px 30px; }
+            h1 { font-size: 22px; }
+            .ride { padding: 20px 18px 18px 22px; }
+            .next { padding: 18px; }
+            .next .n-count { margin-left: 0; text-align: left; }
+            .stat + .stat { border-left: 0; padding-left: 0; }
+            .stat { flex: 1 1 45%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .btn, .chip { transition: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <a class="back" href="../">&#8592; The Cooperhouse</a>
+
+    <header>
+        <p class="eyebrow">Motorcycle trips</p>
+        <h1>Rides</h1>
+        <p class="intro">Weekends planned properly — routes, fuel maths, timings and the things worth knowing before you get there. Each ride has a full guide to read at home and a one-page ride card for your pocket.</p>
+    </header>
+
+    <div id="next-ride"></div>
+
+    <div class="filters" id="filters"></div>
+
+    <main id="rides"></main>
+
+    <noscript>
+        <div class="ride ride--booked">
+            <h2>Mann River — 29–30 August 2026</h2>
+            <p class="blurb">Cornubia to Mann River Nature Reserve via the Lions Road.</p>
+            <div class="links">
+                <a class="btn btn--primary" href="mann-river.html">Read the guide</a>
+                <a class="btn" href="pdf/mann-river-guide.pdf">Guide PDF</a>
+                <a class="btn" href="pdf/mann-river-ride-card.pdf">Ride card PDF</a>
+            </div>
+        </div>
+        <div class="ride ride--proposed">
+            <h2>Meringandan Weekend — 23–24 October 2026</h2>
+            <p class="blurb">Wellington Point to Meringandan and home over Cunninghams Gap.</p>
+            <div class="links">
+                <a class="btn btn--primary" href="pdf/meringandan-ride-card.pdf">Ride card PDF</a>
+            </div>
+        </div>
+    </noscript>
+
+</div>
+
+<footer>
+    Distances and timings are planning estimates — confirm in your own navigation.<br>
+    Ride your own ride.
+</footer>
+
+<script>
+/* ------------------------------------------------------------------
+   ADDING A RIDE
+   Copy one block, change the values, drop it at the top of the list.
+   Nothing else on the page needs touching.
+
+   status : "proposed" | "booked" | "ridden"
+   days   : one entry per riding day — the bar widths are worked out
+            from the km values, so they stay honest automatically.
+   links  : { label, href, primary?, ext? }
+   ------------------------------------------------------------------ */
+
+const RIDES = [
+  {
+    status: "booked",
+    title: "Mann River",
+    route: "Cornubia → Lions Road → Grafton → Mann River Nature Reserve",
+    start: "2026-08-29",
+    end:   "2026-08-30",
+    blurb: "Three riders, two days and one cold night on the Northern Tablelands. Sealed run south on the Saturday, then one decision over coffee on the Sunday — 130 km of unsealed Old Grafton Road if it is genuinely dry, or the Tenterfield loop if it isn't.",
+    stats: [
+      ["Distance", "≈900 km"],
+      ["Bikes", "3 adventure"],
+      ["Surface", "Sealed + gravel"],
+      ["Nights", "1 · camping"]
+    ],
+    days: [
+      { label: "Sat · Cornubia to camp", km: 444 },
+      { label: "Sun · Plan A home", km: 460 }
+    ],
+    links: [
+      { label: "Read the guide", href: "mann-river.html", primary: true },
+      { label: "Full guide", href: "pdf/mann-river-guide.pdf", ext: "PDF" },
+      { label: "Ride card", href: "pdf/mann-river-ride-card.pdf", ext: "PDF" }
+    ]
+  },
+  {
+    status: "proposed",
+    title: "Meringandan Weekend",
+    route: "Wellington Point → Mt Glorious → Meringandan → Cunninghams Gap",
+    start: "2026-10-23",
+    end:   "2026-10-24",
+    blurb: "Three range crossings, no repeated roads and one night at the pub. D'Aguilar on the way out, Ravensbourne into the Downs, and the Main Range at Cunninghams Gap on the way home.",
+    stats: [
+      ["Distance", "532 km"],
+      ["Bike", "FJR1300 two-up"],
+      ["Surface", "All sealed"],
+      ["Nights", "1 · Airbnb"]
+    ],
+    days: [
+      { label: "Fri · to Meringandan", km: 227 },
+      { label: "Sat · home over the Gap", km: 305 }
+    ],
+    links: [
+      /* When the Meringandan HTML page is dropped in beside this file, add:
+         { label: "Read the guide", href: "meringandan-weekend.html", primary: true }, */
+      { label: "Ride card", href: "pdf/meringandan-ride-card.pdf", primary: true, ext: "PDF" }
+    ]
+  }
+];
+
+/* ---------------- rendering ---------------- */
+
+const MONTHS = ["January","February","March","April","May","June",
+                "July","August","September","October","November","December"];
+
+function fmtRange(a, b) {
+  const d1 = new Date(a + "T00:00:00"), d2 = new Date(b + "T00:00:00");
+  const sameMonth = d1.getMonth() === d2.getMonth() && d1.getFullYear() === d2.getFullYear();
+  return sameMonth
+    ? d1.getDate() + "–" + d2.getDate() + " " + MONTHS[d2.getMonth()] + " " + d2.getFullYear()
+    : d1.getDate() + " " + MONTHS[d1.getMonth()] + " – " + d2.getDate() + " " + MONTHS[d2.getMonth()] + " " + d2.getFullYear();
+}
+
+function daysUntil(iso) {
+  const today = new Date(); today.setHours(0,0,0,0);
+  return Math.round((new Date(iso + "T00:00:00") - today) / 86400000);
+}
+
+function esc(s) {
+  return String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+}
+
+function rideHTML(r) {
+  const total = r.days.reduce((t, d) => t + d.km, 0);
+  const bar = r.days.map(d =>
+        '<span style="width:' + (d.km / total * 100).toFixed(1) + '%"></span>').join("");
+  const key = r.days.map(d =>
+        '<div>' + esc(d.label) + ' · ' + d.km + ' km</div>').join("");
+  const stats = r.stats.map(([k, v]) =>
+        '<div class="stat"><div class="k">' + esc(k) + '</div><div class="v">' + esc(v) + '</div></div>').join("");
+  const links = r.links.map(l =>
+        '<a class="btn' + (l.primary ? " btn--primary" : "") + '" href="' + esc(l.href) + '">' +
+        esc(l.label) + (l.ext ? '<span class="ext">' + esc(l.ext) + '</span>' : "") + '</a>').join("");
+
+  return '<article class="ride ride--' + r.status + '" data-status="' + r.status + '">' +
+    '<div class="ride-head">' +
+      '<span class="status">' + r.status + '</span>' +
+      '<span class="when">' + fmtRange(r.start, r.end) + '</span>' +
+    '</div>' +
+    '<h2>' + esc(r.title) + '</h2>' +
+    '<div class="route">' + esc(r.route) + '</div>' +
+    '<p class="blurb">' + esc(r.blurb) + '</p>' +
+    '<div class="stats">' + stats + '</div>' +
+    '<div class="split"><div class="split-bar">' + bar + '</div>' +
+      '<div class="split-key">' + key + '</div></div>' +
+    '<div class="links">' + links + '</div>' +
+  '</article>';
+}
+
+/* Upcoming rides first, soonest at the top; then past rides, most recent first. */
+const sorted = RIDES.slice().sort((a, b) => {
+  const ua = daysUntil(a.end) >= 0, ub = daysUntil(b.end) >= 0;
+  if (ua !== ub) return ua ? -1 : 1;
+  return ua ? a.start.localeCompare(b.start) : b.start.localeCompare(a.start);
+});
+const list = document.getElementById("rides");
+
+function render(filter) {
+  const shown = sorted.filter(r => filter === "all" || r.status === filter);
+  list.innerHTML = shown.length
+    ? shown.map(rideHTML).join("")
+    : '<p class="empty">Nothing here yet.</p>';
+}
+
+/* next upcoming ride */
+const upcoming = sorted.filter(r => daysUntil(r.end) >= 0)
+                       .sort((a, b) => a.start.localeCompare(b.start))[0];
+if (upcoming) {
+  const n = daysUntil(upcoming.start);
+  const num = n > 0 ? n : 0;
+  document.getElementById("next-ride").innerHTML =
+    '<div class="next">' +
+      '<div>' +
+        '<div class="n-label">Next ride</div>' +
+        '<div class="n-title">' + esc(upcoming.title) + '</div>' +
+        '<div class="n-when">' + fmtRange(upcoming.start, upcoming.end) + '</div>' +
+      '</div>' +
+      '<div class="n-count">' +
+        '<div class="n-num">' + num + '</div>' +
+        '<div class="n-unit">' + (num === 1 ? "day to go" : num === 0 ? "rolling" : "days to go") + '</div>' +
+      '</div>' +
+    '</div>';
+}
+
+/* filters */
+const STATES = [["all","All"],["proposed","Proposed"],["booked","Booked"],["ridden","Ridden"]];
+const bar = document.getElementById("filters");
+bar.innerHTML = STATES.map(([k, lab]) => {
+  const c = k === "all" ? RIDES.length : RIDES.filter(r => r.status === k).length;
+  return '<button class="chip" data-f="' + k + '" aria-pressed="' + (k === "all") + '">' +
+         lab + '<span class="count">' + c + '</span></button>';
+}).join("");
+
+bar.addEventListener("click", e => {
+  const b = e.target.closest(".chip");
+  if (!b) return;
+  bar.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c === b));
+  render(b.dataset.f);
+});
+
+render("all");
+</script>
+
+</body>
+</html>

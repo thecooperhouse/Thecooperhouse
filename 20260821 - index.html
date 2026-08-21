@@ -25,8 +25,6 @@
             --moto-b: #2a2d33;  /* carbon */
             --footy-a: #6c1d45; /* Broncos maroon */
             --footy-b: #d5343c; /* Stoke red */
-            --trip-a: #a8501c;  /* clay / dirt road */
-            --trip-b: #2f4858;  /* range blue */
         }
 
         * { box-sizing: border-box; }
@@ -138,15 +136,10 @@
             background-image: url("images/footy.jpg"),
                 linear-gradient(115deg, var(--footy-a) 45%, var(--footy-b));
         }
-        .card--trip .photo {
-            background-image: url("images/trips.jpg"),
-                linear-gradient(115deg, var(--trip-b) 40%, var(--trip-a));
-        }
 
         .card--tax   { --stripe-a: var(--tax-a);   --stripe-b: var(--tax-b); }
         .card--moto  { --stripe-a: var(--moto-a);  --stripe-b: var(--moto-b); }
         .card--footy { --stripe-a: var(--footy-a); --stripe-b: var(--footy-b); }
-        .card--trip  { --stripe-a: var(--trip-a);  --stripe-b: var(--trip-b); }
 
         .card-body {
             position: relative;
@@ -255,7 +248,7 @@
     <header>
         <p class="eyebrow">Personal projects</p>
         <h1>The Cooperhouse</h1>
-        <p class="intro">A collection of web tools and projects — calculators, timing sheets, the roads I ride and the teams I follow.</p>
+        <p class="intro">A collection of web tools and projects — calculators, timing sheets and the teams I follow.</p>
     </header>
 
     <a class="card card--tax" href="tax/">
@@ -277,18 +270,6 @@
             <div class="title">Motorsport</div>
             <div class="description">
                 Motorsport calculators, lap timing and race-related projects.
-            </div>
-        </div>
-        <div class="card-arrow" aria-hidden="true">&#8594;</div>
-    </a>
-
-    <a class="card card--trip" href="trips/">
-        <div class="photo" aria-hidden="true"></div>
-        <div class="card-body">
-            <div class="card-label">Touring</div>
-            <div class="title">Motorcycle Trips</div>
-            <div class="description">
-                Planned and completed rides — routes, ride cards and the notes that matter at the roadside.
             </div>
         </div>
         <div class="card-arrow" aria-hidden="true">&#8594;</div>
