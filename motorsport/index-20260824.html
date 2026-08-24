@@ -145,21 +145,6 @@
   .news-item{padding:13px 16px;border-bottom:1px solid rgba(44,52,63,.5);position:relative}
   .news-item:last-child{border-bottom:none}
   .news-item.spoiler .shield{border-radius:0;padding:12px}
-
-  /* ---- title permutations ---- */
-  .title-summary{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
-  .tstat{flex:1 1 150px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:10px 12px}
-  .tstat .k{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)}
-  .tstat .v{font-family:'Chakra Petch',sans-serif;font-size:1.25rem;font-weight:700;margin-top:2px}
-  .tstat .s{font-size:.74rem;color:var(--ink-dim);margin-top:2px}
-  .bar{position:relative;height:16px;background:var(--panel-2);border:1px solid var(--line);border-radius:3px;overflow:hidden;min-width:90px}
-  .bar span{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--confirm),#3aa76d)}
-  .bar.f1fill span{background:linear-gradient(90deg,#ff6a4d,var(--f1))}
-  .bar.motofill span{background:linear-gradient(90deg,#7fdcff,var(--moto))}
-  td.pct{font-family:'IBM Plex Mono',monospace;font-weight:600;text-align:right;white-space:nowrap}
-  tr.dead td{color:var(--ink-dim)}
-  .alive-yes{color:var(--confirm);font-weight:600}
-  .alive-no{color:var(--ink-dim)}
   .news-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:4px}
   .news-title{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:.95rem}
   .tag{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;
@@ -179,9 +164,9 @@
 <body>
 
 <header>
-  <div class="kicker">Points board · 2026 season · updated 24 August 2026 · v7 — Dutch GP (F1 Rd 12) added; title permutations for both series</div>
+  <div class="kicker">Points board · 2026 season · updated 10 August 2026 · v6 — British GP (MotoGP Rd 12) added; F1 still on summer break</div>
   <h1><span class="f1c">Formula 1</span> &amp; <span class="motoc">MotoGP</span> Race Board</h1>
-  <p class="asof">Standings, podiums, finishing gaps, fastest laps and all-time circuit records for every Grand Prix and Sprint — plus the remaining calendar and a paddock news &amp; rumours feed for each series. Each series also carries a <strong>title-permutation panel</strong>: who is still mathematically alive, and a modelled chance of taking the crown. The most recent round in each series — and its title maths — stays <strong>hidden until you tick the box</strong> to confirm you've watched it.</p>
+  <p class="asof">Standings, podiums, finishing gaps, fastest laps and all-time circuit records for every Grand Prix and Sprint — plus the remaining calendar and a paddock news &amp; rumours feed for each series. The most recent round in each series stays <strong>hidden until you tick the box</strong> to confirm you've watched it.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Championship">
@@ -194,24 +179,23 @@
 <section class="series f1-series active" id="panel-f1" role="tabpanel" aria-labelledby="tab-f1">
   <div class="parc-ferme">
     <div class="pf-text">
-      <div class="pf-title">🔒 Spoiler protection — Dutch Grand Prix, Zandvoort (Rd 12, 21–23 August)</div>
-      <div class="pf-sub">The Dutch GP + Sprint results, the current standings and the title maths are hidden until you confirm you've watched. Your choice is remembered for next time.</div>
+      <div class="pf-title">🔒 Spoiler protection — Hungarian Grand Prix (Rd 11, 26 July)</div>
+      <div class="pf-sub">The Hungarian GP result and the current standings are hidden until you confirm you've watched. Your choice is remembered for next time.</div>
     </div>
-    <label class="watch-toggle"><input type="checkbox" id="watched-f1"> I've watched the Dutch GP</label>
+    <label class="watch-toggle"><input type="checkbox" id="watched-f1"> I've watched the Hungarian GP</label>
   </div>
 
   <h2>Drivers' Championship</h2>
   <div class="spoiler" id="spoiler-f1-standings">
     <div class="shield"><div class="flag">🏁</div>
-      <p><strong>Standings hidden</strong> — they'd give away the Dutch GP result.</p>
-      <p class="small">Tick "I've watched the Dutch GP" above to reveal.</p>
+      <p><strong>Standings hidden</strong> — they'd give away the Hungarian GP result.</p>
+      <p class="small">Tick "I've watched the Hungarian GP" above to reveal.</p>
     </div>
     <div class="veil">
       <div class="board"><table>
         <thead><tr><th>Pos</th><th>Driver</th><th>Team</th><th style="text-align:right">Pts</th></tr></thead>
         <tbody id="f1-standings"></tbody>
       </table></div>
-      <p style="font-size:.76rem;color:var(--ink-dim);margin-top:8px">Liam Lawson is listed against <strong>Racing Bulls</strong>, his season team, but the six points he scored at Zandvoort standing in for the injured Isack Hadjar were banked by <strong>Red Bull Racing</strong> — which is why the drivers' and constructors' columns don't reconcile team-by-team (they still total the same 1,392 points). Yuki Tsunoda appears as a one-off substitute rather than a full-season entry.</p>
       <details class="secondary"><summary>Constructors' Championship</summary>
         <div class="board" style="border:none"><table>
           <thead><tr><th>Pos</th><th>Team</th><th style="text-align:right">Pts</th></tr></thead>
@@ -221,44 +205,21 @@
     </div>
   </div>
 
-
-  <h2>Who can still win it?</h2>
-  <div class="spoiler" data-latest="f1">
-    <div class="shield"><div class="flag">🧮</div>
-      <p><strong>Title maths hidden</strong> — it gives the Dutch GP result away.</p>
-      <p class="small">Tick "I've watched the Dutch GP" above to reveal.</p>
-    </div>
-    <div class="veil">
-      <div class="title-summary" id="f1-title-summary"></div>
-      <div class="board"><table>
-        <thead><tr><th>Driver</th><th style="text-align:right">Pts</th><th style="text-align:right">Max poss.</th><th>Alive?</th><th style="text-align:right">Title chance</th><th>&nbsp;</th></tr></thead>
-        <tbody id="f1-title"></tbody>
-      </table></div>
-      <details class="secondary"><summary>Constructors' title chance</summary>
-        <div class="board" style="border:none"><table>
-          <thead><tr><th>Team</th><th style="text-align:right">Pts</th><th style="text-align:right">Max poss.</th><th>Alive?</th><th style="text-align:right">Chance</th><th>&nbsp;</th></tr></thead>
-          <tbody id="f1-ctitle"></tbody>
-        </table></div>
-      </details>
-      <p class="cal-foot" id="f1-title-foot"></p>
-    </div>
-  </div>
-
   <h2>Race by race — podiums, gaps &amp; fastest laps</h2>
   <div class="races" id="f1-races"></div>
 
-  <div class="next-up">📅 <strong>Next round:</strong> Italian Grand Prix, Monza — 4–6 September 2026. Eleven rounds to run, and just one sprint left: Singapore. Isack Hadjar is expected back at Red Bull at Monza after his wrist fracture.</div>
+  <div class="next-up">📅 <strong>Summer break.</strong> Next round: Dutch Grand Prix, Zandvoort — 21–23 August 2026, and a sprint weekend. Remaining sprints in 2026: Netherlands and Singapore. Zandvoort's contract ends after this year, so it's the last Dutch GP for now.</div>
 
   <h2>Remaining 2026 calendar</h2>
   <div class="board"><table>
     <thead><tr><th>Rd</th><th>Grand Prix</th><th>Circuit</th><th style="text-align:right">Date</th></tr></thead>
     <tbody id="f1-calendar"></tbody>
   </table></div>
-  <p class="cal-foot"><span class="sprint-chip">S</span>= sprint weekend. Dates per formula1.com, re-checked 24 August 2026. The season-closing Qatar and Abu Dhabi rounds remain scheduled but, as noted below, aren't guaranteed.</p>
+  <p class="cal-foot"><span class="sprint-chip">S</span>= sprint weekend. Dates per formula1.com, re-checked 10 August 2026. The season-closing Qatar and Abu Dhabi rounds remain scheduled but, as noted below, aren't guaranteed.</p>
 
   <h2>Paddock news &amp; rumours</h2>
   <div class="news" id="f1-news"></div>
-  <p class="news-foot">Snapshot compiled 24 August 2026 from official announcements and paddock press (formula1.com, Sky Sports, The Race, RacingNews365, Motorsport.com). Items tagged <em>Rumour</em> or <em>One to watch</em> are unconfirmed reporting — enjoy with the usual silly-season salt.</p>
+  <p class="news-foot">Snapshot compiled 10 August 2026 from official announcements and paddock press (formula1.com, ESPN, Sky, GPFans, Motorsport.com). Items tagged <em>Rumour</em> or <em>One to watch</em> are unconfirmed reporting — enjoy with the usual silly-season salt.</p>
 </section>
 
 <section class="series moto-series" id="panel-moto" role="tabpanel" aria-labelledby="tab-moto">
@@ -281,77 +242,58 @@
         <thead><tr><th>Pos</th><th>Rider</th><th>Team</th><th style="text-align:right">Pts</th></tr></thead>
         <tbody id="moto-standings"></tbody>
       </table></div>
-      <p style="font-size:.76rem;color:var(--ink-dim);margin-top:8px">Quartararo is shown on <strong>55</strong>: his 12th place at Silverstone was wiped out by a 16-second tyre-pressure-sensor penalty, and that promoted Miller, Razgatlıoğlu, Augusto Fernández and Pol Espargaró one place each, which is why those four gained a point over the tables published on the Sunday night. His championship position is 14th either way. Viñales, Lecuona, Pol Espargaró and Augusto Fernández appear as injury replacements, substitutes or wildcards rather than full-season entries.</p>
-    </div>
-  </div>
-
-
-  <h2>Who can still win it?</h2>
-  <div class="spoiler" data-latest="moto">
-    <div class="shield"><div class="flag">🧮</div>
-      <p><strong>Title maths hidden</strong> — it gives the British GP result away.</p>
-      <p class="small">Tick "I've watched the British GP" above to reveal.</p>
-    </div>
-    <div class="veil">
-      <div class="title-summary" id="moto-title-summary"></div>
-      <div class="board"><table>
-        <thead><tr><th>Rider</th><th style="text-align:right">Pts</th><th style="text-align:right">Max poss.</th><th>Alive?</th><th style="text-align:right">Title chance</th><th>&nbsp;</th></tr></thead>
-        <tbody id="moto-title"></tbody>
-      </table></div>
-      <p class="cal-foot" id="moto-title-foot"></p>
+      <p style="font-size:.76rem;color:var(--ink-dim);margin-top:8px">Quartararo is shown on <strong>55</strong>: his 12th place at Silverstone was wiped out by a 16-second tyre-pressure-sensor penalty, and some published tables hadn't yet applied it to the points column. His championship position is 14th either way. Viñales, Lecuona, Pol Espargaró and Augusto Fernández appear as injury replacements, substitutes or wildcards rather than full-season entries.</p>
     </div>
   </div>
 
   <h2>Round by round — podiums, gaps &amp; fastest laps</h2>
   <div class="races" id="moto-races"></div>
 
-  <div class="next-up">📅 <strong>Next round:</strong> Aragon Grand Prix, MotorLand Aragón — 28–30 August 2026. Ten rounds to run, and the grid gets healthier: Johann Zarco is confirmed back at LCR and Fermín Aldeguer is expected to return at his home round. Every MotoGP round includes a Saturday Tissot Sprint.</div>
+  <div class="next-up">📅 <strong>Next round:</strong> Aragon Grand Prix, MotorLand Aragón — 28–30 August 2026. Ten rounds to run. Every MotoGP round includes a Saturday Tissot Sprint.</div>
 
   <h2>Remaining 2026 calendar</h2>
   <div class="board"><table>
     <thead><tr><th>Rd</th><th>Grand Prix</th><th>Circuit</th><th style="text-align:right">Date</th></tr></thead>
     <tbody id="moto-calendar"></tbody>
   </table></div>
-  <p class="cal-foot">Every round includes a Saturday Sprint. Dates verified against motogp.com on 24 August 2026, and reflect the March calendar reshuffle: Qatar moved from April to 6–8 November, pushing Portimão and the Valencia finale back one week each.</p>
+  <p class="cal-foot">Every round includes a Saturday Sprint. Dates verified against motogp.com on 10 August 2026, and reflect the March calendar reshuffle: Qatar moved from April to 6–8 November, pushing Portimão and the Valencia finale back one week each.</p>
 
   <h2>Paddock news &amp; rumours</h2>
   <div class="news" id="moto-news"></div>
-  <p class="news-foot">Snapshot compiled 24 August 2026 from official announcements and paddock press (motogp.com, Crash, The Race, Speedweek, GPBlog). Items tagged <em>Rumour</em> or <em>One to watch</em> are unconfirmed reporting. One story is spoiler-shielded because it draws on the British GP weekend.</p>
+  <p class="news-foot">Snapshot compiled 10 August 2026 from official announcements and paddock press (motogp.com, Crash, The Race, MCNews). Items tagged <em>Rumour</em> or <em>One to watch</em> are unconfirmed reporting. One story is spoiler-shielded because it draws on the British GP weekend.</p>
 </section>
 
 </main>
 
 <footer>
   <div class="rule">
-    <p><strong>The title panels:</strong> “Alive?” is pure arithmetic — you are alive while your current points plus everything still on the table reach the leader’s total. “Title chance” is a Monte Carlo estimate over 200,000 simulated remainders of the season, and it is a model, not a fact. Its strengths are fitted so each entrant’s expected points per round reproduce their actual 2026 average, and it adds a per-round form shock, a per-race retirement probability and a season-long ±25% pace-drift term. It is deliberately <em>not</em> recency-weighted, which is its biggest known weakness right now: McLaren have won the last two Grands Prix and Aprilia have won three of the last six MotoGP Grands Prix and swept the Silverstone podium, and a form-weighted model would be kinder to both. Everything under about 1% should be read as “barring something extraordinary, no”.</p>
     <p><strong>How to read the timing data:</strong> the gold chip next to the winner is their total race time; the chips next to P2 and P3 are how far behind they finished (≈ marks a figure reported to the nearest tenth or as "around X seconds" rather than official timing). "FL" is the fastest lap of that race and who set it — the driver/rider who set it wasn't always on the podium.</p>
     <p><strong>Circuit records:</strong> for F1 the "circuit best" is the official race lap record — the fastest lap ever set during a race on the current layout (F1's 2026-spec cars are around 2s/lap slower, so most records date from the 2018–2025 era). For MotoGP it's the all-time circuit record, which in bike racing usually falls in qualifying; where the record fell during a 2026 weekend the card says so.</p>
-    <p>Data snapshot compiled <strong>24 August 2026</strong> from official series results, timing reports and press coverage. The Dutch GP round is cross-checked across the RaceFans, PlanetF1, The Race and Total-Motorsport classifications, which agree on every gap; Norris’s winning time of 2:04:44.859 (inflated by the lap-1 red flag) and Leclerc’s fastest lap come from the F1-Fansite classification, and Russell’s +15.906s is the figure given by three of the four tables — one rounds it to +16.0s. Reports differ by a lap or two on exactly when Norris retook the lead (F1.com says lap 52), so the card says “around lap 52” rather than picking a winner. The MotoGP standings now carry the full knock-on from Quartararo’s Silverstone tyre-pressure penalty: Miller, Razgatlıoğlu, Augusto Fernández and Pol Espargaró each gain a point over the tables published on the Sunday night, as confirmed by both Crash and RaceTrack Masters. No official winner’s total race time was published for the MotoGP British GP, so that chip is blank rather than guessed. One F1 gap remains approximate: Verstappen’s P3 margin at Spa was reported to the nearest tenth in every citable source, hence the ≈. Sprint fastest laps are rarely published; Catalunya’s is shown. Ask Claude for a refreshed version after future rounds; the spoiler shield moves to the newest race automatically.</p>
-    <p>F1 sprint rounds in 2026: China, Miami, Canada, Great Britain, Netherlands, Singapore. The Bahrain &amp; Saudi Arabian GPs were cancelled in March, cutting the calendar to 22 rounds; on 26 July F1 confirmed the Bahrain GP will be run at Sepang, Malaysia on 2–4 October under the Bahrain name, taking the season back to 23. The season-closing Qatar and Abu Dhabi rounds are unchanged for now but not guaranteed. MotoGP's Qatar GP moved to 6–8 November, which pushed Portimão to 20–22 November and the Valencia finale to 27–29 November; Silverstone was round 12 of 22, so ten rounds remain. Zandvoort was F1 round 12 of 23, leaving eleven — with Singapore the only sprint still to come.</p>
-    <p><strong>Remaining calendars &amp; news:</strong> the remaining-race tables were verified against formula1.com and motogp.com on 24 August 2026, and the news panels are a snapshot of the same date drawn from official team/series announcements and paddock press. Confirmed items are officially announced; Rumour and One-to-watch items are reporting only and may well change — that's half the fun. Ask Claude for a refreshed version to update both.</p>
+    <p>Data snapshot compiled 10 August 2026 from official series results, timing reports and press coverage. The British GP round comes from the FIM classification as published by Crash and The Race, cross-checked against each other: the Sprint winner's time and all podium gaps are gaps to the winner, and the fastest lap is Raúl Fernández's new race lap record. No official winner's total race time was published for the British GP, so that chip is blank rather than guessed. Race fastest-lap times are shown for every F1 and every MotoGP Grand Prix. One gap remains approximate: Verstappen's P3 margin at Spa was reported to the nearest tenth in every citable source, hence the ≈. Sprint fastest laps are rarely published; Catalunya’s is shown. Ask Claude for a refreshed version after future rounds; the spoiler shield moves to the newest race automatically.</p>
+    <p>F1 sprint rounds in 2026: China, Miami, Canada, Great Britain, Netherlands, Singapore. The Bahrain &amp; Saudi Arabian GPs were cancelled in March, cutting the calendar to 22 rounds; on 26 July F1 confirmed the Bahrain GP will be run at Sepang, Malaysia on 2–4 October under the Bahrain name, taking the season back to 23. The season-closing Qatar and Abu Dhabi rounds are unchanged for now but not guaranteed. MotoGP's Qatar GP moved to 6–8 November, which pushed Portimão to 20–22 November and the Valencia finale to 27–29 November; Silverstone was round 12 of 22, so ten rounds remain.</p>
+    <p><strong>Remaining calendars &amp; news:</strong> the remaining-race tables were verified against formula1.com and motogp.com on 10 August 2026, and the news panels are a snapshot of the same date drawn from official team/series announcements and paddock press. Confirmed items are officially announced; Rumour and One-to-watch items are reporting only and may well change — that's half the fun. Ask Claude for a refreshed version to update both.</p>
   </div>
 </footer>
 
 <script>
 /* ============ DATA ============ */
 const F1_STANDINGS = [
-  ["Kimi Antonelli","Mercedes",242],["George Russell","Mercedes",183],
-  ["Lewis Hamilton","Ferrari",183],["Lando Norris","McLaren",159],
-  ["Charles Leclerc","Ferrari",155],["Max Verstappen","Red Bull",112],
-  ["Oscar Piastri","McLaren",104],["Isack Hadjar","Red Bull",68],
-  ["Liam Lawson","Racing Bulls",49],["Pierre Gasly","Alpine",44],
+  ["Kimi Antonelli","Mercedes",219],["Lewis Hamilton","Ferrari",169],
+  ["George Russell","Mercedes",160],["Charles Leclerc","Ferrari",138],
+  ["Lando Norris","McLaren",128],["Max Verstappen","Red Bull",109],
+  ["Oscar Piastri","McLaren",92],["Isack Hadjar","Red Bull",68],
+  ["Liam Lawson","Racing Bulls",43],["Pierre Gasly","Alpine",42],
   ["Arvid Lindblad","Racing Bulls",23],["Franco Colapinto","Alpine",19],
   ["Oliver Bearman","Haas",18],["Gabriel Bortoleto","Audi",10],
-  ["Nico Hülkenberg","Audi",6],["Carlos Sainz","Williams",6],
-  ["Alexander Albon","Williams",5],["Fernando Alonso","Aston Martin",3],
-  ["Esteban Ocon","Haas",3],["Lance Stroll","Aston Martin",0],
-  ["Valtteri Bottas","Cadillac",0],["Sergio Pérez","Cadillac",0],
-  ["Yuki Tsunoda","Racing Bulls",0]
+  ["Carlos Sainz","Williams",6],["Alexander Albon","Williams",5],
+  ["Esteban Ocon","Haas",3],["Nico Hülkenberg","Audi",2],
+  ["Fernando Alonso","Aston Martin",1],["Lance Stroll","Aston Martin",0],
+  ["Valtteri Bottas","Cadillac",0],["Sergio Pérez","Cadillac",0]
 ];
 const F1_CONSTRUCTORS = [
-  ["Mercedes",425],["Ferrari",338],["McLaren",263],["Red Bull Racing",186],
-  ["Racing Bulls",66],["Alpine",63],["Haas",21],["Audi",16],
-  ["Williams",11],["Aston Martin",3],["Cadillac",0]
+  ["Mercedes",379],["Ferrari",307],["McLaren",220],["Red Bull Racing",177],
+  ["Racing Bulls",66],["Alpine",61],["Haas",21],["Audi",12],
+  ["Williams",11],["Aston Martin",1],["Cadillac",0]
 ];
 
 /* podium entries: [name, team, chip] — chip is winner's race time for P1, gap for P2/P3, or null */
@@ -404,17 +346,11 @@ const F1_RACES = [
    race:{podium:[["Kimi Antonelli","Mercedes","1:24:42.479"],["Charles Leclerc","Ferrari","+1.952s"],["Max Verstappen","Red Bull","≈ +11.5s"]],
          fl:{who:"Lando Norris",t:"1:48.890",extra:"set on lap 44 — the final lap — after his grid penalty left him recovering to P7"}},
    note:"Antonelli's sixth win of 2026, retaking the lead from Leclerc on lap 34 after Ferrari undercut him at the VSC. Russell out on lap 1 — an energy-deployment failure left him swamped, then contact with Hamilton (5s penalty) pitched him into the gravel. Verstappen's P3 was Red Bull's 300th podium."},
-  {rd:11,gp:"Hungarian GP",circuit:"Hungaroring",date:"26 Jul",
+  {rd:11,gp:"Hungarian GP",circuit:"Hungaroring",date:"26 Jul",latest:true,
    record:{t:"1:16.627",who:"L. Hamilton",ev:"2020 Hungarian GP"},
    race:{podium:[["Lando Norris","McLaren","1:39:56.180"],["Max Verstappen","Red Bull","+15.080s"],["Kimi Antonelli","Mercedes","+18.728s"]],
          fl:{who:"Charles Leclerc",t:"1:22.000",extra:"set on lap 58 in clean air after his second stop — too late to change the podium"}},
-   note:"Norris's first win of the season, and McLaren's, from his first pole of 2026 — taken by 0.012s from Hamilton, ending Mercedes' run of ten straight poles. Piastri jumped him at Turn 2 on lap 1 and led until contact with Sainz in traffic after the second stops swung it Norris's way; a gearbox failure ended the Australian's race on lap 56. Hamilton crossed the line fourth but a 5s pit-lane speeding penalty handed P4 to Leclerc. Hamilton and Antonelli had both taken three-place grid drops on Saturday."},
-  {rd:12,gp:"Dutch GP",circuit:"Zandvoort",date:"21–23 Aug",latest:true,
-   record:{t:"1:11.097",who:"L. Hamilton",ev:"2021 Dutch GP"},
-   sprint:{podium:[["George Russell","Mercedes","30:25.318"],["Charles Leclerc","Ferrari","+1.360s"],["Lando Norris","McLaren","+5.196s"]]},
-   race:{podium:[["Lando Norris","McLaren","2:04:44.859"],["Kimi Antonelli","Mercedes","+11.536s"],["George Russell","Mercedes","+15.906s"]],
-         fl:{who:"Charles Leclerc",t:"1:14.230",extra:"set on lap 60 — no threat to the podium by then"}},
-   note:"Zandvoort's F1 farewell, and a bruising one for the home crowd: Max Verstappen lost the rear on the main straight at the end of lap 1 and hit the wall hard, unhurt but out, bringing out the red flag. Norris started from pole but was jumped by Antonelli at the standing restart and spent two-thirds of the race chasing him down, retaking the lead around lap 52 and winning by 11.5s — his second win in a row and McLaren's 205th. Mercedes swapped their cars on lap 65 to give Antonelli second. Liam Lawson, standing in for the injured Isack Hadjar at Red Bull, took P7 despite a 10s yellow-flag penalty; Yuki Tsunoda returned from the sidelines to fill Lawson's Racing Bulls seat at a few days' notice. Yellow-flag penalties also hit Tsunoda, Lindblad and Colapinto, and Sainz took 10s for the Williams-on-Williams collision. Antonelli leaves the Netherlands 59 points clear."}
+   note:"Norris's first win of the season, and McLaren's, from his first pole of 2026 — taken by 0.012s from Hamilton, ending Mercedes' run of ten straight poles. Piastri jumped him at Turn 2 on lap 1 and led until contact with Sainz in traffic after the second stops swung it Norris's way; a gearbox failure ended the Australian's race on lap 56. Hamilton crossed the line fourth but a 5s pit-lane speeding penalty handed P4 to Leclerc. Hamilton and Antonelli had both taken three-place grid drops on Saturday."}
 ];
 
 const MOTO_STANDINGS = [
@@ -427,10 +363,10 @@ const MOTO_STANDINGS = [
   ["Brad Binder","Red Bull KTM",72],["Fabio Quartararo","Monster Yamaha",55],
   ["Diogo Moreira","LCR Honda",54],["Franco Morbidelli","VR46 Ducati",53],
   ["Johann Zarco","LCR Honda",34],["Joan Mir","Honda HRC",29],
-  ["Jack Miller","Pramac Yamaha",23],["Álex Rins","Monster Yamaha",21],
-  ["Toprak Razgatlıoğlu","Pramac Yamaha",14],["Maverick Viñales","KTM Tech3",10],
-  ["Iker Lecuona","Gresini Ducati",9],["Augusto Fernández","Yamaha (wildcard)",6],
-  ["Pol Espargaró","KTM Tech3",3]
+  ["Jack Miller","Pramac Yamaha",22],["Álex Rins","Monster Yamaha",21],
+  ["Toprak Razgatlıoğlu","Pramac Yamaha",13],["Maverick Viñales","KTM Tech3",10],
+  ["Iker Lecuona","Gresini Ducati",9],["Augusto Fernández","Yamaha (wildcard)",5],
+  ["Pol Espargaró","KTM Tech3",2]
 ];
 
 const MOTO_RACES = [
@@ -511,6 +447,7 @@ const MOTO_RACES = [
 
 /* ============ REMAINING CALENDARS (as of 10 Aug 2026) ============ */
 const F1_CALENDAR = [
+  {rd:12,gp:"Dutch GP",circuit:"Zandvoort",date:"21–23 Aug",sprint:true,note:"Final Dutch GP — contract ends after 2026"},
   {rd:13,gp:"Italian GP",circuit:"Monza",date:"4–6 Sep"},
   {rd:14,gp:"Spanish GP",circuit:"Madring, Madrid",date:"11–13 Sep",note:"Circuit debut"},
   {rd:15,gp:"Azerbaijan GP",circuit:"Baku City Circuit",date:"24–26 Sep"},
@@ -540,65 +477,37 @@ const MOTO_CALENDAR = [
    tag: "confirmed" | "rumour" | "watch". body is trusted HTML.
    spoiler:true shields the item behind the series' watched-checkbox. */
 const F1_NEWS = [
-  {tag:"confirmed",title:"It's over: Verstappen signs with Red Bull to the end of 2030",
-   body:"The biggest question of the silly season answered on the Thursday of the Dutch GP. <strong>Max Verstappen</strong> — whose exit clause had gone live when he finished the first half of the season sixth — has instead signed a <strong>contract extension through the end of 2030</strong>. The McLaren and Mercedes links are dead, and with the top four teams' line-ups now effectively settled for 2027, what's left of the market is concentrated in the midfield."},
-  {tag:"confirmed",title:"Hadjar breaks a wrist punching a bag; Lawson steps up, Tsunoda returns",
-   body:"<strong>Isack Hadjar</strong> fractured his wrist during the summer break doing boxing drills on a sandbag, and missed Zandvoort. <strong>Liam Lawson</strong> was promoted from Racing Bulls to partner Verstappen and scored a point-scoring P7 on debut in the RB22, while reserve driver <strong>Yuki Tsunoda</strong> was pulled off a Greek beach at a few days' notice to take Lawson's Racing Bulls seat. Hadjar has roughly two weeks to be fit for Monza."},
+  {tag:"rumour",title:"Verstappen–McLaren: the story of the break",
+   body:"It's now formal: Verstappen finished the first half sixth, well outside the top-two threshold, so the <strong>exit clause is live</strong> and he is effectively a free agent. He's understood to have until around October to tell Red Bull either way. <strong>McLaren</strong> and <strong>Mercedes</strong> are the two credible destinations being reported — McLaren have already signed his race engineer Gianpiero Lambiase for 2028 — but ESPN's sources call the McLaren link wide of the mark, and the paddock's quiet expectation is still that he stays put for another year. His two stated gripes haven't changed: Red Bull's pace, and the 2026 power-unit rules."},
   {tag:"confirmed",title:"Leclerc signs long-term Ferrari extension",
-   body:"Announced before Monaco: a multi-year deal keeping <strong>Charles Leclerc</strong> at Ferrari into the next decade — now the longest contract on the grid, and, until Verstappen re-signed, the biggest name off the 2027 board."},
-  {tag:"watch",title:"Alonso's decision still hanging",
-   body:"Aston Martin's Newey-designed, Honda-powered 2026 car has now scored three points all season — two of them from <strong>Fernando Alonso</strong>'s P9 at Zandvoort. The 45-year-old said he'd decide over the summer; he hasn't, and the reporting now frames an extension as likely but contingent on how convincing Honda's 2027 package looks. Nothing is announced."},
-  {tag:"rumour",title:"Midfield movers: Haas and the Red Bull junior queue",
-   body:"With the top four locked, the market is Haas, Aston and the Red Bull ladder. <strong>Esteban Ocon</strong> is under real pressure, with F2 leader <strong>Leonardo Fornaroli</strong> and <strong>Rafael Camara</strong> both being talked about. At Red Bull, F2 pace-setter <strong>Nikola Tsolov</strong> is pushing from below and Lawson's Zandvoort cameo has done his own case no harm. <strong>Franco Colapinto</strong>'s seat at Alpine now looks reasonably safe by default."},
-  {tag:"watch",title:"Mercedes' fine print: both seats still technically open",
-   body:"<strong>George Russell</strong> is reportedly on a \"1+1\" that auto-renews for 2027 on performance targets, and <strong>Kimi Antonelli</strong> — 59 points clear — is considered certain to stay. Neither is formally confirmed beyond 2026."}
+   body:"Announced before Monaco: a multi-year deal keeping <strong>Charles Leclerc</strong> at Ferrari into the next decade — now the longest contract on the grid, and the biggest non-Verstappen name off the 2027 board."},
+  {tag:"watch",title:"Alonso expected to decide his future over the break",
+   body:"Aston Martin's Newey-designed, Honda-powered 2026 car has delivered a single point all season. <strong>Fernando Alonso</strong>, now 45, said in Austria that he'd decide over the summer and that how much he enjoys the regulations would be the deciding factor — the reporting since has leaned towards him staying at Aston Martin, with Alpine also said to be watching. Nothing is announced."},
+  {tag:"watch",title:"Mercedes' fine print: both seats technically open",
+   body:"<strong>George Russell</strong> is reportedly on a \"1+1\" that auto-renews for 2027 on performance targets, and <strong>Kimi Antonelli</strong> is considered certain to stay — but neither is formally confirmed beyond 2026 yet."},
+  {tag:"rumour",title:"Midfield movers: Haas and Aston the likeliest",
+   body:"With more than half the grid out of contract for 2027, the paddock consensus is that <strong>Aston Martin</strong> and <strong>Haas</strong> are the clearest sources of movement. <strong>Esteban Ocon</strong> is under pressure to keep his Haas seat, while <strong>Franco Colapinto</strong>'s mid-season revival has strengthened his hand at Alpine."}
 ];
 const MOTO_NEWS = [
-  {tag:"confirmed",title:"Bastianini to Trackhouse — the 2027 grid is all but complete",
-   body:"Confirmed on 24 August: <strong>Enea Bastianini</strong> leaves Tech3 KTM for <strong>Trackhouse Aprilia</strong> in 2027, taking the seat Ai Ogura vacates for Yamaha and lining up alongside the re-signed <strong>Raúl Fernández</strong>. Ducati-to-KTM-to-Aprilia in three seasons. That leaves the two <strong>Tech3</strong> seats as the only real unknown on the 2027 grid."},
-  {tag:"confirmed",title:"Bulega quits WorldSBK for VR46 Ducati",
-   body:"The two-time Superbike champion <strong>Nicolò Bulega</strong> has signed with <strong>VR46 Ducati</strong> for 2027, partnering <strong>Fermín Aldeguer</strong> — and has already been quick on the 850cc prototype in testing. Not everyone is thrilled about how it came about: a former WorldSBK team boss claims Ducati left VR46 no real choice in the matter."},
-  {tag:"confirmed",title:"Zarco back at Aragon; Aldeguer expected too",
-   body:"<strong>Johann Zarco</strong> is confirmed to return at Aragon after six rounds out with the knee ligament damage from his Catalunya crash — ahead of schedule, after rehabbing on supermoto and a CBR1000RR. <strong>Cal Crutchlow</strong> stands down at LCR after more than two months of deputising. <strong>Fermín Aldeguer</strong> (T7 fracture, Assen) has posted training pictures captioned \"almost back\" and is expected at his home round, though Gresini hasn't confirmed it."},
   {tag:"confirmed",title:"Acosta joins factory Ducati for 2027",
    body:"<strong>Pedro Acosta</strong> has signed a two-year deal to partner <strong>Marc Márquez</strong> (himself committed through 2028) at the factory Ducati team when the 850cc era begins — one of the most coveted pairings in the sport's next chapter."},
   {tag:"confirmed",title:"Bagnaia leaves Ducati for Aprilia",
    body:"Announced at Assen: <strong>Francesco Bagnaia</strong> swaps Ducati red for Noale on a four-year contract, forming an all-Italian factory line-up with <strong>Marco Bezzecchi</strong> from 2027."},
   {tag:"confirmed",title:"Yamaha reboot: Martín and Ogura in, Quartararo and Rins out",
-   body:"Yamaha has signed <strong>Jorge Martín</strong> and <strong>Ai Ogura</strong> for 2027–28, bidding farewell to <strong>Fabio Quartararo</strong> and <strong>Álex Rins</strong>. Quartararo's two-year <strong>Honda HRC</strong> deal was announced on 21 July; his team-mate is still between Diogo Moreira and Moto2 phenom David Alonso, with the other of the two going to LCR alongside Zarco."},
+   body:"Yamaha has signed <strong>Jorge Martín</strong> and <strong>Ai Ogura</strong> for 2027–28, bidding farewell to <strong>Fabio Quartararo</strong> and <strong>Álex Rins</strong>. Quartararo's two-year <strong>Honda HRC</strong> deal was announced on 21 July — his second seat is between Diogo Moreira and Moto2 phenom David Alonso, while Alberto Puig steps back to an advisory role with Mikihiko Kawase taking over as team manager."},
   {tag:"confirmed",title:"KTM rebuilt; Gresini locks in Mir and Holgado",
    body:"Red Bull KTM's all-new 2027 pairing is <strong>Álex Márquez</strong> and <strong>Fabio Di Giannantonio</strong> — leaving long-serving <strong>Brad Binder</strong> without a seat. Gresini has signed 2020 champion <strong>Joan Mir</strong> alongside rookie <strong>Dani Holgado</strong>."},
-  {tag:"rumour",title:"Tech3's last two seats: Agius and Marini the names in the frame",
-   body:"With Bastianini gone, <strong>Tech3</strong> is the final piece of the 2027 puzzle. The names being reported are Moto2 front-runner <strong>Senna Agius</strong> and <strong>Luca Marini</strong> — which would match Guenther Steiner's stated preference for one experienced rider plus a rookie — but nothing is signed, and there's a persistent suggestion the team could switch manufacturer altogether."},
+  {tag:"rumour",title:"Bulega to VR46 \"close\"; Tech3 seats still open",
+   body:"WorldSBK star <strong>Nicolò Bulega</strong> is expected to be announced at VR46 Ducati for 2027 alongside Fermín Aldeguer — his camp says a deal is close. The two Tech3 KTM seats remain the main vacancy, with Guenther Steiner said to want one experienced rider plus a rookie."},
+  {tag:"confirmed",title:"Raúl Fernández re-signs with Trackhouse",
+   body:"Announced in the week before Silverstone: a new <strong>two-year deal</strong> keeping <strong>Raúl Fernández</strong> at Trackhouse Aprilia through 2028, after a spell of genuine doubt over his future. His timing turned out to be excellent."},
+  {tag:"confirmed",title:"Injury list: Aldeguer, Zarco and Viñales all absent",
+   body:"<strong>Fermín Aldeguer</strong> is still out with the T7 vertebra fracture from his Assen practice crash and targets a return at Aragon, with <strong>Iker Lecuona</strong> deputising at Gresini. <strong>Johann Zarco</strong> remains sidelined by the knee ligament damage from Catalunya — <strong>Cal Crutchlow</strong> stood in at LCR for his first home GP since 2021. <strong>Maverick Viñales</strong> withdrew from Silverstone for further shoulder treatment, with KTM test rider <strong>Pol Espargaró</strong> in the Tech3 seat."},
   {tag:"confirmed",title:"Silverstone signs on for two more years",
    body:"MotoGP has extended its deal with <strong>Silverstone</strong>, keeping the British round at the circuit beyond 2026. The Two Wheels for Life charity weekend also set a new British GP fundraising record."},
   {tag:"watch",title:"Ducati's tyre problem is becoming a pattern",spoiler:true,
-   body:"Silverstone was the second straight weekend where the GP26 chewed through its rear tyre while the RS-GP26 didn't. <strong>Marc Márquez</strong> called it not possible to fight, <strong>Fabio Di Giannantonio</strong> pointed at a power deficit, and <strong>Pecco Bagnaia</strong> admitted the factory team doesn't know what to do. With ten rounds left, Aprilia on a roll and the model above giving Ducati's best-placed rider a 3.4% title chance, this is the story of the second half."}
+   body:"Silverstone was the second straight weekend where the GP26 chewed through its rear tyre while the RS-GP26 didn't. <strong>Marc Márquez</strong> called it not possible to fight, <strong>Fabio Di Giannantonio</strong> pointed at a power deficit, and <strong>Pecco Bagnaia</strong> admitted the factory team doesn't know what to do. With ten rounds left and Aprilia on a roll, this is the story of the second half."}
 ];
-
-/* ============ TITLE PERMUTATIONS ============
-   Modelled 24 Aug 2026. See the method note rendered under each table. */
-const TITLE = {
-  f1:{
-    label:"drivers", unit:"driver", roundsLeft:11, sprintsLeft:1,
-    maxRem:283, elimLine:-41, leaderPts:242, clinchAfter:7, clinchRound:"Rd 19, Mexico City (30 Oct–1 Nov)",
-    perRound:"25 for a win, plus 8 for the Singapore sprint",
-    rows:[["Kimi Antonelli",242,99.1],["George Russell",183,0.5],["Lewis Hamilton",183,0.5],
-          ["Lando Norris",159,0.01],["Charles Leclerc",155,0.01],["Max Verstappen",112,0],
-          ["Oscar Piastri",104,0],["Isack Hadjar",68,0]],
-    ctorMaxRem:488, ctorLeader:425,
-    ctors:[["Mercedes",425,99.8],["Ferrari",338,0.2],["McLaren",263,0],["Red Bull Racing",186,0],
-           ["Racing Bulls",66,0],["Alpine",63,0]]
-  },
-  moto:{
-    label:"riders", unit:"rider", roundsLeft:10, sprintsLeft:10,
-    maxRem:370, elimLine:-130, leaderPts:240, clinchAfter:8, clinchRound:"Rd 20, Qatar (6–8 Nov)",
-    perRound:"37 a round — 25 for the GP, 12 for the Sprint",
-    rows:[["Jorge Martín",240,80.1],["Marco Bezzecchi",209,8.6],["Ai Ogura",203,4.5],
-          ["Marc Márquez",200,3.4],["Fabio Di Giannantonio",199,3.0],["Raúl Fernández",184,0.4],
-          ["Pedro Acosta",163,0.01],["Francesco Bagnaia",143,0]]
-  }
-};
 
 /* ============ RENDER ============ */
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
@@ -676,53 +585,6 @@ function newsItemHTML(n, seriesKey){
   }
   return `<div class="news-item">${inner}</div>`;
 }
-function pctText(v){
-  if(v>=99.95) return ">99.9%";
-  if(v>=10)    return v.toFixed(0)+"%";
-  if(v>=1)     return v.toFixed(1)+"%";
-  if(v>=0.05)  return v.toFixed(1)+"%";
-  if(v>0)      return "<0.1%";
-  return "<0.01%";
-}
-function titleRow(name,pts,prob,maxRem,leaderPts,fillCls){
-  const maxPoss = pts+maxRem;
-  const alive = maxPoss>=leaderPts;
-  const w = Math.max(prob>0?1.5:0, Math.min(100,prob));
-  return `<tr class="${alive?'':'dead'}">
-    <td class="name">${esc(name)}</td>
-    <td class="pts">${pts}</td>
-    <td class="pts">${maxPoss}</td>
-    <td class="${alive?'alive-yes':'alive-no'}">${alive?'Yes':'No'}</td>
-    <td class="pct">${pctText(prob)}</td>
-    <td><div class="bar ${fillCls}"><span style="width:${w}%"></span></div></td>
-  </tr>`;
-}
-function renderTitle(key){
-  const T = TITLE[key];
-  const fill = key==="f1" ? "f1fill" : "motofill";
-  document.getElementById(key+"-title").innerHTML =
-    T.rows.map(r=>titleRow(r[0],r[1],r[2],T.maxRem,T.leaderPts,fill)).join("");
-  if(T.ctors){
-    document.getElementById(key+"-ctitle").innerHTML =
-      T.ctors.map(r=>titleRow(r[0],r[1],r[2],T.ctorMaxRem,T.ctorLeader,fill)).join("");
-  }
-  document.getElementById(key+"-title-summary").innerHTML = `
-    <div class="tstat"><div class="k">Rounds left</div><div class="v">${T.roundsLeft}</div><div class="s">${T.sprintsLeft} with a sprint</div></div>
-    <div class="tstat"><div class="k">Still available</div><div class="v">${T.maxRem} pts</div><div class="s">${T.perRound}</div></div>
-    <div class="tstat"><div class="k">Elimination line</div><div class="v">${T.elimLine} pts</div><div class="s">below this you're out — so nobody is, yet</div></div>
-    <div class="tstat"><div class="k">Earliest clinch</div><div class="v">+${T.clinchAfter} rounds</div><div class="s">${esc(T.clinchRound)}</div></div>`;
-  document.getElementById(key+"-title-foot").innerHTML =
-    `<strong>Mathematically</strong>, an entrant is still alive while their points + ${T.maxRem} remaining ≥ the leader's ${T.leaderPts}. `+
-    `That puts the cut-off at <strong>${T.elimLine}</strong> points, so <strong>every ${T.unit} on the grid is technically still in it</strong> — `+
-    `the first eliminations can't happen until the line climbs above zero. `+
-    `<strong>Title chance</strong> is not maths, it's a model: 200,000 simulated seasons in which each entrant's finishing position is drawn from a `+
-    `Plackett–Luce ranking whose strengths are fitted so that every entrant's expected points per round match what they've actually averaged over the 12 rounds so far, `+
-    `plus a per-round form shock, a per-race retirement chance (${key==="f1"?"7.5%":"11%"}) and a season-long pace-drift term of ±25% to allow for the second half simply being different. `+
-    `Two honest caveats: the model uses <em>full-season</em> form, so it under-rates a team that has only just come good `+
-    `(${key==="f1"?"McLaren have won the last two":"Aprilia have won three of the last six GPs and locked out the Silverstone podium"}), and it knows nothing about upgrades, injuries or the weather. `+
-    `Treat the small numbers as \u201cvery unlikely\u201d rather than as precise odds.`;
-}
-
 function renderNews(list, containerId, seriesKey){
   document.getElementById(containerId).innerHTML = list.map(n=>newsItemHTML(n,seriesKey)).join("");
 }
@@ -736,34 +598,24 @@ renderStandings(MOTO_STANDINGS,"moto-standings");
 renderRaces(MOTO_RACES,"moto-races","moto");
 renderCalendar(MOTO_CALENDAR,"moto-calendar");
 renderNews(MOTO_NEWS,"moto-news","moto");
-renderTitle("f1");
-renderTitle("moto");
 
 /* ============ SPOILER STATE (persistent) ============ */
-const LATEST = { f1:"f1-2026-r12", moto:"moto-2026-r12" }; // change these ids when new rounds are added
+const LATEST = { f1:"f1-2026-r11", moto:"moto-2026-r12" }; // change these ids when new rounds are added
 const STORAGE_KEY = "raceboard:watched";
 let state = { f1:{}, moto:{} };
 let storageOk = typeof window.storage !== "undefined";
 
 async function loadState(){
-  if(storageOk){
-    try{
-      const res = await window.storage.get(STORAGE_KEY);
-      if(res && res.value){ state = JSON.parse(res.value); return; }
-    }catch(e){ /* fall through to localStorage */ }
-  }
+  if(!storageOk) return;
   try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(raw) state = JSON.parse(raw);
-  }catch(e){ /* first visit, or storage blocked */ }
+    const res = await window.storage.get(STORAGE_KEY);
+    if(res && res.value) state = JSON.parse(res.value);
+  }catch(e){ /* first visit — key doesn't exist yet */ }
 }
 async function saveState(){
-  const payload = JSON.stringify(state);
-  if(storageOk){
-    try{ await window.storage.set(STORAGE_KEY, payload); }catch(e){ /* fall through */ }
-  }
-  try{ localStorage.setItem(STORAGE_KEY, payload); }
-  catch(e){ /* storage blocked — the tick just won't be remembered */ }
+  if(!storageOk) return;
+  try{ await window.storage.set(STORAGE_KEY, JSON.stringify(state)); }
+  catch(e){ console.error("Could not save watched state", e); }
 }
 function applySeries(key){
   const watched = !!(state[key] && state[key][LATEST[key]]);
