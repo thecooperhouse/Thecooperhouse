@@ -155,8 +155,9 @@
   /* ===== maths panel ===== */
   .maths{margin:0 28px 26px;border:1px solid var(--card-edge);border-radius:14px;background:rgba(0,0,0,.28);padding:20px 22px}
   .maths h4{font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:20px;margin-bottom:4px}
-  .verdict{display:inline-block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;padding:5px 11px;border-radius:999px;margin-bottom:14px;
+  .verdict{display:inline-block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;padding:5px 11px;border-radius:999px;margin-bottom:14px;margin-right:8px;
     background:rgba(224,90,90,.14);color:var(--bad);border:1px solid rgba(224,90,90,.45)}
+  .verdict.good{background:rgba(62,201,126,.16);color:var(--good);border:1px solid rgba(62,201,126,.45)}
   .eq{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:13px;background:rgba(0,0,0,.4);border-left:3px solid var(--gold);
     padding:11px 14px;border-radius:0 8px 8px 0;margin:12px 0;color:#e9e2f0;line-height:1.85;overflow-x:auto;white-space:pre}
   .stoke .eq{border-left-color:var(--stoke-red)}
@@ -198,28 +199,28 @@
 <header>
   <p class="kick">Two clubs · Two hemispheres · One dashboard</p>
   <h1 class="display"><span class="bri">Broncos</span> <span class="amp">&amp;</span> <span class="stk">Stoke City</span></h1>
-  <p class="sub">Season snapshot as at Monday 17 August 2026 · A rough weekend on both sides of the planet: Brisbane thumped 40&ndash;6 at home and Reece Walsh gone for the year; Stoke beaten 1&ndash;2 by Swansea in their Championship opener</p>
+  <p class="sub">Season snapshot as at Monday 24 August 2026 · Brisbane found a way to win one that mattered to nobody but them, coming from 16&ndash;30 down to beat Canberra 34&ndash;30; Stoke lost 3&ndash;1 at Southampton and finished with ten men</p>
 </header>
 
 <!-- ===== TABS ===== -->
 <div class="tabstrip">
   <div class="tablist" role="tablist" aria-label="Choose a club">
     <button class="tab" id="tab-broncos" role="tab" aria-selected="true" aria-controls="panel-broncos" tabindex="0">
-      Broncos<span class="tsub">NRL · 16th · Eliminated</span>
+      Broncos<span class="tsub">NRL · 14th · Eliminated</span>
     </button>
     <button class="tab" id="tab-stoke" role="tab" aria-selected="false" aria-controls="panel-stoke" tabindex="-1">
-      Stoke City<span class="tsub">Championship · MD1 defeat</span>
+      Stoke City<span class="tsub">Championship · 0 pts, P2</span>
     </button>
   </div>
 </div>
 
 <div class="dates">
-  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>Broncos next</b> · Fri 21 Aug · Raiders at GIO Stadium, 6:00pm AEST</span></div>
-  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>Reynolds' last home game?</b> · Thu 27 Aug · Storm at Suncorp, 7:50pm AEST</span></div>
+  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>Broncos next</b> · Thu 27 Aug · Storm at Suncorp, 7:50pm AEST</span></div>
+  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>Reynolds' fitness call</b> · Today, Mon 24 Aug — decides Suncorp farewell</span></div>
   <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>NRL Grand Final</b> · Sun 4 Oct · Accor Stadium</span></div>
-  <div class="date-chip" data-club="stoke"><span class="dot r"></span><span><b>Stoke next</b> · Sat 22 Aug · Southampton away, 3pm BST (midnight AEST)</span></div>
-  <div class="date-chip" data-club="stoke"><span class="dot r"></span><span><b>Carabao Cup R2</b> · Tue 25 Aug · Hull City at the bet365, 7:45pm BST</span></div>
-  <div class="date-chip" data-club="stoke"><span class="dot r"></span><span><b>Transfer deadline</b> · Mon 31 Aug</span></div>
+  <div class="date-chip" data-club="stoke"><span class="dot r"></span><span><b>Stoke next</b> · Tue 25 Aug · Hull City home, Carabao Cup R2, 7:45pm BST</span></div>
+  <div class="date-chip" data-club="stoke"><span class="dot r"></span><span><b>Then</b> · Sat 29 Aug · Wolves away, 12:30pm BST</span></div>
+  <div class="date-chip" data-club="stoke"><span class="dot r"></span><span><b>Transfer deadline</b> · Tue 1 Sep, 11pm BST (not 31 Aug — see corrections)</span></div>
 </div>
 
 <main>
@@ -229,24 +230,24 @@
   <section class="club broncos">
     <div class="club-head">
       <h2 class="display">Brisbane Broncos</h2>
-      <span class="tag">NRL 2026 · Reigning Premiers · 16th · Eliminated · 3 games left</span>
+      <span class="tag">NRL 2026 · Reigning Premiers · 14th · Eliminated · 2 games left</span>
     </div>
 
     <div class="nextgame">
-      <div class="ng-head">Next game — first of three, and the injury list has taken over the story</div>
+      <div class="ng-head">Next game — last home game of the year, and possibly Reynolds' farewell</div>
       <div class="ng-body">
         <div>
-          <div class="ng-match">Raiders <span style="color:var(--mut)">v</span> Broncos</div>
+          <div class="ng-match">Broncos <span style="color:var(--mut)">v</span> Storm</div>
           <p class="ng-meta">
-            <b>Where:</b> GIO Stadium, Canberra — away<br>
-            <b>Who:</b> Canberra, 12th on 24 points but still <b>mathematically alive</b> for eighth — they have two games plus a bye left and need every one of them<br>
-            <b>Team news:</b> <b>Reece Walsh is done for the season</b> — high-grade syndesmosis from a hip-drop tackle on Saturday, surgery Monday, up to eight weeks. <b>Adam Reynolds</b> is out with a grade-one soleus strain picked up at training on Wednesday and is targeting Round 26, not this one. Cory Paix is out for the year (shoulder); Brendan Piakura and Preston Riki remain unavailable<br>
-            <b>Why it matters:</b> nothing for Brisbane's ladder position, everything for Canberra's. Pat Carrigan is leading a side missing its captain, its fullback and most of its spine, against opponents whose season is still live.
+            <b>Where:</b> Suncorp Stadium — home, and Brisbane's last home game of the regular season<br>
+            <b>Who:</b> Melbourne, 11th on 24 points, and — as of Round 25 — <b>officially out of finals contention</b> for the first time since 2002. This game means nothing to either side on the ladder<br>
+            <b>Team news:</b> <b>Adam Reynolds</b>' calf strain gets a fitness call today; Maguire has flagged this as his likely Suncorp farewell if he's right. <b>Reece Walsh</b> remains out for the season (syndesmosis surgery, ~8 weeks)<br>
+            <b>Why it matters:</b> nothing on the table, everything in the stands. If Reynolds passes today's test, this is his last home game in maroon and gold before he moves upstairs to coach in 2027.
           </p>
         </div>
         <div class="ng-when">
-          <div class="d">FRI 21 AUG</div>
-          <div class="t">6:00pm AEST · Round 25</div>
+          <div class="d">THU 27 AUG</div>
+          <div class="t">7:50pm AEST · Round 26</div>
         </div>
       </div>
     </div>
@@ -254,169 +255,156 @@
     <div class="grid">
       <div class="col">
         <h3>Latest result</h3>
-        <div class="scoreline" style="background:linear-gradient(120deg,rgba(224,90,90,.18),rgba(118,35,64,.25));border-color:rgba(224,90,90,.35)">
-          <p class="win-note" style="color:var(--bad)">Lost by 34 · Sat 15 Aug · Suncorp Stadium · Round 24 · Indigenous Round · Crowd 38,916</p>
-          <div class="score-row"><span class="team-n">Broncos</span><span class="big-score">6 &ndash; 40</span><span class="team-n">Warriors</span></div>
-          <p class="score-meta">Last week's derby was cruel; this was just bleak. The Warriors led <b>20&ndash;0 at half-time</b> through Jacob Laban (8'), Chanel Harris-Tavita (13') and Alofiana Khan-Pereira (18'), then added four more after the break — Charnze Nicoll-Klokstad (45'), Dallin Watene-Zelezniak (51'), Ali Leiataua (55') and Leka Halasima (77'). Seven tries to one. <b>Xavier Willison</b> got Brisbane's only points on 60 minutes, converted by Thomas Duffy. Run metres 1,706 to 1,187. The lasting damage was Reece Walsh's ankle, caught in a hip-drop by Nicoll-Klokstad; he stayed on long enough to throw an intercept that became a try, then left the field. Michael Maguire, afterwards: <b>&ldquo;Not good enough, just plain and simple.&rdquo;</b> It was Brisbane's 12th loss in 13.</p>
+        <div class="scoreline">
+          <p class="win-note">Won by 4 · Fri 21 Aug · GIO Stadium, Canberra · Round 25 · Crowd 20,512</p>
+          <div class="score-row"><span class="team-n">Raiders</span><span class="big-score">30 &ndash; 34</span><span class="team-n">Broncos</span></div>
+          <p class="score-meta">Brisbane were down <b>16&ndash;30 with under 20 minutes left</b> and somehow found 18 unanswered points. Tries to Billy Walters (8'), Ezra Mam (26'), a Grant Anderson double (32', 66') and Payne Haas (63') set it up, then <b>Hayze Perham</b> — deputising at fullback for the injured Reece Walsh — scored the match-winner and kicked 5 from 6. Played in Canberra great Josh Papali'i's farewell match, which the visitors rather rudely spoiled. Pat Carrigan captained again with Reynolds sidelined (calf).</p>
         </div>
 
         <h3 class="later">Last six games</h3>
         <div class="form-wrap">
           <div class="form-row">
-            <div class="pill l"><span>Sharks</span>L</div>
             <div class="pill w"><span>Panthers</span>W</div>
             <div class="pill l"><span>Cowboys</span>L</div>
             <div class="pill l"><span>Knights</span>L</div>
             <div class="pill l"><span>Dolphins</span>L</div>
             <div class="pill l"><span>Warriors</span>L</div>
+            <div class="pill w"><span>Raiders</span>W</div>
           </div>
         </div>
 
-        <h3 class="later">The run home — three remaining</h3>
+        <h3 class="later">The run home — two remaining</h3>
         <table>
           <thead><tr><th>Rd</th><th>When (AEST)</th><th>Opponent</th><th>H/A</th></tr></thead>
           <tbody>
-            <tr class="me"><td>25</td><td>Fri 21 Aug, 6:00pm</td><td>Raiders (12th)</td><td>Away</td></tr>
-            <tr><td>26</td><td>Thu 27 Aug, 7:50pm</td><td>Storm (11th)</td><td>Home</td></tr>
-            <tr><td>27</td><td>Thu 3 Sep, 7:50pm</td><td>Bulldogs (9th)</td><td>Away</td></tr>
+            <tr class="me"><td>26</td><td>Thu 27 Aug, 7:50pm</td><td>Storm (11th, eliminated)</td><td>Home</td></tr>
+            <tr><td>27</td><td>Wed 3 Sep, TBC</td><td>Bulldogs (9th, alive)</td><td>Away (Sydney)</td></tr>
           </tbody>
         </table>
-        <p class="table-note">No byes left, so three rounds means three games — and all three kick-off times are now locked in. Here is the thing worth holding onto: <b>every one of Brisbane's remaining opponents is still mathematically alive for eighth.</b> Canterbury are the best-placed challenger, Melbourne and Canberra both need to win out and get help. Brisbane get exactly one home game left, Round 26 against the Storm, which is also <b>Adam Reynolds' likely farewell at Suncorp</b> if his calf holds up.</p>
+        <p class="table-note">A genuine shift from last week: <b>Melbourne, Brisbane's Round 26 opponent, is now also out of the finals race</b> after losing to Penrith — so for the first time all year, a Broncos opponent has nothing riding on the result either. Round 27 is different: Canterbury are still alive for eighth and need the points, which makes Brisbane's last game of the year the one match left where they can actually spoil somebody's finals hopes.</p>
 
         <h3 class="later">2026 by the numbers</h3>
         <div class="stats">
-          <div class="stat"><b>16th</b><span>Ladder position — unchanged</span></div>
-          <div class="stat"><b>6&ndash;15</b><span>Win&ndash;loss record, 18 comp points</span></div>
-          <div class="stat"><b>&minus;198</b><span>Points differential — 2nd worst</span></div>
-          <div class="stat"><b>3</b><span>Games left, no byes remaining</span></div>
-          <div class="stat"><b>12</b><span>Points behind 8th with only 6 available</span></div>
-          <div class="stat"><b>2&ndash;9</b><span>Home record — the season's defining number</span></div>
+          <div class="stat"><b>14th</b><span>Ladder position — up two on last week</span></div>
+          <div class="stat"><b>7&ndash;15</b><span>Win&ndash;loss record, 20 comp points</span></div>
+          <div class="stat"><b>&minus;194</b><span>Points differential — improved from &minus;198</span></div>
+          <div class="stat"><b>2</b><span>Games left, no byes remaining</span></div>
+          <div class="stat"><b>10</b><span>Points behind 8th, only 4 available</span></div>
+          <div class="stat"><b>2&ndash;9</b><span>Home record — one home game left to fix it</span></div>
         </div>
       </div>
 
       <div class="col">
-        <h3>Where they sit — Round 24 complete</h3>
+        <h3>Where they sit — Round 25 complete</h3>
         <table>
           <thead><tr><th>#</th><th>Team</th><th class="num">Pts</th><th class="num">Byes left</th><th class="num">+/&minus;</th></tr></thead>
           <tbody>
-            <tr class="faint"><td>1</td><td>Roosters</td><td class="num">38</td><td class="num">0</td><td class="num">+163</td></tr>
-            <tr class="faint"><td>2</td><td>Panthers</td><td class="num">36</td><td class="num">0</td><td class="num">+286</td></tr>
-            <tr class="faint"><td>3</td><td>Warriors</td><td class="num">36</td><td class="num">0</td><td class="num">+276</td></tr>
-            <tr class="faint"><td>4</td><td>Dolphins</td><td class="num">34</td><td class="num">0</td><td class="num">+120</td></tr>
-            <tr class="faint"><td>5</td><td>Sharks</td><td class="num">32</td><td class="num">0</td><td class="num">+165</td></tr>
-            <tr class="faint"><td>6</td><td>Knights</td><td class="num">32</td><td class="num">1</td><td class="num">+76</td></tr>
-            <tr class="faint"><td>7</td><td>Rabbitohs</td><td class="num">30</td><td class="num">0</td><td class="num">+82</td></tr>
-            <tr class="faint"><td>8</td><td>Cowboys</td><td class="num">28</td><td class="num">1</td><td class="num">&minus;78</td></tr>
+            <tr class="faint"><td>1</td><td>Warriors</td><td class="num">38</td><td class="num">0</td><td class="num">+295</td></tr>
+            <tr class="faint"><td>2</td><td>Panthers</td><td class="num">38</td><td class="num">0</td><td class="num">+294</td></tr>
+            <tr class="faint"><td>3</td><td>Roosters</td><td class="num">38</td><td class="num">1</td><td class="num">+163</td></tr>
+            <tr class="faint"><td>4</td><td>Dolphins</td><td class="num">36</td><td class="num">0</td><td class="num">+138</td></tr>
+            <tr class="faint"><td>5</td><td>Sharks</td><td class="num">32</td><td class="num">1</td><td class="num">+165</td></tr>
+            <tr class="faint"><td>6</td><td>Knights</td><td class="num">32</td><td class="num">1</td><td class="num">+56</td></tr>
+            <tr class="faint"><td>7</td><td>Rabbitohs</td><td class="num">30</td><td class="num">0</td><td class="num">+63</td></tr>
+            <tr class="faint"><td>8</td><td>Cowboys</td><td class="num">30</td><td class="num">0</td><td class="num">&minus;78</td></tr>
             <tr class="faint"><td colspan="5" style="text-align:center">· · · finals cut-off · · ·</td></tr>
-            <tr class="faint alive"><td>9</td><td>Bulldogs</td><td class="num">26</td><td class="num">0</td><td class="num">&minus;62</td></tr>
-            <tr class="faint alive"><td>10</td><td>Sea Eagles</td><td class="num">24</td><td class="num">0</td><td class="num">+46</td></tr>
-            <tr class="faint alive"><td>11</td><td>Storm</td><td class="num">24</td><td class="num">0</td><td class="num">&minus;4</td></tr>
-            <tr class="faint alive"><td>12</td><td>Raiders</td><td class="num">24</td><td class="num">1</td><td class="num">&minus;61</td></tr>
-            <tr class="faint"><td>13</td><td>Eels</td><td class="num">22</td><td class="num">0</td><td class="num">&minus;181</td></tr>
-            <tr class="faint"><td>14</td><td>Wests Tigers</td><td class="num">20</td><td class="num">0</td><td class="num">&minus;213</td></tr>
-            <tr class="faint"><td>15</td><td>Titans</td><td class="num">18</td><td class="num">0</td><td class="num">&minus;154</td></tr>
-            <tr class="me"><td>16</td><td>Broncos</td><td class="num">18</td><td class="num">0</td><td class="num">&minus;198</td></tr>
-            <tr class="faint"><td>17</td><td>Dragons</td><td class="num">14</td><td class="num">0</td><td class="num">&minus;263</td></tr>
+            <tr class="faint alive"><td>9</td><td>Bulldogs</td><td class="num">28</td><td class="num">0</td><td class="num">&minus;32</td></tr>
+            <tr class="faint alive"><td>10</td><td>Sea Eagles</td><td class="num">26</td><td class="num">0</td><td class="num">+66</td></tr>
+            <tr class="faint"><td>11</td><td>Storm</td><td class="num">24</td><td class="num">0</td><td class="num">&minus;12</td></tr>
+            <tr class="faint"><td>12</td><td>Raiders</td><td class="num">24</td><td class="num">1</td><td class="num">&minus;65</td></tr>
+            <tr class="faint"><td>13</td><td>Eels</td><td class="num">22</td><td class="num">0</td><td class="num">&minus;199</td></tr>
+            <tr class="me"><td>14</td><td>Broncos</td><td class="num">20</td><td class="num">0</td><td class="num">&minus;194</td></tr>
+            <tr class="faint"><td>15</td><td>Wests Tigers</td><td class="num">20</td><td class="num">1</td><td class="num">&minus;213</td></tr>
+            <tr class="faint"><td>16</td><td>Titans</td><td class="num">18</td><td class="num">1</td><td class="num">&minus;154</td></tr>
+            <tr class="faint"><td>17</td><td>Dragons</td><td class="num">14</td><td class="num">0</td><td class="num">&minus;293</td></tr>
           </tbody>
         </table>
-        <p class="table-note">Teams shown in <span style="color:var(--draw)">gold</span> are the four still mathematically alive for eighth. Byes are worth 2 points banked, and only the Knights, Cowboys and Raiders have one left — which accounts neatly for the three remaining rounds. Brisbane hold 16th on countback from the Titans, who are level on 18 points but 44 better off on differential. The Dragons' second straight win lifts them to 14 and, quietly, brings the wooden spoon back into range (see below).</p>
+        <p class="table-note">Teams in <span style="color:var(--draw)">gold</span> are the only two clubs below the cut-off still mathematically alive for eighth — down from four last week, now that Storm and Raiders are out. Brisbane jump two places purely on points, not form: the Raiders win plus three sides below them losing did the work. Byes-left for Tigers and Titans are carried over as an estimate — see the verification note, this is one of the figures the underlying sources don't agree on.</p>
 
-        <h3 class="later">Round 24 — how it finished</h3>
+        <h3 class="later">Round 25 — how it finished</h3>
         <table>
           <thead><tr><th>When (AEST)</th><th>Match</th><th>Venue</th></tr></thead>
           <tbody>
-            <tr class="faint"><td>Thu 13 Aug</td><td>Roosters 12 &ndash; 6 Panthers</td><td>CommBank</td></tr>
-            <tr class="faint"><td>Fri 14 Aug</td><td>Dolphins 22 &ndash; 0 Sea Eagles</td><td>4 Pines Park</td></tr>
-            <tr class="faint"><td>Fri 14 Aug</td><td>Rabbitohs 22 &ndash; 6 Bulldogs</td><td>Accor</td></tr>
-            <tr class="faint"><td>Sat 15 Aug</td><td>Raiders 24 &ndash; 20 Sharks</td><td>Ocean Protect</td></tr>
-            <tr class="faint"><td>Sat 15 Aug</td><td>Eels 32 &ndash; 30 Cowboys</td><td>CommBank</td></tr>
-            <tr class="me"><td>Sat 15 Aug</td><td>Warriors 40 &ndash; 6 Broncos</td><td>Suncorp</td></tr>
-            <tr class="faint"><td>Sun 16 Aug</td><td>Knights 36 &ndash; 26 Titans</td><td>McDonald Jones</td></tr>
-            <tr class="faint"><td>Sun 16 Aug</td><td>Dragons 24 &ndash; 22 Wests Tigers</td><td>CommBank</td></tr>
+            <tr class="faint"><td>Fri 21 Aug</td><td>Storm 14 &ndash; 22 Panthers</td><td>AAMI Park</td></tr>
+            <tr class="me"><td>Fri 21 Aug</td><td>Raiders 30 &ndash; 34 Broncos</td><td>GIO Stadium</td></tr>
+            <tr class="faint"><td>Sat 22 Aug</td><td>Dolphins 34 &ndash; 16 Eels</td><td>Suncorp</td></tr>
+            <tr class="faint"><td>Sat 22 Aug</td><td>Knights 24 &ndash; 44 Sea Eagles</td><td>McDonald Jones</td></tr>
+            <tr class="faint"><td>Sat 22 Aug</td><td>Rabbitohs 26 &ndash; 45 Warriors</td><td>Accor</td></tr>
+            <tr class="faint"><td>Sat 22 Aug</td><td>Dragons 14 &ndash; 44 Bulldogs</td><td>CommBank</td></tr>
+            <tr class="faint"><td>Sat 22 Aug</td><td>Titans 22 &ndash; 30 Sharks</td><td>Cbus Super Stadium</td></tr>
+            <tr class="faint"><td>Sun 23 Aug</td><td>Roosters 24 &ndash; 25 Wests Tigers</td><td>Allianz</td></tr>
           </tbody>
         </table>
-        <p class="table-note">Melbourne had the bye, banking the last of their two points and staying alive at 24. The Roosters' win over Penrith took top spot off the Panthers for the first time in months, and the Warriors' 34-point margin at Suncorp hauled them level with Penrith on 36 — Brisbane's contribution to the premiership race being to hand a rival a points-differential windfall.</p>
+        <p class="table-note">Cowboys had the bye. The result that actually mattered for Brisbane's world was Melbourne's loss to Penrith — it confirmed the Storm's first missed finals series since 2002, and turned Round 26 from a home derby with something at stake into a dead rubber for both sides.</p>
 
         <h3 class="later">Worth knowing</h3>
         <ul class="notes">
-          <li><b>Reece Walsh's season is over.</b> High-grade syndesmosis, surgery on Monday, an eight-week window that points to early October. That timeline also puts his Rugby League World Cup campaign in real doubt.</li>
-          <li>Brisbane are set to become the <b>first defending premiers since the 2006 Wests Tigers</b> to miss the finals the year after winning the title. (The Tigers won the 2005 premiership and finished 10th in 2006; Canterbury did the same in 2005 after winning in 2004.)</li>
-          <li>Adam Reynolds, 36, retires at season's end and joins the Broncos' coaching staff in 2027. The soleus strain is graded one and he told reporters it will be &ldquo;tough to get there, but I'll be doing everything possible&rdquo; for Round 26 at Suncorp — his last realistic home farewell.</li>
-          <li>With Reynolds out, <b>Pat Carrigan</b> is captaining the side, and it was Carrigan being asked post-match whether motivation was a problem with the finals gone — a question Maguire stepped in to answer himself.</li>
-          <li>The Dolphins' rise continues: 4th on 34 points and heading for their first finals series. Brisbane's Round 23 collapse against them is a large part of the reason.</li>
-          <li>The title defence started badly and never recovered: a 30&ndash;24 World Club Challenge loss to Hull KR in February, then Walsh, Haas, Hunt, Mozer and Jensen all missing extended stretches. Walsh's ankle is the closing bookend.</li>
-          <li>Home has been the problem all year: <b>2&ndash;9 at Suncorp</b> as the home side against 4&ndash;6 on the road. One home game remains.</li>
-          <li>Ezra Mam's Round 23 hat-trick against the Dolphins is still the season's best individual hour. He shifted to five-eighth alongside Thomas Duffy on Saturday and Brisbane managed one try.</li>
+          <li><b>Storm and Raiders are both now eliminated.</b> Only the Bulldogs and Sea Eagles remain alive below the cut-off, and Brisbane's Round 27 opponent, Canterbury, is one of them — the last game of Brisbane's season doubles as a genuine spoiler opportunity.</li>
+          <li>Adam Reynolds, 36, still retires at season's end and joins the coaching staff in 2027. <b>Maguire and Reynolds are now telling two different stories</b> about why he's missed the last fortnight: Maguire cites a genuine calf/nerve issue, Reynolds says he feels fine and frames it as a call to give younger players a look. Both on the record this week, unresolved.</li>
+          <li><b>Reece Walsh's</b> ~8-week recovery window points to mid-October — after Brisbane's season ends. Hayze Perham has taken over at fullback and scored the Round 25 match-winner.</li>
+          <li>A football department review of the club is underway after the fall from premiers to 14th, but chairman Karl Morris has backed Maguire strongly ("he will be coaching, 100 per cent") and he remains contracted through 2027.</li>
+          <li><b>Xavier Willison's</b> contract extension talks (reportedly through 2030) have stalled after he changed player managers this week — nothing signed, but he's stated a preference to stay.</li>
+          <li>Payne Haas scored in the Round 25 comeback — still turning out every week for the club he's leaving for South Sydney at season's end.</li>
         </ul>
       </div>
     </div>
 
     <div class="maths">
-      <h4>The season is gone — here is what the last three games are actually worth</h4>
-      <div class="verdict">Eliminated 8 Aug · Wooden spoon still mathematically live</div>
+      <h4>The season is gone — but the spoon just got buried</h4>
+      <span class="verdict">Eliminated 8 Aug</span><span class="verdict good">Spoon arithmetically impossible</span>
 
-      <p><b>Step 1 — the ceiling.</b> Brisbane have 18 points, three games left and no byes remaining:</p>
-      <div class="eq">18 + (3 × 2) = <b>24 points maximum</b>   ← requires winning out</div>
+      <p><b>Step 1 — the ceiling, unchanged in verdict.</b> Brisbane have 20 points, two games left, no byes:</p>
+      <div class="eq">20 + (2 × 2) = <b>24 points maximum</b>   ← requires winning out</div>
+      <p>Eighth place (Cowboys) sits on 30, a floor since points can't go backwards. 24 &lt; 30 — still eliminated, exactly as it has been since 8 August.</p>
 
-      <p>Eighth place is currently 28 points and the Cowboys still have a bye banked, so their floor is 30. Brisbane cannot reach 30. That has been settled since 8 August and nothing on the weekend changed it.</p>
+      <p><b>Step 2 — the one that actually changed this week.</b> Last week's page had the wooden spoon as "mathematically live." The Raiders win put it to bed:</p>
+      <div class="eq">Broncos  20 pts, 2 games, 0 byes → FLOOR = 20 (can't lose points)
+Dragons  14 pts, 2 games, 0 byes → CEILING = 14 + (2 × 2) = 18
 
-      <p><b>Step 2 — the one that is still live: the spoon.</b> The Dragons have won two in a row and are on 14. Two results now matter at the bottom:</p>
+Dragons ceiling (18) &lt; Broncos floor (20)
+  → Dragons cannot mathematically finish above Brisbane
+  → Brisbane cannot finish last, regardless of result</div>
 
-      <div class="eq">Broncos  18, 3 games, 0 byes → ceiling 24, floor 18
-Dragons  14, 3 games, 0 byes → ceiling 20, floor 14
-Titans   18, 3 games, 0 byes → ceiling 24, floor 18  (+44 on differential)</div>
+      <p>The Dragons simply don't have enough games left to catch a Brisbane side that can no longer lose points. That single Round 25 win, worth nothing on the ladder, quietly closed off the one embarrassment still available to this season.</p>
 
       <table class="req">
-        <thead><tr><th>Scenario</th><th>Brisbane finish on</th><th>Result</th></tr></thead>
+        <thead><tr><th>Bottom two — who's actually fighting for the spoon now</th><th>Ceiling</th><th>Floor</th></tr></thead>
         <tbody>
-          <tr><td>Lose all three, Dragons win all three</td><td>18 v Dragons' 20</td><td class="danger">17th — wooden spoon</td></tr>
-          <tr><td>Win one</td><td>20 — level with the Dragons' absolute ceiling, and 65 points clear on differential</td><td class="ok">Safe in all realistic cases</td></tr>
-          <tr><td>Win two</td><td>22 — above the Dragons' ceiling</td><td class="good">Arithmetically impossible to finish last</td></tr>
+          <tr><td>St George Illawarra Dragons (17th)</td><td class="ok">18</td><td>14</td></tr>
+          <tr><td>Gold Coast Titans (16th)</td><td class="good">24</td><td class="ok">18</td></tr>
         </tbody>
       </table>
+      <p class="small">Dragons' ceiling exactly equals Titans' floor — so the Dragons can only avoid finishing bottom by winning both remaining games <b>and</b> the Titans losing all three of theirs, which would then come down to points differential (Dragons &minus;293 vs Titans &minus;154 today). Brisbane are spectators to this one now.</p>
 
-      <p class="small">St George Illawarra have won four games all year, so this is not a likely outcome — but it is a real one, and it is the only ladder arithmetic Brisbane still control. One win removes it.</p>
+      <p><b>Step 3 — who's still alive for eighth, verified.</b> Cowboys' 30-point floor is the bar. Below that line, only two clubs clear a ceiling of 30 or better:</p>
+      <div class="eq">Bulldogs   28 + (2 × 2) = 32  ← alive outright   · play Brisbane, Rd 27
+Sea Eagles 26 + (2 × 2) = 30  ← alive, exactly on the bar
+Storm      24 + (2 × 2) = 28  ← ELIMINATED (was alive last week)
+Raiders    24 + (1 × 2) = 26  ← ELIMINATED (was alive last week)</div>
+      <p class="small">Two of last week's four hopefuls are gone. Brisbane's remaining fixtures now split cleanly: Round 26 against an eliminated Storm side means nothing to anyone, Round 27 against a Bulldogs side that's still fighting means Brisbane get one last chance to be an irritant.</p>
 
-      <p><b>Step 3 — the kingmaker role, verified.</b> Eight clubs now have a floor of 30 or better: Roosters 38, Panthers 36, Warriors 36, Dolphins 34, Knights 34 (32 + bye), Sharks 32, Rabbitohs 30, Cowboys 30 (28 + bye). Eighth place therefore requires a ceiling of at least 30. Only four clubs below the line clear it:</p>
-
-      <div class="eq">Bulldogs   26 + 6 = 32  ← alive outright   · Brisbane away, Rd 27
-Sea Eagles 24 + 6 = 30  ← alive on differential
-Storm      24 + 6 = 30  ← alive on differential · Brisbane home, Rd 26
-Raiders    24 + 2 bye + 4 = 30 ← alive on diff  · Brisbane away, Rd 25
-Eels       22 + 6 = 28  ← eliminated</div>
-
-      <p class="small"><b>Three of those four play Brisbane.</b> Canberra on Friday, Melbourne at Suncorp the following Thursday, Canterbury in the final round — and Canterbury's Round 27 game against Brisbane may well be the last hurdle between them and eighth. A side with nothing to play for gets to decide quite a lot about who else does.</p>
-
-      <p class="small"><b>The honest summary, and the optimistic one.</b> This was the worst weekend of a bad season: 40&ndash;6 at home in front of 38,916, the fullback carried off, the captain in a moon boot's worth of calf strain, and a coach reduced to four words. There is no dressing that up. What is left is three games in which Brisbane can be extremely inconvenient to three clubs who need the points, plus one home night at Suncorp to send Adam Reynolds off properly. The 2027 roster — Barnett, Pezet, Hunt, Reynolds on the coaching staff, Walsh back from surgery for a full pre-season — is being assembled in plain sight. It is a small thing to play for, but it is not nothing.</p>
+      <p class="small"><b>The honest summary.</b> Nothing about the ladder position changed for the better this week — 14th is still 14th of 17, a long way from anyone's idea of a title defence. What changed is smaller but real: a genuinely good comeback win, the wooden spoon off the table, and Round 27 against Canterbury turning into a game with some actual jeopardy for someone else. Small mercies, taken where available.</p>
     </div>
 
     <div class="maths" style="border-color:rgba(247,185,21,.28)">
       <h4>Ins and outs — Broncos</h4>
-      <p class="small" style="margin-top:0">Confirmed club announcements versus reported speculation. Unchanged since last week apart from Reynolds' injury status — the 2027 roster work was largely done before the season fell over.</p>
+      <p class="small" style="margin-top:0">Unchanged from last week apart from Reynolds' fitness situation — the 2027 roster work was largely locked in before the season fell apart, and nothing new has surfaced this week.</p>
       <div class="moves">
         <div class="mv out">
           <h5>↗ Leaving</h5>
           <ul class="mvlist">
-            <li><b>Adam Reynolds</b> <span class="tag-conf c">Confirmed</span><br><span>Retiring from the NRL at season's end, announced 9 Feb 2026, then joining the Broncos' coaching staff from 2027. Currently out with a grade-one soleus strain; targeting Round 26 at Suncorp.</span></li>
-            <li><b>Payne Haas</b> <span class="tag-conf c">Confirmed</span><br><span>Officially signed by <b>South Sydney</b> for 2027, 2028 and 2029, reuniting with Wayne Bennett.</span></li>
-            <li><b>Grant Anderson</b> <span class="tag-conf c">Confirmed</span><br><span>Released to the Warriors from 2027 as part of the Barnett deal. He faced them on Saturday.</span></li>
-            <li><b>Billy Walters</b> <span class="tag-conf r">Unresolved</span><br><span>In talks, but reported as uncertain given salary cap and roster pressure.</span></li>
+            <li><b>Adam Reynolds</b> <span class="tag-conf c">Confirmed</span><br><span>Retiring at season's end, joining the Broncos' coaching staff from 2027. Fitness call for Round 26 due today.</span></li>
+            <li><b>Payne Haas</b> <span class="tag-conf c">Confirmed</span><br><span>Signed by South Sydney for 2027&ndash;2029. Scored in the Round 25 win.</span></li>
           </ul>
         </div>
         <div class="mv in">
           <h5>↘ Joining</h5>
           <ul class="mvlist">
-            <li><b>Mitch Barnett</b> <span class="tag-conf c">Confirmed</span><br><span>Warriors captain, signed 16 Apr 2026 on a three-year deal from 2027.</span></li>
-            <li><b>Jonah Pezet</b> <span class="tag-conf c">Confirmed</span><br><span>Arrives from Parramatta for 2027 on a long-term deal — the succession plan for the No.7.</span></li>
-            <li><b>Ben Hunt</b> <span class="tag-conf c">Re-signed</span><br><span>One-year extension announced 22 June, tying him to Brisbane through 2027.</span></li>
-            <li><b>Thomas Duffy</b> <span class="tag-conf c">Re-signed</span><br><span>Recently extended — has worn the No.7 through Reynolds' absence.</span></li>
-            <li><b>Cory Paix</b> <span class="tag-conf c">Re-signed</span><br><span>Extended to the end of 2028. Out for the rest of 2026 with a shoulder injury.</span></li>
-            <li><b>Antonio Verhoeven</b> <span class="tag-conf c">Re-signed</span><br><span>Three-year contract from 2027.</span></li>
-            <li><b>Phillip Coates</b> <span class="tag-conf c">Re-signed</span><br><span>Academy graduate, one-year extension for 2027.</span></li>
+            <li><b>Jonah Pezet</b> <span class="tag-conf c">Confirmed</span><br><span>Arrives from Parramatta for 2027, the succession plan at halfback alongside Reynolds' move to coaching.</span></li>
           </ul>
         </div>
       </div>
-      <p class="small">Already gone this season: Selwyn Cobbo (Dolphins), Kobe Hetherington (Manly), Jock Madden (Wests Tigers), Coby Black (Raiders), Fletcher Baker (Bulldogs), Tyson Smoothy (Wakefield). Arrived for 2026: Grant Anderson, Tom Duffy, Aublix Tawha. With Hunt re-signed, Pezet arriving and Reynolds retiring, the 2027 halves picture is crowded before a ball is kicked.</p>
+      <p class="small">Xavier Willison's extension talks remain open but stalled — flagged in Worth Knowing above rather than repeated here since nothing has actually changed hands.</p>
     </div>
   </section>
   </div>
@@ -426,24 +414,24 @@ Eels       22 + 6 = 28  ← eliminated</div>
   <section class="club stoke">
     <div class="club-head">
       <h2 class="display">Stoke City</h2>
-      <span class="tag">EFL Championship · Played 1, lost 1 · Carabao Cup R2 v Hull City</span>
+      <span class="tag">EFL Championship · Played 2, lost 2 · Carabao Cup R2 v Hull City</span>
     </div>
 
     <div class="nextgame">
-      <div class="ng-head">Next up — a trip to a club that starts the season on minus four</div>
+      <div class="ng-head">Next up — a straight shot at redemption against a Premier League name</div>
       <div class="ng-body">
         <div>
-          <div class="ng-match">Southampton <span style="color:var(--mut)">v</span> Stoke City</div>
+          <div class="ng-match">Stoke City <span style="color:var(--mut)">v</span> Hull City</div>
           <p class="ng-meta">
-            <b>Where:</b> St Mary's — away, 3pm BST (midnight Sat/Sun AEST)<br>
-            <b>The context:</b> Southampton begin 2026/27 on <b>&minus;4 points</b>, deducted by an EFL disciplinary commission in May over the &ldquo;spygate&rdquo; affair — staff filming Middlesbrough, Oxford and Ipswich training sessions. They were also thrown out of the play-off final, which Middlesbrough took their place in and lost to Hull City<br>
-            <b>Form line:</b> Southampton lost their opener too, so they sit bottom on &minus;4. This is as close to a free hit as an away day in this division gets — which is exactly the sort of game Stoke have made a habit of not winning<br>
-            <b>Then:</b> Hull City at home in the Carabao Cup on Tue 25 Aug, and Wolves away on Sat 29 Aug (12:30pm BST)
+            <b>Where:</b> bet365 Stadium — home, Carabao Cup Second Round<br>
+            <b>The context:</b> two straight league defeats since the last update, including a red card in stoppage time at Southampton. This is a chance to bank a positive result before Saturday's trip to Molineux<br>
+            <b>Opponent:</b> Hull City, promoted to the Premier League through the play-off final Southampton were expelled from — a proper scalp on offer at home<br>
+            <b>Then:</b> Wolves away, Sat 29 Aug, 12:30pm BST; Norwich City at home, Tue 1 Sep, the same night the transfer window shuts
           </p>
         </div>
         <div class="ng-when">
-          <div class="d">SAT 22 AUG</div>
-          <div class="t">Championship MD2 · 3pm BST</div>
+          <div class="d">TUE 25 AUG</div>
+          <div class="t">7:45pm BST · 4:45am AEST (Wed)</div>
         </div>
       </div>
     </div>
@@ -451,10 +439,10 @@ Eels       22 + 6 = 28  ← eliminated</div>
     <div class="grid">
       <div class="col">
         <h3>Latest result</h3>
-        <div class="scoreline" style="background:linear-gradient(120deg,rgba(224,90,90,.18),rgba(160,31,43,.22));border-color:rgba(224,90,90,.35)">
-          <p class="win-note" style="color:var(--bad)">Lost 1&ndash;2 · Sat 15 Aug · bet365 Stadium · Championship MD1 · Crowd 24,332</p>
-          <div class="score-row"><span class="team-n">Stoke City</span><span class="big-score">1 &ndash; 2</span><span class="team-n">Swansea</span></div>
-          <p class="score-meta">A good ten minutes, then eighty that Mark Robins did not enjoy. <b>Eric Bocat</b> put Stoke ahead on 10 with a deflected left-footed finish from a Svante Ingelsson cross — remarkably, his <b>first goal in 60 league appearances</b> for the club. <b>Joseph Opoku</b> levelled on 23 after slack defending, and <b>Adam Idah</b> settled it on 66, roughly a minute after coming off the bench. Lawrence Vigouroux made the save of the afternoon from Sorba Thomas in the second half. Robins afterwards: <b>&ldquo;we turned the ball over too many times.&rdquo;</b> Swansea's first away win at Stoke in over five years, and Ethan Galbraith's old club took the points on his home debut against them.</p>
+        <div class="scoreline">
+          <p class="win-note" style="color:var(--bad)">Lost 3&ndash;1 · Sat 22 Aug · St Mary's · Championship MD2 · Crowd 29,185</p>
+          <div class="score-row"><span class="team-n">Southampton</span><span class="big-score">3 &ndash; 1</span><span class="team-n">Stoke City</span></div>
+          <p class="score-meta">Cyle Larin put the hosts ahead early (reported as 6' by Southampton's own site, 8' by Sky Sports and Vavel — treating 8' as more likely on two-source agreement), before <b>Ethan Galbraith</b> levelled it on 26'. It stayed 1&ndash;1 until deep injury time, when <b>Svante Ingelsson</b> picked up a second yellow (90+2') for a foul that gave away a penalty — <b>Ryan Manning</b> converted it (90+4') either side of a Divin Mubama goal (89'). New signings <b>George Hirst</b> and <b>Ben Johnson</b>, both arrived from Ipswich that week, made their debuts. Robins' post-match reaction is only patchily sourced this week — treat any exact quote from this game as low-confidence.</p>
         </div>
 
         <h3 class="later">Season so far — competitive</h3>
@@ -462,112 +450,97 @@ Eels       22 + 6 = 28  ← eliminated</div>
           <thead><tr><th>Date</th><th>Opponent</th><th>Comp</th><th class="num">Result</th></tr></thead>
           <tbody>
             <tr><td>8 Aug</td><td>Oldham Athletic (H)</td><td>Carabao R1</td><td class="num">W 2&ndash;0</td></tr>
-            <tr class="me"><td>15 Aug</td><td>Swansea City (H)</td><td>Championship</td><td class="num">L 1&ndash;2</td></tr>
+            <tr><td>15 Aug</td><td>Swansea City (H)</td><td>Championship</td><td class="num">L 1&ndash;2</td></tr>
+            <tr class="me"><td>22 Aug</td><td>Southampton (A)</td><td>Championship</td><td class="num">L 1&ndash;3</td></tr>
           </tbody>
         </table>
-        <p class="table-note">The MD1 XI: Johansson; Bocat, Lawal, Graham, Wilmot; Galbraith, Ingelsson, Rigo; Thomas, Manhoef; Gallagher. Changes from the cup tie: Tomáš Rigo came in and Lamine Cissé dropped out. <b>Sorba Thomas started again</b> despite three weeks of transfer noise, and <b>Sam Gallagher</b> again led the line despite being reported as available to leave. The unbeaten run that stretched back to 10 July ended at seven matches.</p>
+        <p class="table-note">Two league games, two defeats, 2 scored, 5 conceded, one red card. It's early — but it's also not the start Robins or a squad this expensively rebuilt wanted.</p>
 
-        <h3 class="later">Championship — after one game</h3>
+        <h3 class="later">Championship — after two games</h3>
         <table>
           <thead><tr><th>#</th><th>Team</th><th class="num">P</th><th class="num">GD</th><th class="num">Pts</th></tr></thead>
           <tbody>
-            <tr class="faint"><td>1</td><td>QPR</td><td class="num">1</td><td class="num">+2</td><td class="num">3</td></tr>
-            <tr class="faint"><td>2</td><td>Millwall</td><td class="num">1</td><td class="num">+2</td><td class="num">3</td></tr>
-            <tr class="faint"><td>3</td><td>Swansea City</td><td class="num">1</td><td class="num">+1</td><td class="num">3</td></tr>
+            <tr class="faint"><td>1</td><td>Millwall</td><td class="num">2</td><td class="num">+5</td><td class="num">6</td></tr>
+            <tr class="faint"><td>2</td><td>West Brom</td><td class="num">2</td><td class="num">+3</td><td class="num">6</td></tr>
+            <tr class="faint"><td>3</td><td>Charlton</td><td class="num">2</td><td class="num">+2</td><td class="num">6</td></tr>
             <tr class="faint"><td colspan="5" style="text-align:center">· · · 18 clubs between · · ·</td></tr>
-            <tr class="me"><td>21st</td><td>Stoke City</td><td class="num">1</td><td class="num">&minus;1</td><td class="num">0</td></tr>
-            <tr class="faint"><td>22</td><td>Portsmouth</td><td class="num">1</td><td class="num">&minus;2</td><td class="num">0</td></tr>
-            <tr class="faint"><td>23</td><td>Bristol City</td><td class="num">1</td><td class="num">&minus;2</td><td class="num">0</td></tr>
-            <tr class="faint"><td>24</td><td>Southampton</td><td class="num">1</td><td class="num">&minus;1</td><td class="num">&minus;4</td></tr>
+            <tr class="me"><td>22</td><td>Stoke City</td><td class="num">2</td><td class="num">&minus;3</td><td class="num">0</td></tr>
+            <tr class="faint"><td>23</td><td>Norwich City</td><td class="num">2</td><td class="num">&minus;4</td><td class="num">0</td></tr>
+            <tr class="faint"><td>24</td><td>Southampton</td><td class="num">2</td><td class="num">+1</td><td class="num">&minus;1</td></tr>
           </tbody>
         </table>
-        <p class="table-note">Included for completeness rather than meaning — it is one game. Stoke's exact position varies by source because <b>five clubs</b> (Derby, Lincoln, Norwich, Preston and Stoke) have identical records after losing 1&ndash;2, so the tie-break is arbitrary; different providers list Stoke anywhere from 17th to 22nd. Southampton's &minus;4 is the spygate deduction, not a scoreline.</p>
+        <p class="table-note">Southampton's &minus;4 deduction (spygate) is applied here; not every live tracker has caught up with it yet — one aggregator we checked still shows Southampton mid-table on their raw 3 points. On raw form alone they'd sit around 12th; with the deduction they're bottom. Stoke's own &minus;3 GD from 2&ndash;5 is the more relevant story at this stage.</p>
 
-        <h3 class="later">Opening fixtures — 2026/27</h3>
+        <h3 class="later">Next three fixtures</h3>
         <table>
           <thead><tr><th>Date</th><th>Opponent</th><th>H/A</th><th>Comp</th></tr></thead>
           <tbody>
-            <tr class="me"><td>Sat 22 Aug</td><td>Southampton · 3pm</td><td>Away</td><td>Championship</td></tr>
-            <tr><td>Tue 25 Aug</td><td>Hull City · 7:45pm</td><td>Home</td><td>Carabao R2</td></tr>
-            <tr><td>Sat 29 Aug</td><td>Wolves · 12:30pm</td><td>Away</td><td>Championship</td></tr>
-            <tr><td>Tue 1 Sep</td><td>Norwich City</td><td>Home</td><td>Championship</td></tr>
-            <tr><td>Sat 5 Sep</td><td>Charlton Athletic</td><td>Home</td><td>Championship</td></tr>
+            <tr class="me"><td>Tue 25 Aug, 7:45pm BST</td><td>Hull City</td><td>Home</td><td>Carabao R2</td></tr>
+            <tr><td>Sat 29 Aug, 12:30pm BST</td><td>Wolves</td><td>Away</td><td>Championship</td></tr>
+            <tr><td>Tue 1 Sep, 8:00pm BST</td><td>Norwich City</td><td>Home</td><td>Championship</td></tr>
           </tbody>
         </table>
-        <p class="table-note">All times BST; add nine hours for AEST. The cup tie is the pick of them: <b>Hull City are a Premier League club now</b>, promoted through the play-off final that Southampton were expelled from, and they enter the competition at this round as one of the eleven top-flight sides not in Europe. A home tie against a promoted Premier League side is a genuine scalp on offer — and Stoke went out at exactly this stage last season, to Bradford City.</p>
-
-        <h3 class="later">Last season (2025/26) by the numbers</h3>
-        <div class="stats">
-          <div class="stat"><b>17th</b><span>Final position · 55 pts (W15 D10 L21)</span></div>
-          <div class="stat"><b>2nd</b><span>Position after 14 games — the high point</span></div>
-          <div class="stat"><b>1/8</b><span>Wins in the final eight matches</span></div>
-          <div class="stat"><b>10</b><span>Sorba Thomas goals — top scorer</span></div>
-          <div class="stat"><b>49th</b><span>Second-tier season (26/27 is the 50th)</span></div>
-          <div class="stat"><b>8th</b><span>Consecutive Championship year (26/27 is the 9th)</span></div>
-        </div>
-        <p class="table-note">Stoke have finished between 14th and 18th in eight straight seasons — the streak this squad is being paid to break, and the 50th second-tier season is a milestone the club would rather not be marking.</p>
+        <p class="table-note">All times BST; add nine hours for AEST (so Tuesday night in England lands as breakfast-time Wednesday in Brisbane). Ingelsson's red card means at least a one-match ban — expect a change in midfield for the Hull tie.</p>
       </div>
 
       <div class="col">
-        <h3>Looking to 2026/27</h3>
+        <h3>Worth knowing</h3>
         <ul class="notes">
-          <li>The Championship expands its play-offs from four teams to six this season, with eliminators for the sides finishing 3rd&ndash;8th feeding into semi-finals — a meaningfully wider door for a club that finished 17th.</li>
-          <li>A new club crest debuts, reviving the 1977&ndash;92 badge: bottle kiln, Staffordshire knot, red-and-white stripes.</li>
-          <li><b>Stuart Harvey</b> appointed technical director in May, joining sporting director Jon Walters in a restructured recruitment setup.</li>
-          <li>Mark Robins stays on for his second full season, backed by owner John Coates with real money — Stoke have been among the Championship's bigger spenders this window. Robins has publicly set a top-eight target, which the expanded play-offs now make worth something.</li>
-          <li>The window closes <b>31 August</b>, a fortnight into the season, and Robins says recruitment staff have been working &ldquo;round the clock&rdquo;. The squad on Saturday is not necessarily the squad in September.</li>
-          <li>Stoke last won this trophy in 1972, beating Chelsea 2&ndash;1 at Wembley — still the club's only major honour.</li>
-          <li>For Brisbane viewing: a 3pm Saturday kick-off in Stoke lands around midnight AEST; the 12:30pm at Wolves is a civilised 9:30pm.</li>
+          <li>Mark Robins remains manager, no change there — exit speculation from earlier in his tenure has quieted.</li>
+          <li><b>George Hirst</b> and <b>Ben Johnson</b> both arrived from Ipswich Town the same week and went straight into the XI at Southampton — Hirst a permanent deal reported around £6m base, Johnson a season-long loan.</li>
+          <li>Two straight defeats and a red card is a rough start for a squad backed with real transfer spend over the summer — Robins' top-eight ambition (helped by the Championship's newly expanded six-team play-off zone) will want correcting quickly.</li>
+          <li>The summer transfer window does <b>not</b> close 31 August — that assumption has been carried in this dashboard for two weeks running and is wrong. It closes 11pm BST on <b>1 September</b>. Corrected properly this week; see below.</li>
         </ul>
 
         <h3 class="later">Squad shape</h3>
         <ul class="notes">
-          <li><b>Sorba Thomas</b> — last season's engine and top scorer with 10 goals. Assist and appearance totals genuinely disagree across databases: Soccerway logs 10 assists in 40 league games, while press reporting cites 13 in 45, and The72 has used 47 games across all competitions. Contracted to June 2028, valued at £9&ndash;10m, still linked with West Ham, Coventry, Stuttgart and Genoa — and still starting, still taking the corners, still a Stoke player with a fortnight of the window left.</li>
-          <li><b>Viktor Johansson</b> — kept a clean sheet and the armband in the cup, then conceded two on opening day. Retains the number 1 shirt despite Josh Griffiths arriving.</li>
-          <li><b>Eric Bocat</b> — scored his first Stoke league goal in 60 appearances on Saturday, which rather sums up where the goals have not been coming from.</li>
-          <li><b>Ben Wilmot</b> — the West Ham speculation is over: he has signed a <b>three-year extension</b> and started at the back on Saturday.</li>
-          <li><b>Róbert Boženík</b> — the number 9 for 26/27, scored off the bench against Oldham, not in the starting XI against Swansea. Stoke's centre-forward question is unresolved, which is why George Hirst keeps being mentioned.</li>
-          <li><b>Luke Graham</b> — the Dundee signing has started both competitive games at centre-half, and with Ashley Phillips now permanently at Middlesbrough he is the answer rather than the stopgap.</li>
-          <li><b>Bae Jun-ho and Tatsuki Seko</b> — both gone in the last week, to Lyon and Urawa Reds. The midfield rebuild is now complete on both sides of the ledger.</li>
+          <li><b>Svante Ingelsson</b> — crossed for Bocat's goal against Swansea, then saw red in the 90+2' minute at Southampton for the foul that gave away the equalising penalty. Facing at least a one-game ban.</li>
+          <li><b>Ethan Galbraith</b> — scored against his former club (Swansea, on his home debut) and again at Southampton. Two goals in two league starts is a strong opening from the summer's midfield rebuild.</li>
+          <li><b>George Hirst</b> — the new first-choice centre-forward question looks answered: signed permanently from Ipswich and straight into the side.</li>
+          <li><b>Robert Boženík</b> — off the bench against Oldham in the cup, but has made way in the league XI since Hirst's arrival.</li>
         </ul>
       </div>
     </div>
 
     <div class="maths" style="border-color:rgba(221,55,67,.28)">
+      <h4>Two games in — mostly noise, but the deduction is doing real work</h4>
+      <p class="small" style="margin-top:0">Too early for meaningful relegation or play-off arithmetic. What's worth being precise about is exactly how much Southampton's points deduction is distorting the table's shape this early — and, separately, correcting a date we've had wrong for two weeks.</p>
+
+      <div class="eq">Southampton on-field record: W1 D0 L1 → 3 raw points
+Sanction: −4 points (spygate training-ground filming scandal)
+Adjusted total: 3 − 4 = −1 point
+
+Ranked on RAW points alone: ~12th of 24, mid-table
+Ranked WITH the deduction applied: 24th — bottom of the division
+
+Net effect: roughly a 12-place swing purely from the sanction</div>
+
+      <p>Stoke's own numbers are the more honest read of where things stand: 0 points from 2, &minus;3 goal difference, one red card. Two winnable-looking defeats, nothing more sinister — yet.</p>
+    </div>
+
+    <div class="maths" style="border-color:rgba(221,55,67,.28)">
       <h4>Ins and outs — Stoke City</h4>
-      <p class="small" style="margin-top:0">The window closes <b>31 August</b>, so this list will keep moving. Amber tags are press speculation, not club announcements. Three departures resolved in the past week.</p>
+      <p class="small" style="margin-top:0">Window closes <b>1 September</b>, not 31 August (see corrections below). Several items below moved from "rumoured" to "confirmed" this week.</p>
       <div class="moves">
         <div class="mv in">
           <h5>↘ Joining</h5>
           <ul class="mvlist">
-            <li><b>Ethan Galbraith</b> <span class="tag-conf c">Confirmed</span><br><span>Midfielder from Swansea City, reported £10m plus add-ons — squad number 8. Started both competitive games, including against his old club on Saturday.</span></li>
-            <li><b>Svante Ingelsson</b> <span class="tag-conf c">Confirmed</span><br><span>Midfielder from Sheffield Wednesday, around £1m on a three-year deal. Number 6. Crossed for Bocat's goal.</span></li>
-            <li><b>Djibril Soumaré</b> <span class="tag-conf c">Confirmed</span><br><span>Midfielder from Braga, around €4m. Number 27.</span></li>
-            <li><b>Luke Graham</b> <span class="tag-conf c">Confirmed</span><br><span>Centre-half from Dundee on a four-year contract. Number 5. Has started both games.</span></li>
-            <li><b>Josh Griffiths</b> <span class="tag-conf c">Confirmed</span><br><span>Goalkeeper from West Brom, around £600k. Number 24.</span></li>
-            <li><b>Milan Smit</b> <span class="tag-conf c">Confirmed</span><br><span>Striker — loan from Go Ahead Eagles made permanent, £4.75m.</span></li>
-            <li><b>Ben Wilmot</b> <span class="tag-conf c">Re-signed</span><br><span>Three-year extension, ending the West Ham speculation carried here last week.</span></li>
-            <li><b>Harry Clarke</b> <span class="tag-conf r">Agreed, reported</span><br><span>Ipswich Town right-back, £3.5m fee widely reported as agreed in early August ahead of Bristol City and Sheffield United. Not in the squad on Saturday and no club announcement located, so treat as done-but-unofficial.</span></li>
-            <li><b>George Hirst</b> <span class="tag-conf r">Rumoured</span><br><span>Ipswich Town striker. Bids of £10m+ reported; Ipswich are said to want a permanent sale rather than loan-to-buy. Stoke are reported to have an alternative lined up.</span></li>
-            <li><b>Cody Drameh</b> <span class="tag-conf r">Rumoured</span><br><span>Hull City right-back, tracked by several Championship clubs. Overlaps awkwardly with the Clarke deal.</span></li>
-            <li><b>Joel Piroe · Jack Moylan · Harry Souttar</b> <span class="tag-conf r">Rumoured</span><br><span>All still on the linked-not-agreed list. Souttar's urgency looks lower with Graham starting.</span></li>
+            <li><b>George Hirst</b> <span class="tag-conf c">Confirmed — moved from Rumoured</span><br><span>Striker, permanent from Ipswich Town, base fee reported around £6m. Medical 19 Aug, debuted at Southampton 22 Aug. Last week this was listed as an unresolved chase — it's done.</span></li>
+            <li><b>Ben Johnson</b> <span class="tag-conf c">Confirmed — new this week</span><br><span>Right-back, season-long loan from Ipswich Town. Debuted alongside Hirst at Southampton.</span></li>
+            <li><b>Ethan Galbraith, Svante Ingelsson, Djibril Soumaré, Luke Graham, Josh Griffiths, Milan Smit</b> <span class="tag-conf c">Confirmed</span><br><span>All unchanged from last week's list — still the core of the summer rebuild.</span></li>
           </ul>
         </div>
         <div class="mv out">
           <h5>↗ Leaving</h5>
           <ul class="mvlist">
-            <li><b>Bae Jun-ho</b> <span class="tag-conf c">Confirmed</span><br><span>To <b>Olympique Lyonnais</b>, completed around 15 Aug after a reported €3.5m bid in late July. He came off the bench and assisted the second goal against Oldham a week earlier — that was his Stoke farewell.</span></li>
-            <li><b>Tatsuki Seko</b> <span class="tag-conf c">Confirmed</span><br><span>Permanent move to <b>Urawa Reds</b> in Japan's J1 League, completed 16 Aug after two years at the club. The rumour carried here last week resolved exactly as expected.</span></li>
-            <li><b>Ashley Phillips</b> <span class="tag-conf c">Resolved</span><br><span>Never a Stoke player — two seasons on loan from Spurs. The stalled Middlesbrough deal went through on <b>15 Aug</b>: a permanent transfer on a five-year contract. Stoke lost that race for good.</span></li>
-            <li><b>Lewis Baker · Steven N'Zonzi</b> <span class="tag-conf c">Confirmed</span><br><span>Both released on the retained list, 14 May.</span></li>
-            <li><b>Sydney Agina</b> <span class="tag-conf c">Confirmed</span><br><span>Loaned to Forest Green Rovers in early July.</span></li>
-            <li><b>Sorba Thomas</b> <span class="tag-conf r">Rumoured</span><br><span>West Ham — now a Championship rival after relegation — plus Coventry (newly promoted to the Premier League), Stuttgart and Genoa have all been linked. Stoke's valuation sits at £9&ndash;10m and he has two years left. He started on Saturday and forced the save of the game. Two weeks of window left to be wrong about it.</span></li>
-            <li><b>Ben Pearson</b> <span class="tag-conf r">Rumoured</span><br><span>Reportedly may be moved on to make room for the new midfielders. Has not featured in either competitive squad's starting XI.</span></li>
-            <li><b>Sam Gallagher</b> <span class="tag-conf r">Rumoured</span><br><span>Reported as available to leave — then started both competitive games up front. The amber tag looks looser every week.</span></li>
+            <li><b>Lewis Baker</b> <span class="tag-conf c">Confirmed — destination now known</span><br><span>Released in May, now confirmed to have signed for Bursaspor in Turkey on a free transfer.</span></li>
+            <li><b>Milan Smit</b> <span class="tag-conf c">Confirmed</span><br><span>Signed permanently from Go Ahead Eagles (£4.75m) — then immediately loaned out again to Darmstadt 98 on 14 August. That loan predates last week's cutoff but wasn't captured then; added here for completeness.</span></li>
+            <li><b>True Grant, Emre Tezgel, Favour Fawunmi</b> <span class="tag-conf c">Confirmed, new this week</span><br><span>Loan exits to FC Halifax Town, Wycombe Wanderers and Oldham Athletic respectively. A small-world footnote: Fawunmi's new loan club, Oldham, are the side Stoke beat in the Carabao Cup a fortnight ago.</span></li>
+            <li><b>Nikola Jojić</b> <span class="tag-conf c">Confirmed, believed already resolved</span><br><span>Released; wasn't listed in last week's round-up, added here for completeness rather than as a new departure.</span></li>
           </ul>
         </div>
       </div>
-      <p class="small">The pattern has now completed: three central midfielders in (Galbraith, Ingelsson, Soumaré), two released in May and two sold in August (Bae, Seko). The engine room that started last season has been replaced wholesale, and the remaining business is at the two ends of the pitch — a right-back apparently secured and a centre-forward apparently not. Stoke have spent heavily and are being backed to reach the newly expanded six-team play-off zone; one competitive win and one home defeat in is far too early to judge it, but opening day was a reminder that spending and scoring are different problems.</p>
+      <p class="small">No credible live deadline-chase rumours specific to Stoke were found this week — Harry Clarke (Ipswich, reported agreed) and the Cody Drameh / Joel Piroe / Harry Souttar links carried in last week's page have no fresh news either way and are not repeated here rather than assumed dead. About a week of window remains as of today.</p>
     </div>
   </section>
   </div>
@@ -575,15 +548,15 @@ Eels       22 + 6 = 28  ← eliminated</div>
 </main>
 
 <footer>
-  <p><b>Sources &amp; caveats:</b> compiled Monday 17 August 2026. NRL ladder, Round 24 results and Round 25&ndash;27 fixtures from Zero Tackle, Legz, Australia Football and NRL Countdown; Broncos injury detail from Zero Tackle's Walsh update and Zero Tackle's Round 25 match centre; the Reynolds calf report and his quotes via AAP syndication; match report, Maguire quote and the Walsh/Metcalf injuries via AAP/Canberra Times and NZCity; the defending-premiers record via the Canberra Times. Stoke 1&ndash;2 Swansea from Sky Sports and Footlive; Carabao Cup second-round draw from Sky Sports; Southampton's points deduction and the spygate sanctions from Wikipedia's account of the EFL commission ruling and Sky Sports' contemporaneous reporting; Championship table via Goal; Stoke transfer activity from TransferFeed, The72, Get French Football News, the Yorkshire Post and East Anglian Daily Times; Ashley Phillips' move via Middlesbrough FC and Goal; Premier League relegation and promotion via Yahoo Sports and Wikipedia's 2026 EFL play-offs entry.</p>
+  <p><b>Sources &amp; caveats:</b> compiled Monday 24 August 2026. NRL Round 25 results, ladder and Round 26&ndash;27 fixtures from Zero Tackle and cross-checked against an independent snapshot for internal consistency (NRL.com's own ladder page would not render for automated fetching — treated as high-confidence, not officially source-verified); Storm's elimination and the Maguire post-match quotes via ABC News; the Reynolds fitness-deadline story and the Reynolds/Maguire conflicting accounts via the Canberra Times, Yahoo News Australia and eisa.net.au; the Walsh injury timeline via Zero Tackle and the North West Star; Payne Haas's contract via Rabbitohs.com.au; the Maguire contract review via Zero Tackle. Stoke's Southampton match report via Southampton FC's own site, Sky Sports and Vavel; the Swansea and Oldham results via Sky Sports and the Irish News; the Championship table via footballwebpages.co.uk, cross-checked against worldfootball.net's un-deducted version; the Southampton spygate sanction via Sky Sports and Football365; the 2026 transfer deadline date via the Premier League's own published dates; Stoke's transfer activity via Sports Mole's summer tracker.</p>
 
-  <p><b>Corrections and changes in this update:</b> <b>Broncos beaten 40&ndash;6 by the Warriors</b> — the page's optimistic framing of Round 24 as a Reynolds farewell was wrong on both counts: Reynolds never played, having strained his soleus at training on Wednesday 12 August, and the game was a rout. <b>Reece Walsh is out for the season</b> with a high-grade syndesmosis injury. Ladder rebuilt from Round 24 in full — Brisbane hold 16th on 18 points with differential worsening from &minus;164 to <b>&minus;198</b>; the Roosters take top spot on 38; Melbourne took the bye. Every Round 23 figure carried from last week reconciled exactly against the Round 24 results, including the two &mdash; Knights and Titans differentials &mdash; where one live ladder currently disagrees with the arithmetic by two points (see the verification note). The run home drops to <b>three games</b>. The &ldquo;first reigning premiers since the <b>2005</b> Wests Tigers&rdquo; line is <b>corrected to the 2006 Wests Tigers</b> — the Tigers won the 2005 title and missed the 2006 finals, so it is the following season that is the comparison; Canterbury did the same in 2005. Home record updated to <b>2&ndash;9</b>. The elimination maths panel is replaced with what is actually still live: the wooden-spoon scenario, and a verified list of which clubs can still reach eighth.</p>
+  <p><b>Corrections and changes in this update:</b> <b>Broncos beat the Raiders 34&ndash;30</b>, coming back from 16 points down — the first entry in a long while that isn't bad news. Ladder position improves to <b>14th</b> (from 16th), points differential to <b>&minus;194</b> (from &minus;198). The maths panel's headline finding this week is that <b>the wooden spoon is no longer mathematically possible for Brisbane</b> — last week's page had it as "still live"; the Dragons' remaining ceiling (18) now sits below Brisbane's floor (20). <b>Melbourne Storm are eliminated</b> from finals contention following their loss to Penrith, which also removes them from the list of clubs still alive for eighth — down to two clubs (Bulldogs, Sea Eagles) from four last week. The run home is down to <b>two games</b>, not three.</p>
 
-  <p><b>Corrections — Stoke:</b> <b>Lost 1&ndash;2 at home to Swansea</b>, ending the unbeaten run at seven. The claim that &ldquo;Southampton, Wolves and Norwich&rdquo; were <b>three of last season's Premier League drop-outs is wrong</b> and has been removed: the clubs relegated from the Premier League in 2025/26 were <b>Wolves, Burnley and West Ham</b>. Southampton spent last season in the Championship (they were expelled from the play-off final over spygate) and Norwich have been in the division for years. Southampton also <b>start this season on &minus;4 points</b>, which last week's page did not mention and which materially changes Saturday's fixture. The Carabao Cup second-round tie is filled in: <b>Hull City at home, Tue 25 Aug</b> — and Hull are now a Premier League club, having won the play-off final in Southampton's place. <b>Ashley Phillips</b> is resolved: the stalled Middlesbrough move completed on 15 August, five-year deal. <b>Ben Wilmot</b> moves from the rumoured-departures column to a three-year extension. <b>Bae Jun-ho (Lyon)</b> and <b>Tatsuki Seko (Urawa Reds)</b> have both left. <b>Harry Clarke</b> and <b>George Hirst</b> are added. Last week's pre-season table listed the behind-closed-doors Sheffield Wednesday friendly as 6&ndash;0; the aggregate is now shown consistently as 4&ndash;0, matching the databases. Sorba Thomas's appearance and assist figures still disagree across three sources and all three are shown rather than picking a winner.</p>
+  <p><b>Corrections — Stoke:</b> <b>Lost 3&ndash;1 at Southampton</b>, finishing with ten men after Svante Ingelsson's second yellow gave away the injury-time penalty that sealed it. <b>George Hirst moves from "Rumoured" to "Confirmed"</b> — the permanent deal from Ipswich completed and he debuted this week, alongside new loan signing <b>Ben Johnson</b>, also ex-Ipswich. <b>The transfer deadline correction is the important one this week: it is not 31 August.</b> Both last week's page and this dashboard's original brief assumed 31 August; the Premier League's own published dates confirm it is <b>11pm BST on 1 September 2026</b>. That's now corrected here after running uncorrected for at least two editions — worth flagging plainly rather than quietly fixing. Southampton's points-deduction arithmetic is shown with full working this week (see the maths panel) rather than just asserted.</p>
 
-  <p><b>Verification note:</b> the Round 24 ladder was computed from the Round 23 table plus the eight Round 24 scorelines and then checked against two published ladders. Worked examples: Roosters +157 + 6 = +163; Warriors +242 + 34 = +276; Broncos &minus;164 &minus; 34 = &minus;198; Dragons &minus;265 + 2 = &minus;263; Wests Tigers &minus;211 &minus; 2 = &minus;213. All seventeen lines reconciled. Two of them &mdash; the Knights (+76) and the Titans (&minus;154) &mdash; are currently listed by Zero Tackle as +78 and &minus;156; the computed figures match Australia Football's ladder exactly and are consistent with the 36&ndash;26 scoreline, so they are used here. Zero Tackle's ladder also had not yet absorbed the Sunday-night Dragons&ndash;Tigers result when it was read. Byes remaining are derived from games played plus byes taken against 24 completed rounds: only the Knights, Cowboys and Raiders have one left, which matches the three remaining rounds carrying one bye each. The &ldquo;alive for eighth&rdquo; test is a floor-versus-ceiling test, not a projection: eight clubs have a floor of 30 or better, so a challenger needs a ceiling of at least 30 — Canterbury (32), Manly, Melbourne and Canberra (30 each) clear it and Parramatta (28) does not. NRL times are AEST (UTC+10, no daylight saving in August); Stoke times are BST (UTC+1), which is AEST minus nine hours.</p>
+  <p><b>Verification note:</b> the Round 25 ladder was cross-checked against an independent snapshot for internal round-to-round consistency (each team's points progression from Round 24 to Round 25 matched exactly across both sources), though neither source is NRL.com's own live table, which would not render for automated fetching this week either — flagged as a standing limitation rather than resolved. Byes-remaining for Wests Tigers and Titans (both shown as 1 left) rely on an assumption that each team receives exactly three byes across the 2026 season (concentrated around State of Origin, per Zero Tackle's byes-schedule article); Wikipedia's season page instead states one bye per team, which conflicts with observed games-played counts this deep into the season. The three-byes account is used as the better fit, flagged as an assumption rather than a confirmed figure — unchanged from last week's caveat. Finals arithmetic verified programmatically: Broncos ceiling 20+(2×2)=24 &lt; Cowboys floor 30 → eliminated confirmed; wooden-spoon check Broncos floor 20 vs Dragons ceiling 14+(2×2)=18 → 18&lt;20, Dragons cannot catch Brisbane, confirmed. Southampton deduction: 3 raw points − 4 sanction = −1, a roughly 12-place swing versus their un-deducted table position, computed directly from the two independently-verified match results (Watford loss, Stoke win) rather than taken from any single live tracker. NRL times are AEST (UTC+10, no daylight saving in August); Stoke times are BST (UTC+1), which is AEST minus nine hours.</p>
 
-  <p><b>On player movement:</b> items marked <span style="color:var(--good)">Confirmed</span> come from club or league announcements. Items marked <span style="color:var(--draw)">Rumoured</span> or <span style="color:var(--draw)">Agreed, reported</span> come from press reporting and may never happen. The Stoke window closes 31 August and the NRL's 2027 signing period runs well past that, so both lists will date quickly.</p>
+  <p><b>On player movement:</b> items marked <span style="color:var(--good)">Confirmed</span> come from club or league announcements, or independent corroboration across two or more outlets. Items marked <span style="color:var(--draw)">Rumoured</span> come from press reporting and may never happen. Jonah Pezet's move to Brisbane for 2027 is reported consistently across sources but has not been located as a direct club statement — treated as high-confidence rather than club-confirmed. The Stoke window closes 1 September; the NRL's 2027 signing period runs well past that, so both lists will keep moving.</p>
 </footer>
 
 <script>
