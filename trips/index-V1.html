@@ -372,15 +372,14 @@
     <noscript>
         <div class="ride ride--booked">
             <h2>Mann River — 29–30 August 2026</h2>
-            <p class="blurb">Cornubia to Mann River Nature Reserve via the Lions Road and the Clarence Way.</p>
+            <p class="blurb">Cornubia to Mann River Nature Reserve via the Lions Road.</p>
             <div class="links">
                 <a class="btn btn--primary" href="mann-river.html">Read the guide</a>
                 <a class="btn" href="pdf/mann-river-guide.pdf">Guide PDF</a>
                 <a class="btn" href="pdf/mann-river-ride-card.pdf">Ride card PDF</a>
-                <a class="btn" href="pdf/mann-river-route-sheet.pdf">Route sheet PDF</a>
             </div>
         </div>
-        <div class="ride ride--booked">
+        <div class="ride ride--proposed">
             <h2>Meringandan Weekend — 23–24 October 2026</h2>
             <p class="blurb">Wellington Point to Meringandan and home over Cunninghams Gap.</p>
             <div class="links">
@@ -412,29 +411,28 @@ const RIDES = [
   {
     status: "booked",
     title: "Mann River",
-    route: "Cornubia → Lions Road → Clarence Way → Grafton → Mann River Nature Reserve",
+    route: "Cornubia → Lions Road → Grafton → Mann River Nature Reserve",
     start: "2026-08-29",
     end:   "2026-08-30",
-    blurb: "Three riders, two days and one cold night on the Northern Tablelands. Lions Road over the border, then the Clarence Way down through Eighteen Mile and Baryulgil to Grafton. Sunday is one decision over coffee — 130 km of unsealed Old Grafton Road if it is genuinely dry, or the Tenterfield loop if it isn't.",
+    blurb: "Three riders, two days and one cold night on the Northern Tablelands. Sealed run south on the Saturday, then one decision over coffee on the Sunday — 130 km of unsealed Old Grafton Road if it is genuinely dry, or the Tenterfield loop if it isn't.",
     stats: [
-      ["Distance", "≈920 km"],
+      ["Distance", "≈900 km"],
       ["Bikes", "3 adventure"],
-      ["Surface", "Sealed + ≈25 km gravel"],
+      ["Surface", "Sealed + gravel"],
       ["Nights", "1 · camping"]
     ],
     days: [
-      { label: "Sat · Cornubia to camp", km: 490 },
-      { label: "Sun · Plan A home", km: 430 }
+      { label: "Sat · Cornubia to camp", km: 444 },
+      { label: "Sun · Plan A home", km: 460 }
     ],
     links: [
       { label: "Read the guide", href: "mann-river.html", primary: true },
       { label: "Full guide", href: "pdf/mann-river-guide.pdf", ext: "PDF" },
-      { label: "Ride card", href: "pdf/mann-river-ride-card.pdf", ext: "PDF" },
-      { label: "Route sheet", href: "pdf/mann-river-route-sheet.pdf", ext: "PDF" }
+      { label: "Ride card", href: "pdf/mann-river-ride-card.pdf", ext: "PDF" }
     ]
   },
   {
-    status: "booked",
+    status: "proposed",
     title: "Meringandan Weekend",
     route: "Wellington Point → Mt Glorious → Meringandan → Cunninghams Gap",
     start: "2026-10-23",
