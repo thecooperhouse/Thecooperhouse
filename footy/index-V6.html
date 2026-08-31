@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Broncos &amp; Stoke City — Fan Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#131017;
+    --paper:#f5f2ec;
+    --card:#1c1822;
+    --card-edge:#2b2533;
+    --maroon:#762340;
+    --maroon-deep:#4d1229;
+    --gold:#f7b915;
+    --stoke-red:#dd3743;
+    --stoke-deep:#a01f2b;
+    --porcelain:#f4f0e9;
+    --mut:#a99fb3;
+    --good:#3ec97e;
+    --bad:#e05a5a;
+    --draw:#c9b23e;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--ink);color:var(--paper);font-family:'Archivo',sans-serif;line-height:1.55}
+  .display{font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.02em}
+
+  /* ===== masthead ===== */
+  header{padding:44px 24px 28px;text-align:center;position:relative;overflow:hidden}
+  header::before{content:"";position:absolute;inset:0;
+    background:linear-gradient(105deg,var(--maroon-deep) 0 46%,transparent 46% 54%,var(--stoke-deep) 54% 100%);
+    opacity:.5}
+  header::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:8px;transform:translateX(-50%) skewX(-12deg);
+    background:repeating-linear-gradient(180deg,var(--gold) 0 14px,var(--porcelain) 14px 28px)}
+  header>*{position:relative;z-index:1}
+  .kick{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
+  h1{font-size:clamp(40px,8vw,84px);line-height:.95}
+  h1 .bri{color:var(--gold)} h1 .amp{color:var(--mut);font-weight:600} h1 .stk{color:var(--stoke-red)}
+  .sub{margin-top:12px;color:var(--mut);font-size:14px;max-width:760px;margin-left:auto;margin-right:auto}
+
+  /* ===== TABS ===== */
+  .tabstrip{position:sticky;top:0;z-index:30;background:rgba(19,16,23,.94);backdrop-filter:blur(10px);
+    border-top:1px solid var(--card-edge);border-bottom:1px solid var(--card-edge)}
+  .tablist{max-width:1060px;margin:0 auto;display:flex;gap:0;padding:0 12px}
+  .tab{flex:1 1 0;appearance:none;background:none;border:0;cursor:pointer;color:var(--mut);
+    font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.06em;
+    font-size:clamp(19px,3.4vw,28px);line-height:1;padding:16px 10px 13px;position:relative;
+    border-bottom:3px solid transparent;transition:color .18s ease,background .18s ease}
+  .tab .tsub{display:block;font-family:'Archivo',sans-serif;font-weight:500;font-size:10.5px;
+    letter-spacing:.14em;margin-top:6px;opacity:.8}
+  .tab:hover{color:var(--paper);background:rgba(255,255,255,.035)}
+  .tab:focus-visible{outline:2px solid var(--paper);outline-offset:-4px}
+  .tab[aria-selected="true"]{color:var(--paper)}
+  #tab-broncos[aria-selected="true"]{border-bottom-color:var(--gold);color:var(--gold);
+    background:linear-gradient(180deg,rgba(118,35,64,.32),rgba(247,185,21,.06))}
+  #tab-stoke[aria-selected="true"]{border-bottom-color:var(--porcelain);color:var(--stoke-red);
+    background:linear-gradient(180deg,rgba(160,31,43,.32),rgba(244,240,233,.06))}
+
+  /* ===== big dates strip ===== */
+  .dates{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;padding:16px 24px;border-bottom:1px solid var(--card-edge);background:var(--card)}
+  .date-chip{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mut)}
+  .date-chip b{color:var(--paper);font-weight:600}
+  .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .dot.g{background:var(--gold)} .dot.r{background:var(--stoke-red)}
+
+  /* ===== sections ===== */
+  main{max-width:1060px;margin:0 auto;padding:30px 20px 64px}
+  section.club{margin-bottom:24px;border-radius:18px;overflow:hidden;border:1px solid var(--card-edge);background:var(--card)}
+  .club-head{padding:26px 28px;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px;position:relative}
+  .club-head h2{font-size:clamp(30px,5vw,48px);line-height:1}
+  .club-head .tag{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--mut)}
+  .broncos .club-head{background:linear-gradient(100deg,var(--maroon-deep),var(--maroon) 70%);border-bottom:3px solid var(--gold)}
+  .stoke .club-head{background:linear-gradient(100deg,#5c1017,var(--stoke-deep) 70%);border-bottom:3px solid var(--porcelain)}
+  .stoke .club-head::after{content:"";position:absolute;right:0;top:0;bottom:0;width:120px;opacity:.22;
+    background:repeating-linear-gradient(90deg,var(--porcelain) 0 12px,transparent 12px 24px)}
+  .broncos .club-head::after{content:"";position:absolute;right:-20px;top:-30px;width:170px;height:200px;transform:rotate(18deg);opacity:.18;
+    background:linear-gradient(90deg,var(--gold) 0 30px,transparent 30px)}
+
+  .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:0}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .col{padding:26px 28px;min-width:0}
+  .col+.col{border-left:1px solid var(--card-edge)}
+  @media(max-width:820px){.col+.col{border-left:none;border-top:1px solid var(--card-edge)}}
+
+  h3{font-family:'Big Shoulders Display',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:15px;color:var(--mut);margin-bottom:14px}
+  h3.later{margin-top:28px}
+
+  /* scoreline card */
+  .scoreline{border-radius:12px;padding:18px 20px;margin-bottom:8px}
+  .broncos .scoreline{background:linear-gradient(120deg,rgba(118,35,64,.35),rgba(247,185,21,.08));border:1px solid rgba(247,185,21,.35)}
+  .stoke .scoreline{background:linear-gradient(120deg,rgba(221,55,67,.22),rgba(244,240,233,.05));border:1px solid rgba(221,55,67,.4)}
+  .score-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .team-n{font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;font-size:20px}
+  .big-score{font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:44px;font-variant-numeric:tabular-nums}
+  .win-note{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+  .stoke .win-note{color:var(--stoke-red)}
+  .score-meta{font-size:13px;color:var(--mut);margin-top:8px}
+
+  /* form pills */
+  .form-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+  .pill{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font-weight:700;font-size:15px;position:relative;cursor:default}
+  .pill.w{background:rgba(62,201,126,.16);color:var(--good);border:1px solid rgba(62,201,126,.45)}
+  .pill.l{background:rgba(224,90,90,.12);color:var(--bad);border:1px solid rgba(224,90,90,.4)}
+  .pill.d{background:rgba(201,178,62,.12);color:var(--draw);border:1px solid rgba(201,178,62,.4)}
+  .pill span{position:absolute;top:46px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;color:var(--mut);font-weight:500}
+  .form-wrap{padding-bottom:26px}
+
+  /* ladder */
+  table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+  th{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);font-weight:600;text-align:left;padding:6px 8px;border-bottom:1px solid var(--card-edge)}
+  td{padding:7px 8px;border-bottom:1px solid rgba(43,37,51,.6)}
+  tr.me td{background:rgba(247,185,21,.1);font-weight:700}
+  .stoke tr.me td{background:rgba(221,55,67,.12)}
+  tr.faint td{color:var(--mut)}
+  tr.alive td:nth-child(2){color:var(--draw)}
+  .num{text-align:right}
+  .table-note{font-size:12px;color:var(--mut);margin-top:10px}
+
+  /* stat blocks */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:4px}
+  @media(max-width:480px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:rgba(0,0,0,.25);border:1px solid var(--card-edge);border-radius:10px;padding:12px 12px 10px}
+  .stat b{display:block;font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:26px;font-variant-numeric:tabular-nums}
+  .broncos .stat b{color:var(--gold)} .stoke .stat b{color:var(--stoke-red)}
+  .stat span{font-size:11.5px;color:var(--mut);letter-spacing:.04em}
+
+  /* notes */
+  ul.notes{list-style:none}
+  ul.notes li{padding:9px 0 9px 20px;position:relative;font-size:14px;border-bottom:1px solid rgba(43,37,51,.6)}
+  ul.notes li:last-child{border-bottom:none}
+  ul.notes li::before{content:"";position:absolute;left:2px;top:16px;width:8px;height:8px;border-radius:2px;transform:rotate(45deg)}
+  .broncos ul.notes li::before{background:var(--gold)}
+  .stoke ul.notes li::before{background:var(--stoke-red)}
+
+  /* ===== next game highlight ===== */
+  .nextgame{margin:0 28px 26px;border-radius:14px;padding:0;overflow:hidden;border:1px solid var(--card-edge);background:rgba(0,0,0,.28)}
+  .ng-head{padding:9px 16px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
+  .broncos .ng-head{background:linear-gradient(90deg,var(--maroon),rgba(118,35,64,.25));color:var(--gold)}
+  .stoke .ng-head{background:linear-gradient(90deg,var(--stoke-deep),rgba(160,31,43,.25));color:var(--porcelain)}
+  .ng-body{padding:18px 20px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
+  @media(max-width:560px){.ng-body{grid-template-columns:1fr}}
+  .ng-match{font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;font-size:27px;line-height:1.05}
+  .ng-meta{font-size:13px;color:var(--mut);margin-top:7px;line-height:1.7}
+  .ng-meta b{color:var(--paper);font-weight:600}
+  .ng-when{text-align:right;font-variant-numeric:tabular-nums}
+  @media(max-width:560px){.ng-when{text-align:left}}
+  .ng-when .d{font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:34px;line-height:1}
+  .broncos .ng-when .d{color:var(--gold)} .stoke .ng-when .d{color:var(--stoke-red)}
+  .ng-when .t{font-size:12px;color:var(--mut);letter-spacing:.06em}
+
+  /* ===== maths panel ===== */
+  .maths{margin:0 28px 26px;border:1px solid var(--card-edge);border-radius:14px;background:rgba(0,0,0,.28);padding:20px 22px}
+  .maths h4{font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:20px;margin-bottom:4px}
+  .verdict{display:inline-block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;padding:5px 11px;border-radius:999px;margin-bottom:14px;margin-right:8px;
+    background:rgba(224,90,90,.14);color:var(--bad);border:1px solid rgba(224,90,90,.45)}
+  .verdict.good{background:rgba(62,201,126,.16);color:var(--good);border:1px solid rgba(62,201,126,.45)}
+  .eq{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:13px;background:rgba(0,0,0,.4);border-left:3px solid var(--gold);
+    padding:11px 14px;border-radius:0 8px 8px 0;margin:12px 0;color:#e9e2f0;line-height:1.85;overflow-x:auto;white-space:pre}
+  .stoke .eq{border-left-color:var(--stoke-red)}
+  .maths p{font-size:14px;margin:10px 0;color:#ded6e6}
+  .maths .small{font-size:12.5px;color:var(--mut)}
+  table.req td,table.req th{padding:6px 8px}
+  table.req .danger{color:var(--bad);font-weight:700}
+  table.req .ok{color:var(--draw)}
+  table.req .good{color:var(--good);font-weight:700}
+
+  /* ===== movement columns ===== */
+  .moves{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:6px}
+  @media(max-width:640px){.moves{grid-template-columns:1fr}}
+  .mv h5{font-family:'Big Shoulders Display',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:13px;margin-bottom:9px}
+  .mv.in h5{color:var(--good)} .mv.out h5{color:var(--bad)}
+  ul.mvlist{list-style:none}
+  ul.mvlist li{font-size:13.5px;padding:7px 0;border-bottom:1px solid rgba(43,37,51,.6);line-height:1.5}
+  ul.mvlist li:last-child{border-bottom:none}
+  ul.mvlist b{font-weight:600}
+  ul.mvlist span{color:var(--mut)}
+  .tag-conf{display:inline-block;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border-radius:4px;margin-left:6px;vertical-align:1px}
+  .tag-conf.c{background:rgba(62,201,126,.16);color:var(--good);border:1px solid rgba(62,201,126,.4)}
+  .tag-conf.r{background:rgba(201,178,62,.13);color:var(--draw);border:1px solid rgba(201,178,62,.4)}
+  .tag-conf.x{background:rgba(224,90,90,.13);color:var(--bad);border:1px solid rgba(224,90,90,.4)}
+
+  footer{max-width:1060px;margin:0 auto;padding:0 20px 48px;color:var(--mut);font-size:12px;line-height:1.7}
+  footer b{color:var(--paper)}
+  footer p{margin-bottom:14px}
+
+  [hidden]{display:none !important}
+  @media(prefers-reduced-motion:no-preference){
+    .panel:not([hidden]){animation:rise .35s ease both}
+    @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="kick">Two clubs · Two hemispheres · One dashboard</p>
+  <h1 class="display"><span class="bri">Broncos</span> <span class="amp">&amp;</span> <span class="stk">Stoke City</span></h1>
+  <p class="sub">Season snapshot as at Monday 24 August 2026 · Brisbane found a way to win one that mattered to nobody but them, coming from 16&ndash;30 down to beat Canberra 34&ndash;30; Stoke lost 3&ndash;1 at Southampton and finished with ten men</p>
+</header>
+
+<!-- ===== TABS ===== -->
+<div class="tabstrip">
+  <div class="tablist" role="tablist" aria-label="Choose a club">
+    <button class="tab" id="tab-broncos" role="tab" aria-selected="true" aria-controls="panel-broncos" tabindex="0">
+      Broncos<span class="tsub">NRL · 14th · Eliminated</span>
+    </button>
+    <button class="tab" id="tab-stoke" role="tab" aria-selected="false" aria-controls="panel-stoke" tabindex="-1">
+      Stoke City<span class="tsub">Championship · 0 pts, P2</span>
+    </button>
+  </div>
+</div>
+
+<div class="dates">
+  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>Broncos next</b> · Thu 27 Aug · Storm at Suncorp, 7:50pm AEST</span></div>
+  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>Reynolds' fitness call</b> · Today, Mon 24 Aug — decides Suncorp farewell</span></div>
+  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>NRL Grand Final</b> · Sun 4 Oct · Accor Stadium</span></div>
+  <div class="date-chip" data-club="stoke"><span class="dot r"></span><span><b>Stoke next</b> · Tue 25 Aug · Hull City home, Carabao Cup R2, 7:45pm BST</span></div>
+  <div class="date-chip" data-club="stoke"><span class="dot r"></span><span><b>Then</b> · Sat 29 Aug · Wolves away, 12:30pm BST</span></div>
+  <div class="date-chip" data-club="stoke"><span class="dot r"></span><span><b>Transfer deadline</b> · Tue 1 Sep, 11pm BST (not 31 Aug — see corrections)</span></div>
+</div>
+
+<main>
+
+  <!-- ============ BRONCOS PANEL ============ -->
+  <div class="panel" id="panel-broncos" role="tabpanel" aria-labelledby="tab-broncos" tabindex="0">
+  <section class="club broncos">
+    <div class="club-head">
+      <h2 class="display">Brisbane Broncos</h2>
+      <span class="tag">NRL 2026 · Reigning Premiers · 14th · Eliminated · 2 games left</span>
+    </div>
+
+    <div class="nextgame">
+      <div class="ng-head">Next game — last home game of the year, and possibly Reynolds' farewell</div>
+      <div class="ng-body">
+        <div>
+          <div class="ng-match">Broncos <span style="color:var(--mut)">v</span> Storm</div>
+          <p class="ng-meta">
+            <b>Where:</b> Suncorp Stadium — home, and Brisbane's last home game of the regular season<br>
+            <b>Who:</b> Melbourne, 11th on 24 points, and — as of Round 25 — <b>officially out of finals contention</b> for the first time since 2002. This game means nothing to either side on the ladder<br>
+            <b>Team news:</b> <b>Adam Reynolds</b>' calf strain gets a fitness call today; Maguire has flagged this as his likely Suncorp farewell if he's right. <b>Reece Walsh</b> remains out for the season (syndesmosis surgery, ~8 weeks)<br>
+            <b>Why it matters:</b> nothing on the table, everything in the stands. If Reynolds passes today's test, this is his last home game in maroon and gold before he moves upstairs to coach in 2027.
+          </p>
+        </div>
+        <div class="ng-when">
+          <div class="d">THU 27 AUG</div>
+          <div class="t">7:50pm AEST · Round 26</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="col">
+        <h3>Latest result</h3>
+        <div class="scoreline">
+          <p class="win-note">Won by 4 · Fri 21 Aug · GIO Stadium, Canberra · Round 25 · Crowd 20,512</p>
+          <div class="score-row"><span class="team-n">Raiders</span><span class="big-score">30 &ndash; 34</span><span class="team-n">Broncos</span></div>
+          <p class="score-meta">Brisbane were down <b>16&ndash;30 with under 20 minutes left</b> and somehow found 18 unanswered points. Tries to Billy Walters (8'), Ezra Mam (26'), a Grant Anderson double (32', 66') and Payne Haas (63') set it up, then <b>Hayze Perham</b> — deputising at fullback for the injured Reece Walsh — scored the match-winner and kicked 5 from 6. Played in Canberra great Josh Papali'i's farewell match, which the visitors rather rudely spoiled. Pat Carrigan captained again with Reynolds sidelined (calf).</p>
+        </div>
+
+        <h3 class="later">Last six games</h3>
+        <div class="form-wrap">
+          <div class="form-row">
+            <div class="pill w"><span>Panthers</span>W</div>
+            <div class="pill l"><span>Cowboys</span>L</div>
+            <div class="pill l"><span>Knights</span>L</div>
+            <div class="pill l"><span>Dolphins</span>L</div>
+            <div class="pill l"><span>Warriors</span>L</div>
+            <div class="pill w"><span>Raiders</span>W</div>
+          </div>
+        </div>
+
+        <h3 class="later">The run home — two remaining</h3>
+        <table>
+          <thead><tr><th>Rd</th><th>When (AEST)</th><th>Opponent</th><th>H/A</th></tr></thead>
+          <tbody>
+            <tr class="me"><td>26</td><td>Thu 27 Aug, 7:50pm</td><td>Storm (11th, eliminated)</td><td>Home</td></tr>
+            <tr><td>27</td><td>Wed 3 Sep, TBC</td><td>Bulldogs (9th, alive)</td><td>Away (Sydney)</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">A genuine shift from last week: <b>Melbourne, Brisbane's Round 26 opponent, is now also out of the finals race</b> after losing to Penrith — so for the first time all year, a Broncos opponent has nothing riding on the result either. Round 27 is different: Canterbury are still alive for eighth and need the points, which makes Brisbane's last game of the year the one match left where they can actually spoil somebody's finals hopes.</p>
+
+        <h3 class="later">2026 by the numbers</h3>
+        <div class="stats">
+          <div class="stat"><b>14th</b><span>Ladder position — up two on last week</span></div>
+          <div class="stat"><b>7&ndash;15</b><span>Win&ndash;loss record, 20 comp points</span></div>
+          <div class="stat"><b>&minus;194</b><span>Points differential — improved from &minus;198</span></div>
+          <div class="stat"><b>2</b><span>Games left, no byes remaining</span></div>
+          <div class="stat"><b>10</b><span>Points behind 8th, only 4 available</span></div>
+          <div class="stat"><b>2&ndash;9</b><span>Home record — one home game left to fix it</span></div>
+        </div>
+      </div>
+
+      <div class="col">
+        <h3>Where they sit — Round 25 complete</h3>
+        <table>
+          <thead><tr><th>#</th><th>Team</th><th class="num">Pts</th><th class="num">Byes left</th><th class="num">+/&minus;</th></tr></thead>
+          <tbody>
+            <tr class="faint"><td>1</td><td>Warriors</td><td class="num">38</td><td class="num">0</td><td class="num">+295</td></tr>
+            <tr class="faint"><td>2</td><td>Panthers</td><td class="num">38</td><td class="num">0</td><td class="num">+294</td></tr>
+            <tr class="faint"><td>3</td><td>Roosters</td><td class="num">38</td><td class="num">1</td><td class="num">+163</td></tr>
+            <tr class="faint"><td>4</td><td>Dolphins</td><td class="num">36</td><td class="num">0</td><td class="num">+138</td></tr>
+            <tr class="faint"><td>5</td><td>Sharks</td><td class="num">32</td><td class="num">1</td><td class="num">+165</td></tr>
+            <tr class="faint"><td>6</td><td>Knights</td><td class="num">32</td><td class="num">1</td><td class="num">+56</td></tr>
+            <tr class="faint"><td>7</td><td>Rabbitohs</td><td class="num">30</td><td class="num">0</td><td class="num">+63</td></tr>
+            <tr class="faint"><td>8</td><td>Cowboys</td><td class="num">30</td><td class="num">0</td><td class="num">&minus;78</td></tr>
+            <tr class="faint"><td colspan="5" style="text-align:center">· · · finals cut-off · · ·</td></tr>
+            <tr class="faint alive"><td>9</td><td>Bulldogs</td><td class="num">28</td><td class="num">0</td><td class="num">&minus;32</td></tr>
+            <tr class="faint alive"><td>10</td><td>Sea Eagles</td><td class="num">26</td><td class="num">0</td><td class="num">+66</td></tr>
+            <tr class="faint"><td>11</td><td>Storm</td><td class="num">24</td><td class="num">0</td><td class="num">&minus;12</td></tr>
+            <tr class="faint"><td>12</td><td>Raiders</td><td class="num">24</td><td class="num">1</td><td class="num">&minus;65</td></tr>
+            <tr class="faint"><td>13</td><td>Eels</td><td class="num">22</td><td class="num">0</td><td class="num">&minus;199</td></tr>
+            <tr class="me"><td>14</td><td>Broncos</td><td class="num">20</td><td class="num">0</td><td class="num">&minus;194</td></tr>
+            <tr class="faint"><td>15</td><td>Wests Tigers</td><td class="num">20</td><td class="num">1</td><td class="num">&minus;213</td></tr>
+            <tr class="faint"><td>16</td><td>Titans</td><td class="num">18</td><td class="num">1</td><td class="num">&minus;154</td></tr>
+            <tr class="faint"><td>17</td><td>Dragons</td><td class="num">14</td><td class="num">0</td><td class="num">&minus;293</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">Teams in <span style="color:var(--draw)">gold</span> are the only two clubs below the cut-off still mathematically alive for eighth — down from four last week, now that Storm and Raiders are out. Brisbane jump two places purely on points, not form: the Raiders win plus three sides below them losing did the work. Byes-left for Tigers and Titans are carried over as an estimate — see the verification note, this is one of the figures the underlying sources don't agree on.</p>
+
+        <h3 class="later">Round 25 — how it finished</h3>
+        <table>
+          <thead><tr><th>When (AEST)</th><th>Match</th><th>Venue</th></tr></thead>
+          <tbody>
+            <tr class="faint"><td>Fri 21 Aug</td><td>Storm 14 &ndash; 22 Panthers</td><td>AAMI Park</td></tr>
+            <tr class="me"><td>Fri 21 Aug</td><td>Raiders 30 &ndash; 34 Broncos</td><td>GIO Stadium</td></tr>
+            <tr class="faint"><td>Sat 22 Aug</td><td>Dolphins 34 &ndash; 16 Eels</td><td>Suncorp</td></tr>
+            <tr class="faint"><td>Sat 22 Aug</td><td>Knights 24 &ndash; 44 Sea Eagles</td><td>McDonald Jones</td></tr>
+            <tr class="faint"><td>Sat 22 Aug</td><td>Rabbitohs 26 &ndash; 45 Warriors</td><td>Accor</td></tr>
+            <tr class="faint"><td>Sat 22 Aug</td><td>Dragons 14 &ndash; 44 Bulldogs</td><td>CommBank</td></tr>
+            <tr class="faint"><td>Sat 22 Aug</td><td>Titans 22 &ndash; 30 Sharks</td><td>Cbus Super Stadium</td></tr>
+            <tr class="faint"><td>Sun 23 Aug</td><td>Roosters 24 &ndash; 25 Wests Tigers</td><td>Allianz</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">Cowboys had the bye. The result that actually mattered for Brisbane's world was Melbourne's loss to Penrith — it confirmed the Storm's first missed finals series since 2002, and turned Round 26 from a home derby with something at stake into a dead rubber for both sides.</p>
+
+        <h3 class="later">Worth knowing</h3>
+        <ul class="notes">
+          <li><b>Storm and Raiders are both now eliminated.</b> Only the Bulldogs and Sea Eagles remain alive below the cut-off, and Brisbane's Round 27 opponent, Canterbury, is one of them — the last game of Brisbane's season doubles as a genuine spoiler opportunity.</li>
+          <li>Adam Reynolds, 36, still retires at season's end and joins the coaching staff in 2027. <b>Maguire and Reynolds are now telling two different stories</b> about why he's missed the last fortnight: Maguire cites a genuine calf/nerve issue, Reynolds says he feels fine and frames it as a call to give younger players a look. Both on the record this week, unresolved.</li>
+          <li><b>Reece Walsh's</b> ~8-week recovery window points to mid-October — after Brisbane's season ends. Hayze Perham has taken over at fullback and scored the Round 25 match-winner.</li>
+          <li>A football department review of the club is underway after the fall from premiers to 14th, but chairman Karl Morris has backed Maguire strongly ("he will be coaching, 100 per cent") and he remains contracted through 2027.</li>
+          <li><b>Xavier Willison's</b> contract extension talks (reportedly through 2030) have stalled after he changed player managers this week — nothing signed, but he's stated a preference to stay.</li>
+          <li>Payne Haas scored in the Round 25 comeback — still turning out every week for the club he's leaving for South Sydney at season's end.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="maths">
+      <h4>The season is gone — but the spoon just got buried</h4>
+      <span class="verdict">Eliminated 8 Aug</span><span class="verdict good">Spoon arithmetically impossible</span>
+
+      <p><b>Step 1 — the ceiling, unchanged in verdict.</b> Brisbane have 20 points, two games left, no byes:</p>
+      <div class="eq">20 + (2 × 2) = <b>24 points maximum</b>   ← requires winning out</div>
+      <p>Eighth place (Cowboys) sits on 30, a floor since points can't go backwards. 24 &lt; 30 — still eliminated, exactly as it has been since 8 August.</p>
+
+      <p><b>Step 2 — the one that actually changed this week.</b> Last week's page had the wooden spoon as "mathematically live." The Raiders win put it to bed:</p>
+      <div class="eq">Broncos  20 pts, 2 games, 0 byes → FLOOR = 20 (can't lose points)
+Dragons  14 pts, 2 games, 0 byes → CEILING = 14 + (2 × 2) = 18
+
+Dragons ceiling (18) &lt; Broncos floor (20)
+  → Dragons cannot mathematically finish above Brisbane
+  → Brisbane cannot finish last, regardless of result</div>
+
+      <p>The Dragons simply don't have enough games left to catch a Brisbane side that can no longer lose points. That single Round 25 win, worth nothing on the ladder, quietly closed off the one embarrassment still available to this season.</p>
+
+      <table class="req">
+        <thead><tr><th>Bottom two — who's actually fighting for the spoon now</th><th>Ceiling</th><th>Floor</th></tr></thead>
+        <tbody>
+          <tr><td>St George Illawarra Dragons (17th)</td><td class="ok">18</td><td>14</td></tr>
+          <tr><td>Gold Coast Titans (16th)</td><td class="good">24</td><td class="ok">18</td></tr>
+        </tbody>
+      </table>
+      <p class="small">Dragons' ceiling exactly equals Titans' floor — so the Dragons can only avoid finishing bottom by winning both remaining games <b>and</b> the Titans losing all three of theirs, which would then come down to points differential (Dragons &minus;293 vs Titans &minus;154 today). Brisbane are spectators to this one now.</p>
+
+      <p><b>Step 3 — who's still alive for eighth, verified.</b> Cowboys' 30-point floor is the bar. Below that line, only two clubs clear a ceiling of 30 or better:</p>
+      <div class="eq">Bulldogs   28 + (2 × 2) = 32  ← alive outright   · play Brisbane, Rd 27
+Sea Eagles 26 + (2 × 2) = 30  ← alive, exactly on the bar
+Storm      24 + (2 × 2) = 28  ← ELIMINATED (was alive last week)
+Raiders    24 + (1 × 2) = 26  ← ELIMINATED (was alive last week)</div>
+      <p class="small">Two of last week's four hopefuls are gone. Brisbane's remaining fixtures now split cleanly: Round 26 against an eliminated Storm side means nothing to anyone, Round 27 against a Bulldogs side that's still fighting means Brisbane get one last chance to be an irritant.</p>
+
+      <p class="small"><b>The honest summary.</b> Nothing about the ladder position changed for the better this week — 14th is still 14th of 17, a long way from anyone's idea of a title defence. What changed is smaller but real: a genuinely good comeback win, the wooden spoon off the table, and Round 27 against Canterbury turning into a game with some actual jeopardy for someone else. Small mercies, taken where available.</p>
+    </div>
+
+    <div class="maths" style="border-color:rgba(247,185,21,.28)">
+      <h4>Ins and outs — Broncos</h4>
+      <p class="small" style="margin-top:0">Unchanged from last week apart from Reynolds' fitness situation — the 2027 roster work was largely locked in before the season fell apart, and nothing new has surfaced this week.</p>
+      <div class="moves">
+        <div class="mv out">
+          <h5>↗ Leaving</h5>
+          <ul class="mvlist">
+            <li><b>Adam Reynolds</b> <span class="tag-conf c">Confirmed</span><br><span>Retiring at season's end, joining the Broncos' coaching staff from 2027. Fitness call for Round 26 due today.</span></li>
+            <li><b>Payne Haas</b> <span class="tag-conf c">Confirmed</span><br><span>Signed by South Sydney for 2027&ndash;2029. Scored in the Round 25 win.</span></li>
+          </ul>
+        </div>
+        <div class="mv in">
+          <h5>↘ Joining</h5>
+          <ul class="mvlist">
+            <li><b>Jonah Pezet</b> <span class="tag-conf c">Confirmed</span><br><span>Arrives from Parramatta for 2027, the succession plan at halfback alongside Reynolds' move to coaching.</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="small">Xavier Willison's extension talks remain open but stalled — flagged in Worth Knowing above rather than repeated here since nothing has actually changed hands.</p>
+    </div>
+  </section>
+  </div>
+
+  <!-- ============ STOKE PANEL ============ -->
+  <div class="panel" id="panel-stoke" role="tabpanel" aria-labelledby="tab-stoke" tabindex="0" hidden>
+  <section class="club stoke">
+    <div class="club-head">
+      <h2 class="display">Stoke City</h2>
+      <span class="tag">EFL Championship · Played 2, lost 2 · Carabao Cup R2 v Hull City</span>
+    </div>
+
+    <div class="nextgame">
+      <div class="ng-head">Next up — a straight shot at redemption against a Premier League name</div>
+      <div class="ng-body">
+        <div>
+          <div class="ng-match">Stoke City <span style="color:var(--mut)">v</span> Hull City</div>
+          <p class="ng-meta">
+            <b>Where:</b> bet365 Stadium — home, Carabao Cup Second Round<br>
+            <b>The context:</b> two straight league defeats since the last update, including a red card in stoppage time at Southampton. This is a chance to bank a positive result before Saturday's trip to Molineux<br>
+            <b>Opponent:</b> Hull City, promoted to the Premier League through the play-off final Southampton were expelled from — a proper scalp on offer at home<br>
+            <b>Then:</b> Wolves away, Sat 29 Aug, 12:30pm BST; Norwich City at home, Tue 1 Sep, the same night the transfer window shuts
+          </p>
+        </div>
+        <div class="ng-when">
+          <div class="d">TUE 25 AUG</div>
+          <div class="t">7:45pm BST · 4:45am AEST (Wed)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="col">
+        <h3>Latest result</h3>
+        <div class="scoreline">
+          <p class="win-note" style="color:var(--bad)">Lost 3&ndash;1 · Sat 22 Aug · St Mary's · Championship MD2 · Crowd 29,185</p>
+          <div class="score-row"><span class="team-n">Southampton</span><span class="big-score">3 &ndash; 1</span><span class="team-n">Stoke City</span></div>
+          <p class="score-meta">Cyle Larin put the hosts ahead early (reported as 6' by Southampton's own site, 8' by Sky Sports and Vavel — treating 8' as more likely on two-source agreement), before <b>Ethan Galbraith</b> levelled it on 26'. It stayed 1&ndash;1 until deep injury time, when <b>Svante Ingelsson</b> picked up a second yellow (90+2') for a foul that gave away a penalty — <b>Ryan Manning</b> converted it (90+4') either side of a Divin Mubama goal (89'). New signings <b>George Hirst</b> and <b>Ben Johnson</b>, both arrived from Ipswich that week, made their debuts. Robins' post-match reaction is only patchily sourced this week — treat any exact quote from this game as low-confidence.</p>
+        </div>
+
+        <h3 class="later">Season so far — competitive</h3>
+        <table>
+          <thead><tr><th>Date</th><th>Opponent</th><th>Comp</th><th class="num">Result</th></tr></thead>
+          <tbody>
+            <tr><td>8 Aug</td><td>Oldham Athletic (H)</td><td>Carabao R1</td><td class="num">W 2&ndash;0</td></tr>
+            <tr><td>15 Aug</td><td>Swansea City (H)</td><td>Championship</td><td class="num">L 1&ndash;2</td></tr>
+            <tr class="me"><td>22 Aug</td><td>Southampton (A)</td><td>Championship</td><td class="num">L 1&ndash;3</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">Two league games, two defeats, 2 scored, 5 conceded, one red card. It's early — but it's also not the start Robins or a squad this expensively rebuilt wanted.</p>
+
+        <h3 class="later">Championship — after two games</h3>
+        <table>
+          <thead><tr><th>#</th><th>Team</th><th class="num">P</th><th class="num">GD</th><th class="num">Pts</th></tr></thead>
+          <tbody>
+            <tr class="faint"><td>1</td><td>Millwall</td><td class="num">2</td><td class="num">+5</td><td class="num">6</td></tr>
+            <tr class="faint"><td>2</td><td>West Brom</td><td class="num">2</td><td class="num">+3</td><td class="num">6</td></tr>
+            <tr class="faint"><td>3</td><td>Charlton</td><td class="num">2</td><td class="num">+2</td><td class="num">6</td></tr>
+            <tr class="faint"><td colspan="5" style="text-align:center">· · · 18 clubs between · · ·</td></tr>
+            <tr class="me"><td>22</td><td>Stoke City</td><td class="num">2</td><td class="num">&minus;3</td><td class="num">0</td></tr>
+            <tr class="faint"><td>23</td><td>Norwich City</td><td class="num">2</td><td class="num">&minus;4</td><td class="num">0</td></tr>
+            <tr class="faint"><td>24</td><td>Southampton</td><td class="num">2</td><td class="num">+1</td><td class="num">&minus;1</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">Southampton's &minus;4 deduction (spygate) is applied here; not every live tracker has caught up with it yet — one aggregator we checked still shows Southampton mid-table on their raw 3 points. On raw form alone they'd sit around 12th; with the deduction they're bottom. Stoke's own &minus;3 GD from 2&ndash;5 is the more relevant story at this stage.</p>
+
+        <h3 class="later">Next three fixtures</h3>
+        <table>
+          <thead><tr><th>Date</th><th>Opponent</th><th>H/A</th><th>Comp</th></tr></thead>
+          <tbody>
+            <tr class="me"><td>Tue 25 Aug, 7:45pm BST</td><td>Hull City</td><td>Home</td><td>Carabao R2</td></tr>
+            <tr><td>Sat 29 Aug, 12:30pm BST</td><td>Wolves</td><td>Away</td><td>Championship</td></tr>
+            <tr><td>Tue 1 Sep, 8:00pm BST</td><td>Norwich City</td><td>Home</td><td>Championship</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">All times BST; add nine hours for AEST (so Tuesday night in England lands as breakfast-time Wednesday in Brisbane). Ingelsson's red card means at least a one-match ban — expect a change in midfield for the Hull tie.</p>
+      </div>
+
+      <div class="col">
+        <h3>Worth knowing</h3>
+        <ul class="notes">
+          <li>Mark Robins remains manager, no change there — exit speculation from earlier in his tenure has quieted.</li>
+          <li><b>George Hirst</b> and <b>Ben Johnson</b> both arrived from Ipswich Town the same week and went straight into the XI at Southampton — Hirst a permanent deal reported around £6m base, Johnson a season-long loan.</li>
+          <li>Two straight defeats and a red card is a rough start for a squad backed with real transfer spend over the summer — Robins' top-eight ambition (helped by the Championship's newly expanded six-team play-off zone) will want correcting quickly.</li>
+          <li>The summer transfer window does <b>not</b> close 31 August — that assumption has been carried in this dashboard for two weeks running and is wrong. It closes 11pm BST on <b>1 September</b>. Corrected properly this week; see below.</li>
+        </ul>
+
+        <h3 class="later">Squad shape</h3>
+        <ul class="notes">
+          <li><b>Svante Ingelsson</b> — crossed for Bocat's goal against Swansea, then saw red in the 90+2' minute at Southampton for the foul that gave away the equalising penalty. Facing at least a one-game ban.</li>
+          <li><b>Ethan Galbraith</b> — scored against his former club (Swansea, on his home debut) and again at Southampton. Two goals in two league starts is a strong opening from the summer's midfield rebuild.</li>
+          <li><b>George Hirst</b> — the new first-choice centre-forward question looks answered: signed permanently from Ipswich and straight into the side.</li>
+          <li><b>Robert Boženík</b> — off the bench against Oldham in the cup, but has made way in the league XI since Hirst's arrival.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="maths" style="border-color:rgba(221,55,67,.28)">
+      <h4>Two games in — mostly noise, but the deduction is doing real work</h4>
+      <p class="small" style="margin-top:0">Too early for meaningful relegation or play-off arithmetic. What's worth being precise about is exactly how much Southampton's points deduction is distorting the table's shape this early — and, separately, correcting a date we've had wrong for two weeks.</p>
+
+      <div class="eq">Southampton on-field record: W1 D0 L1 → 3 raw points
+Sanction: −4 points (spygate training-ground filming scandal)
+Adjusted total: 3 − 4 = −1 point
+
+Ranked on RAW points alone: ~12th of 24, mid-table
+Ranked WITH the deduction applied: 24th — bottom of the division
+
+Net effect: roughly a 12-place swing purely from the sanction</div>
+
+      <p>Stoke's own numbers are the more honest read of where things stand: 0 points from 2, &minus;3 goal difference, one red card. Two winnable-looking defeats, nothing more sinister — yet.</p>
+    </div>
+
+    <div class="maths" style="border-color:rgba(221,55,67,.28)">
+      <h4>Ins and outs — Stoke City</h4>
+      <p class="small" style="margin-top:0">Window closes <b>1 September</b>, not 31 August (see corrections below). Several items below moved from "rumoured" to "confirmed" this week.</p>
+      <div class="moves">
+        <div class="mv in">
+          <h5>↘ Joining</h5>
+          <ul class="mvlist">
+            <li><b>George Hirst</b> <span class="tag-conf c">Confirmed — moved from Rumoured</span><br><span>Striker, permanent from Ipswich Town, base fee reported around £6m. Medical 19 Aug, debuted at Southampton 22 Aug. Last week this was listed as an unresolved chase — it's done.</span></li>
+            <li><b>Ben Johnson</b> <span class="tag-conf c">Confirmed — new this week</span><br><span>Right-back, season-long loan from Ipswich Town. Debuted alongside Hirst at Southampton.</span></li>
+            <li><b>Ethan Galbraith, Svante Ingelsson, Djibril Soumaré, Luke Graham, Josh Griffiths, Milan Smit</b> <span class="tag-conf c">Confirmed</span><br><span>All unchanged from last week's list — still the core of the summer rebuild.</span></li>
+          </ul>
+        </div>
+        <div class="mv out">
+          <h5>↗ Leaving</h5>
+          <ul class="mvlist">
+            <li><b>Lewis Baker</b> <span class="tag-conf c">Confirmed — destination now known</span><br><span>Released in May, now confirmed to have signed for Bursaspor in Turkey on a free transfer.</span></li>
+            <li><b>Milan Smit</b> <span class="tag-conf c">Confirmed</span><br><span>Signed permanently from Go Ahead Eagles (£4.75m) — then immediately loaned out again to Darmstadt 98 on 14 August. That loan predates last week's cutoff but wasn't captured then; added here for completeness.</span></li>
+            <li><b>True Grant, Emre Tezgel, Favour Fawunmi</b> <span class="tag-conf c">Confirmed, new this week</span><br><span>Loan exits to FC Halifax Town, Wycombe Wanderers and Oldham Athletic respectively. A small-world footnote: Fawunmi's new loan club, Oldham, are the side Stoke beat in the Carabao Cup a fortnight ago.</span></li>
+            <li><b>Nikola Jojić</b> <span class="tag-conf c">Confirmed, believed already resolved</span><br><span>Released; wasn't listed in last week's round-up, added here for completeness rather than as a new departure.</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="small">No credible live deadline-chase rumours specific to Stoke were found this week — Harry Clarke (Ipswich, reported agreed) and the Cody Drameh / Joel Piroe / Harry Souttar links carried in last week's page have no fresh news either way and are not repeated here rather than assumed dead. About a week of window remains as of today.</p>
+    </div>
+  </section>
+  </div>
+
+</main>
+
+<footer>
+  <p><b>Sources &amp; caveats:</b> compiled Monday 24 August 2026. NRL Round 25 results, ladder and Round 26&ndash;27 fixtures from Zero Tackle and cross-checked against an independent snapshot for internal consistency (NRL.com's own ladder page would not render for automated fetching — treated as high-confidence, not officially source-verified); Storm's elimination and the Maguire post-match quotes via ABC News; the Reynolds fitness-deadline story and the Reynolds/Maguire conflicting accounts via the Canberra Times, Yahoo News Australia and eisa.net.au; the Walsh injury timeline via Zero Tackle and the North West Star; Payne Haas's contract via Rabbitohs.com.au; the Maguire contract review via Zero Tackle. Stoke's Southampton match report via Southampton FC's own site, Sky Sports and Vavel; the Swansea and Oldham results via Sky Sports and the Irish News; the Championship table via footballwebpages.co.uk, cross-checked against worldfootball.net's un-deducted version; the Southampton spygate sanction via Sky Sports and Football365; the 2026 transfer deadline date via the Premier League's own published dates; Stoke's transfer activity via Sports Mole's summer tracker.</p>
+
+  <p><b>Corrections and changes in this update:</b> <b>Broncos beat the Raiders 34&ndash;30</b>, coming back from 16 points down — the first entry in a long while that isn't bad news. Ladder position improves to <b>14th</b> (from 16th), points differential to <b>&minus;194</b> (from &minus;198). The maths panel's headline finding this week is that <b>the wooden spoon is no longer mathematically possible for Brisbane</b> — last week's page had it as "still live"; the Dragons' remaining ceiling (18) now sits below Brisbane's floor (20). <b>Melbourne Storm are eliminated</b> from finals contention following their loss to Penrith, which also removes them from the list of clubs still alive for eighth — down to two clubs (Bulldogs, Sea Eagles) from four last week. The run home is down to <b>two games</b>, not three.</p>
+
+  <p><b>Corrections — Stoke:</b> <b>Lost 3&ndash;1 at Southampton</b>, finishing with ten men after Svante Ingelsson's second yellow gave away the injury-time penalty that sealed it. <b>George Hirst moves from "Rumoured" to "Confirmed"</b> — the permanent deal from Ipswich completed and he debuted this week, alongside new loan signing <b>Ben Johnson</b>, also ex-Ipswich. <b>The transfer deadline correction is the important one this week: it is not 31 August.</b> Both last week's page and this dashboard's original brief assumed 31 August; the Premier League's own published dates confirm it is <b>11pm BST on 1 September 2026</b>. That's now corrected here after running uncorrected for at least two editions — worth flagging plainly rather than quietly fixing. Southampton's points-deduction arithmetic is shown with full working this week (see the maths panel) rather than just asserted.</p>
+
+  <p><b>Verification note:</b> the Round 25 ladder was cross-checked against an independent snapshot for internal round-to-round consistency (each team's points progression from Round 24 to Round 25 matched exactly across both sources), though neither source is NRL.com's own live table, which would not render for automated fetching this week either — flagged as a standing limitation rather than resolved. Byes-remaining for Wests Tigers and Titans (both shown as 1 left) rely on an assumption that each team receives exactly three byes across the 2026 season (concentrated around State of Origin, per Zero Tackle's byes-schedule article); Wikipedia's season page instead states one bye per team, which conflicts with observed games-played counts this deep into the season. The three-byes account is used as the better fit, flagged as an assumption rather than a confirmed figure — unchanged from last week's caveat. Finals arithmetic verified programmatically: Broncos ceiling 20+(2×2)=24 &lt; Cowboys floor 30 → eliminated confirmed; wooden-spoon check Broncos floor 20 vs Dragons ceiling 14+(2×2)=18 → 18&lt;20, Dragons cannot catch Brisbane, confirmed. Southampton deduction: 3 raw points − 4 sanction = −1, a roughly 12-place swing versus their un-deducted table position, computed directly from the two independently-verified match results (Watford loss, Stoke win) rather than taken from any single live tracker. NRL times are AEST (UTC+10, no daylight saving in August); Stoke times are BST (UTC+1), which is AEST minus nine hours.</p>
+
+  <p><b>On player movement:</b> items marked <span style="color:var(--good)">Confirmed</span> come from club or league announcements, or independent corroboration across two or more outlets. Items marked <span style="color:var(--draw)">Rumoured</span> come from press reporting and may never happen. Jonah Pezet's move to Brisbane for 2027 is reported consistently across sources but has not been located as a direct club statement — treated as high-confidence rather than club-confirmed. The Stoke window closes 1 September; the NRL's 2027 signing period runs well past that, so both lists will keep moving.</p>
+</footer>
+
+<script>
+(function(){
+  var tabs = [document.getElementById('tab-broncos'), document.getElementById('tab-stoke')];
+  var panels = [document.getElementById('panel-broncos'), document.getElementById('panel-stoke')];
+  var keys = ['broncos','stoke'];
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.date-chip'));
+
+  function select(i, focus){
+    tabs.forEach(function(t, n){
+      var on = n === i;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      panels[n].hidden = !on;
+    });
+    chips.forEach(function(c){
+      c.hidden = c.getAttribute('data-club') !== keys[i];
+    });
+    if (focus) tabs[i].focus();
+    if (location.hash.slice(1) !== keys[i]) {
+      history.replaceState(null, '', '#' + keys[i]);
+    }
+  }
+
+  tabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ select(i); });
+    t.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown'){ e.preventDefault(); select((i+1) % tabs.length, true); }
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp'){ e.preventDefault(); select((i+tabs.length-1) % tabs.length, true); }
+      else if (e.key === 'Home'){ e.preventDefault(); select(0, true); }
+      else if (e.key === 'End'){ e.preventDefault(); select(tabs.length-1, true); }
+    });
+  });
+
+  window.addEventListener('hashchange', function(){
+    var i = keys.indexOf(location.hash.slice(1));
+    if (i > -1) select(i);
+  });
+
+  var start = keys.indexOf(location.hash.slice(1));
+  select(start > -1 ? start : 0);
+})();
+</script>
+
+</body>
+</html>
