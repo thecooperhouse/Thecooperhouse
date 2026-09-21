@@ -174,35 +174,15 @@
   footer{max-width:1080px;margin:0 auto;padding:0 20px 40px;color:var(--ink-dim);font-size:.78rem;line-height:1.6}
   footer .rule{border-top:1px solid var(--line);padding-top:14px}
   footer p{margin-bottom:8px}
-
-  [hidden]{display:none!important}
-  .spoiler > .veil{filter:none}
-  .spoiler:not(.revealed){min-height:128px}
-  .spoiler .shield{position:static;min-height:128px;background:var(--panel-2)}
-  .races{grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
-  .board{overflow-x:auto}
-  .help-copy{padding:12px 16px;font-size:.85rem;color:var(--ink-dim)}
-  .help-copy p{margin-bottom:10px}
-  a{color:var(--moto);text-underline-offset:3px}
-  button.action{background:var(--panel-2);border:1px solid var(--line);border-radius:7px;color:var(--ink);padding:9px 12px;cursor:pointer;font:inherit}
-  button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-  .session-controls{display:flex;flex-wrap:wrap;gap:8px;padding:12px 14px}
-  .session-controls label{font-size:.82rem;display:flex;align-items:center;gap:7px}
-  .session-controls input{width:20px;height:20px;accent-color:var(--gold)}
-  .source-line{font-size:.75rem;margin-top:9px;color:var(--ink-dim)}
-  .next-up{margin:0 0 18px}
-  .watch-actions{display:flex;flex-wrap:wrap;gap:8px}
-  .race-head{flex-wrap:wrap}
-  @media(max-width:540px){main{padding:14px 12px 35px}header,.tabs{padding-left:12px;padding-right:12px}td,thead th{padding:8px}table{font-size:.82rem}.race-head .date{text-align:left}.chip{margin-left:0}}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="kicker">Points board · 2026 season · updated 21 September 2026 · v12 · spoiler-safe viewing controls</div>
+  <div class="kicker">Points board · 2026 season · updated 21 September 2026 · v11 — MotoGP Austrian GP (Rd 15) added; F1 news and title maths refreshed ahead of Baku</div>
   <h1><span class="f1c">Formula 1</span> &amp; <span class="motoc">MotoGP</span> Race Board</h1>
-  <p class="asof">Standings, podiums, finishing gaps, fastest laps and all-time circuit records for every Grand Prix and Sprint — plus the remaining calendar and a paddock news &amp; rumours feed for each series. Each series also carries a <strong>title-permutation panel</strong>: who is still mathematically alive, and an illustrative estimate of taking the crown. Every race stays <strong>hidden until you mark it watched</strong>. Standings, title analysis and news unlock only when you are caught up with that series.</p>
-<p id="storage-status" class="asof" role="status"></p><noscript><p>Enable JavaScript to load the dashboard. Results remain hidden.</p></noscript></header>
+  <p class="asof">Standings, podiums, finishing gaps, fastest laps and all-time circuit records for every Grand Prix and Sprint — plus the remaining calendar and a paddock news &amp; rumours feed for each series. Each series also carries a <strong>title-permutation panel</strong>: who is still mathematically alive, and a modelled chance of taking the crown. The most recent round in each series — and its title maths — stays <strong>hidden until you tick the box</strong> to confirm you've watched it.</p>
+</header>
 
 <div class="tabs" role="tablist" aria-label="Championship">
   <button class="tab f1" id="tab-f1" role="tab" aria-selected="true" aria-controls="panel-f1">🏎 Formula 1</button>
@@ -212,20 +192,26 @@
 <main>
 
 <section class="series f1-series active" id="panel-f1" role="tabpanel" aria-labelledby="tab-f1">
-  <div class="parc-ferme" data-watchbar></div>
+  <div class="parc-ferme">
+    <div class="pf-text">
+      <div class="pf-title">🔒 Spoiler protection — Spanish Grand Prix, Madring (Rd 14, 11–13 September)</div>
+      <div class="pf-sub">The Spanish GP result, the current standings and the title maths are hidden until you confirm you've watched. Your choice is remembered for next time.</div>
+    </div>
+    <label class="watch-toggle"><input type="checkbox" id="watched-f1"> I've watched the Spanish GP</label>
+  </div>
 
   <h2>Drivers' Championship</h2>
   <div class="spoiler" id="spoiler-f1-standings">
     <div class="shield"><div class="flag">🏁</div>
       <p><strong>Standings hidden</strong> — they'd give away the Spanish GP result.</p>
-      <p class="small">Mark all unwatched sessions below as watched to reveal.</p>
+      <p class="small">Tick "I've watched the Spanish GP" above to reveal.</p>
     </div>
-    <div class="veil" hidden inert>
+    <div class="veil">
       <div class="board"><table>
         <thead><tr><th>Pos</th><th>Driver</th><th>Team</th><th style="text-align:right">Pts</th></tr></thead>
         <tbody id="f1-standings"></tbody>
       </table></div>
-      <p style="font-size:.76rem;color:var(--ink-dim);margin-top:8px">Both columns total <strong>1,594 points</strong>, but they don't reconcile team-by-team. <strong>Liam Lawson</strong> is listed here against <strong>Red Bull</strong>, the car he has raced for the last three rounds, yet only <strong>14</strong> of his 59 points were banked by Red Bull Racing (P7 at Zandvoort and P6 in Madrid); the other <strong>45</strong> belong to <strong>Racing Bulls</strong>. That is the whole of the difference: Red Bull Racing's 230 = Verstappen 145 + Hadjar 71 + Lawson 14, and Racing Bulls' 77 = Lindblad 31 + Tsunoda 1 + Lawson 45. Hadjar has now missed three rounds with a fractured wrist and Tsunoda is a stand-in rather than a full-season entry. Every line here is derived from the official Madring classification and cross-checked against Sports Illustrated's and GPblog's post-race tables, which agree on all eleven constructors and the top ten drivers; the drivers' column and the constructors' column both sum to 1,594, and 14 rounds with five sprints put exactly 1,594 points on the table, which is a useful consistency check, not proof that every entry is correct. This reconciliation is retained from the original dashboard.</p>
+      <p style="font-size:.76rem;color:var(--ink-dim);margin-top:8px">Both columns total <strong>1,594 points</strong>, but they don't reconcile team-by-team. <strong>Liam Lawson</strong> is listed here against <strong>Red Bull</strong>, the car he has raced for the last three rounds, yet only <strong>14</strong> of his 59 points were banked by Red Bull Racing (P7 at Zandvoort and P6 in Madrid); the other <strong>45</strong> belong to <strong>Racing Bulls</strong>. That is the whole of the difference: Red Bull Racing's 230 = Verstappen 145 + Hadjar 71 + Lawson 14, and Racing Bulls' 77 = Lindblad 31 + Tsunoda 1 + Lawson 45. Hadjar has now missed three rounds with a fractured wrist and Tsunoda is a stand-in rather than a full-season entry. Every line here is derived from the official Madring classification and cross-checked against Sports Illustrated's and GPblog's post-race tables, which agree on all eleven constructors and the top ten drivers; the drivers' column and the constructors' column both sum to 1,594, and 14 rounds with five sprints put exactly 1,594 points on the table, so nothing has gone astray.</p>
       <details class="secondary"><summary>Constructors' Championship</summary>
         <div class="board" style="border:none"><table>
           <thead><tr><th>Pos</th><th>Team</th><th style="text-align:right">Pts</th></tr></thead>
@@ -240,28 +226,28 @@
   <div class="spoiler" data-latest="f1">
     <div class="shield"><div class="flag">🧮</div>
       <p><strong>Title maths hidden</strong> — it gives the Spanish GP result away.</p>
-      <p class="small">Mark all unwatched sessions below as watched to reveal.</p>
+      <p class="small">Tick "I've watched the Spanish GP" above to reveal.</p>
     </div>
-    <div class="veil" hidden inert>
+    <div class="veil">
       <div class="title-summary" id="f1-title-summary"></div>
       <div class="board"><table>
-        <thead><tr><th>Driver</th><th style="text-align:right">Pts</th><th style="text-align:right">Max poss.</th><th>Alive?</th><th style="text-align:right">Model estimate</th><th>&nbsp;</th></tr></thead>
+        <thead><tr><th>Driver</th><th style="text-align:right">Pts</th><th style="text-align:right">Max poss.</th><th>Alive?</th><th style="text-align:right">Title chance</th><th>&nbsp;</th></tr></thead>
         <tbody id="f1-title"></tbody>
       </table></div>
-      <details class="secondary"><summary>Constructors' model estimate</summary>
+      <details class="secondary"><summary>Constructors' title chance</summary>
         <div class="board" style="border:none"><table>
           <thead><tr><th>Team</th><th style="text-align:right">Pts</th><th style="text-align:right">Max poss.</th><th>Alive?</th><th style="text-align:right">Chance</th><th>&nbsp;</th></tr></thead>
           <tbody id="f1-ctitle"></tbody>
         </table></div>
       </details>
-      <div class="cal-foot" id="f1-title-foot"></div>
+      <p class="cal-foot" id="f1-title-foot"></p>
     </div>
   </div>
 
   <h2>Race by race — podiums, gaps &amp; fastest laps</h2>
   <div class="races" id="f1-races"></div>
 
-  
+  <div class="next-up">📅 <strong>Next round:</strong> Azerbaijan Grand Prix, Baku City Circuit — 24–26 September 2026, with the race on <strong>Saturday 26 September</strong> (13:00 CEST) and qualifying on the Friday, then straight on to Sepang and Singapore. Nine rounds to run, and Singapore is still the only sprint left. Red Bull will decide in the days before the race whether Isack Hadjar's wrist is ready after three rounds out — Laurent Mekies says "there is nothing wrong with Isack's recovery" and that a simulator session will settle it — which would end Liam Lawson's run in the RB22 and send Yuki Tsunoda back to the reserve role.</div>
 
   <h2>Remaining 2026 calendar</h2>
   <div class="board"><table>
@@ -272,19 +258,25 @@
 
   <h2>Paddock news &amp; rumours</h2>
   <div class="news" id="f1-news"></div>
-  <p class="news-foot">News snapshot: 21 September 2026. Stories stay hidden until you are caught up with this series. Unlinked reporting is retained for reference and marked unverified.</p>
+  <p class="news-foot">Snapshot compiled 21 September 2026 from official announcements and paddock press (formula1.com, Sky Sports, PlanetF1, GPblog, RacingNews365, Motorsport Week, GPFans, Grande Prêmio). Items tagged <em>Rumour</em> or <em>One to watch</em> are unconfirmed reporting — enjoy with the usual silly-season salt. One story is spoiler-shielded because it comes out of the Madrid weekend.</p>
 </section>
 
 <section class="series moto-series" id="panel-moto" role="tabpanel" aria-labelledby="tab-moto">
-  <div class="parc-ferme" data-watchbar></div>
+  <div class="parc-ferme">
+    <div class="pf-text">
+      <div class="pf-title">🔒 Spoiler protection — Austrian Grand Prix, Red Bull Ring (Rd 15, 18–20 September)</div>
+      <div class="pf-sub">The Austrian GP + Sprint results, the current standings and the title maths are hidden until you confirm you've watched. Your choice is remembered for next time.</div>
+    </div>
+    <label class="watch-toggle"><input type="checkbox" id="watched-moto"> I've watched the Austrian GP</label>
+  </div>
 
   <h2>Riders' Championship</h2>
   <div class="spoiler" id="spoiler-moto-standings">
     <div class="shield"><div class="flag">🏁</div>
       <p><strong>Standings hidden</strong> — they'd give away the Austrian GP result.</p>
-      <p class="small">Mark all unwatched sessions below as watched to reveal.</p>
+      <p class="small">Tick "I've watched the Austrian GP" above to reveal.</p>
     </div>
-    <div class="veil" hidden inert>
+    <div class="veil">
       <div class="board"><table>
         <thead><tr><th>Pos</th><th>Rider</th><th>Team</th><th style="text-align:right">Pts</th></tr></thead>
         <tbody id="moto-standings"></tbody>
@@ -298,22 +290,22 @@
   <div class="spoiler" data-latest="moto">
     <div class="shield"><div class="flag">🧮</div>
       <p><strong>Title maths hidden</strong> — it gives the Austrian GP result away.</p>
-      <p class="small">Mark all unwatched sessions below as watched to reveal.</p>
+      <p class="small">Tick "I've watched the Austrian GP" above to reveal.</p>
     </div>
-    <div class="veil" hidden inert>
+    <div class="veil">
       <div class="title-summary" id="moto-title-summary"></div>
       <div class="board"><table>
-        <thead><tr><th>Rider</th><th style="text-align:right">Pts</th><th style="text-align:right">Max poss.</th><th>Alive?</th><th style="text-align:right">Model estimate</th><th>&nbsp;</th></tr></thead>
+        <thead><tr><th>Rider</th><th style="text-align:right">Pts</th><th style="text-align:right">Max poss.</th><th>Alive?</th><th style="text-align:right">Title chance</th><th>&nbsp;</th></tr></thead>
         <tbody id="moto-title"></tbody>
       </table></div>
-      <div class="cal-foot" id="moto-title-foot"></div>
+      <p class="cal-foot" id="moto-title-foot"></p>
     </div>
   </div>
 
   <h2>Round by round — podiums, gaps &amp; fastest laps</h2>
   <div class="races" id="moto-races"></div>
 
-  
+  <div class="next-up">📅 <strong>Next round:</strong> Japanese Grand Prix, Motegi — 2–4 October 2026, opening the flyaways with Mandalika a week later. Seven rounds to run, every one with a Saturday Tissot Sprint, and 259 points still on the table. Tech3 believe Maverick Viñales can return at Motegi after four rounds out; Honda's Takaaki Nakagami is lined up for a home wildcard; and Joan Mir's return depends on further medical tests.</div>
 
   <h2>Remaining 2026 calendar</h2>
   <div class="board"><table>
@@ -324,18 +316,24 @@
 
   <h2>Paddock news &amp; rumours</h2>
   <div class="news" id="moto-news"></div>
-  <p class="news-foot">News snapshot: 21 September 2026. Stories stay hidden until you are caught up with this series. Unlinked reporting is retained for reference and marked unverified.</p>
+  <p class="news-foot">Snapshot compiled 21 September 2026 from official announcements and paddock press (motogp.com, Crash, Motorsport.com, MCNews, Grande Prêmio, GPOne, GPKingdom). Items tagged <em>Rumour</em> or <em>One to watch</em> are unconfirmed reporting. Two stories are spoiler-shielded because they draw on the Austrian GP weekend.</p>
 </section>
 
 </main>
 
-<footer><div class="rule">
-<p><strong>Snapshot: 21 September 2026.</strong> This is a saved dashboard, not a live feed. Results and historical timing data are retained from the supplied version; not every timing figure or news quotation has been independently verified.</p>
-<details class="secondary"><summary>How to read this dashboard</summary><div class="help-copy"><p>Gold timing chips show the winner’s race time; other chips show finishing gaps. ≈ means approximate. F1 circuit records are race lap records; MotoGP circuit records may come from qualifying. Records and race notes stay hidden until both sessions of that weekend are marked watched.</p><p>Title estimates are illustrative values retained from the original dashboard. Its simulation code was not supplied, so the percentages cannot be reproduced here. Arithmetic is calculated from the saved standings and scheduled remaining rounds, assuming full points and no calendar changes.</p><p>Watched choices are saved in this browser when storage is available. Every race starts hidden in a fresh browser. External source pages can contain spoilers.</p></div></details>
-</div></footer>
+<footer>
+  <div class="rule">
+    <p><strong>The title panels:</strong> “Alive?” is pure arithmetic — you are alive while your current points plus everything still on the table reach the leader’s total. In F1 that line has moved a long way: fourteen drivers and seven constructors are now mathematically out, with Liam Lawson sitting on the line to the point. In MotoGP the line crossed zero in Austria and now sits at 47, which puts ten riders out. “Title chance” is a Monte Carlo estimate over 200,000 simulated remainders of the season, and it is a model, not a fact. Its strengths are fitted so each entrant’s expected share of the points on offer reproduces their actual 2026 average, and it adds a per-round form shock, a per-race retirement probability and a season-long ±25% pace-drift term. It is deliberately <em>not</em> recency-weighted and it treats retirements as independent, which are its two biggest known weaknesses. Everything under about 1% should be read as “barring something extraordinary, no”.</p>
+    <p><strong>Nothing about the model changed this week, and only one series raced.</strong> F1 had a weekend off, so its panel is carried forward from v10 unchanged; as a check, the simulator was re-run on the unchanged F1 standings and returned Antonelli 99.99% and Russell 0.011% against the published 99.97% and 0.026% — the same answer inside simulation noise, with Antonelli still winning 46% of simulated Grands Prix against his actual 57%. MotoGP moved, honestly and a long way: the leader's chance goes 49%&nbsp;→&nbsp;67%, and for the second week running it refers to a different rider. Martín's Sprint win and second place on Sunday, against Márquez's second and fifth, turn a countback tie into a 12-point lead — worth roughly 20 points of title probability to Martín and 18 off Márquez — and with a round gone there is less time to reverse it. Bezzecchi drops from 3.1% to 1.8%; Pedro Acosta's first win lifts him to fourth in the table but not into realistic contention (0.02%). The MotoGP fit reproduces every rider's season average to within 0.17 points per round.</p>
+    <p><strong>How to read the timing data:</strong> the gold chip next to the winner is their total race time; the chips next to P2 and P3 are how far behind they finished (≈ marks a figure reported to the nearest tenth or as "around X seconds" rather than official timing). "FL" is the fastest lap of that race and who set it — the driver/rider who set it wasn't always on the podium.</p>
+    <p><strong>Circuit records:</strong> for F1 the "circuit best" is the official race lap record — the fastest lap ever set during a race on the current layout (F1's 2026-spec cars are around 2s/lap slower, so most records date from the 2018–2025 era). The Madring card is the exception: it is a brand-new circuit, so Sunday’s quickest lap <em>is</em> the record, by default. For MotoGP it's the all-time circuit record, which in bike racing usually falls in qualifying; where the record fell during a 2026 weekend the card says so.</p>
+    <p>Data snapshot compiled <strong>21 September 2026</strong> from official series results, timing reports and press coverage. Only MotoGP raced this week. The <strong>Austrian GP</strong> is cross-checked across Crash, MCNews, Auto Action, Australian Motorcycle News, Grande Prêmio and QN Sport. They agree on both podiums and every gap shown; the Sprint winner’s time (20:57.387) appears in Crash, MCNews and Auto Action, and the GP winner’s time (42:16.996) in MCNews and QN Sport. Five disagreements are worth naming. First, the finishing order behind the podium: Crash’s results page lists Aldeguer seventh (+9.365s) and Bagnaia eighth, which is the order they crossed the line; MCNews, QN Sport and Crash’s own standings apply Aldeguer’s three-second post-race penalty (Bagnaia seventh, Aldeguer eighth on +12.365s), and only that version makes the points add up, so it is the one used. Second, the fastest lap of the Grand Prix: MCNews gives “P. Acosta, 1m29.533s (lap 4)”, but that is to the thousandth and to the lap Marco Bezzecchi’s fastest lap from the 2025 race, and no other source publishes a 2026 figure — so the card says “not confirmed” rather than print it. Third, pole: Crash’s headline says 1:27.912 while its own table, MCNews and Auto Action say 1:27.917; 1:27.917 is used. Fourth, the Sprint crash: Crash and MCNews put Acosta’s fall on lap 12 of 14 with a 2.8s lead (Crash) or “about two seconds” (Auto Action); AMCN says lap 18, which cannot be right in a 14-lap race. Fifth, the Qatar quotes: earlier reporting attributed the “trying to go” line to deputy CEO Carlos Ezpeleta; this week’s “the idea is that we will go” is attributed by Crash to CEO Carmelo Ezpeleta, and is credited to him here. The <strong>Spanish GP</strong> (F1’s latest round) is unchanged from v10: PlanetF1, Sports Illustrated, GPblog, Sky Sports, Crash and Total Motorsport agree on the podium, the winner’s time (1:34:23.754) and both gaps, with the fastest lap (Russell, 1:35.587) from Total Motorsport; v10’s notes on Antonelli’s win count (eight, not Motorsport Week’s seven), Hamilton’s retirement lap (7, not PlanetF1’s 6) and Stroll’s lap-14 stoppage all still apply. Every total was re-derived from the classifications: the F1 drivers’ and constructors’ columns both sum to 1,594, exactly what 14 rounds and 5 sprints put on the table, and the MotoGP riders sum to 2,834 of a possible 2,835. Ask Claude for a refreshed version after future rounds; the spoiler shield moves to the newest race automatically.</p>
+    <p>F1 sprint rounds in 2026: China, Miami, Canada, Great Britain, Netherlands, Singapore — five run, one to come. The Bahrain &amp; Saudi Arabian GPs were cancelled in March, cutting the calendar to 22 rounds; on 26 July F1 confirmed the Bahrain GP will be run at Sepang, Malaysia on 2–4 October under the Bahrain name, taking the season back to 23. The season-closing Qatar and Abu Dhabi rounds are unchanged for now but not guaranteed: the mid-September deadline Stefano Domenicali set has passed without a decision and October is now the expectation, with <strong>Imola</strong> reported to be on standby for a 6 December finale and nothing agreed. MotoGP's Qatar GP moved to 6–8 November, which pushed Portimão to 20–22 November and the Valencia finale to 27–29 November; The Race reported on 28 August that it was about to be cancelled outright, but on 19 September Dorna CEO Carmelo Ezpeleta said "if nothing changes radically, the idea is that we will go", so the tables here still count it. The Red Bull Ring was round 15 of 22, so seven MotoGP rounds remain. Madrid was F1 round 14 of 23, leaving nine — with Singapore the only sprint still to come.</p>
+    <p><strong>Remaining calendars &amp; news:</strong> the remaining-race tables were verified against formula1.com and motogp.com on 21 September 2026, and the news panels are a snapshot of the same date drawn from official team/series announcements and paddock press. Confirmed items are officially announced; Rumour and One-to-watch items are reporting only and may well change — that's half the fun. Last week's example, Senna Agius to Tech3, has since been announced and is now tagged <em>Confirmed</em>; this week's is Red Bull's 2027 line-up, which GPblog says is days away but which stays a <em>Rumour</em> until Red Bull say it. Ask Claude for a refreshed version to update both.</p>
+  </div>
+</footer>
 
 <script>
-
 /* ============ DATA ============ */
 const F1_STANDINGS = [
   ["Kimi Antonelli","Mercedes",292],["George Russell","Mercedes",211],
@@ -597,7 +595,7 @@ const MOTO_NEWS = [
   {tag:"watch",title:"Qatar: \"if nothing changes radically … we will go\"",
    body:"Three weeks after The Race reported that the rescheduled <strong>Qatar GP</strong> (6–8 November) was about to be scrapped, the message from Dorna has swung the other way. Speaking at the Red Bull Ring, CEO Carmelo Ezpeleta said \"right now the idea is to go\", that the Qatari authorities are \"willing to organise it\", and that \"if nothing changes radically, the idea is that we will go.\" Teams want a final answer before the Asian tour opens at Motegi. The tables here count the round; without it, 222 points would be left instead of 259, and the elimination line would jump from 47 to 84."},
   {tag:"confirmed",title:"The 2027 grid, for reference",
-   body:"<strong>Pedro Acosta</strong> joins <strong>Marc Márquez</strong> at factory Ducati. <strong>Francesco Bagnaia</strong> moves to <strong>Aprilia</strong> alongside <strong>Marco Bezzecchi</strong>. Yamaha's factory pair is <strong>Jorge Martín</strong> and <strong>Ai Ogura</strong>, with <strong>Toprak Razgatlıoğlu</strong> and 2022 Moto3 World Champion <strong>Izan Guevara</strong> at Pramac. <strong>Álex Márquez</strong> and <strong>Fabio Di Giannantonio</strong> form a new factory KTM line-up; <strong>Marini</strong> and <strong>Agius</strong> are at Tech3. Trackhouse keeps <strong>Raúl Fernández</strong> and adds <strong>Enea Bastianini</strong>. Gresini takes <strong>Joan Mir</strong> and rookie <strong>Dani Holgado</strong>; VR46 pairs <strong>Fermín Aldeguer</strong> with WorldSBK's <strong>Nicolò Bulega</strong>. Honda: <strong>Quartararo</strong>, <strong>Zarco</strong>, <strong>Moreira</strong> and <strong>David Alonso</strong>. Brad Binder and Álex Rins are the notable absentees."}
+   body:"<strong>Pedro Acosta</strong> joins <strong>Marc Márquez</strong> at factory Ducati. <strong>Francesco Bagnaia</strong> moves to <strong>Aprilia</strong> alongside <strong>Marco Bezzecchi</strong>. Yamaha's factory pair is <strong>Jorge Martín</strong> and <strong>Ai Ogura</strong>, with <strong>Toprak Razgatlıoğlu</strong> and double Moto3 champion <strong>Izan Guevara</strong> at Pramac. <strong>Álex Márquez</strong> and <strong>Fabio Di Giannantonio</strong> form a new factory KTM line-up; <strong>Marini</strong> and <strong>Agius</strong> are at Tech3. Trackhouse keeps <strong>Raúl Fernández</strong> and adds <strong>Enea Bastianini</strong>. Gresini takes <strong>Joan Mir</strong> and rookie <strong>Dani Holgado</strong>; VR46 pairs <strong>Fermín Aldeguer</strong> with WorldSBK's <strong>Nicolò Bulega</strong>. Honda: <strong>Quartararo</strong>, <strong>Zarco</strong>, <strong>Moreira</strong> and <strong>David Alonso</strong>. Brad Binder and Álex Rins are the notable absentees."}
 ];
 
 /* ============ TITLE PERMUTATIONS ============
@@ -611,7 +609,7 @@ const MOTO_NEWS = [
 const TITLE = {
   f1:{
     label:"drivers", unit:"driver", roundsRun:14, roundsLeft:9, sprintsLeft:1,
-    maxRem:233, elimLine:59, leaderPts:292, clinchAfter:3, clinchRound:"Rd 17, Singapore (9–11 Oct)",
+    maxRem:233, elimLine:59, leaderPts:292, clinchAfter:5, clinchRound:"Rd 19, Mexico City (30 Oct–1 Nov)",
     perRound:"25 for a win, plus 8 for the Singapore sprint",
     elimNote:"below this you're out — and fourteen drivers now are",
     aliveLine:"The line has jumped from 9 points to <strong>59</strong>, taking five more drivers with it: <strong>Gasly, Lindblad, Colapinto, Bearman and Bortoleto</strong> join the nine already eliminated, so fourteen of twenty-three are out. <strong>Liam Lawson</strong> survives on exactly 59 — win everything left and he reaches 292, which is precisely Antonelli's total today, so he is \u201calive\u201d only in the sense that a dead heat isn't a defeat. In the constructors' the line is now <strong>101</strong> of a possible 402, which adds <strong>Racing Bulls and Alpine</strong> to the dead list and leaves just four teams standing.",
@@ -625,7 +623,7 @@ const TITLE = {
   },
   moto:{
     label:"riders", unit:"rider", roundsRun:15, roundsLeft:7, sprintsLeft:7,
-    maxRem:259, elimLine:47, leaderPts:306, clinchAfter:4, clinchRound:"Rd 19, Malaysia (30 Oct–1 Nov)",
+    maxRem:259, elimLine:47, leaderPts:306, clinchAfter:6, clinchRound:"Rd 21, Portimão (20–22 Nov)",
     perRound:"37 a round — 25 for the GP, 12 for the Sprint",
     elimNote:"below this you're out — and ten riders now are",
     aliveLine:"The line has finally crossed zero and landed on <strong>47</strong>, so the eliminations have started: <strong>ten riders are out</strong>, the highest of them Johann Zarco on 45 — two points short. Franco Morbidelli, on 56, is the lowest rider still technically alive, and sixteen remain. At the top, <strong>Jorge Martín leads Marc Márquez by 12</strong>, with Bezzecchi 42 back. If the Qatar round is cancelled, 222 points remain instead of 259, the line jumps to 84 and takes Moreira, Quartararo and Morbidelli with it — but the title chances barely move (Martín 67.8%, Márquez 30.6% in a six-round re-run).",
@@ -635,54 +633,203 @@ const TITLE = {
   }
 };
 
-/* Rendering and spoiler controls: result text is hidden from layout and accessibility until watched. */
-const SERIES={f1:{races:F1_RACES,calendar:F1_CALENDAR,standings:F1_STANDINGS,news:F1_NEWS},moto:{races:MOTO_RACES,calendar:MOTO_CALENDAR,standings:MOTO_STANDINGS,news:MOTO_NEWS}};
-const STORAGE_KEY='raceboard:watched:v2';
-let state={f1:{},moto:{}};
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function raceId(key,r){return `${key}-2026-r${r.rd}`;}
-function watched(key,r,session){return state[key]?.[raceId(key,r)]?.[session]===true;}
-function complete(key,r){return watched(key,r,'race')&&(!r.sprint||watched(key,r,'sprint'));}
-function caughtUp(key){return SERIES[key].races.every(r=>complete(key,r));}
-function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch{document.getElementById('storage-status').textContent='Your browser cannot save watched choices. They will reset when you reopen this page.';}}
-function loadState(){try{const value=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');if(value&&typeof value==='object'){for(const key of ['f1','moto'])if(value[key]&&typeof value[key]==='object'&&!Array.isArray(value[key]))state[key]=value[key];}}catch{document.getElementById('storage-status').textContent='Saved choices could not be read. All results remain protected.';}}
-function shield(message){return `<div class="shield"><div class="flag" aria-hidden="true">🔒</div><p>${message}</p></div>`;}
-function gate(content,attrs,message){return `<div class="spoiler" ${attrs}>${shield(message)}<div class="veil" hidden inert>${content}</div></div>`;}
-function setGate(el,show){el.classList.toggle('revealed',show);const veil=el.querySelector(':scope > .veil');if(veil){veil.hidden=!show;veil.inert=!show;}}
-function podiumHTML(list){return '<div class="podium">'+list.map((p,i)=>`<div class="step"><span class="medal m${i+1}">${i+1}</span><span class="who">${esc(p[0])}</span><span class="tm">${esc(p[1])}</span>${p[2]?`<span class="chip ${i?'gap':'wintime'}">${esc(p[2])}</span>`:''}</div>`).join('')+'</div>';}
-function flHTML(fl){return fl?`<div class="flrow"><span class="flbadge">FL</span><span>Fastest lap: <strong>${esc(fl.who)}</strong> ${fl.t?esc(fl.t):''} ${fl.extra?'— '+esc(fl.extra):''}</span></div>`:'';}
-function recordHTML(rec,key){if(!rec)return '';return `<div class="circuit-record"><span class="lbl">${key==='f1'?'Race lap record':'All-time record'}</span><span class="val">${rec.txt?esc(rec.txt):`<strong>${esc(rec.t)}</strong> — ${esc(rec.who)}, ${esc(rec.ev)}. ${rec.broken?esc(rec.broken):''}`}</span></div>`;}
-function raceCard(r,key){const id=raceId(key,r);return `<article class="race ${r.latest?'latest':''}"><div class="race-head"><div><div class="rd">ROUND ${r.rd}</div><div class="gp">${esc(r.gp)}</div></div><div class="date">${esc(r.circuit)}<br>${esc(r.date)}</div></div><div class="session-controls">${['sprint','race'].filter(s=>r[s]).map(s=>`<label><input type="checkbox" data-series="${key}" data-round="${r.rd}" data-session="${s}"> I've watched the ${s==='race'?'Grand Prix':'Sprint'}</label>`).join('')}</div><div class="race-body">${['sprint','race'].filter(s=>r[s]).map(s=>gate(`<div class="block-label ${s==='sprint'?'sprint':''}">${s==='race'?'Grand Prix':'Sprint'}</div>${podiumHTML(r[s].podium)}${flHTML(r[s].fl)}`,`data-race="${id}" data-gate-session="${s}"`,`${s==='race'?'Grand Prix':'Sprint'} results hidden`)).join('')}${gate(`${recordHTML(r.record,key)}${r.note?`<p class="fn">${esc(r.note)}</p>`:''}`,`data-race="${id}" data-gate-session="weekend"`,'Circuit record and weekend notes hidden')}</div></article>`;}
-function renderStandings(rows,id){document.getElementById(id).innerHTML=rows.map((r,i)=>`<tr class="${i?'':'p1'}"><td class="pos">${i+1}</td><td class="name">${esc(r[0])}</td><td class="team">${esc(r[1])}</td><td class="pts">${r[2]}</td></tr>`).join('');}
-function renderConstructors(rows,id){document.getElementById(id).innerHTML=rows.map((r,i)=>`<tr><td class="pos">${i+1}</td><td class="name">${esc(r[0])}</td><td class="pts">${r[1]}</td></tr>`).join('');}
-function renderCalendar(rows,id){document.getElementById(id).innerHTML=rows.map(r=>`<tr><td class="pos">${r.rd}</td><td>${esc(r.gp)}${r.sprint?'<span class="sprint-chip">S</span>':''}</td><td class="team">${esc(r.circuit)}${r.note?`<div class="cal-note">${esc(r.note)}</div>`:''}</td><td class="cal-date">${esc(r.date)}</td></tr>`).join('');}
-const BAKU_SOURCE='https://www.formula1.com/en/latest/article/formula-1-qatar-airways-azerbaijan-grand-prix-2026.EsMvgTyba8dZZ6RynZXv7';
-const GUEVARA_SOURCE='https://www.motogp.com/en/news/2026/08/27/guevara-joins-prima-pramac-yamaha-motogp-for-2027/1087094';
-function renderNews(key){document.getElementById(key+'-news').innerHTML=SERIES[key].news.map(n=>{const checked=n.title==='Baku goes Saturday';const source=checked?`<a href="${BAKU_SOURCE}" target="_blank" rel="noopener noreferrer">Official timetable</a> · verified 21 September 2026`:n.title==='The 2027 grid, for reference'?`<a href="${GUEVARA_SOURCE}" target="_blank" rel="noopener noreferrer">Guevara announcement</a> · Guevara claim verified 21 September 2026; other line-ups not independently verified`:'Source link not supplied in original · verification pending';return gate(`<div class="news-head"><span class="tag ${checked?'confirmed':'watch'}">${checked?'Verified':n.tag==='rumour'?'Rumour · unverified':'Reported · unverified'}</span><span class="news-title">${esc(n.title)}</span></div><div class="news-body">${n.body}</div><p class="source-line">${source}</p>`,`data-latest="${key}"`,'News hidden until you are caught up with this series');}).join('');}
-function pctText(v){return v>=99?'Above 99%':v<1?'Below 1%':Math.round(v)+'%';}
-function raceWins(key,name){return SERIES[key].races.filter(r=>r.race.podium[0][0]===name).length;}
-function titleStatus(key,name,pts,maxRem,leaderPts,constructors=false){const max=pts+maxRem;if(max>leaderPts)return 'Yes';if(max<leaderPts)return 'No';if(key==='f1'&&!constructors){const futureWins=raceWins(key,name)+SERIES[key].calendar.length;const leaderWins=raceWins(key,SERIES[key].standings[0][0]);if(futureWins>leaderWins)return 'Yes (wins tie-break)';if(futureWins<leaderWins)return 'No (wins tie-break)';}return 'Tie-break dependent';}
-function titleRow(key,name,pts,prob,maxRem,leaderPts,ctors=false){const status=titleStatus(key,name,pts,maxRem,leaderPts,ctors);const out=status.startsWith('No');return `<tr class="${out?'dead':''}"><td>${esc(name)}</td><td class="pts">${pts}</td><td class="pts">${pts+maxRem}</td><td>${status}</td><td class="pct">${out?'0%':prob===undefined?'Not modelled':pctText(prob)}</td><td>${prob===undefined?'':`<div class="bar ${key}fill"><span style="width:${Math.max(0,Math.min(100,prob))}%"></span></div>`}</td></tr>`;}
-function earliestClinch(key){const S=SERIES[key],points=S.standings.map(r=>r[2]);let earned=0;const remaining=S.calendar.reduce((sum,r)=>sum+(key==='moto'?37:25+(r.sprint?8:0)),0);for(let i=0;i<S.calendar.length;i++){earned+=key==='moto'?37:25+(S.calendar[i].sprint?8:0);if(points[0]+earned>Math.max(...points.slice(1))+remaining-earned)return {count:i+1,round:S.calendar[i]};}return null;}
-function renderTitle(key){const T=TITLE[key],S=SERIES[key];const maxRem=S.calendar.reduce((sum,r)=>sum+(key==='moto'?37:25+(r.sprint?8:0)),0);const leader=S.standings[0][2];const predictions=new Map(T.rows.map(r=>[r[0],r[2]]));document.getElementById(key+'-title').innerHTML=S.standings.map(r=>titleRow(key,r[0],r[2],predictions.get(r[0]),maxRem,leader)).join('');if(T.ctors){const cp=new Map(T.ctors.map(r=>[r[0],r[2]]));const cm=S.calendar.reduce((sum,r)=>sum+43+(r.sprint?15:0),0);document.getElementById('f1-ctitle').innerHTML=F1_CONSTRUCTORS.map(r=>titleRow(key,r[0],r[1],cp.get(r[0]),cm,F1_CONSTRUCTORS[0][1],true)).join('');}const clinch=earliestClinch(key);document.getElementById(key+'-title-summary').innerHTML=`<div class="tstat"><div class="k">Rounds left</div><div class="v">${S.calendar.length}</div></div><div class="tstat"><div class="k">Points available</div><div class="v">${maxRem}</div></div><div class="tstat"><div class="k">Points threshold</div><div class="v">${leader-maxRem}</div><div class="s">Equality requires a tie-break check</div></div><div class="tstat"><div class="k">Earliest outright clinch</div><div class="v">+${clinch.count} rounds</div><div class="s">${esc(clinch.round.gp)} · ${esc(clinch.round.date)}</div></div>`;document.getElementById(key+'-title-foot').innerHTML=`<details class="secondary"><summary>Assumptions and model limitations</summary><div class="help-copy"><p>Maximum points assume every scheduled race runs for full points. The earliest outright clinch assumes the leader wins every remaining session up to that round and every rival scores zero. It requires a strictly greater total than every rival can still reach; a tie-break clinch may be possible earlier.</p><p>Equal final points do not automatically imply title eligibility. F1 race-win countback is checked where it settles the boundary; unresolved equalities are labelled tie-break dependent. <a href="https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_a_general_provisions_-_iss_02_-_2026-02-27.pdf" target="_blank" rel="noopener noreferrer">FIA championship rules, article A2.1</a>.</p><p>Model estimates are saved values from the supplied dashboard, not a fresh forecast. The original describes 200,000 simulations based on season-average form, independent retirements and pace variation, but no runnable model was supplied. Values below 1% are grouped to avoid false precision. “Not modelled” means no estimate was supplied for that entrant.</p></div></details>`;}
-function applySeries(key){const S=SERIES[key];document.querySelectorAll(`[data-series="${key}"][data-session]`).forEach(input=>{const r=S.races.find(r=>r.rd===Number(input.dataset.round));input.checked=watched(key,r,input.dataset.session);});for(const r of S.races){document.querySelectorAll(`[data-race="${raceId(key,r)}"]`).forEach(el=>setGate(el,el.dataset.gateSession==='weekend'?complete(key,r):watched(key,r,el.dataset.gateSession)));}const all=caughtUp(key);document.querySelectorAll(`[data-latest="${key}"]`).forEach(el=>setGate(el,all));setGate(document.getElementById(`spoiler-${key}-standings`),all);const left=S.races.filter(r=>!complete(key,r)).length;document.getElementById(key+'-watch-status').textContent=left?`${left} weekend${left===1?'':'s'} still protected. Standings, news and title analysis stay hidden.`:'You are caught up. Standings, news and title analysis are visible.';}
-function setRound(key,r,value){state[key][raceId(key,r)]={race:value,...(r.sprint?{sprint:value}:{})};}
-for(const [key,S] of Object.entries(SERIES)){
- const panel=document.getElementById('panel-'+key);
- const upcoming=document.createElement('div');upcoming.className='next-up';upcoming.innerHTML=key==='f1'?`📅 <strong>Next: Azerbaijan GP · Saturday 26 September</strong><br><strong>9:00 pm Brisbane (AEST)</strong> · 3:00 pm Baku · Qualifying Friday<br><a href="${BAKU_SOURCE}" target="_blank" rel="noopener noreferrer">Official timetable</a> · checked 21 September`:'📅 <strong>Next: Japanese GP · Motegi · 2–4 October</strong><br>Brisbane session times awaiting verification.<br><a href="https://tickets.motogp.com/en/21091-japan/" target="_blank" rel="noopener noreferrer">Official event dates</a> · checked 21 September';panel.prepend(upcoming);
- panel.querySelector('[data-watchbar]').innerHTML=`<div class="pf-text"><div class="pf-title">🔒 Spoiler protection</div><p id="${key}-watch-status" class="pf-sub" role="status">Results hidden.</p><p class="pf-sub">Use each race’s Sprint and Grand Prix checkboxes below. Choices stay with that round.</p></div><div class="watch-actions"><button class="action" data-bulk="earlier" data-series="${key}">I've watched all earlier rounds</button><button class="action" data-bulk="hide" data-series="${key}">Hide all results again</button></div>`;
- renderStandings(S.standings,key+'-standings');document.getElementById(key+'-races').innerHTML=[...S.races].reverse().map(r=>raceCard(r,key)).join('');renderCalendar(S.calendar,key+'-calendar');renderNews(key);renderTitle(key);
-}
-renderConstructors(F1_CONSTRUCTORS,'f1-constructors');
-// Long standings reconciliation remains available without dominating the page.
-document.querySelectorAll('.veil > p').forEach(p=>{if(p.textContent.length>500){const d=document.createElement('details');d.className='secondary';d.innerHTML='<summary>Points reconciliation notes</summary>';p.replaceWith(d);d.appendChild(p);p.classList.add('help-copy');}});
-document.addEventListener('change',e=>{const input=e.target;if(!input.matches('[data-session]'))return;const key=input.dataset.series;const r=SERIES[key].races.find(r=>r.rd===Number(input.dataset.round));const id=raceId(key,r);if(!state[key][id]||typeof state[key][id]!=='object')state[key][id]={};state[key][id][input.dataset.session]=input.checked;applySeries(key);saveState();});
-document.addEventListener('click',e=>{const b=e.target.closest('[data-bulk]');if(!b)return;const key=b.dataset.series;const latest=Math.max(...SERIES[key].races.map(r=>r.rd));SERIES[key].races.filter(r=>b.dataset.bulk==='hide'||r.rd<latest).forEach(r=>setRound(key,r,b.dataset.bulk!=='hide'));applySeries(key);saveState();});
-loadState();applySeries('f1');applySeries('moto');
-const tabs=[...document.querySelectorAll('[role="tab"]')];
-function selectTab(index,focus=false){tabs.forEach((t,i)=>{const active=i===index;t.setAttribute('aria-selected',String(active));t.tabIndex=active?0:-1;const p=document.getElementById(t.getAttribute('aria-controls'));p.classList.toggle('active',active);p.hidden=!active;});if(focus)tabs[index].focus();}
-tabs.forEach((t,i)=>{t.addEventListener('click',()=>selectTab(i));t.addEventListener('keydown',e=>{let next;if(e.key==='ArrowRight')next=(i+1)%tabs.length;if(e.key==='ArrowLeft')next=(i+tabs.length-1)%tabs.length;if(e.key==='Home')next=0;if(e.key==='End')next=tabs.length-1;if(next!==undefined){e.preventDefault();selectTab(next,true);}});});selectTab(0);
+/* ============ RENDER ============ */
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
 
+function renderStandings(rows, tbodyId){
+  document.getElementById(tbodyId).innerHTML = rows.map((r,i)=>
+    `<tr class="${i===0?'p1':''}"><td class="pos">${i+1}</td><td class="name">${esc(r[0])}</td><td class="team">${esc(r[1])}</td><td class="pts">${r[2]}</td></tr>`
+  ).join("");
+}
+function renderConstructors(rows, tbodyId){
+  document.getElementById(tbodyId).innerHTML = rows.map((r,i)=>
+    `<tr class="${i===0?'p1':''}"><td class="pos">${i+1}</td><td class="name">${esc(r[0])}</td><td class="pts">${r[1]}</td></tr>`
+  ).join("");
+}
+function podiumHTML(list){
+  return `<div class="podium">`+list.map((p,i)=>{
+    const chip = p[2] ? `<span class="chip ${i===0?'wintime':'gap'}">${esc(p[2])}</span>` : "";
+    return `<div class="step"><span class="medal m${i+1}">${i+1}</span><span class="who">${esc(p[0])}</span><span class="tm">${esc(p[1])}</span>${chip}</div>`;
+  }).join("")+`</div>`;
+}
+function flHTML(fl){
+  if(!fl) return "";
+  const t = fl.t ? ` <span class="fltime">${esc(fl.t)}</span>` : "";
+  const x = fl.extra ? ` <span>— ${esc(fl.extra)}</span>` : "";
+  return `<div class="flrow"><span class="flbadge">FL</span><span>Fastest lap: <strong>${esc(fl.who)}</strong>${t}${x}</span></div>`;
+}
+function sessionBlock(label, cls, sess){
+  return `<div><div class="block-label ${cls}">${label}</div>${podiumHTML(sess.podium)}${flHTML(sess.fl)}</div>`;
+}
+function recordHTML(rec){
+  if(!rec) return "";
+  if(rec.txt) return `<div class="circuit-record"><span class="lbl">⏱ Circuit best</span><span class="val">${esc(rec.txt)}</span></div>`;
+  const brk = rec.broken ? ` <em>${esc(rec.broken)}</em>` : "";
+  return `<div class="circuit-record"><span class="lbl">⏱ Circuit best</span><span class="val"><strong>${esc(rec.t)}</strong> — ${esc(rec.who)}, ${esc(rec.ev)}.${brk}</span></div>`;
+}
+function raceCard(r, seriesKey){
+  const blocks = [];
+  if(r.sprint) blocks.push(sessionBlock("Sprint","sprint",r.sprint));
+  blocks.push(sessionBlock("Grand Prix","",r.race));
+  const inner = `
+    <div class="race-head">
+      <div><div class="rd">ROUND ${r.rd}</div><div class="gp">${esc(r.gp)}</div></div>
+      <div class="date">${esc(r.circuit)}<br>${esc(r.date)}</div>
+    </div>
+    ${recordHTML(r.record)}
+    <div class="race-body">${blocks.join("")}${r.note?`<div class="fn">${esc(r.note)}</div>`:""}</div>`;
+  if(r.latest){
+    return `<div class="race latest spoiler" data-latest="${seriesKey}">
+      <div class="shield"><div class="flag">🔒</div>
+        <p><strong>${esc(r.gp)} results hidden</strong></p>
+        <p class="small">Tick the box above once you've watched the race.</p>
+      </div>
+      <div class="veil">${inner}</div>
+    </div>`;
+  }
+  return `<div class="race">${inner}</div>`;
+}
+function renderRaces(list, containerId, seriesKey){
+  document.getElementById(containerId).innerHTML = list.map(r=>raceCard(r,seriesKey)).join("");
+}
+function renderCalendar(list, tbodyId){
+  document.getElementById(tbodyId).innerHTML = list.map(r=>
+    `<tr><td class="pos">${r.rd}</td><td class="name">${esc(r.gp)}${r.sprint?'<span class="sprint-chip">S</span>':''}</td><td class="team">${esc(r.circuit)}${r.note?`<div class="cal-note">${esc(r.note)}</div>`:''}</td><td class="cal-date">${esc(r.date)}</td></tr>`
+  ).join("");
+}
+const NEWS_TAGS = { confirmed:["confirmed","Confirmed"], rumour:["rumour","Rumour"], watch:["watch","One to watch"] };
+function newsItemHTML(n, seriesKey){
+  const [cls,label] = NEWS_TAGS[n.tag];
+  const inner = `<div class="news-head"><span class="tag ${cls}">${label}</span><span class="news-title">${esc(n.title)}</span></div><div class="news-body">${n.body}</div>`;
+  if(n.spoiler){
+    return `<div class="news-item spoiler" data-latest="${seriesKey}">
+      <div class="shield"><div class="flag">🔒</div><p class="small">Story hidden — it relates to the latest round's weekend. Tick the watched box above to reveal.</p></div>
+      <div class="veil">${inner}</div>
+    </div>`;
+  }
+  return `<div class="news-item">${inner}</div>`;
+}
+function pctText(v){
+  if(v>=99.95) return ">99.9%";
+  if(v>=99)    return v.toFixed(1)+"%";
+  if(v>=10)    return v.toFixed(0)+"%";
+  if(v>=1)     return v.toFixed(1)+"%";
+  if(v>=0.05)  return v.toFixed(1)+"%";
+  if(v>0)      return "<0.1%";
+  return "<0.01%";
+}
+function titleRow(name,pts,prob,maxRem,leaderPts,fillCls){
+  const maxPoss = pts+maxRem;
+  const alive = maxPoss>=leaderPts;
+  const w = Math.max(prob>0?1.5:0, Math.min(100,prob));
+  return `<tr class="${alive?'':'dead'}">
+    <td class="name">${esc(name)}</td>
+    <td class="pts">${pts}</td>
+    <td class="pts">${maxPoss}</td>
+    <td class="${alive?'alive-yes':'alive-no'}">${alive?'Yes':'No'}</td>
+    <td class="pct">${pctText(prob)}</td>
+    <td><div class="bar ${fillCls}"><span style="width:${w}%"></span></div></td>
+  </tr>`;
+}
+function renderTitle(key){
+  const T = TITLE[key];
+  const fill = key==="f1" ? "f1fill" : "motofill";
+  document.getElementById(key+"-title").innerHTML =
+    T.rows.map(r=>titleRow(r[0],r[1],r[2],T.maxRem,T.leaderPts,fill)).join("");
+  if(T.ctors){
+    document.getElementById(key+"-ctitle").innerHTML =
+      T.ctors.map(r=>titleRow(r[0],r[1],r[2],T.ctorMaxRem,T.ctorLeader,fill)).join("");
+  }
+  document.getElementById(key+"-title-summary").innerHTML = `
+    <div class="tstat"><div class="k">Rounds left</div><div class="v">${T.roundsLeft}</div><div class="s">${T.sprintsLeft} with a sprint</div></div>
+    <div class="tstat"><div class="k">Still available</div><div class="v">${T.maxRem} pts</div><div class="s">${T.perRound}</div></div>
+    <div class="tstat"><div class="k">Elimination line</div><div class="v">${T.elimLine} pts</div><div class="s">${T.elimNote}</div></div>
+    <div class="tstat"><div class="k">Earliest clinch</div><div class="v">+${T.clinchAfter} rounds</div><div class="s">${esc(T.clinchRound)}</div></div>`;
+  document.getElementById(key+"-title-foot").innerHTML =
+    `<strong>Mathematically</strong>, an entrant is still alive while their points + ${T.maxRem} remaining ≥ the leader's ${T.leaderPts}. `+
+    `That puts the cut-off at <strong>${T.elimLine}</strong> points. ${T.aliveLine} `+
+    `<strong>Title chance</strong> is not maths, it's a model: 200,000 simulated seasons in which each entrant's finishing position is drawn from a `+
+    `Plackett–Luce ranking whose strengths are fitted so that every entrant's expected share of the points on offer matches what they've actually averaged over the ${T.roundsRun} rounds so far, `+
+    `plus a per-round form shock, a per-race retirement chance (${key==="f1"?"7.5%":"11%"}) and a season-long pace-drift term of ±25% to allow for the rest of the season simply being different. `+
+    `Three honest caveats: it uses <em>full-season</em> form, so it misreads anyone whose recent shape differs from their season `+
+    `(${key==="f1"?"it gives Antonelli 46% of simulated Grands Prix against his actual 57% strike rate, so it is if anything conservative about the leader":"it has Martín winning 23% of simulated Grands Prix on the strength of his consistency, when he has actually won one Grand Prix all year — that flatters him, and it under-rates Márquez, who wins 20% of simulated GPs but has won five of fifteen for real"}); `+
+    `it treats retirements as independent, so it cannot imagine ${key==="f1"?"a fault that takes both Mercedes out three races running":"an injury, or an operation, that costs a contender a month"} — which is most of the reason a bookmaker would leave more room than this; `+
+    `and it knows nothing about upgrades, injuries or the weather `+
+    `(${key==="f1"?"it has Hadjar back in the car at Baku and both Middle East rounds going ahead, neither of which is confirmed":"it has Martín racing on without surgery, Mir and Viñales back on their bikes and Qatar going ahead, none of which is certain"}). `+
+    `Treat the small numbers as \u201cvery unlikely\u201d rather than as precise odds.`;
+}
+
+function renderNews(list, containerId, seriesKey){
+  document.getElementById(containerId).innerHTML = list.map(n=>newsItemHTML(n,seriesKey)).join("");
+}
+
+renderStandings(F1_STANDINGS,"f1-standings");
+renderConstructors(F1_CONSTRUCTORS,"f1-constructors");
+renderRaces(F1_RACES,"f1-races","f1");
+renderCalendar(F1_CALENDAR,"f1-calendar");
+renderNews(F1_NEWS,"f1-news","f1");
+renderStandings(MOTO_STANDINGS,"moto-standings");
+renderRaces(MOTO_RACES,"moto-races","moto");
+renderCalendar(MOTO_CALENDAR,"moto-calendar");
+renderNews(MOTO_NEWS,"moto-news","moto");
+renderTitle("f1");
+renderTitle("moto");
+
+/* ============ SPOILER STATE (persistent) ============ */
+const LATEST = { f1:"f1-2026-r14", moto:"moto-2026-r15" }; // change these ids when new rounds are added
+const STORAGE_KEY = "raceboard:watched";
+let state = { f1:{}, moto:{} };
+let storageOk = typeof window.storage !== "undefined";
+
+async function loadState(){
+  if(storageOk){
+    try{
+      const res = await window.storage.get(STORAGE_KEY);
+      if(res && res.value){ state = JSON.parse(res.value); return; }
+    }catch(e){ /* fall through to localStorage */ }
+  }
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) state = JSON.parse(raw);
+  }catch(e){ /* first visit, or storage blocked */ }
+}
+async function saveState(){
+  const payload = JSON.stringify(state);
+  if(storageOk){
+    try{ await window.storage.set(STORAGE_KEY, payload); }catch(e){ /* fall through */ }
+  }
+  try{ localStorage.setItem(STORAGE_KEY, payload); }
+  catch(e){ /* storage blocked — the tick just won't be remembered */ }
+}
+function applySeries(key){
+  const watched = !!(state[key] && state[key][LATEST[key]]);
+  document.getElementById("watched-"+key).checked = watched;
+  document.querySelectorAll(`[data-latest="${key}"]`).forEach(el=>el.classList.toggle("revealed",watched));
+  const st = document.getElementById(`spoiler-${key}-standings`);
+  if(st) st.classList.toggle("revealed",watched);
+}
+function wireToggle(key){
+  document.getElementById("watched-"+key).addEventListener("change",e=>{
+    state[key] = state[key]||{};
+    state[key][LATEST[key]] = e.target.checked;
+    applySeries(key);
+    saveState();
+  });
+}
+wireToggle("f1"); wireToggle("moto");
+loadState().then(()=>{ applySeries("f1"); applySeries("moto"); });
+
+/* ============ TABS ============ */
+const tabs = [["tab-f1","panel-f1"],["tab-moto","panel-moto"]];
+tabs.forEach(([tid,pid])=>{
+  document.getElementById(tid).addEventListener("click",()=>{
+    tabs.forEach(([t,p])=>{
+      const sel = t===tid;
+      document.getElementById(t).setAttribute("aria-selected",sel?"true":"false");
+      document.getElementById(p).classList.toggle("active",sel);
+    });
+  });
+});
 </script>
 </body>
 </html>
