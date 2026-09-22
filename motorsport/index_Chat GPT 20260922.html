@@ -199,9 +199,9 @@
 <body>
 
 <header>
-  <div class="kicker">Points board · 2026 season · updated 21 September 2026 · v13 · simple latest-weekend spoiler protection</div>
+  <div class="kicker">Points board · 2026 season · updated 21 September 2026 · v12 · spoiler-safe viewing controls</div>
   <h1><span class="f1c">Formula 1</span> &amp; <span class="motoc">MotoGP</span> Race Board</h1>
-  <p class="asof">Standings, podiums, finishing gaps, fastest laps and all-time circuit records for every Grand Prix and Sprint — plus the remaining calendar and a paddock news &amp; rumours feed for each series. Each series also carries a <strong>title-permutation panel</strong>: who is still mathematically alive, and an illustrative estimate of taking the crown. Only the latest race weekend stays <strong>hidden until you tick its watched box</strong>, including the Sprint where relevant. The same box reveals current standings, title analysis and news. Earlier races are always visible.</p>
+  <p class="asof">Standings, podiums, finishing gaps, fastest laps and all-time circuit records for every Grand Prix and Sprint — plus the remaining calendar and a paddock news &amp; rumours feed for each series. Each series also carries a <strong>title-permutation panel</strong>: who is still mathematically alive, and an illustrative estimate of taking the crown. Every race stays <strong>hidden until you mark it watched</strong>. Standings, title analysis and news unlock only when you are caught up with that series.</p>
 <p id="storage-status" class="asof" role="status"></p><noscript><p>Enable JavaScript to load the dashboard. Results remain hidden.</p></noscript></header>
 
 <div class="tabs" role="tablist" aria-label="Championship">
@@ -218,7 +218,7 @@
   <div class="spoiler" id="spoiler-f1-standings">
     <div class="shield"><div class="flag">🏁</div>
       <p><strong>Standings hidden</strong> — they'd give away the Spanish GP result.</p>
-      <p class="small">Tick the latest weekend’s watched box above to reveal.</p>
+      <p class="small">Mark all unwatched sessions below as watched to reveal.</p>
     </div>
     <div class="veil" hidden inert>
       <div class="board"><table>
@@ -240,7 +240,7 @@
   <div class="spoiler" data-latest="f1">
     <div class="shield"><div class="flag">🧮</div>
       <p><strong>Title maths hidden</strong> — it gives the Spanish GP result away.</p>
-      <p class="small">Tick the latest weekend’s watched box above to reveal.</p>
+      <p class="small">Mark all unwatched sessions below as watched to reveal.</p>
     </div>
     <div class="veil" hidden inert>
       <div class="title-summary" id="f1-title-summary"></div>
@@ -272,7 +272,7 @@
 
   <h2>Paddock news &amp; rumours</h2>
   <div class="news" id="f1-news"></div>
-  <p class="news-foot">News snapshot: 21 September 2026. Stories stay hidden until the latest weekend is marked watched. Unlinked reporting is retained for reference and marked unverified.</p>
+  <p class="news-foot">News snapshot: 21 September 2026. Stories stay hidden until you are caught up with this series. Unlinked reporting is retained for reference and marked unverified.</p>
 </section>
 
 <section class="series moto-series" id="panel-moto" role="tabpanel" aria-labelledby="tab-moto">
@@ -282,7 +282,7 @@
   <div class="spoiler" id="spoiler-moto-standings">
     <div class="shield"><div class="flag">🏁</div>
       <p><strong>Standings hidden</strong> — they'd give away the Austrian GP result.</p>
-      <p class="small">Tick the latest weekend’s watched box above to reveal.</p>
+      <p class="small">Mark all unwatched sessions below as watched to reveal.</p>
     </div>
     <div class="veil" hidden inert>
       <div class="board"><table>
@@ -298,7 +298,7 @@
   <div class="spoiler" data-latest="moto">
     <div class="shield"><div class="flag">🧮</div>
       <p><strong>Title maths hidden</strong> — it gives the Austrian GP result away.</p>
-      <p class="small">Tick the latest weekend’s watched box above to reveal.</p>
+      <p class="small">Mark all unwatched sessions below as watched to reveal.</p>
     </div>
     <div class="veil" hidden inert>
       <div class="title-summary" id="moto-title-summary"></div>
@@ -324,14 +324,14 @@
 
   <h2>Paddock news &amp; rumours</h2>
   <div class="news" id="moto-news"></div>
-  <p class="news-foot">News snapshot: 21 September 2026. Stories stay hidden until the latest weekend is marked watched. Unlinked reporting is retained for reference and marked unverified.</p>
+  <p class="news-foot">News snapshot: 21 September 2026. Stories stay hidden until you are caught up with this series. Unlinked reporting is retained for reference and marked unverified.</p>
 </section>
 
 </main>
 
 <footer><div class="rule">
 <p><strong>Snapshot: 21 September 2026.</strong> This is a saved dashboard, not a live feed. Results and historical timing data are retained from the supplied version; not every timing figure or news quotation has been independently verified.</p>
-<details class="secondary"><summary>How to read this dashboard</summary><div class="help-copy"><p>Gold timing chips show the winner’s race time; other chips show finishing gaps. ≈ means approximate. F1 circuit records are race lap records; MotoGP circuit records may come from qualifying. The latest weekend’s results, records and notes stay hidden until its watched box is ticked. Earlier rounds are always visible.</p><p>Title estimates are illustrative values retained from the original dashboard. Its simulation code was not supplied, so the percentages cannot be reproduced here. Arithmetic is calculated from the saved standings and scheduled remaining rounds, assuming full points and no calendar changes.</p><p>Watched choices are saved in this browser when storage is available. Only the latest weekend starts hidden in a fresh browser. External source pages can contain spoilers.</p></div></details>
+<details class="secondary"><summary>How to read this dashboard</summary><div class="help-copy"><p>Gold timing chips show the winner’s race time; other chips show finishing gaps. ≈ means approximate. F1 circuit records are race lap records; MotoGP circuit records may come from qualifying. Records and race notes stay hidden until both sessions of that weekend are marked watched.</p><p>Title estimates are illustrative values retained from the original dashboard. Its simulation code was not supplied, so the percentages cannot be reproduced here. Arithmetic is calculated from the saved standings and scheduled remaining rounds, assuming full points and no calendar changes.</p><p>Watched choices are saved in this browser when storage is available. Every race starts hidden in a fresh browser. External source pages can contain spoilers.</p></div></details>
 </div></footer>
 
 <script>
@@ -643,42 +643,41 @@ function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;',
 function raceId(key,r){return `${key}-2026-r${r.rd}`;}
 function watched(key,r,session){return state[key]?.[raceId(key,r)]?.[session]===true;}
 function complete(key,r){return watched(key,r,'race')&&(!r.sprint||watched(key,r,'sprint'));}
-function latestRound(key){return SERIES[key].races.reduce((a,b)=>a.rd>b.rd?a:b);}
-function caughtUp(key){return complete(key,latestRound(key));}
+function caughtUp(key){return SERIES[key].races.every(r=>complete(key,r));}
 function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch{document.getElementById('storage-status').textContent='Your browser cannot save watched choices. They will reset when you reopen this page.';}}
-function loadState(){try{const value=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');if(value&&typeof value==='object'){for(const key of ['f1','moto'])if(value[key]&&typeof value[key]==='object'&&!Array.isArray(value[key]))state[key]=value[key];}}catch{document.getElementById('storage-status').textContent='Saved choices could not be read. The latest weekend remains protected.';}}
+function loadState(){try{const value=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');if(value&&typeof value==='object'){for(const key of ['f1','moto'])if(value[key]&&typeof value[key]==='object'&&!Array.isArray(value[key]))state[key]=value[key];}}catch{document.getElementById('storage-status').textContent='Saved choices could not be read. All results remain protected.';}}
 function shield(message){return `<div class="shield"><div class="flag" aria-hidden="true">🔒</div><p>${message}</p></div>`;}
 function gate(content,attrs,message){return `<div class="spoiler" ${attrs}>${shield(message)}<div class="veil" hidden inert>${content}</div></div>`;}
 function setGate(el,show){el.classList.toggle('revealed',show);const veil=el.querySelector(':scope > .veil');if(veil){veil.hidden=!show;veil.inert=!show;}}
 function podiumHTML(list){return '<div class="podium">'+list.map((p,i)=>`<div class="step"><span class="medal m${i+1}">${i+1}</span><span class="who">${esc(p[0])}</span><span class="tm">${esc(p[1])}</span>${p[2]?`<span class="chip ${i?'gap':'wintime'}">${esc(p[2])}</span>`:''}</div>`).join('')+'</div>';}
 function flHTML(fl){return fl?`<div class="flrow"><span class="flbadge">FL</span><span>Fastest lap: <strong>${esc(fl.who)}</strong> ${fl.t?esc(fl.t):''} ${fl.extra?'— '+esc(fl.extra):''}</span></div>`:'';}
 function recordHTML(rec,key){if(!rec)return '';return `<div class="circuit-record"><span class="lbl">${key==='f1'?'Race lap record':'All-time record'}</span><span class="val">${rec.txt?esc(rec.txt):`<strong>${esc(rec.t)}</strong> — ${esc(rec.who)}, ${esc(rec.ev)}. ${rec.broken?esc(rec.broken):''}`}</span></div>`;}
-function raceCard(r,key){const latest=r.rd===latestRound(key).rd;const inner=`<div class="race-head"><div><div class="rd">ROUND ${r.rd}</div><div class="gp">${esc(r.gp)}</div></div><div class="date">${esc(r.circuit)}<br>${esc(r.date)}</div></div><div class="race-body">${['sprint','race'].filter(s=>r[s]).map(s=>`<div><div class="block-label ${s==='sprint'?'sprint':''}">${s==='race'?'Grand Prix':'Sprint'}</div>${podiumHTML(r[s].podium)}${flHTML(r[s].fl)}</div>`).join('')}${recordHTML(r.record,key)}${r.note?`<p class="fn">${esc(r.note)}</p>`:''}</div>`;return `<article class="race ${latest?'latest':''}">${latest?gate(inner,`data-latest="${key}"`,`${esc(r.gp)} results hidden — tick the watched box above to reveal`):inner}</article>`;}
+function raceCard(r,key){const id=raceId(key,r);return `<article class="race ${r.latest?'latest':''}"><div class="race-head"><div><div class="rd">ROUND ${r.rd}</div><div class="gp">${esc(r.gp)}</div></div><div class="date">${esc(r.circuit)}<br>${esc(r.date)}</div></div><div class="session-controls">${['sprint','race'].filter(s=>r[s]).map(s=>`<label><input type="checkbox" data-series="${key}" data-round="${r.rd}" data-session="${s}"> I've watched the ${s==='race'?'Grand Prix':'Sprint'}</label>`).join('')}</div><div class="race-body">${['sprint','race'].filter(s=>r[s]).map(s=>gate(`<div class="block-label ${s==='sprint'?'sprint':''}">${s==='race'?'Grand Prix':'Sprint'}</div>${podiumHTML(r[s].podium)}${flHTML(r[s].fl)}`,`data-race="${id}" data-gate-session="${s}"`,`${s==='race'?'Grand Prix':'Sprint'} results hidden`)).join('')}${gate(`${recordHTML(r.record,key)}${r.note?`<p class="fn">${esc(r.note)}</p>`:''}`,`data-race="${id}" data-gate-session="weekend"`,'Circuit record and weekend notes hidden')}</div></article>`;}
 function renderStandings(rows,id){document.getElementById(id).innerHTML=rows.map((r,i)=>`<tr class="${i?'':'p1'}"><td class="pos">${i+1}</td><td class="name">${esc(r[0])}</td><td class="team">${esc(r[1])}</td><td class="pts">${r[2]}</td></tr>`).join('');}
 function renderConstructors(rows,id){document.getElementById(id).innerHTML=rows.map((r,i)=>`<tr><td class="pos">${i+1}</td><td class="name">${esc(r[0])}</td><td class="pts">${r[1]}</td></tr>`).join('');}
 function renderCalendar(rows,id){document.getElementById(id).innerHTML=rows.map(r=>`<tr><td class="pos">${r.rd}</td><td>${esc(r.gp)}${r.sprint?'<span class="sprint-chip">S</span>':''}</td><td class="team">${esc(r.circuit)}${r.note?`<div class="cal-note">${esc(r.note)}</div>`:''}</td><td class="cal-date">${esc(r.date)}</td></tr>`).join('');}
 const BAKU_SOURCE='https://www.formula1.com/en/latest/article/formula-1-qatar-airways-azerbaijan-grand-prix-2026.EsMvgTyba8dZZ6RynZXv7';
 const GUEVARA_SOURCE='https://www.motogp.com/en/news/2026/08/27/guevara-joins-prima-pramac-yamaha-motogp-for-2027/1087094';
-function renderNews(key){document.getElementById(key+'-news').innerHTML=SERIES[key].news.map(n=>{const checked=n.title==='Baku goes Saturday';const source=checked?`<a href="${BAKU_SOURCE}" target="_blank" rel="noopener noreferrer">Official timetable</a> · verified 21 September 2026`:n.title==='The 2027 grid, for reference'?`<a href="${GUEVARA_SOURCE}" target="_blank" rel="noopener noreferrer">Guevara announcement</a> · Guevara claim verified 21 September 2026; other line-ups not independently verified`:'Source link not supplied in original · verification pending';return gate(`<div class="news-head"><span class="tag ${checked?'confirmed':'watch'}">${checked?'Verified':n.tag==='rumour'?'Rumour · unverified':'Reported · unverified'}</span><span class="news-title">${esc(n.title)}</span></div><div class="news-body">${n.body}</div><p class="source-line">${source}</p>`,`data-latest="${key}"`,'News hidden — tick the latest weekend’s watched box above');}).join('');}
+function renderNews(key){document.getElementById(key+'-news').innerHTML=SERIES[key].news.map(n=>{const checked=n.title==='Baku goes Saturday';const source=checked?`<a href="${BAKU_SOURCE}" target="_blank" rel="noopener noreferrer">Official timetable</a> · verified 21 September 2026`:n.title==='The 2027 grid, for reference'?`<a href="${GUEVARA_SOURCE}" target="_blank" rel="noopener noreferrer">Guevara announcement</a> · Guevara claim verified 21 September 2026; other line-ups not independently verified`:'Source link not supplied in original · verification pending';return gate(`<div class="news-head"><span class="tag ${checked?'confirmed':'watch'}">${checked?'Verified':n.tag==='rumour'?'Rumour · unverified':'Reported · unverified'}</span><span class="news-title">${esc(n.title)}</span></div><div class="news-body">${n.body}</div><p class="source-line">${source}</p>`,`data-latest="${key}"`,'News hidden until you are caught up with this series');}).join('');}
 function pctText(v){return v>=99?'Above 99%':v<1?'Below 1%':Math.round(v)+'%';}
 function raceWins(key,name){return SERIES[key].races.filter(r=>r.race.podium[0][0]===name).length;}
 function titleStatus(key,name,pts,maxRem,leaderPts,constructors=false){const max=pts+maxRem;if(max>leaderPts)return 'Yes';if(max<leaderPts)return 'No';if(key==='f1'&&!constructors){const futureWins=raceWins(key,name)+SERIES[key].calendar.length;const leaderWins=raceWins(key,SERIES[key].standings[0][0]);if(futureWins>leaderWins)return 'Yes (wins tie-break)';if(futureWins<leaderWins)return 'No (wins tie-break)';}return 'Tie-break dependent';}
 function titleRow(key,name,pts,prob,maxRem,leaderPts,ctors=false){const status=titleStatus(key,name,pts,maxRem,leaderPts,ctors);const out=status.startsWith('No');return `<tr class="${out?'dead':''}"><td>${esc(name)}</td><td class="pts">${pts}</td><td class="pts">${pts+maxRem}</td><td>${status}</td><td class="pct">${out?'0%':prob===undefined?'Not modelled':pctText(prob)}</td><td>${prob===undefined?'':`<div class="bar ${key}fill"><span style="width:${Math.max(0,Math.min(100,prob))}%"></span></div>`}</td></tr>`;}
 function earliestClinch(key){const S=SERIES[key],points=S.standings.map(r=>r[2]);let earned=0;const remaining=S.calendar.reduce((sum,r)=>sum+(key==='moto'?37:25+(r.sprint?8:0)),0);for(let i=0;i<S.calendar.length;i++){earned+=key==='moto'?37:25+(S.calendar[i].sprint?8:0);if(points[0]+earned>Math.max(...points.slice(1))+remaining-earned)return {count:i+1,round:S.calendar[i]};}return null;}
 function renderTitle(key){const T=TITLE[key],S=SERIES[key];const maxRem=S.calendar.reduce((sum,r)=>sum+(key==='moto'?37:25+(r.sprint?8:0)),0);const leader=S.standings[0][2];const predictions=new Map(T.rows.map(r=>[r[0],r[2]]));document.getElementById(key+'-title').innerHTML=S.standings.map(r=>titleRow(key,r[0],r[2],predictions.get(r[0]),maxRem,leader)).join('');if(T.ctors){const cp=new Map(T.ctors.map(r=>[r[0],r[2]]));const cm=S.calendar.reduce((sum,r)=>sum+43+(r.sprint?15:0),0);document.getElementById('f1-ctitle').innerHTML=F1_CONSTRUCTORS.map(r=>titleRow(key,r[0],r[1],cp.get(r[0]),cm,F1_CONSTRUCTORS[0][1],true)).join('');}const clinch=earliestClinch(key);document.getElementById(key+'-title-summary').innerHTML=`<div class="tstat"><div class="k">Rounds left</div><div class="v">${S.calendar.length}</div></div><div class="tstat"><div class="k">Points available</div><div class="v">${maxRem}</div></div><div class="tstat"><div class="k">Points threshold</div><div class="v">${leader-maxRem}</div><div class="s">Equality requires a tie-break check</div></div><div class="tstat"><div class="k">Earliest outright clinch</div><div class="v">+${clinch.count} rounds</div><div class="s">${esc(clinch.round.gp)} · ${esc(clinch.round.date)}</div></div>`;document.getElementById(key+'-title-foot').innerHTML=`<details class="secondary"><summary>Assumptions and model limitations</summary><div class="help-copy"><p>Maximum points assume every scheduled race runs for full points. The earliest outright clinch assumes the leader wins every remaining session up to that round and every rival scores zero. It requires a strictly greater total than every rival can still reach; a tie-break clinch may be possible earlier.</p><p>Equal final points do not automatically imply title eligibility. F1 race-win countback is checked where it settles the boundary; unresolved equalities are labelled tie-break dependent. <a href="https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_a_general_provisions_-_iss_02_-_2026-02-27.pdf" target="_blank" rel="noopener noreferrer">FIA championship rules, article A2.1</a>.</p><p>Model estimates are saved values from the supplied dashboard, not a fresh forecast. The original describes 200,000 simulations based on season-average form, independent retirements and pace variation, but no runnable model was supplied. Values below 1% are grouped to avoid false precision. “Not modelled” means no estimate was supplied for that entrant.</p></div></details>`;}
-function applySeries(key){const show=caughtUp(key);document.querySelectorAll(`[data-latest="${key}"]`).forEach(el=>setGate(el,show));setGate(document.getElementById(`spoiler-${key}-standings`),show);document.getElementById('watched-'+key).checked=show;document.getElementById(key+'-watch-status').textContent=show?'Latest weekend revealed. Untick to hide it again.':'Only the latest weekend, current standings, news and title analysis are hidden. Earlier races are visible.';}
+function applySeries(key){const S=SERIES[key];document.querySelectorAll(`[data-series="${key}"][data-session]`).forEach(input=>{const r=S.races.find(r=>r.rd===Number(input.dataset.round));input.checked=watched(key,r,input.dataset.session);});for(const r of S.races){document.querySelectorAll(`[data-race="${raceId(key,r)}"]`).forEach(el=>setGate(el,el.dataset.gateSession==='weekend'?complete(key,r):watched(key,r,el.dataset.gateSession)));}const all=caughtUp(key);document.querySelectorAll(`[data-latest="${key}"]`).forEach(el=>setGate(el,all));setGate(document.getElementById(`spoiler-${key}-standings`),all);const left=S.races.filter(r=>!complete(key,r)).length;document.getElementById(key+'-watch-status').textContent=left?`${left} weekend${left===1?'':'s'} still protected. Standings, news and title analysis stay hidden.`:'You are caught up. Standings, news and title analysis are visible.';}
 function setRound(key,r,value){state[key][raceId(key,r)]={race:value,...(r.sprint?{sprint:value}:{})};}
 for(const [key,S] of Object.entries(SERIES)){
  const panel=document.getElementById('panel-'+key);
  const upcoming=document.createElement('div');upcoming.className='next-up';upcoming.innerHTML=key==='f1'?`📅 <strong>Next: Azerbaijan GP · Saturday 26 September</strong><br><strong>9:00 pm Brisbane (AEST)</strong> · 3:00 pm Baku · Qualifying Friday<br><a href="${BAKU_SOURCE}" target="_blank" rel="noopener noreferrer">Official timetable</a> · checked 21 September`:'📅 <strong>Next: Japanese GP · Motegi · 2–4 October</strong><br>Brisbane session times awaiting verification.<br><a href="https://tickets.motogp.com/en/21091-japan/" target="_blank" rel="noopener noreferrer">Official event dates</a> · checked 21 September';panel.prepend(upcoming);
- panel.querySelector('[data-watchbar]').innerHTML=`<div class="pf-text"><div class="pf-title">🔒 Spoiler protection — ${esc(latestRound(key).gp)}</div><p id="${key}-watch-status" class="pf-sub" role="status">Latest weekend hidden.</p></div><label class="watch-toggle"><input type="checkbox" id="watched-${key}" data-watch-series="${key}"> I've watched the ${esc(latestRound(key).gp)}${latestRound(key).sprint?' and Sprint':''}</label>`;
+ panel.querySelector('[data-watchbar]').innerHTML=`<div class="pf-text"><div class="pf-title">🔒 Spoiler protection</div><p id="${key}-watch-status" class="pf-sub" role="status">Results hidden.</p><p class="pf-sub">Use each race’s Sprint and Grand Prix checkboxes below. Choices stay with that round.</p></div><div class="watch-actions"><button class="action" data-bulk="earlier" data-series="${key}">I've watched all earlier rounds</button><button class="action" data-bulk="hide" data-series="${key}">Hide all results again</button></div>`;
  renderStandings(S.standings,key+'-standings');document.getElementById(key+'-races').innerHTML=[...S.races].reverse().map(r=>raceCard(r,key)).join('');renderCalendar(S.calendar,key+'-calendar');renderNews(key);renderTitle(key);
 }
 renderConstructors(F1_CONSTRUCTORS,'f1-constructors');
 // Long standings reconciliation remains available without dominating the page.
 document.querySelectorAll('.veil > p').forEach(p=>{if(p.textContent.length>500){const d=document.createElement('details');d.className='secondary';d.innerHTML='<summary>Points reconciliation notes</summary>';p.replaceWith(d);d.appendChild(p);p.classList.add('help-copy');}});
-document.addEventListener('change',e=>{const key=e.target.dataset.watchSeries;if(!key)return;setRound(key,latestRound(key),e.target.checked);applySeries(key);saveState();});
-
+document.addEventListener('change',e=>{const input=e.target;if(!input.matches('[data-session]'))return;const key=input.dataset.series;const r=SERIES[key].races.find(r=>r.rd===Number(input.dataset.round));const id=raceId(key,r);if(!state[key][id]||typeof state[key][id]!=='object')state[key][id]={};state[key][id][input.dataset.session]=input.checked;applySeries(key);saveState();});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-bulk]');if(!b)return;const key=b.dataset.series;const latest=Math.max(...SERIES[key].races.map(r=>r.rd));SERIES[key].races.filter(r=>b.dataset.bulk==='hide'||r.rd<latest).forEach(r=>setRound(key,r,b.dataset.bulk!=='hide'));applySeries(key);saveState();});
 loadState();applySeries('f1');applySeries('moto');
 const tabs=[...document.querySelectorAll('[role="tab"]')];
 function selectTab(index,focus=false){tabs.forEach((t,i)=>{const active=i===index;t.setAttribute('aria-selected',String(active));t.tabIndex=active?0:-1;const p=document.getElementById(t.getAttribute('aria-controls'));p.classList.toggle('active',active);p.hidden=!active;});if(focus)tabs[index].focus();}
