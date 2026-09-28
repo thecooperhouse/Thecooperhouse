@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Brisbane Broncos and Stoke City fan dashboard: results, standings, club news and upcoming fixtures in Brisbane time.">
+<meta name="theme-color" content="#131017">
+<title>Broncos &amp; Stoke City — Fan Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#131017;
+    --paper:#f5f2ec;
+    --card:#1c1822;
+    --card-edge:#2b2533;
+    --maroon:#762340;
+    --maroon-deep:#4d1229;
+    --gold:#f7b915;
+    --stoke-red:#dd3743;
+    --stoke-deep:#a01f2b;
+    --porcelain:#f4f0e9;
+    --mut:#a99fb3;
+    --good:#3ec97e;
+    --bad:#e05a5a;
+    --draw:#c9b23e;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--ink);color:var(--paper);font-family:'Archivo',sans-serif;line-height:1.55}
+  .display{font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.02em}
+
+  /* ===== masthead ===== */
+  header{padding:44px 24px 28px;text-align:center;position:relative;overflow:hidden}
+  header::before{content:"";position:absolute;inset:0;
+    background:linear-gradient(105deg,var(--maroon-deep) 0 46%,transparent 46% 54%,var(--stoke-deep) 54% 100%);
+    opacity:.5}
+  header::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:8px;transform:translateX(-50%) skewX(-12deg);
+    background:repeating-linear-gradient(180deg,var(--gold) 0 14px,var(--porcelain) 14px 28px)}
+  header>*{position:relative;z-index:1}
+  .kick{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
+  h1{font-size:clamp(40px,8vw,84px);line-height:.95}
+  h1 .bri{color:var(--gold)} h1 .amp{color:var(--mut);font-weight:600} h1 .stk{color:var(--stoke-red)}
+  .sub{margin-top:12px;color:var(--mut);font-size:14px;max-width:760px;margin-left:auto;margin-right:auto}
+
+  /* ===== TABS ===== */
+  .tabstrip{position:sticky;top:0;z-index:30;background:rgba(19,16,23,.94);backdrop-filter:blur(10px);
+    border-top:1px solid var(--card-edge);border-bottom:1px solid var(--card-edge)}
+  .tablist{max-width:1060px;margin:0 auto;display:flex;gap:0;padding:0 12px}
+  .tab{flex:1 1 0;appearance:none;background:none;border:0;cursor:pointer;color:var(--mut);
+    font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.06em;
+    font-size:clamp(19px,3.4vw,28px);line-height:1;padding:16px 10px 13px;position:relative;
+    border-bottom:3px solid transparent;transition:color .18s ease,background .18s ease}
+  .tab .tsub{display:block;font-family:'Archivo',sans-serif;font-weight:500;font-size:10.5px;
+    letter-spacing:.14em;margin-top:6px;opacity:.8}
+  .tab:hover{color:var(--paper);background:rgba(255,255,255,.035)}
+  .tab:focus-visible{outline:2px solid var(--paper);outline-offset:-4px}
+  .tab[aria-selected="true"]{color:var(--paper)}
+  #tab-broncos[aria-selected="true"]{border-bottom-color:var(--gold);color:var(--gold);
+    background:linear-gradient(180deg,rgba(118,35,64,.32),rgba(247,185,21,.06))}
+  #tab-stoke[aria-selected="true"]{border-bottom-color:var(--porcelain);color:var(--stoke-red);
+    background:linear-gradient(180deg,rgba(160,31,43,.32),rgba(244,240,233,.06))}
+
+  /* ===== big dates strip ===== */
+  .dates{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;padding:16px 24px;border-bottom:1px solid var(--card-edge);background:var(--card)}
+  .date-chip{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mut)}
+  .date-chip b{color:var(--paper);font-weight:600}
+  .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .dot.g{background:var(--gold)} .dot.r{background:var(--stoke-red)}
+
+  /* ===== sections ===== */
+  main{max-width:1060px;margin:0 auto;padding:30px 20px 64px}
+  section.club{margin-bottom:24px;border-radius:18px;overflow:hidden;border:1px solid var(--card-edge);background:var(--card)}
+  .club-head{padding:26px 28px;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px;position:relative}
+  .club-head h2{font-size:clamp(30px,5vw,48px);line-height:1}
+  .club-head .tag{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--mut)}
+  .broncos .club-head{background:linear-gradient(100deg,var(--maroon-deep),var(--maroon) 70%);border-bottom:3px solid var(--gold)}
+  .stoke .club-head{background:linear-gradient(100deg,#5c1017,var(--stoke-deep) 70%);border-bottom:3px solid var(--porcelain)}
+  .stoke .club-head::after{content:"";position:absolute;right:0;top:0;bottom:0;width:120px;opacity:.22;
+    background:repeating-linear-gradient(90deg,var(--porcelain) 0 12px,transparent 12px 24px)}
+  .broncos .club-head::after{content:"";position:absolute;right:-20px;top:-30px;width:170px;height:200px;transform:rotate(18deg);opacity:.18;
+    background:linear-gradient(90deg,var(--gold) 0 30px,transparent 30px)}
+
+  .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:0}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .col{padding:26px 28px;min-width:0}
+  .col+.col{border-left:1px solid var(--card-edge)}
+  @media(max-width:820px){.col+.col{border-left:none;border-top:1px solid var(--card-edge)}}
+
+  h3{font-family:'Big Shoulders Display',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:15px;color:var(--mut);margin-bottom:14px}
+  h3.later{margin-top:28px}
+
+  /* scoreline card */
+  .scoreline{border-radius:12px;padding:18px 20px;margin-bottom:8px}
+  .broncos .scoreline{background:linear-gradient(120deg,rgba(118,35,64,.35),rgba(247,185,21,.08));border:1px solid rgba(247,185,21,.35)}
+  .stoke .scoreline{background:linear-gradient(120deg,rgba(221,55,67,.22),rgba(244,240,233,.05));border:1px solid rgba(221,55,67,.4)}
+  .score-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .team-n{font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;font-size:20px}
+  .big-score{font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:44px;font-variant-numeric:tabular-nums}
+  .win-note{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+  .stoke .win-note{color:var(--stoke-red)}
+  .score-meta{font-size:13px;color:var(--mut);margin-top:8px}
+
+  /* form pills */
+  .form-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+  .pill{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font-weight:700;font-size:15px;position:relative;cursor:default}
+  .pill.w{background:rgba(62,201,126,.16);color:var(--good);border:1px solid rgba(62,201,126,.45)}
+  .pill.l{background:rgba(224,90,90,.12);color:var(--bad);border:1px solid rgba(224,90,90,.4)}
+  .pill.d{background:rgba(201,178,62,.12);color:var(--draw);border:1px solid rgba(201,178,62,.4)}
+  .pill span{position:absolute;top:46px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;color:var(--mut);font-weight:500}
+  .form-wrap{padding-bottom:26px}
+
+  /* ladder */
+  table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+  th{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);font-weight:600;text-align:left;padding:6px 8px;border-bottom:1px solid var(--card-edge)}
+  td{padding:7px 8px;border-bottom:1px solid rgba(43,37,51,.6)}
+  tr.me td{background:rgba(247,185,21,.1);font-weight:700}
+  .stoke tr.me td{background:rgba(221,55,67,.12)}
+  tr.faint td{color:var(--mut)}
+  tr.alive td:nth-child(2){color:var(--draw)}
+  .num{text-align:right}
+  .table-note{font-size:12px;color:var(--mut);margin-top:10px}
+
+  /* stat blocks */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:4px}
+  @media(max-width:480px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:rgba(0,0,0,.25);border:1px solid var(--card-edge);border-radius:10px;padding:12px 12px 10px}
+  .stat b{display:block;font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:26px;font-variant-numeric:tabular-nums}
+  .broncos .stat b{color:var(--gold)} .stoke .stat b{color:var(--stoke-red)}
+  .stat span{font-size:11.5px;color:var(--mut);letter-spacing:.04em}
+
+  /* notes */
+  ul.notes{list-style:none}
+  ul.notes li{padding:9px 0 9px 20px;position:relative;font-size:14px;border-bottom:1px solid rgba(43,37,51,.6)}
+  ul.notes li:last-child{border-bottom:none}
+  ul.notes li::before{content:"";position:absolute;left:2px;top:16px;width:8px;height:8px;border-radius:2px;transform:rotate(45deg)}
+  .broncos ul.notes li::before{background:var(--gold)}
+  .stoke ul.notes li::before{background:var(--stoke-red)}
+
+  /* ===== next game highlight ===== */
+  .nextgame{margin:0 28px 26px;border-radius:14px;padding:0;overflow:hidden;border:1px solid var(--card-edge);background:rgba(0,0,0,.28)}
+  .ng-head{padding:9px 16px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
+  .broncos .ng-head{background:linear-gradient(90deg,var(--maroon),rgba(118,35,64,.25));color:var(--gold)}
+  .stoke .ng-head{background:linear-gradient(90deg,var(--stoke-deep),rgba(160,31,43,.25));color:var(--porcelain)}
+  .ng-body{padding:18px 20px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
+  @media(max-width:560px){.ng-body{grid-template-columns:1fr}}
+  .ng-match{font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;font-size:27px;line-height:1.05}
+  .ng-meta{font-size:13px;color:var(--mut);margin-top:7px;line-height:1.7}
+  .ng-meta b{color:var(--paper);font-weight:600}
+  .ng-when{text-align:right;font-variant-numeric:tabular-nums}
+  @media(max-width:560px){.ng-when{text-align:left}}
+  .ng-when .d{font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:34px;line-height:1}
+  .broncos .ng-when .d{color:var(--gold)} .stoke .ng-when .d{color:var(--stoke-red)}
+  .ng-when .t{font-size:12px;color:var(--mut);letter-spacing:.06em}
+
+  /* ===== maths panel ===== */
+  .maths{margin:0 28px 26px;border:1px solid var(--card-edge);border-radius:14px;background:rgba(0,0,0,.28);padding:20px 22px}
+  .maths h4{font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:20px;margin-bottom:4px}
+  .verdict{display:inline-block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;padding:5px 11px;border-radius:999px;margin-bottom:14px;margin-right:8px;
+    background:rgba(224,90,90,.14);color:var(--bad);border:1px solid rgba(224,90,90,.45)}
+  .verdict.good{background:rgba(62,201,126,.16);color:var(--good);border:1px solid rgba(62,201,126,.45)}
+  .eq{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:13px;background:rgba(0,0,0,.4);border-left:3px solid var(--gold);
+    padding:11px 14px;border-radius:0 8px 8px 0;margin:12px 0;color:#e9e2f0;line-height:1.85;overflow-x:auto;white-space:pre}
+  .stoke .eq{border-left-color:var(--stoke-red)}
+  .maths p{font-size:14px;margin:10px 0;color:#ded6e6}
+  .maths .small{font-size:12.5px;color:var(--mut)}
+  table.req td,table.req th{padding:6px 8px}
+  table.req .danger{color:var(--bad);font-weight:700}
+  table.req .ok{color:var(--draw)}
+  table.req .good{color:var(--good);font-weight:700}
+
+  /* ===== movement columns ===== */
+  .moves{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:6px}
+  @media(max-width:640px){.moves{grid-template-columns:1fr}}
+  .mv h5{font-family:'Big Shoulders Display',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:13px;margin-bottom:9px}
+  .mv.in h5{color:var(--good)} .mv.out h5{color:var(--bad)}
+  ul.mvlist{list-style:none}
+  ul.mvlist li{font-size:13.5px;padding:7px 0;border-bottom:1px solid rgba(43,37,51,.6);line-height:1.5}
+  ul.mvlist li:last-child{border-bottom:none}
+  ul.mvlist b{font-weight:600}
+  ul.mvlist span{color:var(--mut)}
+  .tag-conf{display:inline-block;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border-radius:4px;margin-left:6px;vertical-align:1px}
+  .tag-conf.c{background:rgba(62,201,126,.16);color:var(--good);border:1px solid rgba(62,201,126,.4)}
+  .tag-conf.r{background:rgba(201,178,62,.13);color:var(--draw);border:1px solid rgba(201,178,62,.4)}
+  .tag-conf.x{background:rgba(224,90,90,.13);color:var(--bad);border:1px solid rgba(224,90,90,.4)}
+
+  footer{max-width:1060px;margin:0 auto;padding:0 20px 48px;color:var(--mut);font-size:12px;line-height:1.7}
+  footer b{color:var(--paper)}
+  footer p{margin-bottom:14px}
+
+  [hidden]{display:none !important}
+  @media(prefers-reduced-motion:no-preference){
+    .panel:not([hidden]){animation:rise .35s ease both}
+    @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  }
+  header::after{opacity:.24}
+  .stoke .club-head>*{position:relative;z-index:1}
+  .stoke .club-head::after{opacity:.1}
+  a{color:#f6cc69;text-underline-offset:3px}
+  a:hover{color:#fff} a:focus-visible,button:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+  .skip-link{position:absolute;left:12px;top:-70px;z-index:100;background:var(--ink);padding:12px}.skip-link:focus{top:12px}
+  .snapshot{padding:12px 20px;text-align:center;color:var(--mut);font-size:12px;border-bottom:1px solid var(--card-edge)}
+  .snapshot.stale{color:var(--gold);background:#302516}
+  .fixture-tools{padding:22px 26px;margin-bottom:24px;border:1px solid var(--card-edge);border-radius:16px;background:linear-gradient(120deg,#30202d,#1c1822)}
+  .fixture-tools h2{font-size:28px}.fixture-tools p{font-size:13px;color:var(--mut);margin-top:5px}
+  .fixture-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 0}
+  select,.action{font:inherit;font-size:13px;color:var(--paper);background:#282130;border:1px solid #776780;border-radius:7px;padding:10px 12px;cursor:pointer}
+  .fixture-list{list-style:none}.fixture-list li{padding:13px 0;border-top:1px solid var(--card-edge);display:flex;justify-content:space-between;align-items:center;gap:14px}
+  .fixture-list strong{display:block;font-size:15px}.fixture-list time{display:block;color:var(--gold);font-size:14px;margin-top:4px}.fixture-list small{display:block;color:var(--mut);margin-top:3px}
+  .jump-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}.jump-nav .action{font-size:12px}
+  .table-scroll{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}.table-scroll:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .source-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px;margin:20px 0}.source-grid ul{padding-left:18px}.source-grid li{margin:8px 0}
+  footer h2{font-size:28px;color:var(--paper);margin-bottom:10px}details{border-top:1px solid var(--card-edge);padding:14px 0}summary{cursor:pointer;font-weight:600;color:var(--paper)}details p{margin-top:12px}
+  h3,h4{scroll-margin-top:100px}.pill{width:44px}.form-row{gap:12px}.pill span{font-size:10px}
+  @media(max-width:560px){header{padding:32px 16px 24px}main{padding:20px 12px 40px}.col,.club-head{padding:22px 16px}.nextgame,.maths{margin-left:14px;margin-right:14px}.maths{padding:18px 14px}.fixture-tools{padding:18px 16px}.fixture-list li{align-items:flex-start;flex-direction:column}.source-grid{grid-template-columns:1fr}.score-row{gap:7px}.team-n{font-size:17px}.big-score{font-size:34px;white-space:nowrap}.form-row{gap:8px}.pill{width:38px}.pill span{font-size:9px}.dates{padding:14px 16px}th,td{padding:7px 6px}table{min-width:370px}}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  @media print{.tabstrip,.fixture-controls,.jump-nav,.action,.skip-link{display:none!important}.panel[hidden]{display:block!important}body{background:white;color:black}.club,.maths,.nextgame{background:white!important;color:black;break-inside:auto}header::before,header::after{display:none}a{color:#333}.table-scroll{overflow:visible}table{min-width:0}details{display:block}}
+
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to dashboard</a>
+<header>
+  <p class="kick">Two clubs · Two hemispheres · One dashboard</p>
+  <h1 class="display"><span class="bri">Broncos</span> <span class="amp">&amp;</span> <span class="stk">Stoke City</span></h1>
+  <p class="sub">Season snapshot as at Monday 21 September 2026 · v11 · Stoke came from behind to beat Sheffield United, made it five unbeaten and are 7th, inside the expanded play-off places; Brisbane's men are still in the off-season, but Xavier Willison won the club's player of the year and said he wants to stay &mdash; and the NRLW side is one win from another grand final</p>
+</header>
+
+<!-- ===== TABS ===== -->
+<div class="tabstrip">
+  <div class="tablist" role="tablist" aria-label="Choose a club">
+    <button class="tab" id="tab-broncos" role="tab" aria-selected="true" aria-controls="panel-broncos" tabindex="0">
+      Broncos<span class="tsub">NRL · 14th · NRLW alive</span>
+    </button>
+    <button class="tab" id="tab-stoke" role="tab" aria-selected="false" aria-controls="panel-stoke" tabindex="-1">
+      Stoke City<span class="tsub">Championship · 13 pts, 7th</span>
+    </button>
+  </div>
+</div>
+
+<div class="snapshot" id="snapshot-age">Editorial snapshot · 21 September 2026 · Manual updates</div>
+<div class="dates">
+  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>NRLW prelim</b> · Sun 27 Sep, 1:05pm · Titans v Broncos, Cbus Super Stadium &mdash; one win from the grand final</span></div>
+  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>NRL prelims</b> · Fri 25 Sep, Dolphins v Roosters at <b>Suncorp</b> · Sun 27 Sep, Panthers v Knights at Accor</span></div>
+  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>Dally M</b> · Wed 30 Sep &mdash; Tamika Upton favourite to retain the women's medal</span></div>
+  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>Grand Finals</b> · Sun 4 Oct, Accor Stadium &mdash; NRLW then NRL at 6:30pm <b>AEST</b> (7:30pm AEDT in Sydney; same moment)</span></div>
+  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>World Cup opener</b> · Thu 15 Oct, 8:05pm · Australia v New Zealand, Allianz Stadium &mdash; the Walsh deadline</span></div>
+  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>1 November</b> · 41 days from the snapshot date &mdash; Willison's final 12 months begin and rival clubs may call</span></div>
+  <div class="date-chip" data-club="stoke"><span class="dot r"></span><span><b>Stoke next</b> · Sat 10 Oct · Bolton away, 3:00pm BST (midnight AEST, so Sun 11 Oct here)</span></div>
+  <div class="date-chip" data-club="stoke"><span class="dot r"></span><span><b>Nothing until then</b> · No Championship football anywhere until Fri 9 Oct &mdash; a three-week international break</span></div>
+  <div class="date-chip" data-club="stoke"><span class="dot r"></span><span><b>Window shut</b> · 11pm BST, Tue 1 Sep &mdash; summer business completed. Next is January</span></div>
+</div>
+
+<main id="main-content">
+
+  <!-- ============ BRONCOS PANEL ============ -->
+  <div class="panel" id="panel-broncos" role="tabpanel" aria-labelledby="tab-broncos" tabindex="0">
+  <section class="club broncos">
+    <div class="club-head">
+      <h2 class="display">Brisbane Broncos</h2>
+      <span class="tag">NRL 2026 · Men finished 14th · Off-season · NRLW side one win from the grand final</span>
+    </div>
+
+    <div class="nextgame">
+      <div class="ng-head">The week's business &mdash; a player of the year who wants to stay, and a clock this page got wrong</div>
+      <div class="ng-body">
+        <div>
+          <div class="ng-match">Willison <span style="color:var(--mut)">v</span> the open market</div>
+          <p class="ng-meta">
+            <b>Monday 14 September:</b> <b>Xavier Willison</b> won the <b>Paul Morgan Medal</b> as Brisbane's player of the year &mdash; all 24 games, 124 metres a game, seven tries, in a season the club finished 14th<br>
+            <b>What he said:</b> <i>"I am hoping my future is here at the Broncos&hellip; My daughter was born in Brisbane so I would love to stay here and I would love to build my family here"</i><br>
+            <b>Where it stands:</b> advanced talks on a reported seven-figure deal, possibly four years to 2031, funded by the cap space Payne Haas leaves behind. He is also changing management<br>
+            <b>The correction that matters:</b> rival clubs can talk to him from <b>1 November 2026</b> &mdash; 41 days from the snapshot date. Last week this page said 2027. That was wrong, and it is explained in full below
+          </p>
+        </div>
+        <div class="ng-when">
+          <div class="d">41</div>
+          <div class="t">days to 1 Nov &middot; when rivals may call</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="col">
+        <h3>Latest Broncos result &mdash; the women's semi-final</h3>
+        <div class="scoreline">
+          <p class="win-note">Won by 24 · Sat 19 Sep · Langlands Park · NRLW semi-final · 34&ndash;0 at half-time</p>
+          <div class="score-row"><span class="team-n">Broncos</span><span class="big-score">40 &ndash; 16</span><span class="team-n">Knights</span></div>
+          <p class="score-meta">Seven tries to three, 61 per cent of the ball, an 81 per cent completion rate and a 24-point margin that equals the biggest in NRLW finals history. <b>Romy Teitzel</b> scored twice from the right edge; <b>Julia Robinson</b>, <b>Shannon Mato</b>, <b>Tamika Upton</b>, <b>Georgia Bartlett</b> and <b>Bri Clark</b> got the others. Upton led all players with 197 run metres, three line breaks, three try assists and nine tackle breaks, and was taken off with twenty minutes still to play. Three ex-Knights &mdash; Upton, Teitzel and <b>Jesse Southwell</b> &mdash; did most of the damage to their old club. Concerns: <b>Bree Spreadborough</b> hurt an ankle and <b>Lillian Yarrow</b> was placed on report for a lifting tackle. Next: the Titans, away, Sunday.</p>
+        </div>
+
+        <h3 class="later">The men's last six of 2026 &mdash; now the historical record</h3>
+        <div class="form-wrap">
+          <div class="form-row">
+            <div class="pill l"><span>Knights</span>L</div>
+            <div class="pill l"><span>Dolphins</span>L</div>
+            <div class="pill l"><span>Warriors</span>L</div>
+            <div class="pill w"><span>Raiders</span>W</div>
+            <div class="pill l"><span>Storm</span>L</div>
+            <div class="pill w"><span>Bulldogs</span>W</div>
+          </div>
+        </div>
+
+        <h3 class="later">The Suncorp ledger &mdash; the whole men's season in one table</h3>
+        <table>
+          <thead><tr><th>Split</th><th class="num">P</th><th class="num">W</th><th class="num">L</th><th class="num">Win %</th></tr></thead>
+          <tbody>
+            <tr class="me"><td>Home fixtures (all at Suncorp)</td><td class="num">12</td><td class="num">2</td><td class="num">10</td><td class="num">16.7</td></tr>
+            <tr><td>Away fixtures</td><td class="num">12</td><td class="num">6</td><td class="num">6</td><td class="num">50.0</td></tr>
+            <tr class="faint"><td>&hellip; of which, played at Suncorp</td><td class="num">2</td><td class="num">0</td><td class="num">2</td><td class="num">0.0</td></tr>
+            <tr class="faint"><td><b>Total appearances at Suncorp</b></td><td class="num">14</td><td class="num">2</td><td class="num">12</td><td class="num">14.3</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">Carried forward from the previous edition’s match-by-match review, because two true numbers were in circulation and looked contradictory. AAP's review coverage said Brisbane <b>lost 12 of 14 at Suncorp</b>; this page runs <b>2&ndash;10 at home</b>. Both are right: Brisbane played two further games at Suncorp that were not home fixtures &mdash; the Warriors in <b>Magic Round</b> (Round 11) and the <b>Dolphins</b> in Round 23, which was Redcliffe's home game. They lost both. This week Suncorp hosts a preliminary final, which Brisbane are not in.</p>
+
+        <h3 class="later">2026 by the numbers &mdash; men, final</h3>
+        <div class="stats">
+          <div class="stat"><b>14th</b><span>Final ladder position</span></div>
+          <div class="stat"><b>8&ndash;16</b><span>Win&ndash;loss record, 22 comp points</span></div>
+          <div class="stat"><b>677</b><span>Points conceded &mdash; worst since 2021</span></div>
+          <div class="stat"><b>2&ndash;10</b><span>Home record at Suncorp</span></div>
+          <div class="stat"><b>6&ndash;6</b><span>Away record &mdash; the one good number</span></div>
+          <div class="stat"><b>24/24</b><span>Willison's games &mdash; player of the year</span></div>
+        </div>
+      </div>
+
+      <div class="col">
+        <h3>Final 2026 ladder</h3>
+        <table>
+          <thead><tr><th>#</th><th>Team</th><th class="num">Pts</th><th class="num">+/&minus;</th></tr></thead>
+          <tbody>
+            <tr class="faint"><td>1</td><td>Panthers <span style="color:var(--gold)">· minor premiers</span></td><td class="num">42</td><td class="num">+336</td></tr>
+            <tr class="faint"><td>2</td><td>Warriors <span style="color:var(--mut)">· out, semi-final</span></td><td class="num">42</td><td class="num">+310</td></tr>
+            <tr class="faint"><td>3</td><td>Dolphins <span style="color:var(--gold)">· prelim, Fri</span></td><td class="num">40</td><td class="num">+156</td></tr>
+            <tr class="faint"><td>4</td><td>Roosters <span style="color:var(--gold)">· prelim, Fri</span></td><td class="num">38</td><td class="num">+118</td></tr>
+            <tr class="faint"><td>5</td><td>Sharks <span style="color:var(--mut)">· out, semi-final</span></td><td class="num">34</td><td class="num">+149</td></tr>
+            <tr class="faint"><td>6</td><td>Rabbitohs</td><td class="num">34</td><td class="num">+113</td></tr>
+            <tr class="faint"><td>7</td><td>Knights <span style="color:var(--gold)">· prelim, Sun</span></td><td class="num">34</td><td class="num">+42</td></tr>
+            <tr class="faint"><td>8</td><td>Cowboys</td><td class="num">32</td><td class="num">&minus;84</td></tr>
+            <tr class="faint"><td colspan="4" style="text-align:center">· · · finals cut-off · · ·</td></tr>
+            <tr class="faint"><td>9</td><td>Sea Eagles</td><td class="num">28</td><td class="num">+99</td></tr>
+            <tr class="faint"><td>10</td><td>Storm</td><td class="num">28</td><td class="num">+18</td></tr>
+            <tr class="faint"><td>11</td><td>Raiders</td><td class="num">28</td><td class="num">&minus;45</td></tr>
+            <tr class="faint"><td>12</td><td>Bulldogs</td><td class="num">28</td><td class="num">&minus;60</td></tr>
+            <tr class="faint"><td>13</td><td>Eels</td><td class="num">24</td><td class="num">&minus;181</td></tr>
+            <tr class="me"><td>14</td><td>Broncos</td><td class="num">22</td><td class="num">&minus;206</td></tr>
+            <tr class="faint"><td>15</td><td>Wests Tigers</td><td class="num">22</td><td class="num">&minus;254</td></tr>
+            <tr class="faint"><td>16</td><td>Titans</td><td class="num">18</td><td class="num">&minus;186</td></tr>
+            <tr class="faint"><td>17</td><td>Dragons</td><td class="num">16</td><td class="num">&minus;325</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">Final ladder carried forward from the previous edition. Brisbane’s 14th place, 8–16 record and 471–677 points tally were checked against Rugby League Project; the other clubs’ full figures have not been independently re-audited in this review.</p>
+
+        <h3 class="later">The finals &mdash; where it's up to</h3>
+        <table>
+          <thead><tr><th>When (AEST)</th><th>Match</th><th>Result / Venue</th></tr></thead>
+          <tbody>
+            <tr class="faint"><td>Fri 11 Sep</td><td>Rabbitohs v Knights (EF)</td><td>Knights won 20&ndash;10 · Allianz</td></tr>
+            <tr class="faint"><td>Sat 12 Sep</td><td>Warriors v Dolphins (QF)</td><td>Dolphins won 26&ndash;16 · Go Media</td></tr>
+            <tr class="faint"><td>Sat 12 Sep</td><td>Sharks v Cowboys (EF)</td><td>Sharks won 26&ndash;16 · Allianz · 17,429</td></tr>
+            <tr class="faint"><td>Sun 13 Sep</td><td>Panthers v Roosters (QF)</td><td>Panthers won 19&ndash;12 · CommBank</td></tr>
+            <tr class="faint"><td>Sat 19 Sep</td><td>Roosters v Sharks (SF)</td><td>Roosters won 46&ndash;10 · Allianz</td></tr>
+            <tr class="faint"><td>Sun 20 Sep</td><td>Warriors v Knights (SF)</td><td>Knights won 12&ndash;10 · Eden Park</td></tr>
+            <tr><td>Fri 25 Sep, 7:50pm</td><td>Dolphins v Roosters (PF)</td><td><b>Suncorp Stadium</b></td></tr>
+            <tr><td>Sun 27 Sep, 4:00pm</td><td>Panthers v Knights (PF)</td><td>Accor Stadium</td></tr>
+            <tr><td>Sun 4 Oct, 6:30pm</td><td>Grand Final</td><td>Accor Stadium</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">Eliminated: South Sydney, North Queensland, Cronulla and the Warriors. Newcastle &mdash; with <b>Dane Gagai</b>, who joins Brisbane next year, throwing the flick pass that put Dominic Young in for the decisive try &mdash; won 12&ndash;10 at Eden Park and are in their first preliminary final since 2013. The Dolphins host Friday's preliminary final <b>at Suncorp</b>, which Brisbane supporters may process however they wish. One scheduling note worth flagging: Zero Tackle's published schedule gives these games as 26 and 28 September, but 26 September is a Saturday and 28 September is a Monday. AAP and the NRL's own listing have Friday the 25th and Sunday the 27th, which is what is used here.</p>
+
+        <h3 class="later">Worth knowing</h3>
+        <ul class="notes">
+          <li><b>Willison won the Paul Morgan Medal, and said the thing Brisbane needed him to say.</b> At the club awards on <b>14 September</b>: <i>"I definitely want to stay. They have given me everything. I love the culture&hellip; My daughter was born in Brisbane so I would love to stay here and bring my family up here."</i> He played all 24 games at 124 metres a game with seven tries. Brisbane are reported to be in advanced talks over a seven-figure deal that could run to <b>2031</b>, using the room Haas's exit creates. Also honoured: <b>Pat Carrigan</b> (players' player), <b>Deine Mariner</b> (best back), <b>Va'a Semu</b> (rookie of the year), <b>Jordan Riki</b> (most consistent).</li>
+          <li><b>This page got the Willison date wrong last week, and it is worth being precise about how.</b> v9 "corrected" the free-agency date from 1 November 2026 to 1 November 2027, reasoning that a player contracted through 2027 could not be talking to rivals a year early. That reasoning was backwards. Under the RLPA/NRL contracting window, a player may negotiate with other clubs <b>once he enters the final twelve months of his deal</b> &mdash; which, for a contract expiring at the end of 2027, is <b>1 November 2026</b>. The original date was right; the correction introduced the error. It is fixed here and the working is in the maths panel.</li>
+          <li><b>Jaiyden Hunt is going to Canberra, and Jack Gosiewski is going somewhere.</b> Hunt has signed a two-year deal reported at $350,000 with the Raiders, announced <b>14 September</b> &mdash; Canberra are rebuilding a pack that has lost Papali'i to retirement and Horsburgh and Smithies to Perth. Gosiewski's contract will not be renewed and no destination has been reported. Both were listed here last week as "off contract &mdash; undecided"; both have now resolved, one of them only halfway. The club also farewelled Hoeter, Rogers and Te Kura at its awards night; see the updated list below.</li>
+          <li><b>Reece Walsh has not joined the NFL.</b> He has signed an <b>ambassadorial</b> deal with the Seattle Seahawks &mdash; one of the first signings to their "12s Everywhere" programme in this region, alongside Canberra's Hudson Young &mdash; as the NFL pushes into Australia. He remains contracted to Brisbane through <b>2029</b>. Several headlines this week read "from the NRL to the NFL", which is doing a great deal of work for a marketing partnership.</li>
+          <li><b>The actual Walsh question is still his ankle.</b> No football since Round 24, syndesmosis surgery in mid-August, named in Australia's extended 40-man World Cup pool which gets cut after the Grand Final. Nothing this week moved that timeline either way. Australia open against New Zealand at Allianz Stadium on <b>Thursday 15 October, 8:05pm</b>.</li>
+          <li><b>Payne Haas: no news, which is itself the news.</b> The last substantive update remains 4 September &mdash; two fingers on his left hand to be pinned, carried since roughly Round 2, World Cup with <b>Samoa</b> in doubt. Samoa's squad has not been named. The tournament starts in 24 days.</li>
+          <li><b>Dally M night is Wednesday 30 September.</b> Nathan Cleary leads the men's count and is a heavy favourite; no Brisbane man is in the published top ten. <b>Tamika Upton</b> is favoured to retain the women's medal, and on Saturday's evidence it would be hard to argue.</li>
+          <li><b>And the part of the club that is still playing is playing very well.</b> The NRLW side, defending premiers, finished third, won their semi-final by 24 and now travel to the Gold Coast on Sunday for a preliminary final against the <b>Titans</b>, who finished second. Win that and they are back at Accor Stadium on 4 October, chasing back-to-back titles and a fifth overall.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="maths">
+      <h4>Three clocks, one ladder that cannot move, and a correction to a correction</h4>
+      <span class="verdict">Men's season over · 14th · 8&ndash;16</span><span class="verdict good">NRLW: one win from a grand final</span><span class="verdict">41 days to 1 November</span>
+
+      <p><b>Step 1 &mdash; the free-agency clock, done properly this time.</b> This is the number this page got wrong last week, so here is the whole chain rather than the conclusion:</p>
+      <div class="eq">Rule (RLPA contracting window):
+  a player may negotiate with rival clubs once he enters
+  the FINAL TWELVE MONTHS of his contract.
+
+Willison's contract expires : end of 2027
+Final twelve months begin   : 1 November 2026
+Rivals may talk to him from : 1 November 2026
+Days from snapshot (21 Sep)    : 41
+
+v8 said 1 Nov 2026   -> correct
+v9 "corrected" to 2027 -> wrong; the reasoning inverted the rule
+v10 restores 1 Nov 2026 and shows the rule</div>
+      <p class="small">The trap was an intuitive one: he is contracted for all of 2027, so it feels as though he cannot be courted until that year is nearly done. The rule is the opposite &mdash; the window opens <i>before</i> the final season, not after it. Which is why Brisbane are trying to get this signed in the next six weeks rather than next spring.</p>
+
+      <p><b>Step 2 &mdash; what 2027 actually requires.</b> An illustrative comparison using the 2026 structure, not a confirmed 2027 schedule: the NRL pays two competition points a win plus two for each of three byes, so a season converts cleanly:</p>
+      <div class="eq">comp points = (wins x 2) + 6
+
+Brisbane 2026        8 wins  ->  22 pts   (14th)
+2026 finals cut-off  13 wins ->  32 pts   (Cowboys, 8th)
+Shortfall                        5 wins
+
+Holding the 6&ndash;6 road record and fixing Suncorp:
+  Suncorp 5&ndash;7  ->  11 wins  =  28 pts
+  Suncorp 6&ndash;6  ->  12 wins  =  30 pts   one win short of this year's eight
+  Suncorp 7&ndash;5  ->  13 wins  =  32 pts   level with this year's eight
+  Suncorp 8&ndash;4  ->  14 wins  =  34 pts</div>
+      <p>The shape of it has not changed and it still cuts both ways. Going from the worst home record in the competition to a merely ordinary one still only reaches the edge of the eight on this year's numbers &mdash; that is how far 2026 fell. But it is five wins, not fifteen, and the away half of the season already happened: <b>6&ndash;6 on the road is a mid-table team</b>, managed with no defensive coach, an injured fullback and a retiring halfback. Keeping the player who just won the club's medal is the cheapest five-wins-worth of improvement available.</p>
+
+      <p><b>Step 3 &mdash; the Grand Final clock, because two different times are being published and both are right.</b></p>
+      <div class="eq">Published as 7:30pm AEDT (Sydney)  and  6:30pm AEST (Brisbane)
+
+NSW switches to daylight saving : Sun 4 Oct 2026, 2:00am
+                                  (first Sunday in October)
+Queensland switches             : never
+
+7:30pm AEDT  =  6:30pm AEST  =  the same kick-off
+
+This page prints 6:30pm, because that is the clock in Brisbane.</div>
+      <p class="small">The Grand Final is on the very morning the change takes effect, which is exactly the sort of date that produces two "correct" times in two publications and an argument in a group chat. Both preliminary finals are before the switch, so their AEST times are unambiguous.</p>
+
+      <p class="small"><b>The honest summary.</b> The men's season ended three weeks ago and nothing since has changed the shape of it: 14th, 677 conceded, two home wins. What this week did add is genuinely positive and should be said plainly &mdash; the best young forward at the club won its highest individual honour and publicly said he wants to stay, and the talks are reportedly advanced rather than stalled. Set against that: the departure list is now updated below, the fullback's ankle is still an open question, and the preliminary final at Suncorp on Friday belongs to Redcliffe. The women's side, meanwhile, is 70 minutes from another grand final, which is the single most cheerful sentence on this page.</p>
+    </div>
+
+    <div class="maths" style="border-color:rgba(247,185,21,.28)">
+      <h4>Ins and outs &mdash; Broncos</h4>
+      <p class="small" style="margin-top:0">Five listed arrivals for 2027. The departures below now include the club’s 14 September farewell announcement; destinations are not assumed when unannounced.</p>
+      <div class="moves">
+        <div class="mv in">
+          <h5>&#8600; Joining for 2027</h5>
+          <ul class="mvlist">
+            <li><b>Mitch Barnett</b> <span class="tag-conf c">Confirmed</span><br><span>Back-rower from the Warriors, contracted through 2029. The headline forward recruit to replace Haas's minutes, if not his impact.</span></li>
+            <li><b>Jonah Pezet</b> <span class="tag-conf c">Confirmed</span><br><span>Halfback from Parramatta through 2029 &mdash; the Reynolds succession plan, and likely to be coached by Reynolds himself.</span></li>
+            <li><b>Shawn Blore</b> <span class="tag-conf c">Confirmed</span><br><span>Back-rower from Melbourne, contracted through 2028.</span></li>
+            <li><b>Dane Gagai</b> <span class="tag-conf c">Confirmed</span><br><span>Centre from Newcastle, one year, through 2027. Set up the winning try in the Knights' semi-final at Eden Park on Sunday.</span></li>
+            <li><b>Wilson De Courcey</b> <span class="tag-conf c">Confirmed</span><br><span>Outside back, 20, from Newcastle on a two-year deal to 2028. 14 tries in 17 NSW Cup games in 2026.</span></li>
+          </ul>
+        </div>
+        <div class="mv out">
+          <h5>&#8599; Leaving</h5>
+          <ul class="mvlist">
+            <li><b>Adam Reynolds</b> <span class="tag-conf c">Confirmed &mdash; retired</span><br><span>323 NRL games, no final and no farewell match in 2026. Joins the coaching staff in 2027, role still being defined.</span></li>
+            <li><b>Payne Haas</b> <span class="tag-conf c">Confirmed</span><br><span>To South Sydney, 2027&ndash;2029, reported at $3.6m over three years. Two fingers being pinned; World Cup in doubt.</span></li>
+            <li><b>Jaiyden Hunt</b> <span class="tag-conf c">Confirmed &mdash; new</span><br><span>To Canberra, two years, reported $350,000. Announced 14 September. Was on last week's "undecided" list.</span></li>
+            <li><b>Jack Gosiewski</b> <span class="tag-conf c">Confirmed &mdash; leaving</span><br><span>Contract not renewed. No destination reported. Also moved off last week's "undecided" list, halfway.</span></li>
+            <li><b>Corey Jensen</b> <span class="tag-conf c">Confirmed &mdash; retired</span><br><span>Retiring rather than moving on.</span></li>
+            <li><b>Jesse Arthars, Gehamat Shibasaki, Grant Anderson, Joshua Coric</b> <span class="tag-conf c">Confirmed</span><br><span>Arthars to Catalans Dragons, Shibasaki to the Perth Bears, Anderson to the Warriors, Coric to Hull FC on a two-year deal.</span></li>
+            <li><b>Delouise Hoeter</b> <span class="tag-conf c">Confirmed &mdash; retired</span><br><span>Farewelled as a retiring player at the club awards on 14 September.</span></li>
+<li><b>Josh Rogers, Ben Te Kura</b> <span class="tag-conf c">Confirmed &mdash; departing</span><br><span>Both acknowledged as departing in the club’s awards announcement. Destinations not verified in this review.</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="small"><b>Xavier Willison</b> is on neither list, and the reason has changed shape since last week. He is contracted for <b>2027</b>; no early release has been verified. But rival clubs may formally approach him from <b>1 November 2026</b>, not 2027 &mdash; and Brisbane are reported to be in advanced talks on a long-term extension rather than facing a flat refusal. He did decline a July offer; he has since won the club's player of the year and said he wants to stay. The South Sydney link reported by James Hooper concerns 2028 and remains speculation.</p>
+    </div>
+  </section>
+  </div>
+
+  <!-- ============ STOKE PANEL ============ -->
+  <div class="panel" id="panel-stoke" role="tabpanel" aria-labelledby="tab-stoke" tabindex="0">
+  <section class="club stoke">
+    <div class="club-head">
+      <h2 class="display">Stoke City</h2>
+      <span class="tag">EFL Championship · P8 W4 D1 L3 · 7th, 13 points · Unbeaten in five</span>
+    </div>
+
+    <div class="nextgame">
+      <div class="ng-head">Next up &mdash; three weeks of nothing, then Bolton</div>
+      <div class="ng-body">
+        <div>
+          <div class="ng-match">Bolton Wanderers <span style="color:var(--mut)">v</span> Stoke City</div>
+          <p class="ng-meta">
+            <b>Where:</b> Toughsheet Community Stadium, Championship matchday 9<br>
+            <b>Who:</b> Bolton are <b>15th</b> on 10 points, W3 D1 L4, GD &minus;4 &mdash; and have just won <b>4&ndash;3 at Norwich</b> on Sunday in a seven-goal game, so they arrive with something too<br>
+            <b>Form:</b> Stoke are unbeaten in five and have taken <b>13 points from a possible 15</b>. From 24th and pointless on 30 August to 7th, inside the expanded play-off places<br>
+            <b>Before then:</b> no Stoke league match. The next Championship fixture anywhere in the division is <b>Friday 9 October</b>
+          </p>
+        </div>
+        <div class="ng-when">
+          <div class="d">SAT 10 OCT</div>
+          <div class="t">3:00pm BST · Sun 11 Oct 12:00am AEST</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="col">
+        <h3>Latest result</h3>
+        <div class="scoreline">
+          <p class="win-note">Won 2&ndash;1 · Sat 19 Sep · bet365 Stadium · Championship MD8 · Crowd 23,360</p>
+          <div class="score-row"><span class="team-n">Stoke City</span><span class="big-score">2 &ndash; 1</span><span class="team-n">Sheffield Utd</span></div>
+          <p class="score-meta">A comeback, and two goals that had no business being scored in a 12:30 kick-off. <b>Kalvin Phillips</b>, on loan at Bramall Lane, put United ahead on <b>51'</b> with his first league goal in five and a half years. <b>Jack McGlynn</b> levelled on <b>78'</b> with a left-footed strike from distance &mdash; his second in two games &mdash; and <b>Sam Gallagher</b>, on as a substitute having missed two matches with the injury he picked up against Charlton, volleyed the winner on <b>87'</b> (Sky's report logs it at 86'). Robins: <i>"That's testament to Sam Gallagher. For him to have worked to keep coming back from injury and disappointment, well that is just a demonstration of sheer brute force and quality"</i>, and of the goal itself, <i>"one of the best goals I've ever seen"</i>. Chris Wilder, not unfairly: <i>"When two players whack in goals from 30 yards then it's nothing to do with our quality."</i></p>
+        </div>
+
+        <h3 class="later">Last six competitive games</h3>
+        <div class="form-wrap">
+          <div class="form-row">
+            <div class="pill l"><span>Wolves</span>L</div>
+            <div class="pill w"><span>Norwich</span>W</div>
+            <div class="pill w"><span>Charlton</span>W</div>
+            <div class="pill d"><span>Cardiff</span>D</div>
+            <div class="pill w"><span>Watford</span>W</div>
+            <div class="pill w"><span>Sheff Utd</span>W</div>
+          </div>
+        </div>
+
+        <h3 class="later">Season so far &mdash; competitive</h3>
+        <table>
+          <thead><tr><th>Date</th><th>Opponent</th><th>Comp</th><th class="num">Result</th><th class="num">Crowd</th></tr></thead>
+          <tbody>
+            <tr><td>8 Aug</td><td>Oldham Athletic (H)</td><td>Carabao R1</td><td class="num">W 2&ndash;0</td><td class="num">10,157</td></tr>
+            <tr><td>15 Aug</td><td>Swansea City (H)</td><td>Championship</td><td class="num">L 1&ndash;2</td><td class="num">24,332</td></tr>
+            <tr><td>22 Aug</td><td>Southampton (A)</td><td>Championship</td><td class="num">L 1&ndash;3</td><td class="num">29,185</td></tr>
+            <tr><td>25 Aug</td><td>Hull City (H)</td><td>Carabao R2</td><td class="num">D 1&ndash;1, lost 4&ndash;5 pens</td><td class="num">7,141</td></tr>
+            <tr><td>29 Aug</td><td>Wolves (A)</td><td>Championship</td><td class="num">L 1&ndash;4</td><td class="num">30,334</td></tr>
+            <tr><td>1 Sep</td><td>Norwich City (H)</td><td>Championship</td><td class="num">W 1&ndash;0</td><td class="num">20,140</td></tr>
+            <tr><td>5 Sep</td><td>Charlton Athletic (H)</td><td>Championship</td><td class="num">W 4&ndash;0</td><td class="num">21,071</td></tr>
+            <tr><td>8 Sep</td><td>Cardiff City (A)</td><td>Championship</td><td class="num">D 1&ndash;1</td><td class="num">18,088</td></tr>
+            <tr><td>12 Sep</td><td>Watford (A)</td><td>Championship</td><td class="num">W 2&ndash;1</td><td class="num">18,296</td></tr>
+            <tr class="me"><td>19 Sep</td><td>Sheffield United (H)</td><td>Championship</td><td class="num">W 2&ndash;1</td><td class="num">23,360</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">Sixteen scored and thirteen conceded across ten competitive games; ten of those sixteen have come in the last five. <b>Every attendance is now on the record</b> &mdash; last week this page said Charlton's, Cardiff's and Watford's were not available in any source checked, and all three have since been published, along with Saturday's 23,360. Stoke's four home league crowds average <b>22,226</b>; the four away grounds they have visited averaged 23,976, flattered by Southampton and Molineux.</p>
+
+        <h3 class="later">Championship &mdash; after eight games</h3>
+        <table>
+          <thead><tr><th>#</th><th>Team</th><th class="num">P</th><th class="num">GD</th><th class="num">Pts</th></tr></thead>
+          <tbody>
+            <tr class="faint"><td>1</td><td>Swansea City</td><td class="num">8</td><td class="num">+7</td><td class="num">17</td></tr>
+            <tr class="faint"><td>2</td><td>West Ham United</td><td class="num">8</td><td class="num">+11</td><td class="num">15</td></tr>
+            <tr class="faint"><td>3</td><td>Middlesbrough</td><td class="num">8</td><td class="num">+4</td><td class="num">15</td></tr>
+            <tr class="faint"><td>4</td><td>Wolves</td><td class="num">7</td><td class="num">+5</td><td class="num">14</td></tr>
+            <tr class="faint"><td>5</td><td>West Bromwich Albion</td><td class="num">8</td><td class="num">+2</td><td class="num">14</td></tr>
+            <tr class="alive"><td>6</td><td>QPR</td><td class="num">8</td><td class="num">+3</td><td class="num">13</td></tr>
+            <tr class="me"><td>7</td><td>Stoke City</td><td class="num">8</td><td class="num">+1</td><td class="num">13</td></tr>
+            <tr class="faint"><td>8</td><td>Bristol City</td><td class="num">8</td><td class="num">&minus;1</td><td class="num">13</td></tr>
+<tr class="faint"><td colspan="5" style="text-align:center">Play-offs: 3rd–8th · automatic promotion: 1st–2nd</td></tr>
+            <tr class="faint"><td>9</td><td>Charlton Athletic</td><td class="num">8</td><td class="num">&minus;3</td><td class="num">12</td></tr>
+            <tr class="faint"><td>10</td><td>Birmingham City</td><td class="num">8</td><td class="num">+1</td><td class="num">11</td></tr>
+            <tr class="faint"><td>11</td><td>Millwall</td><td class="num">8</td><td class="num">0</td><td class="num">11</td></tr>
+            <tr class="faint"><td>12</td><td>Lincoln City</td><td class="num">8</td><td class="num">&minus;1</td><td class="num">11</td></tr>
+            <tr class="faint"><td>13</td><td>Southampton (&minus;4)</td><td class="num">8</td><td class="num">+9</td><td class="num">10</td></tr>
+            <tr class="faint"><td>14</td><td>Wrexham</td><td class="num">8</td><td class="num">&minus;3</td><td class="num">10</td></tr>
+            <tr class="faint"><td>15</td><td>Bolton Wanderers</td><td class="num">8</td><td class="num">&minus;4</td><td class="num">10</td></tr>
+            <tr class="faint"><td>16</td><td>Blackburn Rovers</td><td class="num">8</td><td class="num">0</td><td class="num">9</td></tr>
+            <tr class="faint"><td>17</td><td>Norwich City</td><td class="num">8</td><td class="num">&minus;1</td><td class="num">9</td></tr>
+            <tr class="faint"><td>18</td><td>Sheffield United</td><td class="num">8</td><td class="num">&minus;2</td><td class="num">9</td></tr>
+            <tr class="faint"><td>19</td><td>Portsmouth</td><td class="num">7</td><td class="num">&minus;1</td><td class="num">8</td></tr>
+            <tr class="faint"><td>20</td><td>Watford</td><td class="num">8</td><td class="num">&minus;3</td><td class="num">8</td></tr>
+            <tr class="faint"><td>21</td><td>Cardiff City</td><td class="num">8</td><td class="num">&minus;2</td><td class="num">7</td></tr>
+<tr class="faint"><td colspan="5" style="text-align:center">Relegation: 22nd–24th</td></tr>
+            <tr class="faint"><td>22</td><td>Derby County</td><td class="num">8</td><td class="num">&minus;7</td><td class="num">5</td></tr>
+            <tr class="faint"><td>23</td><td>Preston North End</td><td class="num">8</td><td class="num">&minus;7</td><td class="num">4</td></tr>
+            <tr class="faint"><td>24</td><td>Burnley</td><td class="num">8</td><td class="num">&minus;8</td><td class="num">4</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">Standings checked against Sky Sports’ table updated 20 September. <b>Stoke are 7th, inside the 3rd–8th play-off band.</b> Southampton’s four-point deduction is included. Wolves and Portsmouth have a game in hand.</p>
+
+        <h3 class="later">Next three fixtures</h3>
+        <table>
+          <thead><tr><th>Date (BST)</th><th>AEST</th><th>Opponent</th><th>H/A</th></tr></thead>
+          <tbody>
+            <tr class="me"><td>Sat 10 Oct, 3:00pm</td><td>Sun 11 Oct, 12:00am</td><td>Bolton Wanderers (15th)</td><td>Away</td></tr>
+            <tr><td>Tue 13 Oct, 8:00pm</td><td>Wed 14 Oct, 5:00am</td><td>Middlesbrough (3rd)</td><td>Home</td></tr>
+            <tr><td>Sat 17 Oct, 3:00pm</td><td>Sun 18 Oct, 12:00am</td><td>Derby County (22nd)</td><td>Away</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">Add nine hours to BST for AEST; BST does not end until Sunday 25 October, so the offset holds for all three. Bolton and Derby both kick off at exactly midnight Brisbane time, which makes them technically Sunday-morning games here &mdash; a genuinely civilised slot, unlike the Middlesbrough game at 5:00am. Last week's page listed Middlesbrough as 4th; they are 3rd now, having drawn twice.</p>
+      </div>
+
+      <div class="col">
+        <h3>Worth knowing</h3>
+        <ul class="notes">
+          <li><b>Thirteen points from fifteen, and inside the expanded play-off places.</b> Norwich, Charlton, Cardiff, Watford and Sheffield United have produced W&nbsp;W&nbsp;D&nbsp;W&nbsp;W. On 30 August Stoke were 24th with nothing. They are 7th, inside the new 3rd–8th play-off band, one point above 9th-placed Charlton. Nobody should mistake eight games for a season, but the hole they dug in the first three weeks has been filled in.</li>
+          <li><b>Correction: it was two clean sheets in four, not three.</b> Last week's page said Viktor Johansson had kept three clean sheets in the last four. The arithmetic says otherwise and always did: Stoke had conceded eleven in seven, nine of them in the first three games, leaving two across the last four &mdash; one at Cardiff, one at Watford. So the clean sheets were Norwich and Charlton, and there were two. The underlying point &mdash; that the defence stopped leaking &mdash; still holds; the number attached to it did not.</li>
+          <li><b>Sam Gallagher, again, and this page owes him one.</b> Two weeks ago he was wrongly credited to Galbraith for the Wolves goal; last week he was noted as "still not a new signing"; on Saturday he came off the bench after two matches out and volleyed the winner from range. Robins called it one of the best goals he has ever seen. Gallagher joined from Blackburn in <b>August 2024</b> and is still not a new signing.</li>
+          <li><b>Jack McGlynn has scored in consecutive games.</b> Stoppage time at Vicarage Road, then a left-footed strike on 78' on Saturday. Two of the three deadline-day signings &mdash; McGlynn and Justin Devenny &mdash; are now on the scoresheet and in the side, which is a better return from a frantic window than anyone had a right to expect.</li>
+          <li><b>The Southampton swing went the other way this week.</b> Wrexham beat them 2&ndash;1 on Saturday, their second league defeat. Recomputed from the live table, the four-point deduction now costs them <b>nine places</b> rather than six. This page has twice forecast which way that number would move and been wrong twice; it will now simply report it.</li>
+          <li><b>Three weeks off, and the timing could hardly be better.</b> <b>Junior Tchamadeu</b> returned to first-team action as a 65th-minute substitute against Sheffield United. The previous edition’s claim that he was not used on Saturday was incorrect. <b>Aaron Cresswell</b> (knee), <b>Bosun Lawal</b> and <b>Svante Ingelsson</b> were all out. Robins, on the returning players: <i>"They have to demonstrate really in training&hellip; I'm not just going to put people in because they're available."</i></li>
+          <li><b>The team Stoke beat is now 18th.</b> Sheffield United have won two of eight and scored nine; only four clubs have scored fewer. Kalvin Phillips' goal was his first in a league game since early 2021, which tells its own story about both his season and theirs.</li>
+        </ul>
+
+        <h3 class="later">Squad shape</h3>
+        <ul class="notes">
+          <li><b>Ethan Galbraith</b> &mdash; three goals in eight league games. Still the best thing about the summer rebuild, still worth the reported &pound;10m, still on three and not four.</li>
+          <li><b>Viktor Johansson</b> &mdash; two clean sheets in the last five and three goals conceded in five, having shipped nine in the first three. See the correction: the trend is real, last week's figure was not.</li>
+          <li><b>Sam Gallagher</b> &mdash; back from injury, scored the winner off the bench, and remains the answer to two separate corrections on this page.</li>
+          <li><b>Jack McGlynn</b> &mdash; two goals in two, and the deadline-day signing who has settled fastest.</li>
+          <li><b>Ben Johnson</b> &mdash; the Ipswich loanee at right-back, a goalscorer at Cardiff, has started every game since the window shut.</li>
+          <li><b>Ben Pearson</b> &mdash; 31 and in his final contract year. Stayed through the window; the one to watch in January.</li>
+          <li><b>Aaron Cresswell</b> &mdash; still out with the knee injury that prompted the Bombino signing. Bosun Lawal and Svante Ingelsson also unavailable on Saturday; Ampah’s latest status needs confirmation; Tchamadeu returned off the bench on Saturday.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="maths" style="border-color:rgba(221,55,67,.28)">
+      <h4>Eight games in — inside the new play-off places</h4>
+      <p>The Championship changed for 2026/27: <b>3rd–8th qualify for the play-offs</b>. Third and fourth advance to the semi-finals; fifth hosts eighth and sixth hosts seventh in eliminators. The top two still go up automatically. <a href="https://www.efl.com/news/2026/march/05/efl-statement--sky-bet-championship-play-off-format/">EFL format announcement</a>.</p>
+      <div class="eq">Stoke City: P8   W4  D1  L3
+GF 13   GA 12   GD +1   Pts 13   →   7th of 24
+
+First 3 games:  0 pts,  3 scored, 9 conceded
+Last 5 games: 13 pts, 10 scored, 3 conceded
+
+Above 9th (Charlton, 12 pts): 1 point
+Above 22nd (Derby, 5 pts):    8 points
+38 games remaining · maximum possible: 127 points</div>
+      <p>Stoke currently occupy a play-off place. Eight matches remain a small sample, and no points target guarantees qualification.</p>
+      <div class="eq">Current points per game: 13 ÷ 8 = 1.625
+46-game pace: 74.75 points (a projection, not a prediction)
+
+Illustrative targets over the remaining 38 games:
+74 points: 61 more needed → 1.61 points per game
+50 points: 37 more needed → 0.97 points per game</div>
+      <p class="small">These are planning benchmarks only. The old sixth-place cut-off is no longer the qualification line, and neither 74 nor 50 is a guaranteed threshold.</p>
+
+      <p><b>Southampton's deduction, recomputed &mdash; and this week it bit harder.</b></p>
+      <div class="eq">Southampton on-field: W4 D2 L2 → 14 raw points, GD +9
+Sanction: −4 points (spygate)
+Adjusted: 14 − 4 = 10 points
+
+Ranked on RAW points and GD : 4th of 24
+Ranked as published (−4)    : 13th of 24
+Net effect of the sanction  : a 9-place drop
+
+Trend:  v7 (31 Aug) 13  ·  v8 (7 Sep) 11  ·  v9 (14 Sep) 6  ·  now 9</div>
+      <p class="small">Recomputed from the live table each week rather than carried forward. Wrexham beat them 2&ndash;1 on Saturday, which cost Southampton three points they would otherwise have banked and dropped them into a congested band where four points span six places &mdash; so the same fixed penalty suddenly compresses more of the table. The v7 edition forecast the swing would keep widening; v8 and v9 logged that as wrong; this week it widened. Three data points in two directions is not a trend, it is a table settling, and the forecasting has been retired.</p>
+
+      <p class="small"><b>The honest version.</b> Five unbeaten, 13 from 15, a comeback win in front of 23,360, two goals from outside the box, inside the expanded play-off places, and a three-week break arriving with three injured players close to returning. Against that: the five opponents were 17th, 9th, 21st, 20th and 18th as things stand, the three defeats came against Swansea (1&ndash;2), Southampton (1&ndash;3) and Wolves (1&ndash;4). Bolton away on 10 October is the next actual evidence. Everything until then is people talking.</p>
+    </div>
+
+    <div class="maths" style="border-color:rgba(221,55,67,.28)">
+      <h4>Ins and outs &mdash; Stoke City, window closed</h4>
+      <p class="small" style="margin-top:0">Window summary carried forward from the previous edition. Eleven names are listed below, including a loan and Milan Smit’s earlier loan-to-permanent arrangement; that is not the same as eleven new summer arrivals. Individual fees and contract terms have not all been re-verified in this review.</p>
+      <div class="moves">
+        <div class="mv in">
+          <h5>&#8600; Arrivals &amp; permanent conversions</h5>
+          <ul class="mvlist">
+            <li><b>Justin Devenny</b> <span class="tag-conf c">Confirmed</span><br><span>Midfielder, Crystal Palace, reported &pound;5m, four-year deal, 1&ndash;2 September. Two goals v Charlton.</span></li>
+            <li><b>Jack McGlynn</b> <span class="tag-conf c">Confirmed</span><br><span>Midfielder, Houston Dynamo, permanent, reported around $5.5m. USMNT international. Scored at Watford and against Sheffield United.</span></li>
+            <li><b>Luca Bombino</b> <span class="tag-conf c">Confirmed</span><br><span>Left-back, San Diego FC, permanent with a sell-on clause, announced 1 September.</span></li>
+            <li><b>George Hirst</b> <span class="tag-conf c">Confirmed</span><br><span>Striker, permanent from Ipswich Town, reported around &pound;6m. First league goal on 5 September.</span></li>
+            <li><b>Ethan Galbraith</b> <span class="tag-conf c">Confirmed</span><br><span>Midfielder from Swansea City, reported &pound;10m &mdash; the summer's biggest outlay. Three league goals.</span></li>
+            <li><b>Milan Smit, Djibril Soumar&eacute;, Luke Graham, Josh Griffiths, Svante Ingelsson</b> <span class="tag-conf c">Confirmed</span><br><span>Smit &pound;4.75&ndash;4.8m from Go Ahead Eagles (since loaned to Darmstadt 98); Soumar&eacute; from Braga; Graham &pound;2m from Dundee; Griffiths from West Brom; Ingelsson from Sheffield Wednesday.</span></li>
+            <li><b>Ben Johnson</b> <span class="tag-conf c">Confirmed &mdash; loan</span><br><span>Right-back, season-long loan from Ipswich Town. Scored at Cardiff.</span></li>
+          </ul>
+        </div>
+        <div class="mv out">
+          <h5>&#8599; Left</h5>
+          <ul class="mvlist">
+            <li><b>Sorba Thomas</b> <span class="tag-conf c">Confirmed</span><br><span>To Hull City, 1 September, after a third bid. Fee undisclosed officially; one outlet reports &pound;10.5m.</span></li>
+            <li><b>Tatsuki Seko, Bae Jun-Ho</b> <span class="tag-conf c">Confirmed</span><br><span>Permanent exits to Urawa Red Diamonds and Olympique Lyonnais.</span></li>
+            <li><b>Steven N'Zonzi, Lewis Baker, Nikola Jojić</b> <span class="tag-conf c">Confirmed</span><br><span>N'Zonzi released; Baker to Bursaspor on a free; Jojić departed by mutual consent.</span></li>
+            <li><b>Milan Smit (loan), True Grant, Emre Tezgel, Favour Fawunmi</b> <span class="tag-conf c">Confirmed &mdash; loans out</span><br><span>Smit to Darmstadt 98; Grant to Halifax, Tezgel to Wycombe, Fawunmi to Oldham.</span></li>
+            <li><b>Ben Pearson, Maksym Talovierov, &Eacute;ric Bocat</b> <span class="tag-conf x">Stayed</span><br><span>All three linked with exits; none moved. Bocat has two league goals; Pearson, in his final contract year, is the January watch item.</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="small"><b>Harry Clarke</b> remains off this list. The &pound;3.5m Ipswich deal reported in early August never happened &mdash; he signed permanently for Preston North End and has played for them. Ben Brereton D&iacute;az, who chose Sheffield United over a Stoke loan, likewise stays off. Both are noted rather than silently deleted, because a transfer list that only shows the things that came off is not a transfer list. The window closed at <b>11pm BST on Tuesday 1 September</b> &mdash; not 31 August, which earlier editions of this page got wrong and which is not coming back.</p>
+    </div>
+  </section>
+  </div>
+
+</main>
+
+<footer id="sources">
+  <h2 class="display">Sources &amp; review notes</h2>
+  <p><b>Snapshot: 21 September 2026, Brisbane.</b> This is a manually maintained fan dashboard, not a live score feed. Fixtures can change; calendar downloads are one-off copies and do not update automatically.</p>
+  <div class="source-grid">
+    <div><h3>Broncos</h3><ul>
+      <li><a href="https://www.broncos.com.au/news/2026/09/14/willison-named-broncos-best-at-39th-paul-morgan-medal/">Club awards and player farewells — 14 September</a></li>
+      <li><a href="https://www.nrl.com/news/2026/09/19/nrlw-semi-final-showdown-broncos-v-knights/">NRLW result and preliminary-final details — NRL</a></li>
+      <li><a href="https://www.rugbyleagueproject.org/seasons/nrl-2026/summary.html">2026 men's season record — Rugby League Project</a></li>
+      <li><a href="https://www.nrl.com/news/2026/04/22/explainer-wsoo-and-nrlw-rules-confirmed/">2026 NRLW rules and match duration</a></li>
+    </ul></div>
+    <div><h3>Stoke City</h3><ul>
+      <li><a href="https://www.efl.com/news/2026/march/05/efl-statement--sky-bet-championship-play-off-format/">New Championship play-off format — EFL</a></li>
+      <li><a href="https://www.skysports.com/championship-table">Championship standings — Sky Sports</a></li>
+      <li><a href="https://www.footballwebpages.co.uk/stoke-city/fixtures-results">Results and upcoming fixtures</a></li>
+      <li><a href="https://www.footballwebpages.co.uk/match/2026-2027/championship/stoke-city/sheffield-united/567967">Sheffield United match record and substitutions</a></li>
+    </ul></div>
+  </div>
+  <details><summary>What changed in v11?</summary><p>Corrected the play-off boundary from sixth to eighth and the relegation boundary to below 21st; updated the associated analysis. Corrected Willison’s award date to 14 September, the NRLW match duration to 70 minutes, and Tchamadeu’s appearance. Added Hoeter’s retirement and Rogers and Te Kura’s departures from the club announcement. Removed the inconsistent ten-signing total and absolute claims that transfers cannot change outside a window. Added fixture countdowns, Brisbane/venue times, calendar downloads, mobile table scrolling and accessible navigation.</p></details>
+  <details><summary>Scope and remaining uncertainty</summary><p>Checked the headline results, Stoke’s published standings and next three fixtures, the competition format, club awards and listed corrections. The full NRL ladder, every transfer fee, contract report, injury and older quotation have not all been independently re-verified. Retained editorial notes are a snapshot of the previous research, not a claim of exhaustive verification. “Confirmed” transfer labels were inherited unless a source is explicitly identified above; reported fees remain press estimates.</p></details>
+</footer>
+
+<script>
+(function(){
+  var tabs = [document.getElementById('tab-broncos'), document.getElementById('tab-stoke')];
+  var panels = [document.getElementById('panel-broncos'), document.getElementById('panel-stoke')];
+  var keys = ['broncos','stoke'];
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.date-chip'));
+
+  function select(i, focus){
+    tabs.forEach(function(t, n){
+      var on = n === i;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      panels[n].hidden = !on;
+    });
+    chips.forEach(function(c){
+      c.hidden = c.getAttribute('data-club') !== keys[i];
+    });
+    if (focus) tabs[i].focus();
+    if (location.hash.slice(1) !== keys[i]) {
+      history.replaceState(null, '', '#' + keys[i]);
+    }
+  }
+
+  tabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ select(i); });
+    t.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown'){ e.preventDefault(); select((i+1) % tabs.length, true); }
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp'){ e.preventDefault(); select((i+tabs.length-1) % tabs.length, true); }
+      else if (e.key === 'Home'){ e.preventDefault(); select(0, true); }
+      else if (e.key === 'End'){ e.preventDefault(); select(tabs.length-1, true); }
+    });
+  });
+
+  window.addEventListener('hashchange', function(){
+    var i = keys.indexOf(location.hash.slice(1));
+    if (i > -1) select(i);
+  });
+
+  var start = keys.indexOf(location.hash.slice(1));
+  select(start > -1 ? start : 0);
+})();
+</script>
+
+<script>
+(() => {
+  'use strict';
+  const snapshot = '2026-09-21';
+  const fixtures = [
+    {club:'broncos',id:'nrlw-prelim',title:'Titans v Broncos · NRLW preliminary final',start:'2026-09-27T03:05:00Z',zone:'Australia/Brisbane',venue:'Cbus Super Stadium',source:'https://www.nrl.com/news/2026/09/19/nrlw-semi-final-showdown-broncos-v-knights/'},
+    {club:'stoke',id:'bolton-stoke',title:'Bolton Wanderers v Stoke City',start:'2026-10-10T14:00:00Z',zone:'Europe/London',venue:'Toughsheet Community Stadium',source:'https://www.footballwebpages.co.uk/stoke-city/fixtures-results'},
+    {club:'stoke',id:'stoke-boro',title:'Stoke City v Middlesbrough',start:'2026-10-13T19:00:00Z',zone:'Europe/London',venue:'bet365 Stadium',source:'https://www.footballwebpages.co.uk/stoke-city/fixtures-results'},
+    {club:'stoke',id:'derby-stoke',title:'Derby County v Stoke City',start:'2026-10-17T14:00:00Z',zone:'Europe/London',venue:'Pride Park Stadium',source:'https://www.footballwebpages.co.uk/stoke-city/fixtures-results'}
+  ];
+  function ageNotice(now) {
+    const parts = new Intl.DateTimeFormat('en-CA',{timeZone:'Australia/Brisbane',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now);
+    const part = type => parts.find(p=>p.type===type).value;
+    const day = `${part('year')}-${part('month')}-${part('day')}`;
+    const age = Math.floor((Date.parse(day+'T00:00:00Z')-Date.parse(snapshot+'T00:00:00Z'))/86400000);
+    const banner = document.getElementById('snapshot-age');
+    banner.classList.toggle('stale',age>0);
+    banner.textContent = `Snapshot: 21 September 2026 · ${age>0 ? `${age} day${age===1?'':'s'} old — results and news may have changed` : age===0 ? 'dated today in Brisbane' : 'dated after your device clock'} · Manually updated, not live`;
+  }
+  function countdown(start, now) {
+    const remaining = Date.parse(start)-now.getTime();
+    if(remaining<=0)return 'Scheduled kick-off has passed — check the result';
+    const mins=Math.ceil(remaining/60000), days=Math.floor(mins/1440), hours=Math.floor(mins%1440/60);
+    return days ? `In ${days}d ${hours}h` : hours ? `In ${hours}h ${mins%60}m` : `In ${mins}m`;
+  }
+  function escapeICS(text){return text.replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;')}
+  function calendar(fixture) {
+    const stamp = date=>new Date(date).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+    const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//The Cooper House//Footy//EN','CALSCALE:GREGORIAN','BEGIN:VEVENT',`UID:${fixture.id}-2026@thecooperhouse.xyz`,`DTSTAMP:${stamp(new Date())}`,`DTSTART:${stamp(fixture.start)}`,`SUMMARY:${escapeICS(fixture.title)}`,`LOCATION:${escapeICS(fixture.venue)}`,'DESCRIPTION:Fixture from the 21 September 2026 snapshot. Check the source before travelling. This calendar entry does not update automatically.',`URL:${fixture.source}`,'END:VEVENT','END:VCALENDAR'];
+    // Fold long content lines to the iCalendar 75-octet limit without splitting UTF-8 characters.
+    const encoder=new TextEncoder();
+    const folded=lines.map(line=>{let out='',bytes=0;for(const char of line){const size=encoder.encode(char).length;if(bytes+size>75){out+='\r\n ';bytes=1}out+=char;bytes+=size}return out}).join('\r\n')+'\r\n';
+    const url=URL.createObjectURL(new Blob([folded],{type:'text/calendar;charset=utf-8'}));
+    const link=document.createElement('a');link.href=url;link.download=fixture.id+'.ics';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  }
+  const renders=[];
+  ['broncos','stoke'].forEach(club=>{
+    const panel=document.getElementById('panel-'+club);
+    const section=document.createElement('section');section.className='fixture-tools';section.setAttribute('aria-labelledby',club+'-fixtures-title');
+    section.innerHTML=`<h2 class="display" id="${club}-fixtures-title">${club==='broncos'?'Still in the hunt · NRLW':'Next on the calendar'}</h2><p>Upcoming fixtures from this snapshot. Check the linked source for changes.</p><div class="fixture-controls"><label for="${club}-timezone">Show times in</label><select id="${club}-timezone"><option value="brisbane">Brisbane (AEST)</option><option value="venue">Venue local time</option></select><a href="#sources">Sources &amp; review notes</a></div><ul class="fixture-list"></ul><p>Calendar files contain the scheduled start time. They do not update automatically.</p>`;
+    const list=section.querySelector('ul'), select=section.querySelector('select');
+    const entries=fixtures.filter(f=>f.club===club).map(f=>{
+      const item=document.createElement('li'), body=document.createElement('div'), title=document.createElement('strong'), time=document.createElement('time'), note=document.createElement('small'), link=document.createElement('a'), button=document.createElement('button');
+      title.textContent=f.title;time.dateTime=f.start;link.href=f.source;link.textContent='Check fixture';button.type='button';button.className='action';button.textContent='Add to calendar';button.setAttribute('aria-label','Add '+f.title+' to calendar');button.addEventListener('click',()=>calendar(f));body.append(title,time,note,link);item.append(body,button);list.append(item);return {f,time,note};
+    });
+    function render(){const now=new Date();entries.forEach(({f,time,note})=>{const zone=select.value==='venue'?f.zone:'Australia/Brisbane';time.textContent=new Intl.DateTimeFormat('en-AU',{timeZone:zone,weekday:'short',day:'numeric',month:'short',hour:'numeric',minute:'2-digit',timeZoneName:'short'}).format(new Date(f.start));note.textContent=f.venue+' · '+countdown(f.start,now)})}
+    select.addEventListener('change',render);renders.push(render);render();panel.prepend(section);
+    const nav=document.createElement('nav');nav.className='jump-nav';nav.setAttribute('aria-label',club+' sections');
+    const headings=[...panel.querySelectorAll('h3,h4')];
+    ['Latest','ladder','Championship —','Worth knowing','Ins and outs'].forEach(label=>{const target=headings.find(h=>h.textContent.toLowerCase().includes(label.toLowerCase()));if(!target)return;const button=document.createElement('button');button.className='action';button.textContent=label==='Championship —'?'Table':label==='ladder'?'Ladder':label;button.addEventListener('click',()=>{target.tabIndex=-1;target.focus({preventScroll:true});target.scrollIntoView({block:'start'})});nav.append(button)});panel.insertBefore(nav,section.nextSibling);
+  });
+  document.querySelectorAll('table').forEach((table,i)=>{const wrap=document.createElement('div');wrap.className='table-scroll';wrap.tabIndex=0;wrap.setAttribute('role','region');wrap.setAttribute('aria-label','Scrollable '+(table.previousElementSibling?.textContent||'data table '+(i+1)));table.before(wrap);wrap.append(table);table.querySelectorAll('th').forEach(th=>th.scope='col')});
+  ageNotice(new Date());setInterval(()=>{ageNotice(new Date());renders.forEach(render=>render())},60000);
+})();
+
+</script>
+</body>
+</html>

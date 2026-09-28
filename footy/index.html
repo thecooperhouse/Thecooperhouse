@@ -9,6 +9,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<noscript><style>
+  /* No JavaScript: the tabs cannot work, so show both clubs stacked and say so. */
+  .tabstrip{display:none !important}
+  .panel[hidden]{display:block !important}
+  .panel{border-top:1px solid #2b2533}
+  .date-chip[hidden]{display:flex !important}
+  .noscript-note{display:block !important}
+</style></noscript>
 <style>
   :root{
     --ink:#131017;
@@ -190,6 +198,7 @@
   footer p{margin-bottom:14px}
 
   [hidden]{display:none !important}
+  .noscript-note{display:none;padding:14px 20px;margin:0;background:#2a2130;border-bottom:1px solid var(--card-edge);color:var(--paper);font-size:13.5px;text-align:center}
   @media(prefers-reduced-motion:no-preference){
     .panel:not([hidden]){animation:rise .35s ease both}
     @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -224,31 +233,32 @@
 <header>
   <p class="kick">Two clubs · Two hemispheres · One dashboard</p>
   <h1 class="display"><span class="bri">Broncos</span> <span class="amp">&amp;</span> <span class="stk">Stoke City</span></h1>
-  <p class="sub">Season snapshot as at Monday 21 September 2026 · v11 · Stoke came from behind to beat Sheffield United, made it five unbeaten and are 7th, inside the expanded play-off places; Brisbane's men are still in the off-season, but Xavier Willison won the club's player of the year and said he wants to stay &mdash; and the NRLW side is one win from another grand final</p>
+  <p class="sub">Season snapshot as at Monday 28 September 2026 · v12 · Brisbane's women won 20&ndash;8 at Robina and are in Sunday's grand final against an undefeated Roosters side, in Ali Brigginshaw's last game; Stoke played nobody, so the table is frozen and they are still 7th; and this page finally records the thing it had never said &mdash; the men who finished 14th were the reigning premiers</p>
 </header>
 
 <!-- ===== TABS ===== -->
 <div class="tabstrip">
   <div class="tablist" role="tablist" aria-label="Choose a club">
     <button class="tab" id="tab-broncos" role="tab" aria-selected="true" aria-controls="panel-broncos" tabindex="0">
-      Broncos<span class="tsub">NRL · 14th · NRLW alive</span>
+      Broncos<span class="tsub">NRL · 14th · NRLW grand final</span>
     </button>
     <button class="tab" id="tab-stoke" role="tab" aria-selected="false" aria-controls="panel-stoke" tabindex="-1">
-      Stoke City<span class="tsub">Championship · 13 pts, 7th</span>
+      Stoke City<span class="tsub">Championship · 13 pts, 7th · idle</span>
     </button>
   </div>
 </div>
 
-<div class="snapshot" id="snapshot-age">Editorial snapshot · 21 September 2026 · Manual updates</div>
+<noscript><p class="noscript-note"><b>JavaScript is off in this browser</b>, so the Broncos/Stoke tabs cannot switch. Both clubs are shown one after the other instead &mdash; Brisbane first, Stoke below it &mdash; and the fixture countdowns and calendar buttons are unavailable.</p></noscript>
+<div class="snapshot" id="snapshot-age">Editorial snapshot · 28 September 2026 · Manual updates</div>
 <div class="dates">
-  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>NRLW prelim</b> · Sun 27 Sep, 1:05pm · Titans v Broncos, Cbus Super Stadium &mdash; one win from the grand final</span></div>
-  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>NRL prelims</b> · Fri 25 Sep, Dolphins v Roosters at <b>Suncorp</b> · Sun 27 Sep, Panthers v Knights at Accor</span></div>
-  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>Dally M</b> · Wed 30 Sep &mdash; Tamika Upton favourite to retain the women's medal</span></div>
-  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>Grand Finals</b> · Sun 4 Oct, Accor Stadium &mdash; NRLW then NRL at 6:30pm <b>AEST</b> (7:30pm AEDT in Sydney; same moment)</span></div>
-  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>World Cup opener</b> · Thu 15 Oct, 8:05pm · Australia v New Zealand, Allianz Stadium &mdash; the Walsh deadline</span></div>
-  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>1 November</b> · 41 days from the snapshot date &mdash; Willison's final 12 months begin and rival clubs may call</span></div>
-  <div class="date-chip" data-club="stoke"><span class="dot r"></span><span><b>Stoke next</b> · Sat 10 Oct · Bolton away, 3:00pm BST (midnight AEST, so Sun 11 Oct here)</span></div>
-  <div class="date-chip" data-club="stoke"><span class="dot r"></span><span><b>Nothing until then</b> · No Championship football anywhere until Fri 9 Oct &mdash; a three-week international break</span></div>
+  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>NRLW Grand Final</b> · Sun 4 Oct, <b>3:00pm AEST</b> (4:00pm AEDT in Sydney) · Broncos v Roosters, Accor &mdash; Ali Brigginshaw's last match</span></div>
+  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>NRL Grand Final</b> · Sun 4 Oct, <b>6:30pm AEST</b> (7:30pm AEDT) · Knights v Roosters, Accor &mdash; Newcastle's first since 2001</span></div>
+  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>Dally M</b> · Wed 30 Sep, from 6:00pm &mdash; Cleary the favourite with a broken ankle; Tamika Upton favourite to retain the women's medal</span></div>
+  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>World Cup opener</b> · Thu 15 Oct, 8:05pm · Australia v New Zealand, Allianz &mdash; the Walsh deadline, 17 days out</span></div>
+  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>World Cup final</b> · Sun 15 Nov, Brisbane &mdash; the tournament ends where this page lives</span></div>
+  <div class="date-chip" data-club="broncos"><span class="dot g"></span><span><b>1 November</b> · 34 days &mdash; <b>two</b> Brisbane forwards enter their final 12 months and rivals may call</span></div>
+  <div class="date-chip" data-club="stoke"><span class="dot r"></span><span><b>Stoke next</b> · Sat 10 Oct · Bolton away, 3:00pm BST (midnight AEST, so Sun 11 Oct here) &mdash; 12 days away</span></div>
+  <div class="date-chip" data-club="stoke"><span class="dot r"></span><span><b>Still nothing</b> · No Championship football anywhere until Fri 9 Oct &mdash; the extended international window runs to Tue 6 Oct</span></div>
   <div class="date-chip" data-club="stoke"><span class="dot r"></span><span><b>Window shut</b> · 11pm BST, Tue 1 Sep &mdash; summer business completed. Next is January</span></div>
 </div>
 
@@ -259,38 +269,46 @@
   <section class="club broncos">
     <div class="club-head">
       <h2 class="display">Brisbane Broncos</h2>
-      <span class="tag">NRL 2026 · Men finished 14th · Off-season · NRLW side one win from the grand final</span>
+      <span class="tag">NRL 2026 · Men finished 14th · Off-season · NRLW side into Sunday's grand final</span>
     </div>
 
     <div class="nextgame">
-      <div class="ng-head">The week's business &mdash; a player of the year who wants to stay, and a clock this page got wrong</div>
+      <div class="ng-head">Next up &mdash; a grand final, and the last game of a 200-match career</div>
       <div class="ng-body">
         <div>
-          <div class="ng-match">Willison <span style="color:var(--mut)">v</span> the open market</div>
+          <div class="ng-match">Broncos <span style="color:var(--mut)">v</span> Roosters &middot; NRLW Grand Final</div>
           <p class="ng-meta">
-            <b>Monday 14 September:</b> <b>Xavier Willison</b> won the <b>Paul Morgan Medal</b> as Brisbane's player of the year &mdash; all 24 games, 124 metres a game, seven tries, in a season the club finished 14th<br>
-            <b>What he said:</b> <i>"I am hoping my future is here at the Broncos&hellip; My daughter was born in Brisbane so I would love to stay here and I would love to build my family here"</i><br>
-            <b>Where it stands:</b> advanced talks on a reported seven-figure deal, possibly four years to 2031, funded by the cap space Payne Haas leaves behind. He is also changing management<br>
-            <b>The correction that matters:</b> rival clubs can talk to him from <b>1 November 2026</b> &mdash; 41 days from the snapshot date. Last week this page said 2027. That was wrong, and it is explained in full below
+            <b>When:</b> Sunday 4 October, <b>3:00pm AEST</b> &mdash; published as 4:00pm because Sydney moves to daylight saving at 2am that morning. Same kick-off, two clocks; the working is below<br>
+            <b>Where:</b> Accor Stadium, as the curtain-raiser to the men's decider at 6:30pm AEST<br>
+            <b>Who:</b> the <b>Roosters</b>, undefeated minor premiers at <b>11&ndash;0</b>, who beat Canberra 20&ndash;10 in a contentious preliminary final on Saturday. They beat Brisbane <b>34&ndash;20</b> in the one meeting of the regular season<br>
+            <b>Why it matters twice:</b> back-to-back titles and a fifth overall &mdash; and <b>Ali Brigginshaw</b>'s final match before retirement
           </p>
         </div>
         <div class="ng-when">
-          <div class="d">41</div>
-          <div class="t">days to 1 Nov &middot; when rivals may call</div>
+          <div class="d">6</div>
+          <div class="t">days to kick-off &middot; Sun 4 Oct</div>
         </div>
       </div>
     </div>
 
     <div class="grid">
       <div class="col">
-        <h3>Latest Broncos result &mdash; the women's semi-final</h3>
+        <h3>Latest Broncos result &mdash; the preliminary final</h3>
         <div class="scoreline">
-          <p class="win-note">Won by 24 · Sat 19 Sep · Langlands Park · NRLW semi-final · 34&ndash;0 at half-time</p>
-          <div class="score-row"><span class="team-n">Broncos</span><span class="big-score">40 &ndash; 16</span><span class="team-n">Knights</span></div>
-          <p class="score-meta">Seven tries to three, 61 per cent of the ball, an 81 per cent completion rate and a 24-point margin that equals the biggest in NRLW finals history. <b>Romy Teitzel</b> scored twice from the right edge; <b>Julia Robinson</b>, <b>Shannon Mato</b>, <b>Tamika Upton</b>, <b>Georgia Bartlett</b> and <b>Bri Clark</b> got the others. Upton led all players with 197 run metres, three line breaks, three try assists and nine tackle breaks, and was taken off with twenty minutes still to play. Three ex-Knights &mdash; Upton, Teitzel and <b>Jesse Southwell</b> &mdash; did most of the damage to their old club. Concerns: <b>Bree Spreadborough</b> hurt an ankle and <b>Lillian Yarrow</b> was placed on report for a lifting tackle. Next: the Titans, away, Sunday.</p>
+          <p class="win-note">Won by 12 · Sun 27 Sep · Cbus Super Stadium, Robina · NRLW preliminary final · 20&ndash;4 at half-time</p>
+          <div class="score-row"><span class="team-n">Broncos</span><span class="big-score">20 &ndash; 8</span><span class="team-n">Titans</span></div>
+          <p class="score-meta">The game was effectively finished by the 31st minute. <b>Tamika Upton</b> (6'), <b>Romy Teitzel</b> (9'), <b>Lauren Dam</b> (31') and <b>Julia Robinson</b> crossed inside the first half against a Gold Coast side that had won its previous ten; three early penalties against the hosts set the tone. <b>Jesse Southwell</b> was the best player on the field &mdash; 122 metres, two try assists, two line-break assists. Brisbane then scored nothing after the break and still won by 12, which is a defensive statement rather than a warning. <b>Destiny Mino-Sinapati</b> got the Titans' first-half try and <b>Evania Isa'ako</b> regathered her own grubber on 54'. Two serious Gold Coast head knocks: <b>Sienna Lofipo</b> (suspected broken jaw) and <b>Lily Patston</b> (category-one HIA). Coach <b>Scott Prince</b>: <i>"When you play finals footy the starts of games set you up and the girls have been able to do that the last three weeks."</i> Crowd <b>7,372</b> &mdash; reported by NRL.com as a standalone NRLW record for the venue, and the only figure this page could find.</p>
         </div>
 
-        <h3 class="later">The men's last six of 2026 &mdash; now the historical record</h3>
+        <h3 class="later">NRLW finals &mdash; the games that are still being played</h3>
+        <div class="form-wrap">
+          <div class="form-row">
+            <div class="pill w"><span>Knights 40&ndash;16</span>W</div>
+            <div class="pill w"><span>Titans 20&ndash;8</span>W</div>
+          </div>
+        </div>
+
+        <h3 class="later">The men's last six of 2026 &mdash; the historical record</h3>
         <div class="form-wrap">
           <div class="form-row">
             <div class="pill l"><span>Knights</span>L</div>
@@ -312,17 +330,18 @@
             <tr class="faint"><td><b>Total appearances at Suncorp</b></td><td class="num">14</td><td class="num">2</td><td class="num">12</td><td class="num">14.3</td></tr>
           </tbody>
         </table>
-        <p class="table-note">Carried forward from the previous edition’s match-by-match review, because two true numbers were in circulation and looked contradictory. AAP's review coverage said Brisbane <b>lost 12 of 14 at Suncorp</b>; this page runs <b>2&ndash;10 at home</b>. Both are right: Brisbane played two further games at Suncorp that were not home fixtures &mdash; the Warriors in <b>Magic Round</b> (Round 11) and the <b>Dolphins</b> in Round 23, which was Redcliffe's home game. They lost both. This week Suncorp hosts a preliminary final, which Brisbane are not in.</p>
+        <p class="table-note">Carried forward from the previous edition’s match-by-match review, because two true numbers were in circulation and looked contradictory. AAP's review coverage said Brisbane <b>lost 12 of 14 at Suncorp</b>; this page runs <b>2&ndash;10 at home</b>. Both are right: Brisbane played two further games at Suncorp that were not home fixtures &mdash; the Warriors in <b>Magic Round</b> (Round 11) and the <b>Dolphins</b> in Round 23, which was Redcliffe's home game. They lost both. The club's own season review put it the same way as AAP &mdash; &ldquo;lost 12 of 14 at Suncorp&rdquo; &mdash; and made home form one of five stated priorities for 2027. On Friday, Suncorp hosted a preliminary final that Brisbane were not in and Redcliffe lost.</p>
 
-        <h3 class="later">2026 by the numbers &mdash; men, final</h3>
+        <h3 class="later">2026 by the numbers</h3>
         <div class="stats">
-          <div class="stat"><b>14th</b><span>Final ladder position</span></div>
-          <div class="stat"><b>8&ndash;16</b><span>Win&ndash;loss record, 22 comp points</span></div>
-          <div class="stat"><b>677</b><span>Points conceded &mdash; worst since 2021</span></div>
+          <div class="stat"><b>14th</b><span>Final men's ladder position</span></div>
+          <div class="stat"><b>8&ndash;16</b><span>Win&ndash;loss, 22 comp points</span></div>
+          <div class="stat"><b>28.2</b><span>Points conceded a game &mdash; 677 all up</span></div>
           <div class="stat"><b>2&ndash;10</b><span>Home record at Suncorp</span></div>
-          <div class="stat"><b>6&ndash;6</b><span>Away record &mdash; the one good number</span></div>
-          <div class="stat"><b>24/24</b><span>Willison's games &mdash; player of the year</span></div>
+          <div class="stat"><b>4/4</b><span>NRLW grand finals won from four</span></div>
+          <div class="stat"><b>34</b><span>Days to 1 November</span></div>
         </div>
+        <p class="table-note">The tile that belongs at the top of this list and has never been on this page: <b>Brisbane went into 2026 as the reigning premiers.</b> Michael Maguire won the 2025 title &mdash; only the second coach in the club's history to do it &mdash; and the following season the same club finished 14th and conceded 28.2 points a game. Every number above reads differently once that is in front of them.</p>
       </div>
 
       <div class="col">
@@ -330,13 +349,13 @@
         <table>
           <thead><tr><th>#</th><th>Team</th><th class="num">Pts</th><th class="num">+/&minus;</th></tr></thead>
           <tbody>
-            <tr class="faint"><td>1</td><td>Panthers <span style="color:var(--gold)">· minor premiers</span></td><td class="num">42</td><td class="num">+336</td></tr>
+            <tr class="faint"><td>1</td><td>Panthers <span style="color:var(--mut)">· out, prelim</span></td><td class="num">42</td><td class="num">+336</td></tr>
             <tr class="faint"><td>2</td><td>Warriors <span style="color:var(--mut)">· out, semi-final</span></td><td class="num">42</td><td class="num">+310</td></tr>
-            <tr class="faint"><td>3</td><td>Dolphins <span style="color:var(--gold)">· prelim, Fri</span></td><td class="num">40</td><td class="num">+156</td></tr>
-            <tr class="faint"><td>4</td><td>Roosters <span style="color:var(--gold)">· prelim, Fri</span></td><td class="num">38</td><td class="num">+118</td></tr>
+            <tr class="faint"><td>3</td><td>Dolphins <span style="color:var(--mut)">· out, prelim</span></td><td class="num">40</td><td class="num">+156</td></tr>
+            <tr class="faint"><td>4</td><td>Roosters <span style="color:var(--gold)">· GRAND FINAL</span></td><td class="num">38</td><td class="num">+118</td></tr>
             <tr class="faint"><td>5</td><td>Sharks <span style="color:var(--mut)">· out, semi-final</span></td><td class="num">34</td><td class="num">+149</td></tr>
             <tr class="faint"><td>6</td><td>Rabbitohs</td><td class="num">34</td><td class="num">+113</td></tr>
-            <tr class="faint"><td>7</td><td>Knights <span style="color:var(--gold)">· prelim, Sun</span></td><td class="num">34</td><td class="num">+42</td></tr>
+            <tr class="faint"><td>7</td><td>Knights <span style="color:var(--gold)">· GRAND FINAL</span></td><td class="num">34</td><td class="num">+42</td></tr>
             <tr class="faint"><td>8</td><td>Cowboys</td><td class="num">32</td><td class="num">&minus;84</td></tr>
             <tr class="faint"><td colspan="4" style="text-align:center">· · · finals cut-off · · ·</td></tr>
             <tr class="faint"><td>9</td><td>Sea Eagles</td><td class="num">28</td><td class="num">+99</td></tr>
@@ -362,47 +381,72 @@
             <tr class="faint"><td>Sun 13 Sep</td><td>Panthers v Roosters (QF)</td><td>Panthers won 19&ndash;12 · CommBank</td></tr>
             <tr class="faint"><td>Sat 19 Sep</td><td>Roosters v Sharks (SF)</td><td>Roosters won 46&ndash;10 · Allianz</td></tr>
             <tr class="faint"><td>Sun 20 Sep</td><td>Warriors v Knights (SF)</td><td>Knights won 12&ndash;10 · Eden Park</td></tr>
-            <tr><td>Fri 25 Sep, 7:50pm</td><td>Dolphins v Roosters (PF)</td><td><b>Suncorp Stadium</b></td></tr>
-            <tr><td>Sun 27 Sep, 4:00pm</td><td>Panthers v Knights (PF)</td><td>Accor Stadium</td></tr>
-            <tr><td>Sun 4 Oct, 6:30pm</td><td>Grand Final</td><td>Accor Stadium</td></tr>
+            <tr class="faint"><td>Fri 25 Sep</td><td>Dolphins v Roosters (PF)</td><td>Roosters won 36&ndash;20 · <b>Suncorp</b> · 52,286</td></tr>
+            <tr class="faint"><td>Sat 26 Sep</td><td>Roosters v Raiders (NRLW PF)</td><td>Roosters won 20&ndash;10</td></tr>
+            <tr class="faint"><td>Sun 27 Sep</td><td>Titans v Broncos (NRLW PF)</td><td><b>Broncos won 20&ndash;8</b> · Robina · 7,372</td></tr>
+            <tr class="faint"><td>Sun 27 Sep</td><td>Panthers v Knights (PF)</td><td>Knights won 22&ndash;14 · Accor · ~55,000</td></tr>
+            <tr class="me"><td>Sun 4 Oct, 3:00pm</td><td>Broncos v Roosters (NRLW GF)</td><td><b>Accor Stadium</b></td></tr>
+            <tr><td>Sun 4 Oct, 6:30pm</td><td>Knights v Roosters (NRL GF)</td><td>Accor Stadium</td></tr>
           </tbody>
         </table>
-        <p class="table-note">Eliminated: South Sydney, North Queensland, Cronulla and the Warriors. Newcastle &mdash; with <b>Dane Gagai</b>, who joins Brisbane next year, throwing the flick pass that put Dominic Young in for the decisive try &mdash; won 12&ndash;10 at Eden Park and are in their first preliminary final since 2013. The Dolphins host Friday's preliminary final <b>at Suncorp</b>, which Brisbane supporters may process however they wish. One scheduling note worth flagging: Zero Tackle's published schedule gives these games as 26 and 28 September, but 26 September is a Saturday and 28 September is a Monday. AAP and the NRL's own listing have Friday the 25th and Sunday the 27th, which is what is used here.</p>
+        <p class="table-note">All times AEST. Both grand finals are published in Sydney time as 4:00pm and 7:30pm; NSW moves to daylight saving at 2am that morning, so in Brisbane they are 3:00pm and 6:30pm. <b>Newcastle are in their first grand final since 2001</b>, and got there with <b>Dane Gagai</b> &mdash; who joins Brisbane for 2027 &mdash; in the side. <b>Nathan Cleary</b> suffered a compound fracture of the ankle in the 35th minute; Knights hooker <b>Phoenix Crossland</b> was sent off for the tackle, and Newcastle then scored three tries from their own half with twelve men. The crowd is reported as about 55,000 and is the one figure here not taken from an official listing. <b>Last week's scheduling note held up:</b> Zero Tackle had these preliminary finals as 26 and 28 September; they were played Friday the 25th and Sunday the 27th, as this page said.</p>
+
+        <h3 class="later">NRLW 2026 &mdash; how the ladder finished</h3>
+        <table>
+          <thead><tr><th>#</th><th>Team</th><th class="num">W&ndash;L</th><th class="num">Pts</th></tr></thead>
+          <tbody>
+            <tr class="faint"><td>1</td><td>Roosters <span style="color:var(--gold)">· GRAND FINAL</span></td><td class="num">11&ndash;0</td><td class="num">22</td></tr>
+            <tr class="faint"><td>2</td><td>Titans <span style="color:var(--mut)">· out, prelim</span></td><td class="num">9&ndash;1</td><td class="num">18</td></tr>
+            <tr class="me"><td>3</td><td>Broncos <span style="color:var(--gold)">· GRAND FINAL</span></td><td class="num">7&ndash;3</td><td class="num">14</td></tr>
+            <tr class="faint"><td>4</td><td>Wests Tigers</td><td class="num">7&ndash;4</td><td class="num">14</td></tr>
+            <tr class="faint"><td>5</td><td>Raiders <span style="color:var(--mut)">· out, prelim</span></td><td class="num">6&ndash;5</td><td class="num">12</td></tr>
+            <tr class="faint"><td>6</td><td>Knights <span style="color:var(--mut)">· out, semi</span></td><td class="num">5&ndash;5</td><td class="num">10</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">Top six only. Taken from a single source (Wikipedia's 2026 NRLW season page) and <b>not</b> cross-checked against a second published ladder, so treat the lower rows as indicative. The same page's round-by-round list showed two Roosters wins over Brisbane this season; AAP's grand-final preview has one, 34&ndash;20, and only the corroborated meeting is carried on this page. Brisbane played ten games to the Roosters' eleven, which is why 7&ndash;3 and 14 points puts them third.</p>
 
         <h3 class="later">Worth knowing</h3>
         <ul class="notes">
-          <li><b>Willison won the Paul Morgan Medal, and said the thing Brisbane needed him to say.</b> At the club awards on <b>14 September</b>: <i>"I definitely want to stay. They have given me everything. I love the culture&hellip; My daughter was born in Brisbane so I would love to stay here and bring my family up here."</i> He played all 24 games at 124 metres a game with seven tries. Brisbane are reported to be in advanced talks over a seven-figure deal that could run to <b>2031</b>, using the room Haas's exit creates. Also honoured: <b>Pat Carrigan</b> (players' player), <b>Deine Mariner</b> (best back), <b>Va'a Semu</b> (rookie of the year), <b>Jordan Riki</b> (most consistent).</li>
-          <li><b>This page got the Willison date wrong last week, and it is worth being precise about how.</b> v9 "corrected" the free-agency date from 1 November 2026 to 1 November 2027, reasoning that a player contracted through 2027 could not be talking to rivals a year early. That reasoning was backwards. Under the RLPA/NRL contracting window, a player may negotiate with other clubs <b>once he enters the final twelve months of his deal</b> &mdash; which, for a contract expiring at the end of 2027, is <b>1 November 2026</b>. The original date was right; the correction introduced the error. It is fixed here and the working is in the maths panel.</li>
-          <li><b>Jaiyden Hunt is going to Canberra, and Jack Gosiewski is going somewhere.</b> Hunt has signed a two-year deal reported at $350,000 with the Raiders, announced <b>14 September</b> &mdash; Canberra are rebuilding a pack that has lost Papali'i to retirement and Horsburgh and Smithies to Perth. Gosiewski's contract will not be renewed and no destination has been reported. Both were listed here last week as "off contract &mdash; undecided"; both have now resolved, one of them only halfway. The club also farewelled Hoeter, Rogers and Te Kura at its awards night; see the updated list below.</li>
-          <li><b>Reece Walsh has not joined the NFL.</b> He has signed an <b>ambassadorial</b> deal with the Seattle Seahawks &mdash; one of the first signings to their "12s Everywhere" programme in this region, alongside Canberra's Hudson Young &mdash; as the NFL pushes into Australia. He remains contracted to Brisbane through <b>2029</b>. Several headlines this week read "from the NRL to the NFL", which is doing a great deal of work for a marketing partnership.</li>
-          <li><b>The actual Walsh question is still his ankle.</b> No football since Round 24, syndesmosis surgery in mid-August, named in Australia's extended 40-man World Cup pool which gets cut after the Grand Final. Nothing this week moved that timeline either way. Australia open against New Zealand at Allianz Stadium on <b>Thursday 15 October, 8:05pm</b>.</li>
-          <li><b>Payne Haas: no news, which is itself the news.</b> The last substantive update remains 4 September &mdash; two fingers on his left hand to be pinned, carried since roughly Round 2, World Cup with <b>Samoa</b> in doubt. Samoa's squad has not been named. The tournament starts in 24 days.</li>
-          <li><b>Dally M night is Wednesday 30 September.</b> Nathan Cleary leads the men's count and is a heavy favourite; no Brisbane man is in the published top ten. <b>Tamika Upton</b> is favoured to retain the women's medal, and on Saturday's evidence it would be hard to argue.</li>
-          <li><b>And the part of the club that is still playing is playing very well.</b> The NRLW side, defending premiers, finished third, won their semi-final by 24 and now travel to the Gold Coast on Sunday for a preliminary final against the <b>Titans</b>, who finished second. Win that and they are back at Accor Stadium on 4 October, chasing back-to-back titles and a fifth overall.</li>
+          <li><b>The part of the club still playing is 80 minutes from back-to-back titles.</b> Brisbane beat the Titans 20&ndash;8 at Robina, having led 20&ndash;4 at the break, and meet the <b>Roosters</b> at Accor on Sunday at 3:00pm AEST. The Roosters went <b>11&ndash;0</b> through the regular season, are undefeated minor premiers for the second year running, and beat Canberra 20&ndash;10 on Saturday. They also beat Brisbane 34&ndash;20 in the rounds. This is the fourth grand final between the two in nine NRLW seasons and Brisbane have won the previous three &mdash; 34&ndash;12 in the inaugural decider, 20&ndash;10 in 2020 and 22&ndash;18 last year. Brisbane have played four grand finals and won four.</li>
+          <li><b>Ali Brigginshaw plays her last game on Sunday.</b> She stepped down as Broncos captain in June and retired from Origin in January; the grand final is the end of it. If there is a reason to watch a Sydney kick-off at three in the afternoon Brisbane time, that is it.</li>
+          <li><b>Newcastle are in a grand final, and Brisbane have a stake in it.</b> The Knights beat Penrith 22&ndash;14 at Accor to reach their first decider since 2001, with <b>Dane Gagai</b> &mdash; a Broncos player from 2027 &mdash; in the side. It was a brutal way to get there: <b>Nathan Cleary</b> suffered a compound fracture of the ankle on 35 minutes, Newcastle hooker <b>Phoenix Crossland</b> was sent off for the tackle, and the Knights then scored three tries from their own half with twelve men on the field. Nobody should enjoy the injury. The rest of it was extraordinary.</li>
+          <li><b>The preliminary final at Suncorp went the way Brisbane supporters were braced for.</b> The <b>Roosters won 36&ndash;20</b> in front of <b>52,286</b> at Lang Park on Friday, leading 16&ndash;0 inside 27 minutes, with two tries for Mark Nawaqanitawase including a 90-metre intercept and <b>Sam Walker</b> back from a syndesmosis injury in record time &mdash; a detail worth filing next to Reece Walsh's ankle. Redcliffe's season is over. Suncorp hosted a September night of consequence and no Brisbane player was in it.</li>
+          <li><b>Jordan Riki is the second Brisbane forward on the 1 November clock, and the club has confirmed the rule this page argued about for three editions.</b> Riki is on a reported $500,000 and off contract at the end of 2027 &mdash; the same position as Willison. Reports of a falling-out with Maguire over training methods were denied by head of football <b>Troy Thomson</b>: <i>"I haven't spoken to Jordan directly, but I'm not aware of anything that's been reported&hellip; so that's news to me"</i>, adding <i>"he can't talk to anyone until November 1, we haven't given him permission to talk."</i> That is the club stating the rule out loud: final twelve months, 1 November 2026. The reported motive is money rather than grievance &mdash; comparable second-rowers are signing for $850,000 to over $1m. The Warriors are linked, with Kurt Capewell expected to retire after 2027.</li>
+          <li><b>Xavier Willison: still unsigned, still saying the right things, 34 days to go.</b> Nothing has been announced since the player-of-the-year night. The reported deal is four years to <b>2031</b> at around seven figures, funded by the Haas cap space, expected to be agreed before players return from leave even if the announcement lags. He remains on neither the ins nor the outs list below.</li>
+          <li><b>Brisbane have signed Manly's head of performance.</b> <b>Jon Clarke</b> joins for 2027 after three seasons under Anthony Seibold at Manly, with prior roles at Warrington, English rugby union and the British &amp; Irish Lions, and a reputation for demanding fitness standards. Troy Thomson: <i>"JC has worked at the highest levels of rugby league and rugby union, and brings a depth of experience that will be valuable to our entire football program."</i> For a side that conceded 28.2 points a game, a hard-edged performance appointment is not decoration.</li>
+          <li><b>A correction this page owes itself: Brisbane did not go through 2026 without a defensive coach.</b> Previous editions said the 6&ndash;6 road record was managed &ldquo;with no defensive coach&rdquo;. <b>Ben Te'o</b> left early in the season for Billy Slater's Queensland staff after the club declined his request to do both jobs, and <b>Matt Ballin</b> &mdash; a 2011 Manly premiership winner and Queensland assistant &mdash; took the defensive brief in <b>July</b> and was confirmed permanently in the 11 September season review. The staff was disrupted, not absent. The claim has been corrected rather than quietly dropped.</li>
+          <li><b>The season review, which this page should have carried a fortnight ago.</b> Handed down 11 September: five priorities &mdash; football leadership, coaching resources, academy investment, a pre-season with travel limited to Australia and New Zealand, and home form at Suncorp. Maguire stays to complete his three-year term; <b>Trent Barrett</b> remains attack coach; <b>Troy Thomson</b> is promoted to executive general manager of football; <b>Dave Pallard</b> moves up to general manager. The review's own framing of the year is the fact this page had never printed: the club won the 2025 premiership and then finished 14th.</li>
+          <li><b>Reece Walsh: no change, 17 days to the deadline.</b> No football since Round 24, syndesmosis surgery in mid-August, named in Australia's extended 40-man World Cup pool which is cut to 24 after the grand final. Nothing this week moved the timeline. Australia open against New Zealand at Allianz on <b>Thursday 15 October, 8:05pm</b>, and the tournament finishes in <b>Brisbane on 15 November</b>. He is contracted to Brisbane through 2029; the Seattle Seahawks arrangement remains an ambassadorial one.</li>
+          <li><b>Payne Haas: still nothing, and now it is late.</b> The last substantive update is 4 September &mdash; two fingers on his left hand to be pinned, carried since roughly Round 2, World Cup with <b>Samoa</b> in doubt. Samoa's squad had not been named as at this snapshot. The tournament starts in 17 days.</li>
+          <li><b>Dally M night is Wednesday, and Cleary will collect it on crutches.</b> The count closed before the preliminary finals, so the broken ankle does not affect the voting: Cleary leads on 38 from Jackson Ford (35) and Dylan Edwards (32). No Brisbane man is in the published top ten. <b>Tamika Upton</b> is favoured to retain the women's medal, up against Tarryn Aiken and Isabelle Kelly &mdash; two of the players she will face on Sunday.</li>
         </ul>
       </div>
     </div>
 
     <div class="maths">
-      <h4>Three clocks, one ladder that cannot move, and a correction to a correction</h4>
-      <span class="verdict">Men's season over · 14th · 8&ndash;16</span><span class="verdict good">NRLW: one win from a grand final</span><span class="verdict">41 days to 1 November</span>
+      <h4>Two players on one clock, a scoreline that had to be reconciled, and a kick-off with two correct times</h4>
+      <span class="verdict good">NRLW: grand final, Sunday</span><span class="verdict">Men's season over · 14th · 8&ndash;16</span><span class="verdict">34 days to 1 November</span>
 
-      <p><b>Step 1 &mdash; the free-agency clock, done properly this time.</b> This is the number this page got wrong last week, so here is the whole chain rather than the conclusion:</p>
+      <p><b>Step 1 &mdash; the free-agency clock, now with a second name on it and independent confirmation.</b> This page spent three editions getting this rule right, so here is the chain and the corroboration:</p>
       <div class="eq">Rule (RLPA contracting window):
   a player may negotiate with rival clubs once he enters
   the FINAL TWELVE MONTHS of his contract.
 
-Willison's contract expires : end of 2027
-Final twelve months begin   : 1 November 2026
-Rivals may talk to him from : 1 November 2026
-Days from snapshot (21 Sep)    : 41
+Contract expires        : end of 2027
+Final twelve months open: 1 November 2026
+Days from snapshot (28 Sep 2026) : 34
 
-v8 said 1 Nov 2026   -> correct
-v9 "corrected" to 2027 -> wrong; the reasoning inverted the rule
-v10 restores 1 Nov 2026 and shows the rule</div>
-      <p class="small">The trap was an intuitive one: he is contracted for all of 2027, so it feels as though he cannot be courted until that year is nearly done. The rule is the opposite &mdash; the window opens <i>before</i> the final season, not after it. Which is why Brisbane are trying to get this signed in the next six weeks rather than next spring.</p>
+Applies to BOTH:
+  Xavier Willison  off contract end 2027  ->  1 Nov 2026
+  Jordan Riki      off contract end 2027  ->  1 Nov 2026
 
-      <p><b>Step 2 &mdash; what 2027 actually requires.</b> An illustrative comparison using the 2026 structure, not a confirmed 2027 schedule: the NRL pays two competition points a win plus two for each of three byes, so a season converts cleanly:</p>
+Confirmation, from the club, 25 September:
+  head of football Troy Thomson on Riki --
+  "He can't talk to anyone until November 1,
+   we haven't given him permission to talk."</div>
+      <p class="small">v8 had 1 November 2026. v9 &ldquo;corrected&rdquo; it to 2027 by inverting the rule. v10/v11 restored 2026 and showed the working. This week Brisbane's own head of football said the date out loud about a different player in the identical contractual position, which is as close to settled as a fan page gets. The point of the date has also changed shape: it is not one negotiation, it is two, five weeks out, in the same position group.</p>
+
+      <p><b>Step 2 &mdash; what 2027 actually requires.</b> An illustrative comparison using the 2026 structure, not a confirmed 2027 schedule. The NRL pays two competition points a win plus two for each of three byes, so a season converts cleanly:</p>
       <div class="eq">comp points = (wins x 2) + 6
 
 Brisbane 2026        8 wins  ->  22 pts   (14th)
@@ -414,26 +458,44 @@ Holding the 6&ndash;6 road record and fixing Suncorp:
   Suncorp 6&ndash;6  ->  12 wins  =  30 pts   one win short of this year's eight
   Suncorp 7&ndash;5  ->  13 wins  =  32 pts   level with this year's eight
   Suncorp 8&ndash;4  ->  14 wins  =  34 pts</div>
-      <p>The shape of it has not changed and it still cuts both ways. Going from the worst home record in the competition to a merely ordinary one still only reaches the edge of the eight on this year's numbers &mdash; that is how far 2026 fell. But it is five wins, not fifteen, and the away half of the season already happened: <b>6&ndash;6 on the road is a mid-table team</b>, managed with no defensive coach, an injured fullback and a retiring halfback. Keeping the player who just won the club's medal is the cheapest five-wins-worth of improvement available.</p>
+      <p>The shape has not changed and it still cuts both ways. Going from the worst home record in the competition to a merely ordinary one only reaches the edge of the eight on this year's numbers &mdash; that is how far 2026 fell. But it is five wins, not fifteen, and the away half already happened: <b>6&ndash;6 on the road is a mid-table team</b>, managed with an injured fullback, a retiring halfback and a defensive brief that changed hands in July. Keeping the two forwards on the November clock is the cheapest five-wins-worth of improvement available &mdash; and the club has now spent on a head of performance as well.</p>
 
-      <p><b>Step 3 &mdash; the Grand Final clock, because two different times are being published and both are right.</b></p>
-      <div class="eq">Published as 7:30pm AEDT (Sydney)  and  6:30pm AEST (Brisbane)
+      <p><b>Step 3 &mdash; reconciling Sunday's scoreline, because one published report does not add up.</b> NRL.com's live blog listed <b>four</b> Broncos tryscorers including Destiny Mino-Sinapati, and Jesse Southwell at 4/4 from the tee. Check it:</p>
+      <div class="eq">If 4 tries and 4 goals:  4x4 + 4x2  =  24    published score: 20  X
+
+ABC and AAP both have:
+  Broncos tries  Upton, Teitzel, Dam, Robinson   = 4 tries  = 16
+  Broncos goals  20 - 16 = 4 points              = 2 goals  =  4
+  Broncos total                                              20  OK
+
+  Titans tries   Mino-Sinapati, Isa'ako          = 2 tries  =  8
+  Titans goals   8 - 8 = 0                                   0
+  Titans total                                                8  OK
+
+Half-time 20-4, Isa'ako on 54' =>
+  second half was Broncos 0 - Titans 4.</div>
+      <p class="small">So Mino-Sinapati scored <i>for the Titans</i>, not Brisbane, and two goals were kicked rather than four. The reconciled version is on this page; the NRL.com blog figures are not, and the reason is shown rather than the conflict being papered over. Aggregate across the two finals: <b>60&ndash;24</b>, a margin of 36.</p>
+
+      <p><b>Step 4 &mdash; the grand final clock, because two different times are being published and both are right.</b></p>
+      <div class="eq">Accor Stadium publishes  NRLW 4:00pm  ·  NRL 7:30pm  (Sydney)
 
 NSW switches to daylight saving : Sun 4 Oct 2026, 2:00am
-                                  (first Sunday in October)
+                                  (1 Oct is a Thursday, so the
+                                   first Sunday is the 4th)
 Queensland switches             : never
 
-7:30pm AEDT  =  6:30pm AEST  =  the same kick-off
+4:00pm AEDT  =  3:00pm AEST   <- NRLW, Brisbane's game
+7:30pm AEDT  =  6:30pm AEST   <- NRL
 
-This page prints 6:30pm, because that is the clock in Brisbane.</div>
-      <p class="small">The Grand Final is on the very morning the change takes effect, which is exactly the sort of date that produces two "correct" times in two publications and an argument in a group chat. Both preliminary finals are before the switch, so their AEST times are unambiguous.</p>
+This page prints 3:00pm and 6:30pm, the clock in Brisbane.</div>
+      <p class="small">Both grand finals fall on the very morning the change takes effect, which is exactly the sort of date that produces two &ldquo;correct&rdquo; times in two publications and an argument in a group chat. Last week this page gave the 6:30pm conversion but not the 3:00pm one, which was the game Brisbane are actually in. Fixed.</p>
 
-      <p class="small"><b>The honest summary.</b> The men's season ended three weeks ago and nothing since has changed the shape of it: 14th, 677 conceded, two home wins. What this week did add is genuinely positive and should be said plainly &mdash; the best young forward at the club won its highest individual honour and publicly said he wants to stay, and the talks are reportedly advanced rather than stalled. Set against that: the departure list is now updated below, the fullback's ankle is still an open question, and the preliminary final at Suncorp on Friday belongs to Redcliffe. The women's side, meanwhile, is 70 minutes from another grand final, which is the single most cheerful sentence on this page.</p>
+      <p class="small"><b>The honest summary.</b> The men's season ended four weeks ago and the week added nothing to soften it &mdash; 14th, 677 conceded, two home wins, and a preliminary final at Suncorp that belonged to Redcliffe and was won by Sydney. What the week did add is real: a second grand final in two years for the women, an undefeated opponent they have beaten in three previous deciders, a head of performance hired from a club that made the eight, and a second forward on the November clock whose own club has now confirmed the date. And the sentence this page had never written, which changes the tone of everything above it: the side that finished 14th were the reigning premiers. That is not a rebuild. That is a fall, and it is worth naming properly before anyone talks about 2027.</p>
     </div>
 
     <div class="maths" style="border-color:rgba(247,185,21,.28)">
       <h4>Ins and outs &mdash; Broncos</h4>
-      <p class="small" style="margin-top:0">Five listed arrivals for 2027. The departures below now include the club’s 14 September farewell announcement; destinations are not assumed when unannounced.</p>
+      <p class="small" style="margin-top:0">Five listed arrivals for 2027, unchanged this week. The NRL's own signings tracker, updated 25 September, lists four of them (Pezet, Barnett, Gagai, Blore) and no new Brisbane business; De Courcey and Coric are carried here from club and press reports. Destinations are not assumed when unannounced.</p>
       <div class="moves">
         <div class="mv in">
           <h5>&#8600; Joining for 2027</h5>
@@ -459,41 +521,42 @@ This page prints 6:30pm, because that is the clock in Brisbane.</div>
           </ul>
         </div>
       </div>
-      <p class="small"><b>Xavier Willison</b> is on neither list, and the reason has changed shape since last week. He is contracted for <b>2027</b>; no early release has been verified. But rival clubs may formally approach him from <b>1 November 2026</b>, not 2027 &mdash; and Brisbane are reported to be in advanced talks on a long-term extension rather than facing a flat refusal. He did decline a July offer; he has since won the club's player of the year and said he wants to stay. The South Sydney link reported by James Hooper concerns 2028 and remains speculation.</p>
+      <p class="small"><b>Xavier Willison and Jordan Riki</b> are on neither list, and belong in the same paragraph now. Both are contracted for <b>2027</b>; neither has an early release. Both may be formally approached by rival clubs from <b>1 November 2026</b>. Willison is reported to be in advanced talks on a deal to 2031 at around seven figures and has said publicly he wants to stay. Riki, on a reported $500,000, is expected to test a market where comparable second-rowers are getting $850,000 to over $1m; the club has denied a rift with Maguire and confirmed he has not been given permission to talk. The Warriors are the club linked. Neither situation is resolved, and nothing here is a signing.</p>
+      <p class="small"><b>Coaching and football staff for 2027</b>, since it is movement even if it is not players: <b>Jon Clarke</b> in as head of performance from Manly (new this week); <b>Matt Ballin</b> confirmed as defensive coach after taking the brief in July; <b>Ben Te'o</b> out, to Queensland; <b>Trent Barrett</b> stays on attack; <b>Adam Brideson</b> stays in development with a new hire to support him; <b>Troy Thomson</b> up to executive general manager of football; <b>Dave Pallard</b> up to general manager; <b>Adam Reynolds</b> joining the staff in a role still being defined.</p>
     </div>
   </section>
   </div>
 
   <!-- ============ STOKE PANEL ============ -->
-  <div class="panel" id="panel-stoke" role="tabpanel" aria-labelledby="tab-stoke" tabindex="0">
+  <div class="panel" id="panel-stoke" role="tabpanel" aria-labelledby="tab-stoke" tabindex="0" hidden>
   <section class="club stoke">
     <div class="club-head">
       <h2 class="display">Stoke City</h2>
-      <span class="tag">EFL Championship · P8 W4 D1 L3 · 7th, 13 points · Unbeaten in five</span>
+      <span class="tag">EFL Championship · P8 W4 D1 L3 · 7th, 13 points · Unbeaten in five · Nine days idle</span>
     </div>
 
     <div class="nextgame">
-      <div class="ng-head">Next up &mdash; three weeks of nothing, then Bolton</div>
+      <div class="ng-head">Next up &mdash; still Bolton, still twelve days away</div>
       <div class="ng-body">
         <div>
           <div class="ng-match">Bolton Wanderers <span style="color:var(--mut)">v</span> Stoke City</div>
           <p class="ng-meta">
             <b>Where:</b> Toughsheet Community Stadium, Championship matchday 9<br>
-            <b>Who:</b> Bolton are <b>15th</b> on 10 points, W3 D1 L4, GD &minus;4 &mdash; and have just won <b>4&ndash;3 at Norwich</b> on Sunday in a seven-goal game, so they arrive with something too<br>
-            <b>Form:</b> Stoke are unbeaten in five and have taken <b>13 points from a possible 15</b>. From 24th and pointless on 30 August to 7th, inside the expanded play-off places<br>
-            <b>Before then:</b> no Stoke league match. The next Championship fixture anywhere in the division is <b>Friday 9 October</b>
+            <b>Who:</b> Bolton are <b>15th</b> on 10 points, W3 D1 L4, GD &minus;4 &mdash; exactly as they were last week, because nobody has played<br>
+            <b>Form:</b> Stoke are unbeaten in five with <b>13 points from a possible 15</b>. From 24th and pointless on 30 August to 7th, inside the expanded play-off places<br>
+            <b>Why the gap is this long:</b> an extended international window, not a fixture quirk. Scotland alone play four times between 26 September and 6 October. The Championship resumes <b>Friday 9 October</b>
           </p>
         </div>
         <div class="ng-when">
           <div class="d">SAT 10 OCT</div>
-          <div class="t">3:00pm BST · Sun 11 Oct 12:00am AEST</div>
+          <div class="t">3:00pm BST · Sun 11 Oct 12:00am AEST · in 12 days</div>
         </div>
       </div>
     </div>
 
     <div class="grid">
       <div class="col">
-        <h3>Latest result</h3>
+        <h3>Latest result &mdash; still the Sheffield United game, nine days on</h3>
         <div class="scoreline">
           <p class="win-note">Won 2&ndash;1 · Sat 19 Sep · bet365 Stadium · Championship MD8 · Crowd 23,360</p>
           <div class="score-row"><span class="team-n">Stoke City</span><span class="big-score">2 &ndash; 1</span><span class="team-n">Sheffield Utd</span></div>
@@ -528,9 +591,9 @@ This page prints 6:30pm, because that is the clock in Brisbane.</div>
             <tr class="me"><td>19 Sep</td><td>Sheffield United (H)</td><td>Championship</td><td class="num">W 2&ndash;1</td><td class="num">23,360</td></tr>
           </tbody>
         </table>
-        <p class="table-note">Sixteen scored and thirteen conceded across ten competitive games; ten of those sixteen have come in the last five. <b>Every attendance is now on the record</b> &mdash; last week this page said Charlton's, Cardiff's and Watford's were not available in any source checked, and all three have since been published, along with Saturday's 23,360. Stoke's four home league crowds average <b>22,226</b>; the four away grounds they have visited averaged 23,976, flattered by Southampton and Molineux.</p>
+        <p class="table-note">Unchanged from last week, because no match was played. Sixteen scored and thirteen conceded across ten competitive games; ten of those sixteen came in the last five. Stoke's four home league crowds average <b>22,226</b>; the four away grounds visited averaged 23,976, flattered by St Mary's and Molineux. Re-checked against Football Web Pages on 28 September: every line above still matches, and the site confirms no fixture between 20 and 28 September.</p>
 
-        <h3 class="later">Championship &mdash; after eight games</h3>
+        <h3 class="later">Championship &mdash; after eight games, frozen</h3>
         <table>
           <thead><tr><th>#</th><th>Team</th><th class="num">P</th><th class="num">GD</th><th class="num">Pts</th></tr></thead>
           <tbody>
@@ -562,50 +625,59 @@ This page prints 6:30pm, because that is the clock in Brisbane.</div>
             <tr class="faint"><td>24</td><td>Burnley</td><td class="num">8</td><td class="num">&minus;8</td><td class="num">4</td></tr>
           </tbody>
         </table>
-        <p class="table-note">Standings checked against Sky Sports’ table updated 20 September. <b>Stoke are 7th, inside the 3rd–8th play-off band.</b> Southampton’s four-point deduction is included. Wolves and Portsmouth have a game in hand.</p>
+        <p class="table-note">Re-checked against Sky Sports’ table, last updated <b>23 September</b> &mdash; and every one of the 24 rows is identical to last week’s, because the division did not play. That is the cleanest possible confirmation that last week’s table was read correctly, and the least interesting one. <b>Stoke are 7th, inside the 3rd–8th play-off band</b>, one point above 9th. Southampton’s four-point deduction is still applied. Wolves and Portsmouth still have a game in hand. Each of P, W, D, L, GF, GA and points for Stoke was also rebuilt from the ten match results above and matched the published row exactly; the working is in the footer.</p>
 
-        <h3 class="later">Next three fixtures</h3>
+        <h3 class="later">Next four fixtures</h3>
         <table>
           <thead><tr><th>Date (BST)</th><th>AEST</th><th>Opponent</th><th>H/A</th></tr></thead>
           <tbody>
             <tr class="me"><td>Sat 10 Oct, 3:00pm</td><td>Sun 11 Oct, 12:00am</td><td>Bolton Wanderers (15th)</td><td>Away</td></tr>
             <tr><td>Tue 13 Oct, 8:00pm</td><td>Wed 14 Oct, 5:00am</td><td>Middlesbrough (3rd)</td><td>Home</td></tr>
             <tr><td>Sat 17 Oct, 3:00pm</td><td>Sun 18 Oct, 12:00am</td><td>Derby County (22nd)</td><td>Away</td></tr>
+            <tr><td>Sat 24 Oct, 3:00pm</td><td>Sun 25 Oct, 12:00am</td><td>Bristol City (8th)</td><td>Home</td></tr>
           </tbody>
         </table>
-        <p class="table-note">Add nine hours to BST for AEST; BST does not end until Sunday 25 October, so the offset holds for all three. Bolton and Derby both kick off at exactly midnight Brisbane time, which makes them technically Sunday-morning games here &mdash; a genuinely civilised slot, unlike the Middlesbrough game at 5:00am. Last week's page listed Middlesbrough as 4th; they are 3rd now, having drawn twice.</p>
+        <p class="table-note">Add nine hours to BST for AEST. Every conversion above was recomputed with a real time-zone database rather than by hand, and all four hold: <b>BST runs until 2am on Sunday 25 October</b>, so the Bristol City game on the 24th is the last one at the nine-hour offset &mdash; from then it is ten hours and the midnight kick-offs become 1:00am. Bolton, Derby and Bristol City all start at exactly midnight Brisbane time, technically Sunday-morning games here, which is a civilised slot; Middlesbrough at 5:00am is not. Ladder positions are as at 23 September and cannot have moved. Bristol City is added this week; last week's page stopped at three fixtures.</p>
       </div>
 
       <div class="col">
         <h3>Worth knowing</h3>
         <ul class="notes">
-          <li><b>Thirteen points from fifteen, and inside the expanded play-off places.</b> Norwich, Charlton, Cardiff, Watford and Sheffield United have produced W&nbsp;W&nbsp;D&nbsp;W&nbsp;W. On 30 August Stoke were 24th with nothing. They are 7th, inside the new 3rd–8th play-off band, one point above 9th-placed Charlton. Nobody should mistake eight games for a season, but the hole they dug in the first three weeks has been filled in.</li>
-          <li><b>Correction: it was two clean sheets in four, not three.</b> Last week's page said Viktor Johansson had kept three clean sheets in the last four. The arithmetic says otherwise and always did: Stoke had conceded eleven in seven, nine of them in the first three games, leaving two across the last four &mdash; one at Cardiff, one at Watford. So the clean sheets were Norwich and Charlton, and there were two. The underlying point &mdash; that the defence stopped leaking &mdash; still holds; the number attached to it did not.</li>
-          <li><b>Sam Gallagher, again, and this page owes him one.</b> Two weeks ago he was wrongly credited to Galbraith for the Wolves goal; last week he was noted as "still not a new signing"; on Saturday he came off the bench after two matches out and volleyed the winner from range. Robins called it one of the best goals he has ever seen. Gallagher joined from Blackburn in <b>August 2024</b> and is still not a new signing.</li>
-          <li><b>Jack McGlynn has scored in consecutive games.</b> Stoppage time at Vicarage Road, then a left-footed strike on 78' on Saturday. Two of the three deadline-day signings &mdash; McGlynn and Justin Devenny &mdash; are now on the scoresheet and in the side, which is a better return from a frantic window than anyone had a right to expect.</li>
-          <li><b>The Southampton swing went the other way this week.</b> Wrexham beat them 2&ndash;1 on Saturday, their second league defeat. Recomputed from the live table, the four-point deduction now costs them <b>nine places</b> rather than six. This page has twice forecast which way that number would move and been wrong twice; it will now simply report it.</li>
-          <li><b>Three weeks off, and the timing could hardly be better.</b> <b>Junior Tchamadeu</b> returned to first-team action as a 65th-minute substitute against Sheffield United. The previous edition’s claim that he was not used on Saturday was incorrect. <b>Aaron Cresswell</b> (knee), <b>Bosun Lawal</b> and <b>Svante Ingelsson</b> were all out. Robins, on the returning players: <i>"They have to demonstrate really in training&hellip; I'm not just going to put people in because they're available."</i></li>
-          <li><b>The team Stoke beat is now 18th.</b> Sheffield United have won two of eight and scored nine; only four clubs have scored fewer. Kalvin Phillips' goal was his first in a league game since early 2021, which tells its own story about both his season and theirs.</li>
+          <li><b>Nothing happened, and that is worth reporting accurately rather than padding.</b> No Stoke match since 19 September. The Championship table is byte-for-byte what it was last week: Stoke 7th on 13 points, one above 9th, eight above 22nd. There is no new form, no new injury verdict from a match, and no transfer window. A fan page that manufactured a narrative out of this week would be lying to you.</li>
+          <li><b>Luke Graham got a first senior Scotland call-up, which is the week's actual news.</b> The 22-year-old centre-back, signed from Dundee in July on a four-year deal for a fee reported at &pound;2m but officially undisclosed, was named in Sébastien Pocognoli's first Scotland squad. He described it as <i>"pretty surreal"</i> and <i>"pretty special"</i>, partly because his parents were there when the call came. He was among the substitutes for the <b>0&ndash;0 in Ljubljana</b> against Slovenia on Saturday; the debuts that day went to Welsh and Ure, and this review found no source confirming Graham took the field, so he is recorded as <b>uncapped</b> until one does. Scotland have three more games in this window.</li>
+          <li><b>Bosun Lawal is doing his hamstring rehabilitation at Clayton Wood, by arrangement with Ireland.</b> Club and country agreed he would complete the work at Stoke's training ground before joining the Irish squad &mdash; the sort of sensible accommodation that usually only makes the news when it breaks down. Reported 21 September.</li>
+          <li><b>A caution about the &ldquo;three back for Bolton&rdquo; story.</b> A report on 22 September said Stoke hope to have three absentees available at Bolton on 10 October. The aggregator carrying it named Tchamadeu, McGlynn and Gallagher &mdash; all three of whom played against Sheffield United, two of them scoring, so that trio cannot be right. The underlying claim is plausible and the likely names are Cresswell, Lawal and Ingelsson, but this page is not going to print names it cannot stand behind. <b>Three players expected back; identities unconfirmed.</b></li>
+          <li><b>Jack McGlynn's fortnight got external recognition.</b> He was named SBI Soccer's Americans Abroad Player of the Week in September after scoring in consecutive games &mdash; stoppage time at Vicarage Road, then from distance on 78' against Sheffield United. The award listing was visible but the article itself could not be read in this review, so it is reported as a headline rather than quoted.</li>
+          <li><b>The Southampton swing is unchanged at nine places, and for once the reason is trivial.</b> Nobody played, so nothing moved. Recomputed from the frozen table below anyway, because the point of recomputing is that you do it even when you expect the same answer. Ranked on raw points they would be 4th; as published they are 13th.</li>
+          <li><b>Why the break is three weeks and not one.</b> This is an extended international window rather than a scheduling accident: Scotland alone play Slovenia away on 26 September, Switzerland at Hampden, North Macedonia away on 3 October and Slovenia at Hampden on 6 October. With four dates to clear, the Championship does not resume until Friday 9 October. Stoke's timing is fortunate &mdash; three injured players get three weeks instead of one.</li>
+          <li><b>And a piece of Stoke archaeology, since the present is quiet.</b> Tony Pulis argued this week that Stoke were denied the 2011 FA Cup by Manchester City's financial rule breaches. It is a fifteen-year-old final and it is not evidence of anything, but it is the most Stoke story of the week and pretending otherwise would be dishonest.</li>
         </ul>
 
         <h3 class="later">Squad shape</h3>
         <ul class="notes">
           <li><b>Ethan Galbraith</b> &mdash; three goals in eight league games. Still the best thing about the summer rebuild, still worth the reported &pound;10m, still on three and not four.</li>
-          <li><b>Viktor Johansson</b> &mdash; two clean sheets in the last five and three goals conceded in five, having shipped nine in the first three. See the correction: the trend is real, last week's figure was not.</li>
-          <li><b>Sam Gallagher</b> &mdash; back from injury, scored the winner off the bench, and remains the answer to two separate corrections on this page.</li>
-          <li><b>Jack McGlynn</b> &mdash; two goals in two, and the deadline-day signing who has settled fastest.</li>
+          <li><b>Viktor Johansson</b> &mdash; three conceded in the last five having shipped nine in the first three, with two clean sheets in that run (Norwich, Charlton). The corrected figure from last week, and it has not changed because nobody has played.</li>
+          <li><b>Sam Gallagher</b> &mdash; back from injury, scored the winner off the bench from range, and remains the answer to two separate corrections on this page. Joined from Blackburn in August 2024 and is still not a new signing.</li>
+          <li><b>Jack McGlynn</b> &mdash; two goals in two, the deadline-day signing who has settled fastest, and now a weekly award winner in his own country.</li>
+          <li><b>Luke Graham</b> &mdash; 22, eight league games, and in a senior Scotland squad ten weeks after signing. The quietest good decision of the summer.</li>
           <li><b>Ben Johnson</b> &mdash; the Ipswich loanee at right-back, a goalscorer at Cardiff, has started every game since the window shut.</li>
-          <li><b>Ben Pearson</b> &mdash; 31 and in his final contract year. Stayed through the window; the one to watch in January.</li>
-          <li><b>Aaron Cresswell</b> &mdash; still out with the knee injury that prompted the Bombino signing. Bosun Lawal and Svante Ingelsson also unavailable on Saturday; Ampah’s latest status needs confirmation; Tchamadeu returned off the bench on Saturday.</li>
+          <li><b>Ben Pearson</b> &mdash; 31 and in his final contract year. Stayed through the window; the one to watch in January, and the only contract item on the horizon before then.</li>
+          <li><b>The absent</b> &mdash; <b>Aaron Cresswell</b> (knee, the injury that prompted the Bombino signing) and <b>Svante Ingelsson</b> both missed the Sheffield United game; <b>Bosun Lawal</b> is in hamstring rehab at Clayton Wood; <b>Junior Tchamadeu</b> is back, having played 25 minutes off the bench on 19 September. <b>Ampah</b>'s status still needs confirmation and has for two editions &mdash; noted as unresolved rather than guessed at.</li>
         </ul>
       </div>
     </div>
 
     <div class="maths" style="border-color:rgba(221,55,67,.28)">
-      <h4>Eight games in — inside the new play-off places</h4>
-      <p>The Championship changed for 2026/27: <b>3rd–8th qualify for the play-offs</b>. Third and fourth advance to the semi-finals; fifth hosts eighth and sixth hosts seventh in eliminators. The top two still go up automatically. <a href="https://www.efl.com/news/2026/march/05/efl-statement--sky-bet-championship-play-off-format/">EFL format announcement</a>.</p>
-      <div class="eq">Stoke City: P8   W4  D1  L3
-GF 13   GA 12   GD +1   Pts 13   →   7th of 24
+      <h4>Eight games in, nine days still &mdash; the arithmetic rebuilt from scratch anyway</h4>
+      <p>The Championship changed for 2026/27: <b>3rd&ndash;8th qualify for the play-offs</b>. Third and fourth advance to the semi-finals; fifth hosts eighth and sixth hosts seventh in eliminators. The top two still go up automatically. <a href="https://www.efl.com/news/2026/march/05/efl-statement--sky-bet-championship-play-off-format/">EFL format announcement</a>.</p>
+      <p><b>Step 1 &mdash; rebuild Stoke's row from the ten match results rather than copying the published table.</b> This is the check that catches a misread ladder, so it is done every week even in a week with no football:</p>
+      <div class="eq">From the eight league results listed above:
+  W v Norwich, Charlton, Watford, Sheff Utd   = 4 wins   = 12 pts
+  D v Cardiff                                = 1 draw   =  1 pt
+  L v Swansea, Southampton, Wolves           = 3 losses =  0
+                                               ----------------
+  Rebuilt : P8  W4 D1 L3  GF 13  GA 12  GD +1  Pts 13
+  Sky     : P8  W4 D1 L3  GF 13  GA 12  GD +1  Pts 13   MATCH
 
 First 3 games:  0 pts,  3 scored, 9 conceded
 Last 5 games: 13 pts, 10 scored, 3 conceded
@@ -613,7 +685,7 @@ Last 5 games: 13 pts, 10 scored, 3 conceded
 Above 9th (Charlton, 12 pts): 1 point
 Above 22nd (Derby, 5 pts):    8 points
 38 games remaining · maximum possible: 127 points</div>
-      <p>Stoke currently occupy a play-off place. Eight matches remain a small sample, and no points target guarantees qualification.</p>
+      <p>Stoke occupy a play-off place. Eight matches is a small sample and no points target guarantees qualification &mdash; the band from 6th to 13th is currently <b>three points wide</b>, which is another way of saying that none of this is settled.</p>
       <div class="eq">Current points per game: 13 ÷ 8 = 1.625
 46-game pace: 74.75 points (a projection, not a prediction)
 
@@ -622,7 +694,7 @@ Illustrative targets over the remaining 38 games:
 50 points: 37 more needed → 0.97 points per game</div>
       <p class="small">These are planning benchmarks only. The old sixth-place cut-off is no longer the qualification line, and neither 74 nor 50 is a guaranteed threshold.</p>
 
-      <p><b>Southampton's deduction, recomputed &mdash; and this week it bit harder.</b></p>
+      <p><b>Step 2 &mdash; Southampton's deduction, recomputed on a table that did not move.</b></p>
       <div class="eq">Southampton on-field: W4 D2 L2 → 14 raw points, GD +9
 Sanction: −4 points (spygate)
 Adjusted: 14 − 4 = 10 points
@@ -631,25 +703,26 @@ Ranked on RAW points and GD : 4th of 24
 Ranked as published (−4)    : 13th of 24
 Net effect of the sanction  : a 9-place drop
 
-Trend:  v7 (31 Aug) 13  ·  v8 (7 Sep) 11  ·  v9 (14 Sep) 6  ·  now 9</div>
-      <p class="small">Recomputed from the live table each week rather than carried forward. Wrexham beat them 2&ndash;1 on Saturday, which cost Southampton three points they would otherwise have banked and dropped them into a congested band where four points span six places &mdash; so the same fixed penalty suddenly compresses more of the table. The v7 edition forecast the swing would keep widening; v8 and v9 logged that as wrong; this week it widened. Three data points in two directions is not a trend, it is a table settling, and the forecasting has been retired.</p>
+Trend:  v7 (31 Aug) 13 · v8 (7 Sep) 11 · v9 (14 Sep) 6
+        · v10/v11 (21 Sep) 9 · now 9 — no football played</div>
+      <p class="small">Recomputed from the live table rather than carried forward, and this week it produced the same answer for the dullest possible reason: the division had no fixtures, so the ranking it is computed from is identical. The forecasting of which way this number would swing was retired two editions ago after being wrong twice, and this week is not evidence either way. The reason the same fixed penalty costs nine places is that Southampton sit in a congested band &mdash; four points span six places around them.</p>
 
-      <p class="small"><b>The honest version.</b> Five unbeaten, 13 from 15, a comeback win in front of 23,360, two goals from outside the box, inside the expanded play-off places, and a three-week break arriving with three injured players close to returning. Against that: the five opponents were 17th, 9th, 21st, 20th and 18th as things stand, the three defeats came against Swansea (1&ndash;2), Southampton (1&ndash;3) and Wolves (1&ndash;4). Bolton away on 10 October is the next actual evidence. Everything until then is people talking.</p>
+      <p class="small"><b>The honest version.</b> Nine days without a game does not change a football team, and it does not change this page either: five unbeaten, 13 from 15, 7th, one point above the cut. The caveats are the same ones and they have not improved with age &mdash; the five opponents in that run sit 17th, 9th, 21st, 20th and 18th, and the three defeats came against Swansea, Southampton and Wolves, who sit 1st, 13th and 4th. Bolton away on 10 October is the next actual evidence. Everything between now and then is people talking, this page included.</p>
     </div>
 
     <div class="maths" style="border-color:rgba(221,55,67,.28)">
       <h4>Ins and outs &mdash; Stoke City, window closed</h4>
-      <p class="small" style="margin-top:0">Window summary carried forward from the previous edition. Eleven names are listed below, including a loan and Milan Smit’s earlier loan-to-permanent arrangement; that is not the same as eleven new summer arrivals. Individual fees and contract terms have not all been re-verified in this review.</p>
+      <p class="small" style="margin-top:0">Window summary carried forward, unchanged &mdash; there is no window and there was no movement. Eleven names are listed below, including a loan and Milan Smit’s loan-to-permanent arrangement; that is not the same as eleven new summer arrivals. Wikipedia’s season page puts the net summer outlay at <b>over &pound;30m</b> and lists two fees this page had as undisclosed: <b>Bombino at &pound;3.7m</b> and <b>Soumar&eacute; at &pound;3.4m</b>. Both are added below as reported rather than confirmed, from a single source. Other fees and contract terms have not been re-verified this week.</p>
       <div class="moves">
         <div class="mv in">
           <h5>&#8600; Arrivals &amp; permanent conversions</h5>
           <ul class="mvlist">
             <li><b>Justin Devenny</b> <span class="tag-conf c">Confirmed</span><br><span>Midfielder, Crystal Palace, reported &pound;5m, four-year deal, 1&ndash;2 September. Two goals v Charlton.</span></li>
             <li><b>Jack McGlynn</b> <span class="tag-conf c">Confirmed</span><br><span>Midfielder, Houston Dynamo, permanent, reported around $5.5m. USMNT international. Scored at Watford and against Sheffield United.</span></li>
-            <li><b>Luca Bombino</b> <span class="tag-conf c">Confirmed</span><br><span>Left-back, San Diego FC, permanent with a sell-on clause, announced 1 September.</span></li>
+            <li><b>Luca Bombino</b> <span class="tag-conf c">Confirmed</span><br><span>Left-back, San Diego FC, permanent with a sell-on clause, announced 1 September. Fee reported at &pound;3.7m by one source; the club did not disclose it.</span></li>
             <li><b>George Hirst</b> <span class="tag-conf c">Confirmed</span><br><span>Striker, permanent from Ipswich Town, reported around &pound;6m. First league goal on 5 September.</span></li>
             <li><b>Ethan Galbraith</b> <span class="tag-conf c">Confirmed</span><br><span>Midfielder from Swansea City, reported &pound;10m &mdash; the summer's biggest outlay. Three league goals.</span></li>
-            <li><b>Milan Smit, Djibril Soumar&eacute;, Luke Graham, Josh Griffiths, Svante Ingelsson</b> <span class="tag-conf c">Confirmed</span><br><span>Smit &pound;4.75&ndash;4.8m from Go Ahead Eagles (since loaned to Darmstadt 98); Soumar&eacute; from Braga; Graham &pound;2m from Dundee; Griffiths from West Brom; Ingelsson from Sheffield Wednesday.</span></li>
+            <li><b>Milan Smit, Djibril Soumar&eacute;, Luke Graham, Josh Griffiths, Svante Ingelsson</b> <span class="tag-conf c">Confirmed</span><br><span>Smit &pound;4.75&ndash;4.8m from Go Ahead Eagles (since loaned to Darmstadt 98); Soumar&eacute; from Braga, reported &pound;3.4m; Graham from Dundee, reported &pound;2m though officially undisclosed, four-year deal &mdash; now a Scotland squad member; Griffiths from West Brom; Ingelsson from Sheffield Wednesday, reported &pound;1m.</span></li>
             <li><b>Ben Johnson</b> <span class="tag-conf c">Confirmed &mdash; loan</span><br><span>Right-back, season-long loan from Ipswich Town. Scored at Cardiff.</span></li>
           </ul>
         </div>
@@ -658,13 +731,13 @@ Trend:  v7 (31 Aug) 13  ·  v8 (7 Sep) 11  ·  v9 (14 Sep) 6  ·  now 9</div>
           <ul class="mvlist">
             <li><b>Sorba Thomas</b> <span class="tag-conf c">Confirmed</span><br><span>To Hull City, 1 September, after a third bid. Fee undisclosed officially; one outlet reports &pound;10.5m.</span></li>
             <li><b>Tatsuki Seko, Bae Jun-Ho</b> <span class="tag-conf c">Confirmed</span><br><span>Permanent exits to Urawa Red Diamonds and Olympique Lyonnais.</span></li>
-            <li><b>Steven N'Zonzi, Lewis Baker, Nikola Jojić</b> <span class="tag-conf c">Confirmed</span><br><span>N'Zonzi released; Baker to Bursaspor on a free; Jojić departed by mutual consent.</span></li>
+            <li><b>Steven N'Zonzi, Lewis Baker, Nikola Jojić</b> <span class="tag-conf c">Confirmed</span><br><span>N'Zonzi released &mdash; one source has him since joining USL Dunkerque; Baker to Bursaspor on a free; Jojić departed by mutual consent.</span></li>
             <li><b>Milan Smit (loan), True Grant, Emre Tezgel, Favour Fawunmi</b> <span class="tag-conf c">Confirmed &mdash; loans out</span><br><span>Smit to Darmstadt 98; Grant to Halifax, Tezgel to Wycombe, Fawunmi to Oldham.</span></li>
             <li><b>Ben Pearson, Maksym Talovierov, &Eacute;ric Bocat</b> <span class="tag-conf x">Stayed</span><br><span>All three linked with exits; none moved. Bocat has two league goals; Pearson, in his final contract year, is the January watch item.</span></li>
           </ul>
         </div>
       </div>
-      <p class="small"><b>Harry Clarke</b> remains off this list. The &pound;3.5m Ipswich deal reported in early August never happened &mdash; he signed permanently for Preston North End and has played for them. Ben Brereton D&iacute;az, who chose Sheffield United over a Stoke loan, likewise stays off. Both are noted rather than silently deleted, because a transfer list that only shows the things that came off is not a transfer list. The window closed at <b>11pm BST on Tuesday 1 September</b> &mdash; not 31 August, which earlier editions of this page got wrong and which is not coming back.</p>
+      <p class="small"><b>Harry Clarke</b> remains off this list. The &pound;3.5m Ipswich deal reported in early August never happened &mdash; he signed permanently for Preston North End and has played for them. Ben Brereton D&iacute;az, who chose Sheffield United over a Stoke loan, likewise stays off. Both are noted rather than silently deleted, because a transfer list that only shows the things that came off is not a transfer list. The window closed at <b>11pm BST on Tuesday 1 September</b> &mdash; not 31 August, which earlier editions of this page got wrong and which is not coming back. The next window opens in January; until then the only movement available is contract business, and the only live item is Ben Pearson’s final year.</p>
     </div>
   </section>
   </div>
@@ -673,23 +746,61 @@ Trend:  v7 (31 Aug) 13  ·  v8 (7 Sep) 11  ·  v9 (14 Sep) 6  ·  now 9</div>
 
 <footer id="sources">
   <h2 class="display">Sources &amp; review notes</h2>
-  <p><b>Snapshot: 21 September 2026, Brisbane.</b> This is a manually maintained fan dashboard, not a live score feed. Fixtures can change; calendar downloads are one-off copies and do not update automatically.</p>
+  <p><b>Snapshot: 28 September 2026, Brisbane &mdash; edition v12.</b> This is a manually maintained fan dashboard, not a live score feed. Fixtures can change; calendar downloads are one-off copies and do not update automatically.</p>
   <div class="source-grid">
     <div><h3>Broncos</h3><ul>
-      <li><a href="https://www.broncos.com.au/news/2026/09/14/willison-named-broncos-best-at-39th-paul-morgan-medal/">Club awards and player farewells — 14 September</a></li>
-      <li><a href="https://www.nrl.com/news/2026/09/19/nrlw-semi-final-showdown-broncos-v-knights/">NRLW result and preliminary-final details — NRL</a></li>
-      <li><a href="https://www.rugbyleagueproject.org/seasons/nrl-2026/summary.html">2026 men's season record — Rugby League Project</a></li>
-      <li><a href="https://www.nrl.com/news/2026/04/22/explainer-wsoo-and-nrlw-rules-confirmed/">2026 NRLW rules and match duration</a></li>
+      <li><a href="https://www.abc.net.au/news/2026-09-27/broncos-into-fifth-nrlw-grand-final-beating-titans/107201364">NRLW preliminary final: Broncos 20 Titans 8 — ABC</a></li>
+      <li><a href="https://www.nrl.com/news/2026/09/27/prelim-final-blockbuster-titans-v-broncos/">NRLW preliminary final live blog and crowd figure — NRL.com</a></li>
+      <li><a href="https://au.news.yahoo.com/big-rivalry-two-nrlw-powerhouses-200000977.html">Grand final preview and head-to-head history — AAP</a></li>
+      <li><a href="https://www.abc.net.au/news/2026-09-27/panthers-knights-cleary-nrl-grand-final/107201360">Knights 22 Panthers 14, Cleary injury and send-off — ABC</a></li>
+      <li><a href="https://www.abc.net.au/news/2026-09-25/nrl-live-updates-finals-prelim-dolphins-roosters/107197462">Roosters 36 Dolphins 20 at Suncorp, crowd 52,286 — ABC</a></li>
+      <li><a href="https://www.accorstadium.com.au/events/n2026_nrl_nrlw_grand_finals">Grand final kick-off times — Accor Stadium</a></li>
+      <li><a href="https://www.zerotackle.com/broncos-clear-up-riki-rumours-but-november-1-still-likely-238418/">Jordan Riki, 1 November and the club’s response — Zero Tackle</a></li>
+      <li><a href="https://www.zerotackle.com/broncos-make-big-coaching-raid-as-manlys-head-of-performance-joins-for-2027-238457/">Jon Clarke joins as head of performance — Zero Tackle</a></li>
+      <li><a href="https://au.news.yahoo.com/broncos-hand-down-review-teo-095405067.html">Season review, Matt Ballin and the 2025 premiership — Yahoo/AAP</a></li>
+      <li><a href="https://www.nrl.com/news/2026/01/01/2026-nrl-signings-tracker-the-latest-from-all-17-clubs/">Signings tracker, updated 25 September — NRL.com</a></li>
+      <li><a href="https://au.news.yahoo.com/dally-m-medal-ceremony-date-191333871.html">Dally M date, time and leaderboard — Yahoo</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/2026_Rugby_League_World_Cup">World Cup dates and venues</a></li>
     </ul></div>
     <div><h3>Stoke City</h3><ul>
+      <li><a href="https://www.skysports.com/championship-table">Championship standings, updated 23 September — Sky Sports</a></li>
+      <li><a href="https://www.footballwebpages.co.uk/stoke-city/fixtures-results">Results, attendances and fixtures to November</a></li>
       <li><a href="https://www.efl.com/news/2026/march/05/efl-statement--sky-bet-championship-play-off-format/">New Championship play-off format — EFL</a></li>
-      <li><a href="https://www.skysports.com/championship-table">Championship standings — Sky Sports</a></li>
-      <li><a href="https://www.footballwebpages.co.uk/stoke-city/fixtures-results">Results and upcoming fixtures</a></li>
-      <li><a href="https://www.footballwebpages.co.uk/match/2026-2027/championship/stoke-city/sheffield-united/567967">Sheffield United match record and substitutions</a></li>
+      <li><a href="https://sports.yahoo.com/articles/graham-says-getting-first-scotland-153317060.html">Luke Graham on his first Scotland call-up — PA</a></li>
+      <li><a href="https://www.scottishfa.co.uk/en/news/scotland-set-to-kick-off-sebastien-pocognoli-era-in-ljubljana">Scotland’s four fixtures in this window — Scottish FA</a></li>
+      <li><a href="https://www.101greatgoals.com/football/internationals/slovenia-vs-scotland-line-ups-confirmed-nations-league-clash/">Slovenia v Scotland line-ups, Graham among the substitutes</a></li>
+      <li><a href="https://stokecitynews.co.uk/news">Week’s club news index, including the Lawal rehab arrangement</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/2026%E2%80%9327_Stoke_City_F.C._season">Summer transfer fees and net outlay</a></li>
     </ul></div>
   </div>
-  <details><summary>What changed in v11?</summary><p>Corrected the play-off boundary from sixth to eighth and the relegation boundary to below 21st; updated the associated analysis. Corrected Willison’s award date to 14 September, the NRLW match duration to 70 minutes, and Tchamadeu’s appearance. Added Hoeter’s retirement and Rogers and Te Kura’s departures from the club announcement. Removed the inconsistent ten-signing total and absolute claims that transfers cannot change outside a window. Added fixture countdowns, Brisbane/venue times, calendar downloads, mobile table scrolling and accessible navigation.</p></details>
-  <details><summary>Scope and remaining uncertainty</summary><p>Checked the headline results, Stoke’s published standings and next three fixtures, the competition format, club awards and listed corrections. The full NRL ladder, every transfer fee, contract report, injury and older quotation have not all been independently re-verified. Retained editorial notes are a snapshot of the previous research, not a claim of exhaustive verification. “Confirmed” transfer labels were inherited unless a source is explicitly identified above; reported fees remain press estimates.</p></details>
+  <details open><summary>Corrections and changes in this update (v11 → v12)</summary>
+    <p><b>1. Last week's edition skipped a version number, and the archive proves it.</b> The 21 September page carried <code>v11</code> in its masthead, but its own Broncos maths panel said &ldquo;v10 restores 1 Nov 2026&rdquo; and its Southampton trend line ran &ldquo;v7 (31 Aug) · v8 (7 Sep) · v9 (14 Sep) · now&rdquo; &mdash; both describing itself as <b>v10</b>. The repository settles it: the archived editions are <code>index-V6.html</code> (24 Aug), <code>index-v7.html</code> (31 Aug), <code>index-v8.html</code> (7 Sep) and <code>index-v9.html</code> (14 Sep), and there is no <code>index-v10.html</code>. By count, the 21 September edition was the tenth. Its masthead jumped a digit.</p>
+    <p class="small">The masthead marker is what the archiving scheme is defined on, so it has been followed rather than second-guessed: the retired page is filed as <code>index-v11.html</code> and this edition is <b>v12</b>. The consequence is that <b>v10 will never exist</b> &mdash; a permanent one-file gap in the archive caused by one week's typo. It is recorded here rather than tidied away, because renaming last week's file to close the gap would rewrite history to hide a mistake, which is the opposite of what this footer is for.</p>
+    <p><b>2. &ldquo;No defensive coach&rdquo; was wrong.</b> Previous editions said Brisbane's 6&ndash;6 road record was managed &ldquo;with no defensive coach&rdquo;. Ben Te'o left early in the season for Queensland duty after the club declined his request to hold both roles, and <b>Matt Ballin took the defensive brief in July</b>, confirmed permanently in the 11 September review. The staff was disrupted, not vacant. The phrase has been corrected in the maths panel and explained in the notes.</p>
+    <p><b>3. The page had never mentioned that Brisbane were the reigning premiers.</b> Michael Maguire won the 2025 title &mdash; only the second coach in club history to do it &mdash; and the same side finished 14th in 2026. Eleven editions of a Broncos dashboard analysing a 14th-place finish without that sentence in it understated the story badly. Added to the stat tiles, the notes and the maths panel.</p>
+    <p><b>4. The NRLW grand final kick-off was missing.</b> v11's key-dates strip gave 6:30pm AEST for &ldquo;NRLW then NRL&rdquo;, which is the men's time. The NRLW decider is <b>3:00pm AEST</b> (4:00pm AEDT in Sydney). That is the Brisbane game and it now has its own chip, its own next-game panel and its own conversion.</p>
+    <p><b>5. A published scoreline that did not add up, shown rather than silently discarded.</b> NRL.com's live blog listed four Broncos tryscorers including Destiny Mino-Sinapati plus Jesse Southwell at 4/4 &mdash; which totals 24, not 20. ABC and AAP both have Mino-Sinapati scoring for the Titans, four Broncos scorers and therefore two goals. The reconciliation is in the maths panel.</p>
+    <p><b>6. A Wikipedia figure declined.</b> Wikipedia's 2026 NRLW round-by-round showed two Roosters wins over Brisbane (48&ndash;10 and 34&ndash;20). AAP's grand-final preview has one meeting, 34&ndash;20. Only the corroborated result is carried, and the NRLW ladder added this week is flagged as single-sourced and not cross-checked.</p>
+    <p><b>7. Last week's scheduling call was vindicated, which is also worth logging.</b> v11 rejected Zero Tackle's preliminary-final dates of 26 and 28 September in favour of Friday the 25th and Sunday the 27th. The games were played on the 25th and the 27th.</p>
+    <p><b>8. Claims re-verified and found still true:</b> Stoke 7th on 13 points and one point above 9th; Southampton's four-point deduction still applied and still costing nine places; Bolton 15th on 10 points with GD &minus;4; Middlesbrough 3rd; Derby 22nd; Stoke's next fixtures on 10, 13 and 17 October; every 2026/27 Stoke result and attendance; Johansson's corrected two-clean-sheets-in-four; Gallagher as an August 2024 signing; Walsh's Seahawks deal as ambassadorial only; the transfer window closing at <b>11pm BST on 1 September</b>, not 31 August.</p>
+    <p><b>9. Added this week:</b> a fourth Stoke fixture (Bristol City, home, 24 Oct) and the note that BST ends on 25 October so the nine-hour offset expires; the NRLW final ladder; both preliminary-final results and the grand-final line-ups; Jordan Riki's free-agency position; Jon Clarke's appointment; the 2026 season review; reported fees for Bombino and Soumaré; Luke Graham's Scotland call-up; the Lawal rehab arrangement; the World Cup final date in Brisbane.</p>
+    <p><b>10. A real bug on the tabs, found by a reader on a phone and fixed here.</b> Until this edition the Broncos and Stoke panels were hidden <i>only</i> by JavaScript &mdash; nothing in the markup or the stylesheet said which one should start closed. If scripts were blocked, disabled, or simply had not run yet on a slow mobile connection, both clubs rendered stacked and Stoke appeared to flow straight on from the Broncos with no visible seam. Three changes: the Stoke panel now carries <code>hidden</code> in the markup, so the correct state exists before a line of JavaScript runs and there is no flash on load; a <code>&lt;noscript&gt;</code> block deliberately re-opens both panels, hides the tab strip and explains why, so a reader without JavaScript gets both clubs stacked and a sentence telling them so rather than a broken control; and the tab handler's <code>history.replaceState</code> call is wrapped in a try/catch, because some in-app browsers throw there and an exception mid-handler could leave the tabs in a half-switched state. Verified at 360, 390 and 768 pixels wide, with scripts on and off.</p>
+    <p><b>11. Declined rather than printed.</b> A 22 September report that three Stoke players will be back for Bolton was carried without names, because the aggregated version named Tchamadeu, McGlynn and Gallagher &mdash; all of whom played against Sheffield United. Ampah's fitness status remains unresolved for a second edition and is recorded as unresolved. The crowd for Panthers v Knights is given as &ldquo;about 55,000&rdquo; because no official figure was found.</p>
+  </details>
+  <details><summary>Verification note — the arithmetic, worked</summary>
+    <p><b>Stoke's table row, rebuilt from match results:</b> four wins (Norwich, Charlton, Watford, Sheffield United) = 12 points, one draw (Cardiff) = 1 point, three defeats (Swansea, Southampton, Wolves) = 0. Total <b>P8 W4 D1 L3, GF 13, GA 12, GD +1, 13 points</b>. Sky Sports publishes exactly that, so the rebuilt and published rows agree and no reconciliation was needed. Splits: first three games 0 points, 3 scored, 9 conceded; last five 13 points, 10 scored, 3 conceded. Pace: 13 ÷ 8 = 1.625 per game, ×46 = <b>74.75</b>. To reach 74 points needs 61 from 38 games (1.61 per game); to reach 50 needs 37 from 38 (0.97).</p>
+    <p><b>Southampton:</b> W4 D2 L2 = 14 raw points, GD +9. Re-sorting all 24 clubs on raw points then goal difference puts them <b>4th</b>; the published table with &minus;4 puts them <b>13th</b>. Net effect <b>nine places</b>, identical to last week because no fixtures were played. The 6th-to-13th band spans three points.</p>
+    <p><b>Sunday's NRLW scoreline:</b> four Broncos tries = 16; 20 &minus; 16 = 4, so <b>two goals</b> were kicked, not four. Two Titans tries = 8 with no goals. Half-time 20&ndash;4 with Isa'ako scoring on 54' means the second half finished Broncos 0 Titans 4. Aggregate across the two finals: <b>60&ndash;24</b>.</p>
+    <p><b>Brisbane's men:</b> comp points = (8 wins × 2) + (3 byes × 2) = <b>22</b>, matching the published ladder. 677 conceded over 24 games = <b>28.2 a game</b>. Points differential 471 &minus; 677 = <b>&minus;206</b>.</p>
+    <p><b>Dates and clocks, computed against a real time-zone database rather than by hand.</b> From Monday 28 September 2026: Dally M 2 days, both grand finals 6, Championship resumes 11, Bolton away 12, World Cup opener 17, <b>1 November 34</b>, World Cup final 48. 1 October 2026 is a Thursday, so NSW daylight saving begins on Sunday <b>4 October</b> &mdash; grand final morning; 4:00pm AEDT = 3:00pm AEST and 7:30pm AEDT = 6:30pm AEST. BST holds until 25 October, so Bolton (10 Oct), Middlesbrough (13 Oct), Derby (17 Oct) and Bristol City (24 Oct) all convert at +9 hours: midnight, 5:00am, midnight and midnight AEST respectively.</p>
+    <p><b>Version marker:</b> the masthead was parsed for <code>· v&lt;N&gt; ·</code>, returned <code>v11</code> with an &ldquo;as at&rdquo; date of Monday 21 September 2026, and this edition was published as <code>v12</code>. The same expression was re-run against the finished page and returns <code>v12</code>.</p>
+  </details>
+  <details><summary>Confirmed versus rumoured player movement</summary>
+    <p>Green <b>Confirmed</b> tags mean an announcement by a club, league or reputable outlet. Amber and red tags mark reported, speculative or collapsed moves. Where a label was inherited from an earlier edition without a source being re-checked this week, it has not been upgraded.</p>
+    <p><b>Not signings, however they are reported:</b> Xavier Willison's extension to 2031 is <i>in advanced talks</i> and has not been announced. Jordan Riki's future is <i>speculation</i> &mdash; he is contracted for 2027, the Warriors link is a report, and the club says he has not been given permission to talk. Reece Walsh's Seattle Seahawks arrangement is an <i>ambassadorial deal</i>, not a transfer. Stoke's reported fees for Bombino, Soumaré, Graham and Ingelsson are <i>press estimates</i> from a single source; the club disclosed none of them. Jack Gosiewski has no announced destination. Josh Rogers' and Ben Te Kura's destinations remain unverified.</p>
+    <p><b>Moves that did not happen and are kept visible anyway:</b> Harry Clarke's reported &pound;3.5m move to Ipswich (he signed for Preston); Ben Brereton Díaz's Stoke loan (he chose Sheffield United); Pearson, Talovierov and Bocat's exits (all stayed). A transfer list that only shows the deals that came off is not a transfer list.</p>
+  </details>
+  <details><summary>Scope and remaining uncertainty</summary><p>Checked this week: both preliminary finals and the NRLW grand-final pairing, grand-final kick-off times, the Dally M date and leaderboard, the Riki and Clarke stories, the season review, Stoke's full results and attendances, the Championship table, Stoke's next four fixtures, the play-off format, and every correction listed above. Not independently re-verified: the full men's NRL ladder below Brisbane's own row, the NRLW ladder's lower places, every historical transfer fee and contract report, older quotations, and the Panthers v Knights attendance. Retained editorial notes are a snapshot of previous research, not a claim of exhaustive verification.</p></details>
 </footer>
 
 <script>
@@ -710,9 +821,13 @@ Trend:  v7 (31 Aug) 13  ·  v8 (7 Sep) 11  ·  v9 (14 Sep) 6  ·  now 9</div>
       c.hidden = c.getAttribute('data-club') !== keys[i];
     });
     if (focus) tabs[i].focus();
-    if (location.hash.slice(1) !== keys[i]) {
-      history.replaceState(null, '', '#' + keys[i]);
-    }
+    // Some in-app webviews throw a SecurityError here; the panels are already
+    // switched by this point, but never let it abort the rest of the handler.
+    try {
+      if (location.hash.slice(1) !== keys[i]) {
+        history.replaceState(null, '', '#' + keys[i]);
+      }
+    } catch (e) {}
   }
 
   tabs.forEach(function(t, i){
@@ -738,12 +853,15 @@ Trend:  v7 (31 Aug) 13  ·  v8 (7 Sep) 11  ·  v9 (14 Sep) 6  ·  now 9</div>
 <script>
 (() => {
   'use strict';
-  const snapshot = '2026-09-21';
+  const snapshot = '2026-09-28';
   const fixtures = [
-    {club:'broncos',id:'nrlw-prelim',title:'Titans v Broncos · NRLW preliminary final',start:'2026-09-27T03:05:00Z',zone:'Australia/Brisbane',venue:'Cbus Super Stadium',source:'https://www.nrl.com/news/2026/09/19/nrlw-semi-final-showdown-broncos-v-knights/'},
+    {club:'broncos',id:'nrlw-grand-final',title:'Broncos v Roosters · NRLW Grand Final',start:'2026-10-04T05:00:00Z',zone:'Australia/Sydney',venue:'Accor Stadium',source:'https://www.accorstadium.com.au/events/n2026_nrl_nrlw_grand_finals'},
+    {club:'broncos',id:'nrl-grand-final',title:'Knights v Roosters · NRL Grand Final',start:'2026-10-04T08:30:00Z',zone:'Australia/Sydney',venue:'Accor Stadium',source:'https://www.accorstadium.com.au/events/n2026_nrl_nrlw_grand_finals'},
+    {club:'broncos',id:'rlwc-opener',title:'Australia v New Zealand · World Cup opener',start:'2026-10-15T09:05:00Z',zone:'Australia/Sydney',venue:'Allianz Stadium',source:'https://en.wikipedia.org/wiki/2026_Rugby_League_World_Cup'},
     {club:'stoke',id:'bolton-stoke',title:'Bolton Wanderers v Stoke City',start:'2026-10-10T14:00:00Z',zone:'Europe/London',venue:'Toughsheet Community Stadium',source:'https://www.footballwebpages.co.uk/stoke-city/fixtures-results'},
     {club:'stoke',id:'stoke-boro',title:'Stoke City v Middlesbrough',start:'2026-10-13T19:00:00Z',zone:'Europe/London',venue:'bet365 Stadium',source:'https://www.footballwebpages.co.uk/stoke-city/fixtures-results'},
-    {club:'stoke',id:'derby-stoke',title:'Derby County v Stoke City',start:'2026-10-17T14:00:00Z',zone:'Europe/London',venue:'Pride Park Stadium',source:'https://www.footballwebpages.co.uk/stoke-city/fixtures-results'}
+    {club:'stoke',id:'derby-stoke',title:'Derby County v Stoke City',start:'2026-10-17T14:00:00Z',zone:'Europe/London',venue:'Pride Park Stadium',source:'https://www.footballwebpages.co.uk/stoke-city/fixtures-results'},
+    {club:'stoke',id:'stoke-bristol',title:'Stoke City v Bristol City',start:'2026-10-24T14:00:00Z',zone:'Europe/London',venue:'bet365 Stadium',source:'https://www.footballwebpages.co.uk/stoke-city/fixtures-results'}
   ];
   function ageNotice(now) {
     const parts = new Intl.DateTimeFormat('en-CA',{timeZone:'Australia/Brisbane',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now);
@@ -752,7 +870,7 @@ Trend:  v7 (31 Aug) 13  ·  v8 (7 Sep) 11  ·  v9 (14 Sep) 6  ·  now 9</div>
     const age = Math.floor((Date.parse(day+'T00:00:00Z')-Date.parse(snapshot+'T00:00:00Z'))/86400000);
     const banner = document.getElementById('snapshot-age');
     banner.classList.toggle('stale',age>0);
-    banner.textContent = `Snapshot: 21 September 2026 · ${age>0 ? `${age} day${age===1?'':'s'} old — results and news may have changed` : age===0 ? 'dated today in Brisbane' : 'dated after your device clock'} · Manually updated, not live`;
+    banner.textContent = `Snapshot: 28 September 2026 · v12 · ${age>0 ? `${age} day${age===1?'':'s'} old — results and news may have changed` : age===0 ? 'dated today in Brisbane' : 'dated after your device clock'} · Manually updated, not live`;
   }
   function countdown(start, now) {
     const remaining = Date.parse(start)-now.getTime();
@@ -763,7 +881,7 @@ Trend:  v7 (31 Aug) 13  ·  v8 (7 Sep) 11  ·  v9 (14 Sep) 6  ·  now 9</div>
   function escapeICS(text){return text.replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;')}
   function calendar(fixture) {
     const stamp = date=>new Date(date).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
-    const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//The Cooper House//Footy//EN','CALSCALE:GREGORIAN','BEGIN:VEVENT',`UID:${fixture.id}-2026@thecooperhouse.xyz`,`DTSTAMP:${stamp(new Date())}`,`DTSTART:${stamp(fixture.start)}`,`SUMMARY:${escapeICS(fixture.title)}`,`LOCATION:${escapeICS(fixture.venue)}`,'DESCRIPTION:Fixture from the 21 September 2026 snapshot. Check the source before travelling. This calendar entry does not update automatically.',`URL:${fixture.source}`,'END:VEVENT','END:VCALENDAR'];
+    const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//The Cooper House//Footy//EN','CALSCALE:GREGORIAN','BEGIN:VEVENT',`UID:${fixture.id}-2026@thecooperhouse.xyz`,`DTSTAMP:${stamp(new Date())}`,`DTSTART:${stamp(fixture.start)}`,`SUMMARY:${escapeICS(fixture.title)}`,`LOCATION:${escapeICS(fixture.venue)}`,'DESCRIPTION:Fixture from the 28 September 2026 snapshot (v12). Check the source before travelling. This calendar entry does not update automatically.',`URL:${fixture.source}`,'END:VEVENT','END:VCALENDAR'];
     // Fold long content lines to the iCalendar 75-octet limit without splitting UTF-8 characters.
     const encoder=new TextEncoder();
     const folded=lines.map(line=>{let out='',bytes=0;for(const char of line){const size=encoder.encode(char).length;if(bytes+size>75){out+='\r\n ';bytes=1}out+=char;bytes+=size}return out}).join('\r\n')+'\r\n';
@@ -774,7 +892,7 @@ Trend:  v7 (31 Aug) 13  ·  v8 (7 Sep) 11  ·  v9 (14 Sep) 6  ·  now 9</div>
   ['broncos','stoke'].forEach(club=>{
     const panel=document.getElementById('panel-'+club);
     const section=document.createElement('section');section.className='fixture-tools';section.setAttribute('aria-labelledby',club+'-fixtures-title');
-    section.innerHTML=`<h2 class="display" id="${club}-fixtures-title">${club==='broncos'?'Still in the hunt · NRLW':'Next on the calendar'}</h2><p>Upcoming fixtures from this snapshot. Check the linked source for changes.</p><div class="fixture-controls"><label for="${club}-timezone">Show times in</label><select id="${club}-timezone"><option value="brisbane">Brisbane (AEST)</option><option value="venue">Venue local time</option></select><a href="#sources">Sources &amp; review notes</a></div><ul class="fixture-list"></ul><p>Calendar files contain the scheduled start time. They do not update automatically.</p>`;
+    section.innerHTML=`<h2 class="display" id="${club}-fixtures-title">${club==='broncos'?'Grand final week · NRLW':'Next on the calendar'}</h2><p>Upcoming fixtures from this snapshot. Check the linked source for changes.</p><div class="fixture-controls"><label for="${club}-timezone">Show times in</label><select id="${club}-timezone"><option value="brisbane">Brisbane (AEST)</option><option value="venue">Venue local time</option></select><a href="#sources">Sources &amp; review notes</a></div><ul class="fixture-list"></ul><p>Calendar files contain the scheduled start time. They do not update automatically.</p>`;
     const list=section.querySelector('ul'), select=section.querySelector('select');
     const entries=fixtures.filter(f=>f.club===club).map(f=>{
       const item=document.createElement('li'), body=document.createElement('div'), title=document.createElement('strong'), time=document.createElement('time'), note=document.createElement('small'), link=document.createElement('a'), button=document.createElement('button');
