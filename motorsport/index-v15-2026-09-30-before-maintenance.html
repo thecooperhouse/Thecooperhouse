@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Race Board 2026 — F1 &amp; MotoGP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --asphalt:#12161d; --panel:#1a2029; --panel-2:#20272f; --line:#2c343f;
+    --ink:#e8ebef; --ink-dim:#9aa4b1;
+    --f1:#ff2800; --moto:#2ec5ff; --timing-purple:#c39bff;
+    --gold:#f2c14e; --silver:#c8cfd8; --bronze:#d29a6b; --sprint:#ffd166; --confirm:#5ede8e;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+  body{
+    background:var(--asphalt); color:var(--ink);
+    font-family:'IBM Plex Sans',system-ui,sans-serif; line-height:1.45; min-height:100vh;
+    background-image:repeating-linear-gradient(90deg, transparent 0 96px, rgba(255,255,255,.015) 96px 97px);
+  }
+  header{padding:28px 20px 18px;max-width:1080px;margin:0 auto}
+  .kicker{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim)}
+  h1{font-family:'Chakra Petch',sans-serif;font-size:clamp(1.7rem,4.5vw,2.6rem);font-weight:700;letter-spacing:.01em;line-height:1.1;margin-top:6px}
+  h1 .f1c{color:var(--f1)} h1 .motoc{color:var(--moto)}
+  .asof{margin-top:8px;color:var(--ink-dim);font-size:.85rem}
+  .asof strong{color:var(--ink);font-weight:600}
+
+  .tabs{max-width:1080px;margin:10px auto 0;padding:0 20px;display:flex;gap:10px}
+  .tab{flex:1;appearance:none;border:1px solid var(--line);background:var(--panel);color:var(--ink-dim);
+    font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;
+    padding:12px 10px;border-radius:var(--radius);cursor:pointer;border-bottom:3px solid var(--line);
+    transition:color .15s,border-color .15s,background .15s}
+  .tab[aria-selected="true"]{color:var(--ink);background:var(--panel-2)}
+  .tab.f1[aria-selected="true"]{border-bottom-color:var(--f1)}
+  .tab.moto[aria-selected="true"]{border-bottom-color:var(--moto)}
+  .tab:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+  main{max-width:1080px;margin:0 auto;padding:18px 20px 60px}
+  section.series{display:none}
+  section.series.active{display:block}
+
+  .parc-ferme{border:1px dashed var(--line);border-radius:var(--radius);
+    background:repeating-linear-gradient(45deg, rgba(255,255,255,.03) 0 14px, transparent 14px 28px),var(--panel);
+    padding:16px 18px;margin-bottom:22px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+  .parc-ferme .pf-text{max-width:640px}
+  .pf-title{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.04em;text-transform:uppercase}
+  .pf-sub{color:var(--ink-dim);font-size:.85rem;margin-top:2px}
+  .watch-toggle{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;background:var(--panel-2);
+    border:1px solid var(--line);border-radius:8px;padding:10px 14px;font-weight:600;font-size:.92rem}
+  .watch-toggle input{width:20px;height:20px;accent-color:var(--gold);cursor:pointer}
+
+  .spoiler{position:relative}
+  .spoiler .shield{position:absolute;inset:0;z-index:3;border-radius:var(--radius);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:16px;
+    background:repeating-linear-gradient(-45deg, rgba(0,0,0,.55) 0 16px, rgba(0,0,0,.4) 16px 32px);
+    backdrop-filter:blur(2px);border:1px dashed var(--line)}
+  .spoiler .shield .flag{font-size:1.5rem}
+  .spoiler .shield p{font-size:.85rem;color:var(--ink);max-width:340px}
+  .spoiler .shield p.small{color:var(--ink-dim);font-size:.76rem}
+  .spoiler > .veil{filter:blur(14px);pointer-events:none;user-select:none}
+  .spoiler.revealed .shield{display:none}
+  .spoiler.revealed > .veil{filter:none;pointer-events:auto;user-select:auto}
+
+  h2{font-family:'Chakra Petch',sans-serif;font-size:1.15rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    margin:26px 0 12px;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";display:inline-block;width:14px;height:14px;border-radius:3px}
+  .f1-series h2::before{background:var(--f1)}
+  .moto-series h2::before{background:var(--moto)}
+
+  .board{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--panel)}
+  table{width:100%;border-collapse:collapse;font-size:.92rem}
+  thead th{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-dim);font-weight:600;text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  tbody td{padding:8px 12px;border-bottom:1px solid rgba(44,52,63,.5)}
+  tbody tr:last-child td{border-bottom:none}
+  td.pos{font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);width:44px}
+  td.pts{font-family:'IBM Plex Mono',monospace;font-weight:600;text-align:right;width:70px}
+  td.team{color:var(--ink-dim);font-size:.85rem}
+  tbody tr.p1 td{background:rgba(195,155,255,.08)}
+  tbody tr.p1 td.pos{color:var(--timing-purple);font-weight:700}
+  tbody tr.p1 td.name{color:var(--timing-purple);font-weight:600}
+  .name{font-weight:500}
+
+  details.secondary{margin-top:12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel)}
+  details.secondary summary{cursor:pointer;padding:11px 14px;font-family:'Chakra Petch',sans-serif;font-weight:600;
+    font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim);list-style:none}
+  details.secondary summary::-webkit-details-marker{display:none}
+  details.secondary summary::after{content:" ▸"}
+  details.secondary[open] summary::after{content:" ▾"}
+
+  .races{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+  .race{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);overflow:hidden;display:flex;flex-direction:column}
+  .race-head{padding:11px 14px;border-bottom:1px solid var(--line);display:flex;align-items:baseline;justify-content:space-between;gap:8px;background:var(--panel-2)}
+  .race-head .rd{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--ink-dim);letter-spacing:.12em}
+  .race-head .gp{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:.98rem}
+  .race-head .date{font-size:.75rem;color:var(--ink-dim);white-space:nowrap;text-align:right}
+  .circuit-record{padding:8px 14px;border-bottom:1px solid var(--line);font-size:.76rem;color:var(--ink-dim);
+    display:flex;gap:8px;align-items:baseline;background:rgba(195,155,255,.05)}
+  .circuit-record .lbl{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--timing-purple);flex:none}
+  .circuit-record .val strong{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-weight:600}
+  .race-body{padding:12px 14px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .block-label{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink-dim);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+  .block-label.sprint::before{content:"S";display:inline-flex;align-items:center;justify-content:center;
+    width:15px;height:15px;border-radius:3px;background:var(--sprint);color:#1a1a1a;font-weight:700;font-size:.62rem}
+  .podium{display:flex;flex-direction:column;gap:5px}
+  .step{display:flex;align-items:center;gap:9px;font-size:.9rem;flex-wrap:wrap}
+  .medal{width:20px;height:20px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+    font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:700;color:#14161a}
+  .m1{background:var(--gold)} .m2{background:var(--silver)} .m3{background:var(--bronze)}
+  .step .who{font-weight:500}
+  .step .tm{color:var(--ink-dim);font-size:.78rem}
+  .chip{font-family:'IBM Plex Mono',monospace;font-size:.72rem;padding:1px 7px;border-radius:4px;margin-left:auto;white-space:nowrap}
+  .chip.gap{color:var(--ink);background:var(--panel-2);border:1px solid var(--line)}
+  .chip.wintime{color:var(--gold);background:rgba(242,193,78,.08);border:1px solid rgba(242,193,78,.35)}
+  .flrow{margin-top:6px;font-size:.78rem;color:var(--ink-dim);display:flex;gap:6px;align-items:baseline}
+  .flrow .flbadge{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;color:var(--timing-purple);
+    border:1px solid rgba(195,155,255,.4);border-radius:4px;padding:1px 5px;flex:none}
+  .flrow strong{color:var(--ink);font-weight:600}
+  .flrow .fltime{font-family:'IBM Plex Mono',monospace;color:var(--timing-purple)}
+  .fn{font-size:.74rem;color:var(--ink-dim);border-top:1px dashed var(--line);padding-top:8px;margin-top:auto}
+  .race.latest{border-color:rgba(242,193,78,.45)}
+  .race.latest .race-head .gp::after{content:"LATEST";font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;
+    color:var(--gold);border:1px solid rgba(242,193,78,.5);border-radius:4px;padding:2px 6px;margin-left:8px;vertical-align:2px}
+
+  .next-up{margin-top:16px;padding:12px 16px;border-left:3px solid;border-radius:0 var(--radius) var(--radius) 0;
+    background:var(--panel);font-size:.9rem;color:var(--ink-dim)}
+  .f1-series .next-up{border-color:var(--f1)}
+  .moto-series .next-up{border-color:var(--moto)}
+  .next-up strong{color:var(--ink)}
+
+  td.cal-date{font-family:'IBM Plex Mono',monospace;white-space:nowrap;text-align:right;color:var(--ink)}
+  .cal-note{color:var(--ink-dim);font-size:.74rem;margin-top:2px}
+  .sprint-chip{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:3px;
+    background:var(--sprint);color:#1a1a1a;font-weight:700;font-size:.62rem;font-family:'IBM Plex Mono',monospace;margin-left:7px;vertical-align:1px}
+  .cal-foot{font-size:.76rem;color:var(--ink-dim);margin-top:8px}
+  .cal-foot .sprint-chip{margin-left:0;margin-right:5px}
+
+  .news{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);overflow:hidden}
+  .news-item{padding:13px 16px;border-bottom:1px solid rgba(44,52,63,.5);position:relative}
+  .news-item:last-child{border-bottom:none}
+  .news-item.spoiler .shield{border-radius:0;padding:12px}
+
+  /* ---- title permutations ---- */
+  .title-summary{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+  .tstat{flex:1 1 150px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:10px 12px}
+  .tstat .k{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)}
+  .tstat .v{font-family:'Chakra Petch',sans-serif;font-size:1.25rem;font-weight:700;margin-top:2px}
+  .tstat .s{font-size:.74rem;color:var(--ink-dim);margin-top:2px}
+  .bar{position:relative;height:16px;background:var(--panel-2);border:1px solid var(--line);border-radius:3px;overflow:hidden;min-width:90px}
+  .bar span{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--confirm),#3aa76d)}
+  .bar.f1fill span{background:linear-gradient(90deg,#ff6a4d,var(--f1))}
+  .bar.motofill span{background:linear-gradient(90deg,#7fdcff,var(--moto))}
+  td.pct{font-family:'IBM Plex Mono',monospace;font-weight:600;text-align:right;white-space:nowrap}
+  tr.dead td{color:var(--ink-dim)}
+  .alive-yes{color:var(--confirm);font-weight:600}
+  .alive-no{color:var(--ink-dim)}
+  .news-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:4px}
+  .news-title{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:.95rem}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;
+    padding:2px 7px;border-radius:4px;border:1px solid;flex:none}
+  .tag.confirmed{color:var(--confirm);border-color:rgba(94,222,142,.45);background:rgba(94,222,142,.08)}
+  .tag.rumour{color:var(--gold);border-color:rgba(242,193,78,.45);background:rgba(242,193,78,.08)}
+  .tag.watch{color:var(--timing-purple);border-color:rgba(195,155,255,.45);background:rgba(195,155,255,.08)}
+  .news-body{font-size:.86rem;color:var(--ink-dim);line-height:1.5}
+  .news-body strong{color:var(--ink);font-weight:600}
+  .news-foot{font-size:.76rem;color:var(--ink-dim);margin-top:8px}
+
+  footer{max-width:1080px;margin:0 auto;padding:0 20px 40px;color:var(--ink-dim);font-size:.78rem;line-height:1.6}
+  footer .rule{border-top:1px solid var(--line);padding-top:14px}
+  footer p{margin-bottom:8px}
+
+  [hidden]{display:none!important}
+  .spoiler > .veil{filter:none}
+  .spoiler:not(.revealed){min-height:128px}
+  .spoiler .shield{position:static;min-height:128px;background:var(--panel-2)}
+  .races{grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+  .board{overflow-x:auto}
+  .help-copy{padding:12px 16px;font-size:.85rem;color:var(--ink-dim)}
+  .help-copy p{margin-bottom:10px}
+  a{color:var(--moto);text-underline-offset:3px}
+  button.action{background:var(--panel-2);border:1px solid var(--line);border-radius:7px;color:var(--ink);padding:9px 12px;cursor:pointer;font:inherit}
+  button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .session-controls{display:flex;flex-wrap:wrap;gap:8px;padding:12px 14px}
+  .session-controls label{font-size:.82rem;display:flex;align-items:center;gap:7px}
+  .session-controls input{width:20px;height:20px;accent-color:var(--gold)}
+  .source-line{font-size:.75rem;margin-top:9px;color:var(--ink-dim)}
+  .next-up{margin:0 0 18px}
+  .watch-actions{display:flex;flex-wrap:wrap;gap:8px}
+  .race-head{flex-wrap:wrap}
+  @media(max-width:540px){main{padding:14px 12px 35px}header,.tabs{padding-left:12px;padding-right:12px}td,thead th{padding:8px}table{font-size:.82rem}.race-head .date{text-align:left}.chip{margin-left:0}}
+.archive-photo{margin:0 0 20px;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--panel)}
+  .archive-photo img{display:block;width:100%;height:auto;max-height:360px;object-fit:contain;background:#0b0e13}
+  .archive-photo figcaption{padding:10px 14px;color:var(--ink-dim);font-size:.76rem;line-height:1.6}
+  .archive-photo strong{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="kicker">Points board · 2026 season · updated 30 September 2026 · v15 · results checked · news refreshed</div>
+  <h1><span class="f1c">Formula 1</span> &amp; <span class="motoc">MotoGP</span> Race Board</h1>
+  <p class="asof">Standings, podiums, finishing gaps, fastest laps and all-time circuit records for every Grand Prix and Sprint — plus the remaining calendar and a sourced paddock news feed for each series. Each series also carries a <strong>title-permutation panel</strong>: who is still mathematically alive, and a simulated estimate of taking the crown. Only the latest race weekend stays <strong>hidden until you tick its watched box</strong>, including the Sprint where relevant. The same box reveals current standings, title analysis and news. Earlier races are always visible.</p>
+<p id="storage-status" class="asof" role="status"></p><noscript><p>Enable JavaScript to load the dashboard. Results remain hidden.</p></noscript></header>
+
+<div class="tabs" role="tablist" aria-label="Championship">
+  <button class="tab f1" id="tab-f1" role="tab" aria-selected="true" aria-controls="panel-f1">🏎 Formula 1</button>
+  <button class="tab moto" id="tab-moto" role="tab" aria-selected="false" aria-controls="panel-moto">🏍 MotoGP</button>
+</div>
+
+<main>
+
+<section class="series f1-series active" id="panel-f1" role="tabpanel" aria-labelledby="tab-f1">
+<figure class="archive-photo"><img src="photos/verstappen-silverstone-2024.jpg" alt="Max Verstappen driving a Red Bull Formula 1 car at the 2024 British Grand Prix" width="1280" height="853" decoding="async"><figcaption><strong>Archive photo · Max Verstappen at Silverstone, 2024.</strong><br>Photo © Jen Ross / <a href="https://commons.wikimedia.org/wiki/File:2024_British_Grand_Prix,_Verstappen_(3).jpg">Wikimedia Commons source</a> · <a href="https://creativecommons.org/licenses/by/2.0/" rel="license">Creative Commons Attribution 2.0 Generic (CC BY 2.0)</a> · Resized; no crop.</figcaption></figure>
+  <div class="parc-ferme" data-watchbar></div>
+
+  <h2>Drivers' Championship</h2>
+  <div class="spoiler" id="spoiler-f1-standings">
+    <div class="shield"><div class="flag">🏁</div>
+      <p><strong>Standings hidden</strong> — they'd give away the Azerbaijan GP result.</p>
+      <p class="small">Tick the latest weekend’s watched box above to reveal.</p>
+    </div>
+    <div class="veil" hidden inert>
+      <div class="board"><table>
+        <thead><tr><th>Pos</th><th>Driver</th><th>Team</th><th style="text-align:right">Pts</th></tr></thead>
+        <tbody id="f1-standings"></tbody>
+      </table></div>
+      <p class="source-line">Standings checked 30 September 2026 against the official <a href="https://www.formula1.com/en/results/2026/drivers">driver table</a> and <a href="https://www.formula1.com/en/results/2026/team">team table</a>. Each totals 1,695 points. Drivers who changed teams retain their personal points; constructors retain points scored for them.</p>
+      <details class="secondary"><summary>Constructors' Championship</summary>
+        <div class="board" style="border:none"><table>
+          <thead><tr><th>Pos</th><th>Team</th><th style="text-align:right">Pts</th></tr></thead>
+          <tbody id="f1-constructors"></tbody>
+        </table></div>
+      </details>
+    </div>
+  </div>
+
+
+  <h2>Who can still win it?</h2>
+  <div class="spoiler" data-latest="f1">
+    <div class="shield"><div class="flag">🧮</div>
+      <p><strong>Title maths hidden</strong> — it gives the Azerbaijan GP result away.</p>
+      <p class="small">Tick the latest weekend’s watched box above to reveal.</p>
+    </div>
+    <div class="veil" hidden inert>
+      <div class="title-summary" id="f1-title-summary"></div>
+      <div class="board"><table>
+        <thead><tr><th>Driver</th><th style="text-align:right">Pts</th><th style="text-align:right">Max poss.</th><th>Alive?</th><th style="text-align:right">Model estimate</th><th>&nbsp;</th></tr></thead>
+        <tbody id="f1-title"></tbody>
+      </table></div>
+      <details class="secondary"><summary>Constructors' model estimate</summary>
+        <div class="board" style="border:none"><table>
+          <thead><tr><th>Team</th><th style="text-align:right">Pts</th><th style="text-align:right">Max poss.</th><th>Alive?</th><th style="text-align:right">Chance</th><th>&nbsp;</th></tr></thead>
+          <tbody id="f1-ctitle"></tbody>
+        </table></div>
+      </details>
+      <div class="cal-foot" id="f1-title-foot"></div>
+    </div>
+  </div>
+
+  <h2>Race by race — podiums, gaps &amp; fastest laps</h2>
+  <div class="races" id="f1-races"></div>
+
+  
+
+  <h2>Remaining 2026 calendar</h2>
+  <div class="board"><table>
+    <thead><tr><th>Rd</th><th>Grand Prix</th><th>Circuit</th><th style="text-align:right">Date</th></tr></thead>
+    <tbody id="f1-calendar"></tbody>
+  </table></div>
+  <p class="cal-foot"><span class="sprint-chip">S</span>= sprint weekend. Remaining calendar retained from the 28 September edition; the next event’s timetable was rechecked on 30 September. All listed rounds are counted in the title calculations. <a href="https://www.formula1.com/en/racing/2026">Check the official F1 calendar</a> for changes.</p>
+
+  <h2>Paddock news</h2>
+  <div class="news" id="f1-news"></div>
+  <p class="news-foot">News checked: 30 September 2026. Stories stay hidden until the latest weekend is marked watched. Each summary links to its source; publication dates are shown below.</p>
+</section>
+
+<section class="series moto-series" id="panel-moto" role="tabpanel" aria-labelledby="tab-moto">
+<figure class="archive-photo"><img src="photos/pedrosa-marquez-misano-2016.jpg" alt="Dani Pedrosa and Marc Márquez riding Repsol Honda motorcycles at Misano in 2016" width="1280" height="853" decoding="async" loading="lazy"><figcaption><strong>Archive photo · Dani Pedrosa and Marc Márquez at Misano, 2016.</strong><br>Photo © Box Repsol / <a href="https://commons.wikimedia.org/wiki/File:Dani_Pedrosa_and_Marc_M%C3%A1rquez_2016_Misano.jpg">Wikimedia Commons source</a> · <a href="https://creativecommons.org/licenses/by/2.0/" rel="license">Creative Commons Attribution 2.0 Generic (CC BY 2.0)</a> · Resized; no crop.</figcaption></figure>
+  <div class="parc-ferme" data-watchbar></div>
+
+  <h2>Riders' Championship</h2>
+  <div class="spoiler" id="spoiler-moto-standings">
+    <div class="shield"><div class="flag">🏁</div>
+      <p><strong>Standings hidden</strong> — they'd give away the Austrian GP result.</p>
+      <p class="small">Tick the latest weekend’s watched box above to reveal.</p>
+    </div>
+    <div class="veil" hidden inert>
+      <div class="board"><table>
+        <thead><tr><th>Pos</th><th>Rider</th><th>Team</th><th style="text-align:right">Pts</th></tr></thead>
+        <tbody id="moto-standings"></tbody>
+      </table></div>
+      <p class="source-line">Standings after Austria, checked 30 September 2026 against <a href="https://www.crash.net/motogp/results/1104906/1/austria-new-2026-motogp-world-championship-standings">the published championship table</a>. Jorge Martín leads Marc Márquez by 12 points; Marco Bezzecchi is 42 points behind Martín. The table includes substitutes and wildcards who scored points.</p>
+    </div>
+  </div>
+
+
+  <h2>Who can still win it?</h2>
+  <div class="spoiler" data-latest="moto">
+    <div class="shield"><div class="flag">🧮</div>
+      <p><strong>Title maths hidden</strong> — it gives the Austrian GP result away.</p>
+      <p class="small">Tick the latest weekend’s watched box above to reveal.</p>
+    </div>
+    <div class="veil" hidden inert>
+      <div class="title-summary" id="moto-title-summary"></div>
+      <div class="board"><table>
+        <thead><tr><th>Rider</th><th style="text-align:right">Pts</th><th style="text-align:right">Max poss.</th><th>Alive?</th><th style="text-align:right">Model estimate</th><th>&nbsp;</th></tr></thead>
+        <tbody id="moto-title"></tbody>
+      </table></div>
+      <div class="cal-foot" id="moto-title-foot"></div>
+    </div>
+  </div>
+
+  <h2>Round by round — podiums, gaps &amp; fastest laps</h2>
+  <div class="races" id="moto-races"></div>
+
+  
+
+  <h2>Remaining 2026 calendar</h2>
+  <div class="board"><table>
+    <thead><tr><th>Rd</th><th>Grand Prix</th><th>Circuit</th><th style="text-align:right">Date</th></tr></thead>
+    <tbody id="moto-calendar"></tbody>
+  </table></div>
+  <p class="cal-foot">Every round includes a Saturday Sprint. Remaining calendar retained from the 28 September edition; Motegi’s timetable was rechecked on 30 September. All listed rounds are counted in the title calculations. <a href="https://www.motogp.com/en/calendar/2026">Check the official MotoGP calendar</a> for changes.</p>
+
+  <h2>Paddock news</h2>
+  <div class="news" id="moto-news"></div>
+  <p class="news-foot">News checked: 30 September 2026. Stories stay hidden until the latest weekend is marked watched. Each summary links to its source; publication dates are shown below.</p>
+</section>
+
+</main>
+
+<footer><div class="rule">
+<p><strong>Checked 30 September 2026.</strong> This is a saved dashboard, not a live feed. Latest completed weekends: F1 Azerbaijan (26 September) and MotoGP Austria (20 September). No newer race result was available at this check. F1 standings, podium and fastest lap were checked against official F1 tables; MotoGP standings and podiums were cross-checked against the published Austrian classifications and official race report. Earlier rounds and their timing details are retained from the previous edition and have not all been rechecked.</p>
+<details class="secondary"><summary>Sources, photos and saved version</summary><div class="help-copy">
+<p>External sources may contain spoilers: <a href="https://www.formula1.com/en/results/2026/drivers">F1 drivers</a> · <a href="https://www.formula1.com/en/results/2026/team">F1 teams</a> · <a href="https://www.formula1.com/en/results/2026/races/1295/azerbaijan/race-result">Azerbaijan classification</a> · <a href="https://www.formula1.com/en/results/2026/races/1295/azerbaijan/fastest-laps">Azerbaijan fastest laps</a> · <a href="https://www.crash.net/motogp/results/1104906/1/austria-new-2026-motogp-world-championship-standings">MotoGP standings after Austria</a> · <a href="https://www.crash.net/motogp/results/1104905/1/2026-austrian-motogp-red-bull-ring-race-results">Austrian GP classification</a>.</p>
+<p>Photos are archive images, with photographer, source and Creative Commons Attribution 2.0 Generic licence links under each image. They are resized for display without cropping. No endorsement is implied. <a href="photos/CREDITS.md">Photo credits and reuse details</a>.</p>
+<p>The previous page is preserved unchanged as <a href="index-v14-2026-09-28.html">v14 — 28 September 2026</a> (may contain spoilers and superseded reporting).</p>
+</div></details>
+<details class="secondary"><summary>How to read this dashboard</summary><div class="help-copy"><p>Gold timing chips show the winner’s race time; other chips show finishing gaps. ≈ means approximate. F1 circuit records are race lap records; MotoGP circuit records may come from qualifying. Unverified timings stay blank. The latest weekend, current standings, title analysis and news remain hidden until you tick its watched box. Earlier races stay visible.</p><p>Title estimates are inherited from the previous edition, not newly calculated forecasts. Maximum points and eligibility are calculated from the standings and remaining calendar, assuming full points and that every listed round goes ahead. Calendar changes can alter those figures.</p><p>Watched choices are saved in this browser when storage is available. Untick the box to hide results again.</p></div></details>
+</div></footer>
+
+<script>
+
+/* ============ DATA ============ */
+const F1_STANDINGS = [
+  ["Kimi Antonelli","Mercedes",302],["George Russell","Mercedes",236],
+  ["Lewis Hamilton","Ferrari",199],["Lando Norris","McLaren",186],
+  ["Charles Leclerc","Ferrari",179],["Max Verstappen","Red Bull",163],
+  ["Oscar Piastri","McLaren",120],["Isack Hadjar","Red Bull",86],
+  ["Liam Lawson","Racing Bulls",59],["Pierre Gasly","Alpine",41],
+  ["Arvid Lindblad","Racing Bulls",37],["Franco Colapinto","Alpine",27],
+  ["Oliver Bearman","Haas",20],["Gabriel Bortoleto","Audi",10],
+  ["Nico Hülkenberg","Audi",7],["Esteban Ocon","Haas",7],
+  ["Carlos Sainz","Williams",7],["Alexander Albon","Williams",5],
+  ["Fernando Alonso","Aston Martin",3],["Yuki Tsunoda","Racing Bulls",1],
+  ["Lance Stroll","Aston Martin",0],["Valtteri Bottas","Cadillac",0],
+  ["Sergio Pérez","Cadillac",0]
+];
+const F1_CONSTRUCTORS = [
+  ["Mercedes",538],["Ferrari",378],["McLaren",306],["Red Bull Racing",263],
+  ["Racing Bulls",83],["Alpine",68],["Haas",27],["Audi",17],
+  ["Williams",12],["Aston Martin",3],["Cadillac",0]
+];
+
+/* podium entries: [name, team, chip] — chip is winner's race time for P1, gap for P2/P3, or null */
+const F1_RACES = [
+  {rd:1,gp:"Australian GP",circuit:"Albert Park, Melbourne",date:"8 Mar",
+   record:{t:"1:19.813",who:"C. Leclerc",ev:"2024 Australian GP"},
+   race:{podium:[["George Russell","Mercedes","1:23:06.801"],["Kimi Antonelli","Mercedes","+2.974s"],["Charles Leclerc","Ferrari","+15.519s"]],
+         fl:{who:"Max Verstappen",t:"1:22.091",extra:"set on lap 43 during his charge from P20 to P6"}}},
+  {rd:2,gp:"Chinese GP",circuit:"Shanghai International",date:"14–15 Mar",
+   record:{t:"1:32.238",who:"M. Schumacher",ev:"2004 Chinese GP"},
+   sprint:{podium:[["George Russell","Mercedes",null],["Charles Leclerc","Ferrari",null],["Lewis Hamilton","Ferrari",null]]},
+   race:{podium:[["Kimi Antonelli","Mercedes","1:33:15.607"],["George Russell","Mercedes","+5.515s"],["Lewis Hamilton","Ferrari","+25.267s"]],
+         fl:{who:"Kimi Antonelli",t:"1:35.275"}}},
+  {rd:3,gp:"Japanese GP",circuit:"Suzuka",date:"29 Mar",
+   record:{t:"1:30.965",who:"K. Antonelli",ev:"2025 Japanese GP"},
+   race:{podium:[["Kimi Antonelli","Mercedes","1:28:03.403"],["Oscar Piastri","McLaren","+13.722s"],["Charles Leclerc","Ferrari","+15.270s"]],
+         fl:{who:"Kimi Antonelli",t:"1:32.432"}}},
+  {rd:4,gp:"Miami GP",circuit:"Miami International Autodrome",date:"2–3 May",
+   record:{t:"1:29.708",who:"M. Verstappen",ev:"2023 Miami GP"},
+   sprint:{podium:[["Lando Norris","McLaren",null],["Oscar Piastri","McLaren",null],["Charles Leclerc","Ferrari",null]]},
+   race:{podium:[["Kimi Antonelli","Mercedes","1:33:19.273"],["Lando Norris","McLaren","+3.264s"],["Oscar Piastri","McLaren","+27.092s"]],
+         fl:{who:"Lando Norris",t:"1:31.869",extra:"set on lap 35 while hunting down Antonelli"}}},
+  {rd:5,gp:"Canadian GP",circuit:"Circuit Gilles Villeneuve",date:"23–24 May",
+   record:{t:"1:13.078",who:"V. Bottas",ev:"2019 Canadian GP"},
+   sprint:{podium:[["George Russell","Mercedes",null],["Lando Norris","McLaren",null],["Kimi Antonelli","Mercedes",null]]},
+   race:{podium:[["Kimi Antonelli","Mercedes","1:28:15.758"],["Lewis Hamilton","Ferrari","+10.768s"],["Max Verstappen","Red Bull","+11.276s"]],
+         fl:{who:"Kimi Antonelli",t:"1:14.210",extra:"set on lap 68 — the final lap"}}},
+  {rd:6,gp:"Monaco GP",circuit:"Circuit de Monaco",date:"7 Jun",
+   record:{t:"1:12.909",who:"L. Hamilton",ev:"2021 Monaco GP"},
+   race:{podium:[["Kimi Antonelli","Mercedes","2:23:31.243"],["Lewis Hamilton","Ferrari","+6.271s"],["Pierre Gasly","Alpine","+20.369s"]],
+         fl:{who:"Kimi Antonelli",t:"1:13.481",extra:"lap 76 — completing a grand slam: pole, win, fastest lap, every lap led"}},
+   note:"Gasly reinstated to P3 after Alpine's successful right of review (time penalties overturned). Race time includes a red-flag stoppage."},
+  {rd:7,gp:"Barcelona-Catalunya GP",circuit:"Circuit de Barcelona-Catalunya",date:"14 Jun",
+   record:{t:"1:16.330",who:"M. Verstappen",ev:"2023 Spanish GP (current layout)"},
+   race:{podium:[["Lewis Hamilton","Ferrari","1:32:28.105"],["George Russell","Mercedes","+19.561s"],["Lando Norris","McLaren","+23.719s"]],
+         fl:{who:"Lewis Hamilton",t:"1:20.122",extra:"set on lap 44 of his three-stop charge"}},
+   note:"Hamilton's first Ferrari win; first all-British podium since 1968."},
+  {rd:8,gp:"Austrian GP",circuit:"Red Bull Ring",date:"28 Jun",
+   record:{t:"1:05.619",who:"C. Sainz",ev:"2020 Austrian GP"},
+   race:{podium:[["George Russell","Mercedes","1:26:37.979"],["Max Verstappen","Red Bull","+1.611s"],["Kimi Antonelli","Mercedes","+1.986s"]],
+         fl:{who:"Kimi Antonelli",t:"1:10.374",extra:"set on lap 59 while closing on Verstappen"}}},
+  {rd:9,gp:"British GP",circuit:"Silverstone",date:"4–5 Jul",
+   record:{t:"1:27.097",who:"M. Verstappen",ev:"2020 British GP"},
+   sprint:{podium:[["Kimi Antonelli","Mercedes",null],["Lewis Hamilton","Ferrari","+2.745s"],["Lando Norris","McLaren","≈ +9.7s"]]},
+   race:{podium:[["Charles Leclerc","Ferrari","1:27:11.335"],["George Russell","Mercedes","+0.427s"],["Lewis Hamilton","Ferrari","+0.772s"]],
+         fl:{who:"Kimi Antonelli",t:"1:31.777",extra:"set on lap 38 while chasing the lead, before his late issue — he finished 16th"}},
+   note:"Leclerc's first win of 2026 and Ferrari's 250th."},
+  {rd:10,gp:"Belgian GP",circuit:"Spa-Francorchamps",date:"19 Jul",
+   record:{t:"1:44.701",who:"S. Pérez",ev:"2024 Belgian GP"},
+   race:{podium:[["Kimi Antonelli","Mercedes","1:24:42.479"],["Charles Leclerc","Ferrari","+1.952s"],["Max Verstappen","Red Bull","≈ +11.5s"]],
+         fl:{who:"Lando Norris",t:"1:48.890",extra:"set on lap 44 — the final lap — after his grid penalty left him recovering to P7"}},
+   note:"Antonelli's sixth win of 2026, retaking the lead from Leclerc on lap 34 after Ferrari undercut him at the VSC. Russell out on lap 1 — an energy-deployment failure left him swamped, then contact with Hamilton (5s penalty) pitched him into the gravel. Verstappen's P3 was Red Bull's 300th podium."},
+  {rd:11,gp:"Hungarian GP",circuit:"Hungaroring",date:"26 Jul",
+   record:{t:"1:16.627",who:"L. Hamilton",ev:"2020 Hungarian GP"},
+   race:{podium:[["Lando Norris","McLaren","1:39:56.180"],["Max Verstappen","Red Bull","+15.080s"],["Kimi Antonelli","Mercedes","+18.728s"]],
+         fl:{who:"Charles Leclerc",t:"1:22.000",extra:"set on lap 58 in clean air after his second stop — too late to change the podium"}},
+   note:"Norris's first win of the season, and McLaren's, from his first pole of 2026 — taken by 0.012s from Hamilton, ending Mercedes' run of ten straight poles. Piastri jumped him at Turn 2 on lap 1 and led until contact with Sainz in traffic after the second stops swung it Norris's way; a gearbox failure ended the Australian's race on lap 56. Hamilton crossed the line fourth but a 5s pit-lane speeding penalty handed P4 to Leclerc. Hamilton and Antonelli had both taken three-place grid drops on Saturday."},
+  {rd:12,gp:"Dutch GP",circuit:"Zandvoort",date:"21–23 Aug",
+   record:{t:"1:11.097",who:"L. Hamilton",ev:"2021 Dutch GP"},
+   sprint:{podium:[["George Russell","Mercedes","30:25.318"],["Charles Leclerc","Ferrari","+1.360s"],["Lando Norris","McLaren","+5.196s"]]},
+   race:{podium:[["Lando Norris","McLaren","2:04:44.859"],["Kimi Antonelli","Mercedes","+11.536s"],["George Russell","Mercedes","+15.906s"]],
+         fl:{who:"Charles Leclerc",t:"1:14.230",extra:"set on lap 60 — no threat to the podium by then"}},
+   note:"Zandvoort's F1 farewell, and a bruising one for the home crowd: Max Verstappen lost the rear on the main straight at the end of lap 1 and hit the wall hard, unhurt but out, bringing out the red flag. Norris started from pole but was jumped by Antonelli at the standing restart and spent two-thirds of the race chasing him down, retaking the lead around lap 52 and winning by 11.5s — his second win in a row and McLaren's 205th. Mercedes swapped their cars on lap 65 to give Antonelli second. Liam Lawson, standing in for the injured Isack Hadjar at Red Bull, took P7 despite a 10s yellow-flag penalty; Yuki Tsunoda returned from the sidelines to fill Lawson's Racing Bulls seat at a few days' notice. Yellow-flag penalties also hit Tsunoda, Lindblad and Colapinto, and Sainz took 10s for the Williams-on-Williams collision. Antonelli leaves the Netherlands 59 points clear."},
+  {rd:13,gp:"Italian GP",circuit:"Monza",date:"4–6 Sep",
+   record:{t:"1:20.901",who:"L. Norris",ev:"2025 Italian GP"},
+   race:{podium:[["Kimi Antonelli","Mercedes","1:51:15.281"],["George Russell","Mercedes","+3.857s"],["Max Verstappen","Red Bull","+14.718s"]],
+         fl:{who:"Kimi Antonelli",t:"1:23.504",extra:"set late in his recovery drive — 2.6s off Norris's 2025 mark, which is roughly what the 2026 cars give away"}},
+   note:"The drive of the season, and a home one. Kimi Antonelli started 19th after an engine-allocation grid penalty and won at Monza, the first Italian to do so since Ludovico Scarfiotti in 1966. Pierre Gasly had taken a maiden pole for Alpine on Saturday. The race was red-flagged almost immediately when Charles Leclerc — having already tipped Lewis Hamilton into the gravel — crashed heavily at the Parabolica and needed the barrier rebuilt; he was unhurt but reported his right eye \"not showing me great vision\" afterwards and faced further checks. Antonelli was already up to the lead by lap 18 at the first chicane, lost it in the pit cycle, then took it back for good on lap 50 of 53 through Ascari after a failed look at the chicane the lap before. The swing came from a lap-28 virtual safety car for Lance Stroll's stricken Aston Martin: Antonelli and Verstappen pitted for fresh mediums, Russell stayed out and had nothing left at the end. Mercedes had been weighing a swap before that — \"if he can't do that, we'll invert\" — which the VSC made moot. Fernando Alonso retired too, so both Aston Martins were out. Liam Lawson, in the Red Bull for a second weekend with Hadjar still injured, finished 14th; Yuki Tsunoda took Racing Bulls' point in 10th. Antonelli leaves his home race 66 points clear."},
+  {rd:14,gp:"Spanish GP",circuit:"Madring, Madrid",date:"11–13 Sep",
+   record:{t:"1:35.587",who:"G. Russell",ev:"2026 Spanish GP",broken:"A circuit debut, so this is the inaugural race lap record — nobody had set one here before Sunday, and it will almost certainly not survive 2027."},
+   race:{podium:[["Kimi Antonelli","Mercedes","1:34:23.754"],["Max Verstappen","Red Bull","+4.351s"],["Lando Norris","McLaren","+5.089s"]],
+         fl:{who:"George Russell",t:"1:35.587",extra:"set from fifth after Mercedes switched him to a two-stop on lap 28 — too late to reach the podium"}},
+   note:"A cruel debut for Madrid's new Madring, and a lucky eighth win of the season for Kimi Antonelli, who said so himself: \"it's good to win but it doesn't feel as good, because I think Lando today deserved the win.\" Lando Norris had taken pole by 0.011s from Antonelli with what McLaren called a masterpiece, and led by six seconds by lap 14 — at which point Lance Stroll stopped at the far end of the lap and brought out a virtual safety car. Norris was already past the pit entry; Antonelli and Max Verstappen behind him were not, and both took a cut-price stop. Norris pitted a lap later at full racing speed and McLaren then took seven seconds over it, dropping him to fifth. He recovered to third but never got past Verstappen. Charles Leclerc ran an extended hard-tyre first stint for Ferrari, led from lap 20-odd and gambled on a safety car that never came, pitting on lap 48 for fourth. Lewis Hamilton's race — and a quietly remarkable statistic — ended on lap seven: brake failure while running third, the first racing lap he had failed to complete all season. Verstappen was ordered to hand a place back to Hamilton after running wide at Turn 1 on lap one, and grumbled about it. Oscar Piastri damaged his front wing on the opening lap and climbed back to eighth. Carlos Sainz took five seconds for contact with Fernando Alonso and retired later anyway, as did Sergio Pérez. Antonelli leaves Madrid 81 points clear and Russell, fifth on the day, conceded he is \"not in the fight for the drivers' [title]\"."},
+  {rd:15,gp:"Azerbaijan GP",circuit:"Baku City Circuit",date:"24–26 Sep",latest:true,
+   record:{t:"1:43.009",who:"C. Leclerc",ev:"2019 Azerbaijan GP",broken:"Untroubled: Russell's 1:44.916 on Saturday was the fastest lap of the race but still 1.9s outside the 2019 mark, which is about what the heavier 2026 cars have been giving away all year."},
+   race:{podium:[["George Russell","Mercedes","1:38:02.143"],["Max Verstappen","Red Bull","+0.196s"],["Isack Hadjar","Red Bull","+10.704s"]],
+         fl:{who:"George Russell",t:"1:44.916",extra:"lap 49 of 51 — confirmed by the official F1 fastest-laps table on 30 September"}},
+   note:"A Saturday race, and very nearly one that got away. George Russell took pole by 0.837s — the biggest margin anyone has managed all season — led from the lights and had eleven seconds in hand before Baku did what Baku does. Alex Albon put his Williams in the wall at Turn 5 just past half-distance for the first safety car, and at the lap-36 restart Franco Colapinto locked up into Turn 1, hit Pierre Gasly and shoved him into Lando Norris: all three out on the spot. Colapinto called it \"a big mistake\"; Norris, less charitably, said some drivers \"shouldn't be in Formula 1\". Oscar Piastri, third at that restart, locked up at the same corner and fell to 15th, eventually finishing 13th. Then on the last lap Valtteri Bottas hit the barriers at Turn 15, the yellows came out, Russell lifted, his energy deployment went with it, and Max Verstappen arrived at the line 0.196s behind — the closest finish since 2022. \"Max almost got me at the line,\" Russell said; he put his second-half form down to \"adapting my driving style since the summer break\". Isack Hadjar, back after three rounds out with a fractured wrist, took third for a Red Bull double podium in his first race since Hungary; Liam Lawson went back to Racing Bulls and Yuki Tsunoda out of a seat. Kimi Antonelli crashed in qualifying, started 16th, salvaged fifth and called it \"my worst weekend of the year by far\" — which still left him 66 points clear. Lance Stroll (water pressure) and Fernando Alonso both retired, so Aston Martin were out again. Colapinto's unserved 10-second penalty became a five-place grid drop for Sepang, and Gabriel Bortoleto's 10 seconds for passing under yellows dropped him from 13th to 15th."}
+];
+
+const MOTO_STANDINGS = [
+  ["Jorge Martín","Aprilia Racing",306],["Marc Márquez","Ducati Lenovo",294],
+  ["Marco Bezzecchi","Aprilia Racing",264],["Pedro Acosta","Red Bull KTM",234],
+  ["Fabio Di Giannantonio","VR46 Ducati",230],["Ai Ogura","Trackhouse Aprilia",222],
+  ["Raúl Fernández","Trackhouse Aprilia",203],["Álex Márquez","Gresini Ducati",158],
+  ["Francesco Bagnaia","Ducati Lenovo",156],["Fermín Aldeguer","Gresini Ducati",115],
+  ["Luca Marini","Honda HRC",98],["Enea Bastianini","KTM Tech3",97],
+  ["Brad Binder","Red Bull KTM",94],["Diogo Moreira","LCR Honda",65],
+  ["Fabio Quartararo","Monster Yamaha",61],["Franco Morbidelli","VR46 Ducati",56],
+  ["Johann Zarco","LCR Honda",45],["Joan Mir","Honda HRC",33],
+  ["Jack Miller","Pramac Yamaha",28],["Álex Rins","Monster Yamaha",24],
+  ["Toprak Razgatlıoğlu","Pramac Yamaha",18],["Maverick Viñales","KTM Tech3",10],
+  ["Iker Lecuona","Gresini Ducati",9],["Augusto Fernández","Yamaha (wildcard)",6],
+  ["Pol Espargaró","KTM Tech3",5],["Takaaki Nakagami","Honda HRC (sub)",3]
+];
+
+const MOTO_RACES = [
+  {rd:1,gp:"Thai GP",circuit:"Chang International, Buriram",date:"28 Feb–1 Mar",
+   record:{t:"1:28.652",who:"M. Bezzecchi",ev:"2026 qualifying (new all-time record)"},
+   sprint:{podium:[["Pedro Acosta","KTM",null],["Marc Márquez","Ducati","+0.108s"],["Raúl Fernández","Trackhouse Aprilia",null]]},
+   race:{podium:[["Marco Bezzecchi","Aprilia",null],["Pedro Acosta","KTM",null],["Raúl Fernández","Trackhouse Aprilia",null]],
+         fl:{who:"Marco Bezzecchi",t:"1:30.487"}},
+   note:"Márquez dropped one place in the Sprint for a last-corner move on Acosta. Márquez retired from the GP with a rear puncture."},
+  {rd:2,gp:"Brazilian GP",circuit:"Autódromo Ayrton Senna, Goiânia",date:"21–22 Mar",
+   record:{t:"1:17.410",who:"F. Di Giannantonio",ev:"2026 qualifying",broken:"The circuit's modern benchmark, set on MotoGP's return after 21 years; historic 500cc best was 1:25.440 (W. Rainey, 1989)."},
+   sprint:{podium:[["Marc Márquez","Ducati",null],["Fabio Di Giannantonio","VR46 Ducati","≈ +0.2s"],["Jorge Martín","Aprilia",null]]},
+   race:{podium:[["Marco Bezzecchi","Aprilia",null],["Jorge Martín","Aprilia","≈ +3s"],["Fabio Di Giannantonio","VR46 Ducati",null]],
+         fl:{who:"Marco Bezzecchi",t:"1:18.654"}},
+   note:"First Brazilian GP in 21 years. Race shortened from 31 to 23 laps due to track degradation."},
+  {rd:3,gp:"Americas GP",circuit:"COTA, Austin",date:"28–29 Mar",
+   record:{t:"2:00.136",who:"F. Di Giannantonio",ev:"2026 qualifying (new all-time record)"},
+   sprint:{podium:[["Jorge Martín","Aprilia",null],["Francesco Bagnaia","Ducati",null],["Enea Bastianini","KTM Tech3",null]]},
+   race:{podium:[["Marco Bezzecchi","Aprilia",null],["Jorge Martín","Aprilia","+2.036s"],["Pedro Acosta","KTM",null]],
+         fl:{who:"Ai Ogura",t:"2:02.037"}},
+   note:"Acosta lost Sprint P3 to a tyre-pressure penalty, promoting Bastianini. Bezzecchi's fifth straight GP win — a start-to-finish masterclass that broke the all-time consecutive-laps-led record."},
+  {rd:4,gp:"Spanish GP",circuit:"Jerez – Ángel Nieto",date:"25–26 Apr",
+   record:{t:"1:35.610",who:"F. Quartararo",ev:"2025 Spanish GP"},
+   sprint:{podium:[["Marc Márquez","Ducati",null],["Francesco Bagnaia","Ducati","≈ +3s"],["Franco Morbidelli","VR46 Ducati",null]]},
+   race:{podium:[["Álex Márquez","Gresini Ducati",null],["Marco Bezzecchi","Aprilia","≈ +2s"],["Fabio Di Giannantonio","VR46 Ducati",null]],
+         fl:{who:"Álex Márquez",t:"1:37.081"}},
+   note:"First flag-to-flag Sprint in MotoGP history after sudden rain — Márquez crashed, swapped bikes and still won it."},
+  {rd:5,gp:"French GP",circuit:"Bugatti Circuit, Le Mans",date:"9–10 May",
+   record:{t:"1:29.324",who:"F. Quartararo",ev:"2025 French GP"},
+   sprint:{podium:[["Jorge Martín","Aprilia",null],["Francesco Bagnaia","Ducati",null],["Marco Bezzecchi","Aprilia",null]]},
+   race:{podium:[["Jorge Martín","Aprilia",null],["Marco Bezzecchi","Aprilia","+0.477s"],["Ai Ogura","Trackhouse Aprilia",null]],
+         fl:{who:"Francesco Bagnaia",t:"1:31.164"}},
+   note:"First-ever Aprilia 1-2-3 in the premier class. Marc Márquez injured in a Sprint highsider, missing the GP and Catalunya."},
+  {rd:6,gp:"Catalan GP",circuit:"Barcelona-Catalunya",date:"16–17 May",
+   record:{t:"1:37.536",who:"Á. Márquez",ev:"2025 Catalan GP"},
+   sprint:{podium:[["Álex Márquez","Gresini Ducati",null],["Pedro Acosta","KTM","+0.041s"],["Fabio Di Giannantonio","VR46 Ducati",null]],
+         fl:{who:"Álex Márquez",t:"1:39.209"}},
+   race:{podium:[["Fabio Di Giannantonio","VR46 Ducati",null],["Fermín Aldeguer","Gresini Ducati",null],["Francesco Bagnaia","Ducati",null]],
+         fl:{who:"Fabio Di Giannantonio",t:"1:39.736"}},
+   note:"Closest Sprint finish in MotoGP history (0.041s). Twice red-flagged GP; the podium was settled after post-race tyre-pressure penalties, so official gaps aren't representative."},
+  {rd:7,gp:"Italian GP",circuit:"Mugello",date:"30–31 May",
+   record:{t:"1:43.921",who:"M. Bezzecchi",ev:"2026 qualifying (new all-time record)"},
+   sprint:{podium:[["Raúl Fernández","Trackhouse Aprilia",null],["Jorge Martín","Aprilia","+1.289s"],["Fabio Di Giannantonio","VR46 Ducati",null]]},
+   race:{podium:[["Marco Bezzecchi","Aprilia",null],["Jorge Martín","Aprilia",null],["Francesco Bagnaia","Ducati",null]],
+         fl:{who:"Francesco Bagnaia",t:"1:45.470"}},
+   note:"Fernández's maiden Sprint win. Bagnaia saved P3 by 0.034s over Ogura to deny an all-Aprilia podium. Martín also set a new all-time MotoGP top-speed record here: 368.6 km/h."},
+  {rd:8,gp:"Hungarian GP",circuit:"Balaton Park",date:"6–7 Jun",
+   record:{t:"1:36.518",who:"M. Márquez",ev:"2025 Hungarian GP"},
+   sprint:{podium:[["Marc Márquez","Ducati",null],["Pedro Acosta","KTM",null],["Marco Bezzecchi","Aprilia",null]]},
+   race:{podium:[["Marc Márquez","Ducati",null],["Pedro Acosta","KTM","+1.343s"],["Francesco Bagnaia","Ducati",null]],
+         fl:{who:"Marc Márquez",t:"1:38.313",extra:"set on lap 20 of 26 to break Acosta's resistance"}},
+   note:"Márquez's 100th win across all classes — a perfect treble. Martín took out Bezzecchi at Turn 1; both title leaders scored zero."},
+  {rd:9,gp:"Czech GP",circuit:"Brno",date:"20–21 Jun",
+   record:{t:"1:51.139",who:"A. Ogura",ev:"2026 qualifying (all-time record)"},
+   sprint:{podium:[["Francesco Bagnaia","Ducati",null],["Ai Ogura","Trackhouse Aprilia","≈ +0.2s"],["Marc Márquez","Ducati",null]]},
+   race:{podium:[["Marc Márquez","Ducati",null],["Ai Ogura","Trackhouse Aprilia","+0.421s"],["Francesco Bagnaia","Ducati",null]],
+         fl:{who:"Fabio Di Giannantonio",t:"1:53.122",extra:"a new race lap record, set on the final lap from P4"}},
+   note:"Bezzecchi banned from the GP after striking a marshal following his Sprint crash. Bagnaia held off Di Giannantonio for P3 by 0.169s."},
+  {rd:10,gp:"Dutch GP",circuit:"TT Circuit Assen",date:"27–28 Jun",
+   record:{t:"1:30.540",who:"F. Bagnaia",ev:"2024 Dutch TT"},
+   sprint:{podium:[["Raúl Fernández","Trackhouse Aprilia",null],["Ai Ogura","Trackhouse Aprilia","+0.362s"],["Fabio Di Giannantonio","VR46 Ducati",null]]},
+   race:{podium:[["Ai Ogura","Trackhouse Aprilia","40:21.905"],["Raúl Fernández","Trackhouse Aprilia","+2.004s"],["Jorge Martín","Aprilia","+3.512s"]],
+         fl:{who:"Ai Ogura",t:"1:32.483",extra:"set on lap 15 during his charge back to the leaders"}},
+   note:"Ogura's maiden win — first Japanese premier-class victory in 22 years. Trackhouse went 1-2 in both races; Aprilia locked out the top four in qualifying."},
+  {rd:11,gp:"German GP",circuit:"Sachsenring",date:"11–12 Jul",
+   record:{t:"1:19.041",who:"M. Márquez",ev:"2026 qualifying (all-time record)"},
+   sprint:{podium:[["Marc Márquez","Ducati",null],["Álex Márquez","Gresini Ducati","+0.3s"],["Fabio Di Giannantonio","VR46 Ducati","+0.8s"]]},
+   race:{podium:[["Marc Márquez","Ducati","40:53.148"],["Ai Ogura","Trackhouse Aprilia","+1.996s"],["Raúl Fernández","Trackhouse Aprilia","+5.104s"]],
+         fl:{who:"Marc Márquez",t:"1:21.088",extra:"set on lap 3, answering Álex's early challenge — it stood for the rest of the race"}},
+   note:"A perfect Márquez weekend — pole (all-time record), Sprint win in a first-ever Ducati Sprint 1-2-3, then a record-equalling 10th premier-class win at the same circuit. Bezzecchi missed both races with a broken collarbone from qualifying."},
+  {rd:12,gp:"British GP",circuit:"Silverstone",date:"8–9 Aug",
+   record:{t:"1:56.160",who:"J. Martín",ev:"2026 qualifying (new all-time record)",broken:"Beaten twice in two days — Bezzecchi's 1:56.280 on Friday already took almost a second off Quartararo's 1:57.233 from 2025."},
+   sprint:{podium:[["Jorge Martín","Aprilia","19:49.066"],["Ai Ogura","Trackhouse Aprilia","+1.530s"],["Marco Bezzecchi","Aprilia","+3.974s"]]},
+   race:{podium:[["Raúl Fernández","Trackhouse Aprilia",null],["Jorge Martín","Aprilia","+2.538s"],["Marco Bezzecchi","Aprilia","+3.393s"]],
+         fl:{who:"Raúl Fernández",t:"1:58.457",extra:"set in the opening laps — a new Silverstone race lap record, 0.438s inside Aleix Espargaró's 2024 mark"}},
+   note:"Aprilia swept both podiums. Martín's rear ride-height device stayed locked at Turn 1 and Fernández took the holeshot from P2, led every lap and won by 2.5s — his second premier-class win, in his 150th GP start and days after signing a new two-year Trackhouse deal. He's the 12th different winner in 12 British GPs, and the seventh different GP winner of 2026 — already matching all of 2025. First-ever all-Aprilia Sprint podium; third GP lockout of the year after Le Mans and Assen, and all four Aprilia riders have now won a race. Bezzecchi took both podiums three weeks after collarbone and knee surgery. Ogura crashed out of seventh at half-distance — his first race error of the season — and Bagnaia, Bastianini, Lecuona, Crutchlow, Mir and Rins also failed to finish. Quartararo's 12th place was wiped out by a 16s tyre-pressure-sensor penalty. No official winner's race time was published."},
+  {rd:13,gp:"Aragon GP",circuit:"MotorLand Aragón",date:"28–30 Aug",
+   record:{t:"1:44.962",who:"M. Bezzecchi",ev:"2026 qualifying (new all-time record)",broken:"The first lap of MotorLand under 1:45. Bezzecchi had already taken Marc Márquez's 1:45.704 from 2025 down to 1:45.455 on the Friday, then found another half-second in Q2."},
+   sprint:{podium:[["Marc Márquez","Ducati","19:37.995"],["Álex Márquez","Gresini Ducati","+1.140s"],["Marco Bezzecchi","Aprilia","+2.089s"]]},
+   race:{podium:[["Marc Márquez","Ducati","41:10.969"],["Pedro Acosta","KTM","+1.754s"],["Marco Bezzecchi","Aprilia","+3.629s"]],
+         fl:{who:"Marc Márquez",t:"1:46.736",extra:"set on lap 14 — 0.031s outside his own 2025 race lap record"}},
+   note:"A perfect 37-point weekend for Marc Márquez — his third Sprint-and-GP double of 2026 after Hungary and Germany, and his fourth GP win of the year. Bezzecchi took pole with the first sub-1:45 lap MotorLand has seen and led the opening laps after passing Márquez at Turn 3, but Márquez chipped away at an 0.8s deficit and outbraked him into Turn 16 on lap 6, the pair nearly touching fairings down the back straight. Acosta then took second off Bezzecchi around the outside of the penultimate corner and shadowed Márquez home 1.754s adrift. Jorge Martín could only manage fifth and leaves his home country with his championship lead cut from 40 points to 19 — the closest the title fight has been since May. Ai Ogura missed the weekend after breaking his left thumb in motocross training; Aprilia test rider Lorenzo Savadori deputised at Trackhouse and finished 17th. Fermín Aldeguer (sixth) and Johann Zarco (fifteenth) both returned from injury. Pecco Bagnaia's misery deepened: he crashed out of seventh on lap 6, having already turned the power down because the rear tyre was, in his words, \"completely finished in five laps\". Toprak Razgatlıoğlu and Franco Morbidelli also crashed out, and Raúl Fernández retired with a gearbox problem."},
+  {rd:14,gp:"San Marino GP",circuit:"Misano World Circuit",date:"11–13 Sep",
+   record:{t:"1:29.982",who:"M. Bezzecchi",ev:"2026 qualifying (new all-time record)",broken:"The first sub-1:30 lap Misano has seen, 0.049s inside Francesco Bagnaia's 1:30.031. Marc Márquez answered it on Saturday by taking the race lap record to 1:30.734 in the Sprint."},
+   sprint:{podium:[["Marc Márquez","Ducati","19:48.519"],["Marco Bezzecchi","Aprilia","+1.068s"],["Jorge Martín","Aprilia","+3.538s"]]},
+   race:{podium:[["Marc Márquez","Ducati","41:13.013"],["Álex Márquez","Gresini Ducati","+0.657s"],["Pedro Acosta","KTM","+2.326s"]],
+         fl:{who:"Fermín Aldeguer",t:"1:30.936",extra:"set on lap 22 from fourth — 0.202s outside the race lap record Márquez had set the day before"}},
+   note:"Another perfect 37-point weekend for Marc Márquez, his fourth of 2026 and the one that finally turned the championship over: he arrived 14 points down and left level with Jorge Martín on 274, leading on countback with five wins to Martín's one. In May, after Mugello, he had been 102 points adrift. Marco Bezzecchi took pole with the first sub-1:30 lap in Misano's history and then threw it away on the opening lap, losing the front at Turn 13 while leading, directly in front of his own grandstand. Márquez inherited the lead, lost it to Martín on lap seven, and took it back for good on lap 12 at Turn 6. The threat, when it came, was from his brother: Álex Márquez closed to 0.405s with five laps left and finished 0.657s adrift, unable to find a way through. Pedro Acosta was best of the rest for KTM. Martín faded to fifth, 14 seconds back, with arm pump in his right forearm — \"I couldn't do anything; I was completely out of control of the bike\" — and is now weighing surgery. Pecco Bagnaia's run of Sundays got worse still: out at Turn 2 on lap three. Jack Miller, Diogo Moreira, Johann Zarco and Álex Rins all crashed, Joan Mir withdrew ill, and only 14 of the 21 starters saw the flag. Ai Ogura missed a second consecutive round after thumb surgery and could not even be replaced — Aprilia tester Lorenzo Savadori was unavailable, so Trackhouse ran a single bike."},
+  {rd:15,gp:"Austrian GP",circuit:"Red Bull Ring",date:"18–20 Sep",latest:true,
+   record:{t:"1:27.748",who:"J. Martín",ev:"2024 qualifying (all-time record)",broken:"It survived 2026 — by Martín's own hand: his pole this year, 1:27.917, fell 0.169s short, with Marc Márquez 0.015s further back."},
+   sprint:{podium:[["Jorge Martín","Aprilia","20:57.387"],["Marc Márquez","Ducati","+1.026s"],["Marco Bezzecchi","Aprilia","+1.675s"]]},
+   race:{podium:[["Pedro Acosta","KTM","42:16.996"],["Jorge Martín","Aprilia","+1.017s"],["Marco Bezzecchi","Aprilia","+1.209s"]],
+         fl:{who:"not confirmed",extra:"not independently verified; no lap time shown"}},
+   note:"Saturday heartbreak, Sunday redemption. Pedro Acosta led the 14-lap Sprint comfortably — by 2.8s, on Crash's timing — until he lost the front at the Turn 2 chicane on lap 12; he admitted he had been looking at his dashboard for fuel information and missed his braking point. That handed the Sprint to Jorge Martín, who had been shuffled back to eighth on the opening lap and carved his way to second by lap 8, and it put Martín back on top of the championship by three points. Acosta crashed again in Sunday warm-up, then produced a flawless Grand Prix: Aprilia ran one-two-three on lap one (Martín from pole, then Bezzecchi and Ogura), Acosta was fourth, passed Bezzecchi on lap 4 and took the lead from Martín around the outside of Turn 1 on lap 9. His margin peaked at 1.268s on lap 24 and he won by 1.017s — his first premier-class win after a record 15 podiums without one, KTM's first Grand Prix win since Thailand 2022 (1,449 days), and the eighth different winner of 2026. \"The first one is always special, and in front of so many Austrian fans.\" Bezzecchi finished 0.192s behind Martín, and Ai Ogura, back from thumb surgery after two rounds out, was fourth in both races. Marc Márquez fought his brakes all afternoon, ran off at Turn 1 on lap 10 and could only finish fifth, 7.3s back, so Martín leaves Austria 12 points clear. Fermín Aldeguer's three-second penalty for contact dropped him from seventh to eighth, promoting Bagnaia; Álex Márquez, down at the Turn 2 chicane on lap 13, was the only retirement. Takaaki Nakagami deputised for Joan Mir, withdrawn after abnormal blood tests, and Pol Espargaró rode for the still-injured Viñales. Martín, the arm-pump question hanging over him since Misano, rode 42 minutes without it showing: \"I will not go into surgery tomorrow. I will try to continue like this.\""}
+];
+
+/* ============ REMAINING CALENDARS (as of 28 Sep 2026) ============ */
+const F1_CALENDAR = [
+  {rd:16,gp:"Bahrain GP",circuit:"Sepang, Malaysia",date:"2–4 Oct",note:"Relocated from Sakhir — runs under the Bahrain GP name. Race Sunday 15:00 local (17:00 Brisbane)"},
+  {rd:17,gp:"Singapore GP",circuit:"Marina Bay",date:"9–11 Oct",sprint:true},
+  {rd:18,gp:"United States GP",circuit:"COTA, Austin",date:"23–25 Oct"},
+  {rd:19,gp:"Mexico City GP",circuit:"Hermanos Rodríguez",date:"30 Oct–1 Nov"},
+  {rd:20,gp:"São Paulo GP",circuit:"Interlagos",date:"6–8 Nov"},
+  {rd:21,gp:"Las Vegas GP",circuit:"Las Vegas Strip Circuit",date:"19–21 Nov"},
+  {rd:22,gp:"Qatar GP",circuit:"Lusail",date:"27–29 Nov"},
+  {rd:23,gp:"Abu Dhabi GP",circuit:"Yas Marina",date:"4–6 Dec",note:"Season finale"}
+];
+const MOTO_CALENDAR = [
+  {rd:16,gp:"Japanese GP",circuit:"Motegi",date:"2–4 Oct"},
+  {rd:17,gp:"Indonesian GP",circuit:"Mandalika",date:"9–11 Oct"},
+  {rd:18,gp:"Australian GP",circuit:"Phillip Island",date:"23–25 Oct"},
+  {rd:19,gp:"Malaysian GP",circuit:"Sepang",date:"30 Oct–1 Nov"},
+  {rd:20,gp:"Qatar GP",circuit:"Lusail",date:"6–8 Nov",note:"Rescheduled from April — Dorna says it plans to go, not yet locked in"},
+  {rd:21,gp:"Portuguese GP",circuit:"Portimão",date:"20–22 Nov",note:"Moved back one week"},
+  {rd:22,gp:"Valencia GP",circuit:"Ricardo Tormo",date:"27–29 Nov",note:"Season finale — moved back one week"}
+];
+
+/* ============ NEWS & RUMOURS (snapshot 28 Sep 2026) ============
+   tag: "confirmed" | "rumour" | "watch". body is trusted HTML.
+   spoiler:true shields the item behind the series' watched-checkbox.
+   src/srcNote (optional): a source link and the verification wording. */
+const F1_NEWS = [
+  {
+    "tag": "confirmed",
+    "title": "Alonso and Stroll confirmed for Aston Martin in 2027",
+    "body": "Aston Martin has confirmed that <strong>Fernando Alonso and Lance Stroll</strong> will continue together in 2027. This replaces the earlier uncertainty over Alonso’s plans; the pair will begin their fifth season as team mates.",
+    "src": "https://www.formula1.com/en/latest/article/alonso-and-stroll-to-stay-at-aston-martin-in-2027-as-team-confirm-unchanged-line-up.7xg2Sct45vzW92UaiE8YXR",
+    "srcNote": "Published 29 September 2026 · checked 30 September 2026"
+  },
+  {
+    "tag": "watch",
+    "title": "The remaining 2027 seats are still a developing story",
+    "body": "Formula 1’s latest grid analysis identifies <strong>Haas and Racing Bulls</strong> as the teams with seats still to settle. Earlier reporting that the complete Red Bull/Racing Bulls line-up was already confirmed is superseded here. Driver-market expectations remain provisional until teams announce them.",
+    "src": "https://www.formula1.com/en/latest/article/analysis-why-alonso-is-staying-at-aston-martin-and-what-it-means-for-the-2027-grid.2b7yrPKHBN8kcLMJy5PbFa",
+    "srcNote": "Published 29 September 2026 · checked 30 September 2026"
+  },
+  {
+    "tag": "confirmed",
+    "title": "Baku results checked against the official classification",
+    "body": "<strong>George Russell</strong> won by 0.196 seconds from Max Verstappen, with Isack Hadjar third. Kimi Antonelli finished fifth. The official fastest-laps table also confirms Russell’s 1:44.916 on lap 49, resolving the conflicting report noted in the previous edition.",
+    "src": "https://www.formula1.com/en/results/2026/races/1295/azerbaijan/race-result",
+    "srcNote": "Published 26 September 2026 · checked 30 September 2026"
+  },
+  {
+    "tag": "confirmed",
+    "title": "Sepang weekend: Brisbane viewing times confirmed",
+    "body": "The Bahrain Grand Prix in Malaysia runs at Sepang on <strong>2–4 October</strong>. Qualifying starts at <strong>6:00 pm Brisbane on Saturday</strong>; the Grand Prix starts at <strong>5:00 pm Brisbane on Sunday</strong>. Times are AEST (UTC+10), two hours ahead of Kuala Lumpur, and remain subject to timetable changes.",
+    "src": "https://www.formula1.com/en/latest/article/formula-1-gulf-air-bahrain-grand-prix-in-malaysia-2026.1IHoy7D2dfCIugb5mH78cE",
+    "srcNote": "Official timetable · checked 30 September 2026"
+  }
+];
+const MOTO_NEWS = [
+  {
+    "tag": "confirmed",
+    "title": "Viñales’s Japanese GP return is now confirmed",
+    "body": "Red Bull KTM Tech3 has confirmed <strong>Maverick Viñales</strong> will return at Motegi after his recovery and medical evaluations. He rejoins Enea Bastianini for Round 16. This supersedes the previous item describing his return as only likely.",
+    "src": "https://www.motogp.com/en/news/2026/03/30/vinales-torna-in-azione-in-giappone/1095812",
+    "srcNote": "Published 28 September 2026 · checked 30 September 2026"
+  },
+  {
+    "tag": "confirmed",
+    "title": "Motegi: the times to watch in Brisbane",
+    "body": "The <strong>Japanese GP is 2–4 October</strong>. In Brisbane (AEST), MotoGP qualifying begins <strong>Saturday at 11:50 am</strong>, the Sprint starts <strong>Saturday at 4:00 pm</strong>, and the Grand Prix starts <strong>Sunday at 3:00 pm</strong>. Brisbane is one hour ahead of Japan; these conversions use the official event timetable.",
+    "src": "https://www.motogp.com/en/news/2026/09/28/time-schedule-motul-grand-prix-of-japan/1092197",
+    "srcNote": "Published 28 September 2026 · checked 30 September 2026"
+  },
+  {
+    "tag": "confirmed",
+    "title": "2027 calendar: Adelaide and Buenos Aires join",
+    "body": "MotoGP has published a <strong>22-round calendar for 2027</strong>, featuring the new Adelaide Street Circuit and a return to Buenos Aires. Adelaide hosts the penultimate round. The announcement concerns next season; this page’s remaining-race table still follows the 2026 schedule.",
+    "src": "https://www.motogp.com/en/news/2026/09/25/2027-motogp-calendar-revealed/1092589",
+    "srcNote": "Published 25 September 2026 · checked 30 September 2026"
+  },
+  {
+    "tag": "confirmed",
+    "title": "Chantra replaces Mir at Motegi",
+    "body": "Honda has confirmed <strong>Somkiat Chantra</strong> will ride for Honda HRC Castrol at the Japanese GP while Joan Mir continues his recovery. Chantra returns from Honda’s World Superbike programme. Honda expects to provide further updates on Mir after the Indonesian GP.",
+    "src": "https://www.motogp.com/en/news/2026/09/23/chantra-set-for-motogp-return-in-motegi/1092166",
+    "srcNote": "Published 23 September 2026 · checked 30 September 2026"
+  }
+];
+
+/* ============ TITLE PERMUTATIONS ============
+   Re-modelled 28 Sep 2026 after the Azerbaijan GP: 200,000 simulated
+   remainders per championship, seed 20260928. Plackett-Luce finishing orders
+   sampled with the Gumbel trick; strengths fitted iteratively so each
+   entrant's expected SHARE of the points on offer in a round matches their
+   actual season share. On top of that: a season-long pace-drift term of
+   +/-25%, a per-round form shock (sigma 1.0 on log-strength) and a per-race
+   retirement probability of 7.5% (F1) and 11% (MotoGP). The fit reproduces
+   every F1 driver's season average to within 0.07 points per round, every
+   constructor's to within 0.11, and every MotoGP rider's to within 0.10.
+   No MotoGP round has run since v13, so the riders' numbers move only
+   because the fit was rebuilt from scratch: Martin 64.7% here against 67.4%
+   a week ago on identical standings. Treat a couple of points either way as
+   model variation, not news. */
+const TITLE = {
+  f1:{
+    label:"drivers", unit:"driver", roundsRun:15, roundsLeft:8, sprintsLeft:1,
+    maxRem:208, elimLine:94, leaderPts:302, clinchAfter:3, clinchRound:"Rd 18, United States GP (23–25 Oct)",
+    perRound:"25 for a win, plus 8 for the Singapore sprint",
+    elimNote:"below this you're out — and sixteen drivers now are",
+    aliveLine:"The line has moved from 59 points to <strong>94</strong>, and it has taken the last two hopefuls outside the top seven with it: <strong>Isack Hadjar</strong> (86) and <strong>Liam Lawson</strong> (59) are out, so sixteen of twenty-three drivers are now mathematically eliminated and only the seven above the line remain. <strong>George Russell</strong>'s Baku win is the only thing keeping the page interesting — he cut the gap from 81 points to 66, but with 208 left the model still gives him roughly one season in three hundred. <strong>Antonelli could clinch outright as early as the United States GP</strong>, three rounds away. In the constructors' the line is now <strong>179</strong> of a possible 359, which leaves the same four teams standing as last week and Mercedes 160 clear.",
+    rows:[["Kimi Antonelli",302,99.673],["George Russell",236,0.327],["Lewis Hamilton",199,0],
+          ["Lando Norris",186,0],["Charles Leclerc",179,0],["Max Verstappen",163,0],
+          ["Oscar Piastri",120,0],["Isack Hadjar",86,0],["Liam Lawson",59,0],
+          ["Pierre Gasly",41,0]],
+    ctorMaxRem:359, ctorLeader:538,
+    ctors:[["Mercedes",538,100],["Ferrari",378,0],["McLaren",306,0],["Red Bull Racing",263,0],
+           ["Racing Bulls",83,0],["Alpine",68,0],["Haas",27,0]]
+  },
+  moto:{
+    label:"riders", unit:"rider", roundsRun:15, roundsLeft:7, sprintsLeft:7,
+    maxRem:259, elimLine:47, leaderPts:306, clinchAfter:4, clinchRound:"Rd 19, Malaysia (30 Oct–1 Nov)",
+    perRound:"37 a round — 25 for the GP, 12 for the Sprint",
+    elimNote:"below this you're out — and ten riders now are",
+    aliveLine:"Nothing has changed on the track: MotoGP has been idle since the Red Bull Ring, so the line is still <strong>47</strong>, <strong>ten riders are out</strong> — the highest of them Johann Zarco on 45, two points short — and sixteen remain, with Franco Morbidelli on 56 the lowest of them. <strong>Jorge Martín leads Marc Márquez by 12</strong> with Bezzecchi 42 back, and the model has it as a two-horse race worth about two-thirds to one-third. If the Qatar round is cancelled, 222 points remain instead of 259, the line jumps to 84 and takes Moreira, Quartararo and Morbidelli with it — but the title chances barely move (Martín 65.5%, Márquez 31.8% in a six-round re-run).",
+    rows:[["Jorge Martín",306,64.729],["Marc Márquez",294,32.198],["Marco Bezzecchi",264,2.946],
+          ["Pedro Acosta",234,0.072],["Fabio Di Giannantonio",230,0.044],["Ai Ogura",222,0.011],
+          ["Raúl Fernández",203,0],["Álex Márquez",158,0],["Francesco Bagnaia",156,0]]
+  }
+};
+
+/* Rendering and spoiler controls: result text is hidden from layout and accessibility until watched. */
+F1_RACES[F1_RACES.length-1].sources=[['Official result','https://www.formula1.com/en/results/2026/races/1295/azerbaijan/race-result'],['Official fastest laps','https://www.formula1.com/en/results/2026/races/1295/azerbaijan/fastest-laps']];
+MOTO_RACES[MOTO_RACES.length-1].sources=[['GP classification','https://www.crash.net/motogp/results/1104905/1/2026-austrian-motogp-red-bull-ring-race-results'],['Sprint report','https://www.crash.net/motogp/news/1104937/1/pedro-acosta-crash-gifts-jorge-martin-win-dramatic-austria-motogp-sprint']];
+const SERIES={f1:{races:F1_RACES,calendar:F1_CALENDAR,standings:F1_STANDINGS,news:F1_NEWS},moto:{races:MOTO_RACES,calendar:MOTO_CALENDAR,standings:MOTO_STANDINGS,news:MOTO_NEWS}};
+const STORAGE_KEY='raceboard:watched:v2';
+let state={f1:{},moto:{}};
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function raceId(key,r){return `${key}-2026-r${r.rd}`;}
+function watched(key,r,session){return state[key]?.[raceId(key,r)]?.[session]===true;}
+function complete(key,r){return watched(key,r,'race')&&(!r.sprint||watched(key,r,'sprint'));}
+function latestRound(key){return SERIES[key].races.reduce((a,b)=>a.rd>b.rd?a:b);}
+function caughtUp(key){return complete(key,latestRound(key));}
+function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch{document.getElementById('storage-status').textContent='Your browser cannot save watched choices. They will reset when you reopen this page.';}}
+function loadState(){try{const value=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');if(value&&typeof value==='object'){for(const key of ['f1','moto'])if(value[key]&&typeof value[key]==='object'&&!Array.isArray(value[key]))state[key]=value[key];}}catch{document.getElementById('storage-status').textContent='Saved choices could not be read. The latest weekend remains protected.';}}
+function shield(message){return `<div class="shield"><div class="flag" aria-hidden="true">🔒</div><p>${message}</p></div>`;}
+function gate(content,attrs,message){return `<div class="spoiler" ${attrs}>${shield(message)}<div class="veil" hidden inert>${content}</div></div>`;}
+function setGate(el,show){el.classList.toggle('revealed',show);const veil=el.querySelector(':scope > .veil');if(veil){veil.hidden=!show;veil.inert=!show;}}
+function podiumHTML(list){return '<div class="podium">'+list.map((p,i)=>`<div class="step"><span class="medal m${i+1}">${i+1}</span><span class="who">${esc(p[0])}</span><span class="tm">${esc(p[1])}</span>${p[2]?`<span class="chip ${i?'gap':'wintime'}">${esc(p[2])}</span>`:''}</div>`).join('')+'</div>';}
+function flHTML(fl){return fl?`<div class="flrow"><span class="flbadge">FL</span><span>Fastest lap: <strong>${esc(fl.who)}</strong> ${fl.t?esc(fl.t):''} ${fl.extra?'— '+esc(fl.extra):''}</span></div>`:'';}
+function recordHTML(rec,key){if(!rec)return '';return `<div class="circuit-record"><span class="lbl">${key==='f1'?'Race lap record':'All-time record'}</span><span class="val">${rec.txt?esc(rec.txt):`<strong>${esc(rec.t)}</strong> — ${esc(rec.who)}, ${esc(rec.ev)}. ${rec.broken?esc(rec.broken):''}`}</span></div>`;}
+function raceCard(r,key){const latest=r.rd===latestRound(key).rd;const inner=`<div class="race-head"><div><div class="rd">ROUND ${r.rd}</div><div class="gp">${esc(r.gp)}</div></div><div class="date">${esc(r.circuit)}<br>${esc(r.date)}</div></div><div class="race-body">${['sprint','race'].filter(s=>r[s]).map(s=>`<div><div class="block-label ${s==='sprint'?'sprint':''}">${s==='race'?'Grand Prix':'Sprint'}</div>${podiumHTML(r[s].podium)}${flHTML(r[s].fl)}</div>`).join('')}${recordHTML(r.record,key)}${r.note?`<p class="fn">${esc(r.note)}</p>`:''}${r.sources?`<p class="source-line">Checked 30 September 2026 · ${r.sources.map(([label,url])=>`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>`).join(' · ')}</p>`:''}</div>`;return `<article class="race ${latest?'latest':''}">${latest?gate(inner,`data-latest="${key}"`,`${esc(r.gp)} results hidden — tick the watched box above to reveal`):inner}</article>`;}
+function renderStandings(rows,id){document.getElementById(id).innerHTML=rows.map((r,i)=>`<tr class="${i?'':'p1'}"><td class="pos">${i+1}</td><td class="name">${esc(r[0])}</td><td class="team">${esc(r[1])}</td><td class="pts">${r[2]}</td></tr>`).join('');}
+function renderConstructors(rows,id){document.getElementById(id).innerHTML=rows.map((r,i)=>`<tr><td class="pos">${i+1}</td><td class="name">${esc(r[0])}</td><td class="pts">${r[1]}</td></tr>`).join('');}
+function renderCalendar(rows,id){document.getElementById(id).innerHTML=rows.map(r=>`<tr><td class="pos">${r.rd}</td><td>${esc(r.gp)}${r.sprint?'<span class="sprint-chip">S</span>':''}</td><td class="team">${esc(r.circuit)}${r.note?`<div class="cal-note">${esc(r.note)}</div>`:''}</td><td class="cal-date">${esc(r.date)}</td></tr>`).join('');}
+const SEPANG_SOURCE='https://www.formula1.com/en/latest/article/formula-1-gulf-air-bahrain-grand-prix-in-malaysia-2026.1IHoy7D2dfCIugb5mH78cE';
+const MOTEGI_SOURCE='https://www.motogp.com/en/news/2026/09/28/time-schedule-motul-grand-prix-of-japan/1092197';
+function renderNews(key){document.getElementById(key+'-news').innerHTML=SERIES[key].news.map(n=>{const checked=!!n.src;const source=checked?`<a href="${n.src}" target="_blank" rel="noopener noreferrer">Source</a> · ${esc(n.srcNote||'Source date not supplied')}`:'Source link not supplied · verification pending';return gate(`<div class="news-head"><span class="tag ${n.tag==='confirmed'&&checked?'confirmed':n.tag==='rumour'?'rumour':'watch'}">${checked?(n.tag==='confirmed'?'Confirmed':'Reported'):n.tag==='rumour'?'Rumour · unverified':'Reported · unverified'}</span><span class="news-title">${esc(n.title)}</span></div><div class="news-body">${n.body}</div><p class="source-line">${source}</p>`,`data-latest="${key}"`,'News hidden — tick the latest weekend’s watched box above');}).join('');}
+function pctText(v){return v>=99?'Above 99%':v<1?'Below 1%':Math.round(v)+'%';}
+function raceWins(key,name){return SERIES[key].races.filter(r=>r.race.podium[0][0]===name).length;}
+function titleStatus(key,name,pts,maxRem,leaderPts,constructors=false){const max=pts+maxRem;if(max>leaderPts)return 'Yes';if(max<leaderPts)return 'No';if(key==='f1'&&!constructors){const futureWins=raceWins(key,name)+SERIES[key].calendar.length;const leaderWins=raceWins(key,SERIES[key].standings[0][0]);if(futureWins>leaderWins)return 'Yes (wins tie-break)';if(futureWins<leaderWins)return 'No (wins tie-break)';}return 'Tie-break dependent';}
+function titleRow(key,name,pts,prob,maxRem,leaderPts,ctors=false){const status=titleStatus(key,name,pts,maxRem,leaderPts,ctors);const out=status.startsWith('No');return `<tr class="${out?'dead':''}"><td>${esc(name)}</td><td class="pts">${pts}</td><td class="pts">${pts+maxRem}</td><td>${status}</td><td class="pct">${out?'0%':prob===undefined?'Not modelled':pctText(prob)}</td><td>${prob===undefined?'':`<div class="bar ${key}fill"><span style="width:${Math.max(0,Math.min(100,prob))}%"></span></div>`}</td></tr>`;}
+function earliestClinch(key){const S=SERIES[key],points=S.standings.map(r=>r[2]);let earned=0;const remaining=S.calendar.reduce((sum,r)=>sum+(key==='moto'?37:25+(r.sprint?8:0)),0);for(let i=0;i<S.calendar.length;i++){earned+=key==='moto'?37:25+(S.calendar[i].sprint?8:0);if(points[0]+earned>Math.max(...points.slice(1))+remaining-earned)return {count:i+1,round:S.calendar[i]};}return null;}
+function renderTitle(key){const T=TITLE[key],S=SERIES[key];const maxRem=S.calendar.reduce((sum,r)=>sum+(key==='moto'?37:25+(r.sprint?8:0)),0);const leader=S.standings[0][2];const predictions=new Map(T.rows.map(r=>[r[0],r[2]]));document.getElementById(key+'-title').innerHTML=S.standings.map(r=>titleRow(key,r[0],r[2],predictions.get(r[0]),maxRem,leader)).join('');if(T.ctors){const cp=new Map(T.ctors.map(r=>[r[0],r[2]]));const cm=S.calendar.reduce((sum,r)=>sum+43+(r.sprint?15:0),0);document.getElementById('f1-ctitle').innerHTML=F1_CONSTRUCTORS.map(r=>titleRow(key,r[0],r[1],cp.get(r[0]),cm,F1_CONSTRUCTORS[0][1],true)).join('');}const clinch=earliestClinch(key);document.getElementById(key+'-title-summary').innerHTML=`<div class="tstat"><div class="k">Rounds left</div><div class="v">${S.calendar.length}</div></div><div class="tstat"><div class="k">Points available</div><div class="v">${maxRem}</div></div><div class="tstat"><div class="k">Points threshold</div><div class="v">${leader-maxRem}</div><div class="s">Equality requires a tie-break check</div></div><div class="tstat"><div class="k">Earliest outright clinch</div><div class="v">+${clinch.count} rounds</div><div class="s">${esc(clinch.round.gp)} · ${esc(clinch.round.date)}</div></div>`;document.getElementById(key+'-title-foot').innerHTML=`<p style="margin-bottom:10px">${T.aliveLine}</p><details class="secondary"><summary>Assumptions and model limitations</summary><div class="help-copy"><p>Maximum points assume every scheduled race runs for full points. The earliest outright clinch assumes the leader wins every remaining session up to that round and every rival scores zero. It requires a strictly greater total than every rival can still reach; a tie-break clinch may be possible earlier.</p><p>Equal final points do not automatically imply title eligibility. F1 race-win countback is checked where it settles the boundary; unresolved equalities are labelled tie-break dependent. <a href="https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_a_general_provisions_-_iss_02_-_2026-02-27.pdf" target="_blank" rel="noopener noreferrer">FIA championship rules, article A2.1</a>.</p><p>Model estimates are carried over from the 28 September edition, which reports 200,000 simulated remainders (seed 20260928). They were not rerun or independently validated for this update; the checked standings are unchanged. Finishing orders are drawn from a Plackett-Luce model — strengths fitted so each entrant's expected share of a round's points matches their actual season share — with a season-long pace-drift term of ±25%, a per-round form shock, and a per-race retirement probability of <strong>${key==='f1'?'7.5%':'11%'}</strong> applied independently to every entrant. That fit is anchored on the <em>whole</em> season, so it under-weights recent form: a driver who has transformed his second half of the year (or lost a chunk of the season to injury) is rated by his average, not his last few weekends. Retirements are independent, which understates multi-car incidents of the kind Baku produced. Values below 1% are grouped to avoid false precision, and 0% against a driver the table still calls alive means no simulated season out of 200,000 went that way — not mathematical certainty. “Not modelled” means no estimate was produced for that entrant.</p></div></details>`;}
+function applySeries(key){const show=caughtUp(key);document.querySelectorAll(`[data-latest="${key}"]`).forEach(el=>setGate(el,show));setGate(document.getElementById(`spoiler-${key}-standings`),show);document.getElementById('watched-'+key).checked=show;document.getElementById(key+'-watch-status').textContent=show?'Latest weekend revealed. Untick to hide it again.':'Only the latest weekend, current standings, news and title analysis are hidden. Earlier races are visible.';}
+function setRound(key,r,value){state[key][raceId(key,r)]={race:value,...(r.sprint?{sprint:value}:{})};}
+for(const [key,S] of Object.entries(SERIES)){
+ const panel=document.getElementById('panel-'+key);
+ const upcoming=document.createElement('div');upcoming.className='next-up';upcoming.innerHTML=key==='f1'?`📅 <strong>Next: Bahrain GP in Malaysia · Sepang · Sunday 4 October</strong><br><strong>5:00 pm Brisbane (AEST)</strong> · 3:00 pm Kuala Lumpur · Qualifying Saturday, 6:00 pm Brisbane<br><a href="${SEPANG_SOURCE}" target="_blank" rel="noopener noreferrer">Official timetable</a> · checked 30 September`:`📅 <strong>Next: Japanese GP · Motegi · 2–4 October</strong><br><strong>Race Sunday 3:00 pm Brisbane (AEST)</strong> · 2:00 pm Japan<br>Sprint Saturday 4:00 pm Brisbane · Qualifying Saturday 11:50 am Brisbane<br><a href="${MOTEGI_SOURCE}" target="_blank" rel="noopener noreferrer">Official event page</a> · checked 30 September`;panel.prepend(upcoming);
+ panel.querySelector('[data-watchbar]').innerHTML=`<div class="pf-text"><div class="pf-title">🔒 Spoiler protection — ${esc(latestRound(key).gp)}</div><p id="${key}-watch-status" class="pf-sub" role="status">Latest weekend hidden.</p></div><label class="watch-toggle"><input type="checkbox" id="watched-${key}" data-watch-series="${key}"> I've watched the ${esc(latestRound(key).gp)}${latestRound(key).sprint?' and Sprint':''}</label>`;
+ renderStandings(S.standings,key+'-standings');document.getElementById(key+'-races').innerHTML=[...S.races].reverse().map(r=>raceCard(r,key)).join('');renderCalendar(S.calendar,key+'-calendar');renderNews(key);renderTitle(key);
+}
+renderConstructors(F1_CONSTRUCTORS,'f1-constructors');
+// Long standings reconciliation remains available without dominating the page.
+document.querySelectorAll('.veil > p').forEach(p=>{if(p.textContent.length>500){const d=document.createElement('details');d.className='secondary';d.innerHTML='<summary>Points reconciliation notes</summary>';p.replaceWith(d);d.appendChild(p);p.classList.add('help-copy');}});
+document.addEventListener('change',e=>{const key=e.target.dataset.watchSeries;if(!key)return;setRound(key,latestRound(key),e.target.checked);applySeries(key);saveState();});
+
+loadState();applySeries('f1');applySeries('moto');
+const tabs=[...document.querySelectorAll('[role="tab"]')];
+function selectTab(index,focus=false){tabs.forEach((t,i)=>{const active=i===index;t.setAttribute('aria-selected',String(active));t.tabIndex=active?0:-1;const p=document.getElementById(t.getAttribute('aria-controls'));p.classList.toggle('active',active);p.hidden=!active;});if(focus)tabs[index].focus();}
+tabs.forEach((t,i)=>{t.addEventListener('click',()=>selectTab(i));t.addEventListener('keydown',e=>{let next;if(e.key==='ArrowRight')next=(i+1)%tabs.length;if(e.key==='ArrowLeft')next=(i+tabs.length-1)%tabs.length;if(e.key==='Home')next=0;if(e.key==='End')next=tabs.length-1;if(next!==undefined){e.preventDefault();selectTab(next,true);}});});selectTab(0);
+
+</script>
+</body>
+</html>

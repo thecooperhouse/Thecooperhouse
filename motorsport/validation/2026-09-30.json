@@ -1,0 +1,562 @@
+{
+  "edition": "v16",
+  "checked_at_utc": "2026-09-30T07:19:54.421Z",
+  "base_commit": "4cf2bfb792dbf44f8da102da6670111ff687b54f",
+  "browser_checks": {
+    "checked_at_utc": "2026-09-30T07:19:54.421Z",
+    "browser": "Chromium 154.0.8037.92",
+    "viewports": [
+      "1280×1000",
+      "390×844",
+      "320×844"
+    ],
+    "checks": [
+      "JavaScript execution",
+      "one checkbox per series",
+      "latest race/Sprint, standings, news and analysis hidden/inert by default",
+      "reveal/hide with keyboard and pointer",
+      "independent series choices",
+      "reload persistence",
+      "new-event protection",
+      "malformed, blocked and legacy storage",
+      "keyboard tabs and Home/End",
+      "earlier results accessible",
+      "images decode",
+      "no page overflow",
+      "hidden accessibility and focus exclusion"
+    ],
+    "images": [
+      {
+        "src": "photos/norris-silverstone-2024-20260930.jpg",
+        "loaded": true,
+        "width": 1280,
+        "height": 743
+      },
+      {
+        "src": "photos/marquez-motegi-2023-20260930.jpg",
+        "loaded": true,
+        "width": 1280,
+        "height": 853
+      }
+    ],
+    "errors": []
+  },
+  "visual_inspection": {
+    "completed": true,
+    "views": [
+      "desktop default",
+      "desktop revealed championship analysis",
+      "390px mobile analysis",
+      "320px MotoGP analysis"
+    ],
+    "external_fonts": "Browser tests use system font fallback; external font requests were deliberately blocked in the prepared-page harness."
+  },
+  "external_links": [
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:2024_British_Grand_Prix,_Norris_(1).jpg",
+      "status": 200,
+      "final_url": "https://commons.wikimedia.org/wiki/File:2024_British_Grand_Prix,_Norris_(1).jpg"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Marc_Marquez_2023_motegi_podium.jpg",
+      "status": 200,
+      "final_url": "https://commons.wikimedia.org/wiki/File:Marc_Marquez_2023_motegi_podium.jpg"
+    },
+    {
+      "url": "https://creativecommons.org/licenses/by/2.0/",
+      "status": 200,
+      "final_url": "https://creativecommons.org/licenses/by/2.0/"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/ARA/MotoGP/RAC/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/ARA/MotoGP/RAC/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/ARA/MotoGP/SPR/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/ARA/MotoGP/SPR/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/AUT/MotoGP/RAC/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/AUT/MotoGP/RAC/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/AUT/MotoGP/RAC/worldstanding.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/AUT/MotoGP/RAC/worldstanding.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/AUT/MotoGP/SPR/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/AUT/MotoGP/SPR/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/BRA/MotoGP/RAC/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/BRA/MotoGP/RAC/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/BRA/MotoGP/SPR/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/BRA/MotoGP/SPR/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/CAT/MotoGP/RAC2/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/CAT/MotoGP/RAC2/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/CAT/MotoGP/SPR/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/CAT/MotoGP/SPR/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/CZE/MotoGP/RAC/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/CZE/MotoGP/RAC/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/CZE/MotoGP/SPR/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/CZE/MotoGP/SPR/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/FRA/MotoGP/RAC/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/FRA/MotoGP/RAC/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/FRA/MotoGP/SPR/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/FRA/MotoGP/SPR/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/GBR/MotoGP/RAC/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/GBR/MotoGP/RAC/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/GBR/MotoGP/SPR/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/GBR/MotoGP/SPR/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/GER/MotoGP/RAC/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/GER/MotoGP/RAC/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/GER/MotoGP/SPR/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/GER/MotoGP/SPR/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/HUN/MotoGP/RAC/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/HUN/MotoGP/RAC/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/HUN/MotoGP/SPR/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/HUN/MotoGP/SPR/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/ITA/MotoGP/RAC/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/ITA/MotoGP/RAC/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/ITA/MotoGP/SPR/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/ITA/MotoGP/SPR/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/NED/MotoGP/RAC/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/NED/MotoGP/RAC/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/NED/MotoGP/SPR/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/NED/MotoGP/SPR/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/RSM/MotoGP/RAC/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/RSM/MotoGP/RAC/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/RSM/MotoGP/SPR/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/RSM/MotoGP/SPR/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/SPA/MotoGP/RAC/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/SPA/MotoGP/RAC/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/SPA/MotoGP/SPR/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/SPA/MotoGP/SPR/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/THA/MotoGP/RAC/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/THA/MotoGP/RAC/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/THA/MotoGP/SPR/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/THA/MotoGP/SPR/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/USA/MotoGP/RAC/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/USA/MotoGP/RAC/Classification.pdf"
+    },
+    {
+      "url": "https://resources.motogp.com/files/results/2026/USA/MotoGP/SPR/Classification.pdf",
+      "status": 200,
+      "final_url": "https://resources.motogp.com/files/results/2026/USA/MotoGP/SPR/Classification.pdf"
+    },
+    {
+      "url": "https://www.formula1.com/en/latest/article/alonso-and-stroll-to-stay-at-aston-martin-in-2027-as-team-confirm-unchanged-line-up.7xg2Sct45vzW92UaiE8YXR",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/latest/article/alonso-and-stroll-to-stay-at-aston-martin-in-2027-as-team-confirm-unchanged-line-up.7xg2Sct45vzW92UaiE8YXR"
+    },
+    {
+      "url": "https://www.formula1.com/en/latest/article/analysis-why-alonso-is-staying-at-aston-martin-and-what-it-means-for-the-2027-grid.2b7yrPKHBN8kcLMJy5PbFa",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/latest/article/analysis-why-alonso-is-staying-at-aston-martin-and-what-it-means-for-the-2027-grid.2b7yrPKHBN8kcLMJy5PbFa"
+    },
+    {
+      "url": "https://www.formula1.com/en/latest/article/formula-1-gulf-air-bahrain-grand-prix-in-malaysia-2026.1IHoy7D2dfCIugb5mH78cE",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/latest/article/formula-1-gulf-air-bahrain-grand-prix-in-malaysia-2026.1IHoy7D2dfCIugb5mH78cE"
+    },
+    {
+      "url": "https://www.formula1.com/en/latest/article/gasly-loses-monaco-podium-as-penalties-reinstated-following-mclaren-and-red-bull-appeal.2DvZIUbpmqhnBSGJuDNjlv",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/latest/article/gasly-loses-monaco-podium-as-penalties-reinstated-following-mclaren-and-red-bull-appeal.2DvZIUbpmqhnBSGJuDNjlv"
+    },
+    {
+      "url": "https://www.formula1.com/en/latest/article/it-was-wrong-of-me-norris-apologises-to-colapinto-for-azerbaijan-post-race-comments.2Iy4VhKfVvs8YOejZh4Ofe",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/latest/article/it-was-wrong-of-me-norris-apologises-to-colapinto-for-azerbaijan-post-race-comments.2Iy4VhKfVvs8YOejZh4Ofe"
+    },
+    {
+      "url": "https://www.formula1.com/en/racing/2026",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/racing/2026"
+    },
+    {
+      "url": "https://www.formula1.com/en/racing/2026/australia",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/racing/2026/australia"
+    },
+    {
+      "url": "https://www.formula1.com/en/racing/2026/austria",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/racing/2026/austria"
+    },
+    {
+      "url": "https://www.formula1.com/en/racing/2026/azerbaijan",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/racing/2026/azerbaijan"
+    },
+    {
+      "url": "https://www.formula1.com/en/racing/2026/barcelona-catalunya",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/racing/2026/barcelona-catalunya"
+    },
+    {
+      "url": "https://www.formula1.com/en/racing/2026/belgium",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/racing/2026/belgium"
+    },
+    {
+      "url": "https://www.formula1.com/en/racing/2026/canada",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/racing/2026/canada"
+    },
+    {
+      "url": "https://www.formula1.com/en/racing/2026/china",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/racing/2026/china"
+    },
+    {
+      "url": "https://www.formula1.com/en/racing/2026/great-britain",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/racing/2026/great-britain"
+    },
+    {
+      "url": "https://www.formula1.com/en/racing/2026/hungary",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/racing/2026/hungary"
+    },
+    {
+      "url": "https://www.formula1.com/en/racing/2026/italy",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/racing/2026/italy"
+    },
+    {
+      "url": "https://www.formula1.com/en/racing/2026/japan",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/racing/2026/japan"
+    },
+    {
+      "url": "https://www.formula1.com/en/racing/2026/miami",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/racing/2026/miami"
+    },
+    {
+      "url": "https://www.formula1.com/en/racing/2026/monaco",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/racing/2026/monaco"
+    },
+    {
+      "url": "https://www.formula1.com/en/racing/2026/netherlands",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/racing/2026/netherlands"
+    },
+    {
+      "url": "https://www.formula1.com/en/racing/2026/spain",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/racing/2026/spain"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/drivers",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/drivers"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1279/australia/fastest-laps",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1279/australia/fastest-laps"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1279/australia/race-result",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1279/australia/race-result"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1280/china/fastest-laps",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1280/china/fastest-laps"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1280/china/race-result",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1280/china/race-result"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1280/china/sprint-results",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1280/china/sprint-results"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1281/japan/fastest-laps",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1281/japan/fastest-laps"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1281/japan/race-result",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1281/japan/race-result"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1284/miami/fastest-laps",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1284/miami/fastest-laps"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1284/miami/race-result",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1284/miami/race-result"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1284/miami/sprint-results",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1284/miami/sprint-results"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1285/canada/fastest-laps",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1285/canada/fastest-laps"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1285/canada/race-result",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1285/canada/race-result"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1285/canada/sprint-results",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1285/canada/sprint-results"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1286/monaco/fastest-laps",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1286/monaco/fastest-laps"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1286/monaco/race-result",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1286/monaco/race-result"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1287/barcelona-catalunya/fastest-laps",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1287/barcelona-catalunya/fastest-laps"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1287/barcelona-catalunya/race-result",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1287/barcelona-catalunya/race-result"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1288/austria/fastest-laps",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1288/austria/fastest-laps"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1288/austria/race-result",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1288/austria/race-result"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1289/great-britain/fastest-laps",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1289/great-britain/fastest-laps"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1289/great-britain/race-result",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1289/great-britain/race-result"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1289/great-britain/sprint-results",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1289/great-britain/sprint-results"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1290/belgium/fastest-laps",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1290/belgium/fastest-laps"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1290/belgium/race-result",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1290/belgium/race-result"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1291/hungary/fastest-laps",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1291/hungary/fastest-laps"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1291/hungary/race-result",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1291/hungary/race-result"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1292/netherlands/fastest-laps",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1292/netherlands/fastest-laps"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1292/netherlands/race-result",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1292/netherlands/race-result"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1292/netherlands/sprint-results",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1292/netherlands/sprint-results"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1293/italy/fastest-laps",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1293/italy/fastest-laps"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1293/italy/race-result",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1293/italy/race-result"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1294/spain/fastest-laps",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1294/spain/fastest-laps"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1294/spain/race-result",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1294/spain/race-result"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1295/azerbaijan/fastest-laps",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1295/azerbaijan/fastest-laps"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/races/1295/azerbaijan/race-result",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/races/1295/azerbaijan/race-result"
+    },
+    {
+      "url": "https://www.formula1.com/en/results/2026/team",
+      "status": 200,
+      "final_url": "https://www.formula1.com/en/results/2026/team"
+    },
+    {
+      "url": "https://www.motogp.com/en/calendar/2026",
+      "status": 200,
+      "final_url": "https://www.motogp.com/en/calendar/2026"
+    },
+    {
+      "url": "https://www.motogp.com/en/news/2026/03/30/vinales-torna-in-azione-in-giappone/1095812",
+      "status": 200,
+      "final_url": "https://www.motogp.com/en/news/2026/03/30/vinales-torna-in-azione-in-giappone/1095812"
+    },
+    {
+      "url": "https://www.motogp.com/en/news/2026/09/23/chantra-set-for-motogp-return-in-motegi/1092166",
+      "status": 200,
+      "final_url": "https://www.motogp.com/en/news/2026/09/23/chantra-set-for-motogp-return-in-motegi/1092166"
+    },
+    {
+      "url": "https://www.motogp.com/en/news/2026/09/24/motogp-to-race-in-portugal-until-2029/1092228",
+      "status": 200,
+      "final_url": "https://www.motogp.com/en/news/2026/09/24/motogp-to-race-in-portugal-until-2029/1092228"
+    },
+    {
+      "url": "https://www.motogp.com/en/news/2026/09/28/time-schedule-motul-grand-prix-of-japan/1092197",
+      "status": 200,
+      "final_url": "https://www.motogp.com/en/news/2026/09/28/time-schedule-motul-grand-prix-of-japan/1092197"
+    }
+  ],
+  "model_checks": {
+    "input_scoring_and_standings_reconciliation": true,
+    "unique_finishing_positions": true,
+    "point_bounds": true,
+    "one_champion_or_explicit_unresolved_tie_per_trial": true,
+    "constructor_driver_points_reconcile": true,
+    "tie_break_self_checks": true,
+    "mathematically_eliminated_entrants_have_no_simulated_titles": true
+  },
+  "model_reproduction": "Second 200,000-trial run per championship reproduced title counts, probabilities, mathematical eligibility and rolling diagnostics exactly. Metadata timestamps/durations intentionally differ.",
+  "model_input_sha256": "d803548b914cb62f206575ad3f6f337a3666539df9eb7328c278136945964d97",
+  "model_code_sha256": "d043111e60ad40ae4a44956967bfaac96063e23b9f4a2ef922ff1db8c569c37b",
+  "archive_original_blob": "b9ebdd8f5d9ab33b456f6d956e738e5a4e948289",
+  "archive_exact_bytes": true,
+  "licence_checks": "Individual Commons file pages checked for creator, exact CC BY 2.0 Generic licence, licence-review record and original source. New JPEG filenames and SHA-256 hashes match CREDITS.md. Older photos/credits retained.",
+  "limitations": [
+    "F1 Sprint fastest laps not independently verified and explicitly omitted.",
+    "No separate exhaustive audit of every stewards decision; final published classifications and explicitly cited updates used.",
+    "Five rolling GP checks do not establish completed-championship calibration. Probability assumptions and finite empirical support are documented.",
+    "No physical screen-reader session; hidden/inert DOM, accessibility snapshots and keyboard navigation checked."
+  ]
+}
