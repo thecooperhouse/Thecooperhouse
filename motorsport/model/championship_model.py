@@ -5,7 +5,7 @@ from datetime import datetime,timezone
 from collections import Counter,defaultdict
 import numpy as np
 
-VERSION='weekend-bootstrap-1.0.0'
+VERSION='weekend-bootstrap-1.0.1'
 RULES={
  'f1':{'race':[25,18,15,12,10,8,6,4,2,1],'sprint':[8,7,6,5,4,3,2,1]},
  'moto':{'race':[25,20,16,13,11,10,9,8,7,6,5,4,3,2,1],'sprint':[12,9,7,6,5,4,3,2,1]}}
@@ -50,7 +50,7 @@ def validate_inputs(data,key):
 
 def entrants(d,key):
     # Regular 2026 grid. Remaining-seat assumptions are explicit in the input file.
-    active=[n for n,t,p in d['standings'] if (n!='Yuki Tsunoda' if key=='f1' else n not in ['Iker Lecuona','Augusto Fernández','Pol Espargaró','Takaaki Nakagami','Cal Crutchlow','Jonas Folger','Lorenzo Savadori','Michele Pirro'])]
+    active=[n for n,t,p in d['standings'] if (n!='Yuki Tsunoda' if key=='f1' else n not in ['Iker Lecuona','Augusto Fernández','Pol Espargaró','Takaaki Nakagami','Somkiat Chantra','Cal Crutchlow','Jonas Folger','Lorenzo Savadori','Michele Pirro'])]
     assert len(active)==22
     return active
 
@@ -66,7 +66,7 @@ def map_name(e,key,entries):
             return missing[0]
         if n=='Lorenzo Savadori':
             return 'Ai Ogura' if 'Trackhouse' in e['team'] else n
-        n={'Pol Espargaró':'Maverick Viñales','Jonas Folger':'Maverick Viñales','Takaaki Nakagami':'Joan Mir','Cal Crutchlow':'Johann Zarco'}.get(n,n)
+        n={'Pol Espargaró':'Maverick Viñales','Jonas Folger':'Maverick Viñales','Takaaki Nakagami':'Joan Mir','Somkiat Chantra':'Joan Mir','Cal Crutchlow':'Johann Zarco'}.get(n,n)
     return n
 
 def history_arrays(d,key,names):

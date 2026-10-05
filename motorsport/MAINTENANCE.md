@@ -52,3 +52,13 @@ Report failures or anything requiring my action. Stay quiet if there is no meani
 - F1 Sprint fastest laps were not independently verified; they are explicitly omitted. GP fastest laps and MotoGP GP/Sprint fastest laps were checked.
 - Penalties reflected by the final result sheets and the explicitly cited announcements were checked. There was no separate exhaustive audit of every stewards' decision.
 - The empirical probability model has five rolling held-out GP diagnostics, but no completed-season championship calibration. Its finite observed outcomes, injury/entry assumptions and exchangeable-track assumption limit interpretation.
+
+
+## 5 October 2026 update (v17)
+
+- Archived the exact v16 page as `index-v16-2026-10-05-before-maintenance.html` before replacing `index.html`.
+- Added round 16 final classifications and refreshed standings/calendars/news for both championships. Latest-event watched IDs are `f1:2026:bahrain-malaysia:r16` and `moto:2026:jpn:r16`; earlier watched choices do not unlock them.
+- Model `weekend-bootstrap-1.0.1` adds Somkiat Chantra to the MotoGP substitute-seat mapping and applies the confirmed Mir absence override for Indonesia. Seeds: F1 `20261005`, MotoGP `20261006`; 200,000 trials each.
+- Indonesian session times are displayed as provisional because the event page was available but a separately indexed official timetable was not. The latest MotoGP Sprint fastest lap is omitted for lack of independent official-classification verification.
+- Existing licensed photos were retained. The cloud publishing path available to this run did not provide a reliable way to verify and transfer two new individual Wikimedia files end-to-end. Existing archives and photo credits remain intact.
+- Playwright visual automation could not run because its Chromium binary was absent in the cloud runner. Static JavaScript/data/invariant checks and a post-deployment browser inspection were used instead.

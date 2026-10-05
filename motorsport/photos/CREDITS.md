@@ -47,3 +47,8 @@ Reuse requires appropriate attribution, a source and licence link, and identific
 
 Keep all older images and their credits: archived HTML pages still reference them. Historical photographs are labelled with their event and year and do not represent the latest race result. No photographer or subject endorsement is implied.
 
+
+
+## 5 October 2026 maintenance note
+
+No photo was replaced in v17. The two v16 images above remain in use with unchanged attribution and modification disclosures. The available cloud publishing path did not support reliable end-to-end verification and transfer of suitable new individual Wikimedia files; no unverified image was introduced. Archived pages retain all earlier assets and credits.

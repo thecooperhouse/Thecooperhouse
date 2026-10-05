@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-05",
+  "version": "v17",
+  "status": "passed_with_noted_limitations",
+  "checks": {
+    "source_and_points_reconciliation": true,
+    "model_input_validation": true,
+    "simulations": {
+      "f1": 200000,
+      "moto": 200000,
+      "seeds": [
+        20261005,
+        20261006
+      ],
+      "reproducible_counts": true
+    },
+    "model_invariants": {
+      "input_scoring_and_standings_reconciliation": true,
+      "unique_finishing_positions": true,
+      "point_bounds": true,
+      "one_champion_or_explicit_unresolved_tie_per_trial": true,
+      "constructor_driver_points_reconcile": true,
+      "tie_break_self_checks": true,
+      "mathematically_eliminated_entrants_have_no_simulated_titles": true
+    },
+    "javascript_syntax": true,
+    "json_constants_parse": true,
+    "event_specific_spoiler_keys": true,
+    "one_watch_control_per_series": true,
+    "archive_target_present": true,
+    "keyboard_and_visual_prepublication": "not run: Playwright Chromium binary absent",
+    "postdeployment_browser_inspection": "pending"
+  },
+  "limitations": [
+    "Indonesian session times provisional pending separately indexed official timetable.",
+    "Latest MotoGP Sprint fastest lap omitted because an official classification value was not independently retrieved.",
+    "Photos retained; no two replacement files could be individually verified and transferred through the cloud publishing path.",
+    "No exhaustive audit of every F1 stewards document beyond penalties reflected in the official result/report."
+  ]
+}
