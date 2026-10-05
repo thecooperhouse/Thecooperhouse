@@ -29,12 +29,17 @@
     "one_watch_control_per_series": true,
     "archive_target_present": true,
     "keyboard_and_visual_prepublication": "not run: Playwright Chromium binary absent",
-    "postdeployment_browser_inspection": "pending"
+    "postdeployment_browser_inspection": "passed: v17 live after propagation; desktop layout, tabs, spoiler defaults/reveal/hide/persistence and images verified",
+    "live_archive": true,
+    "live_photos": true,
+    "horizontal_overflow_desktop": false,
+    "browser_console": "no page-script errors observed; cloud-browser extension emitted unrelated metadata errors"
   },
   "limitations": [
     "Indonesian session times provisional pending separately indexed official timetable.",
     "Latest MotoGP Sprint fastest lap omitted because an official classification value was not independently retrieved.",
     "Photos retained; no two replacement files could be individually verified and transferred through the cloud publishing path.",
-    "No exhaustive audit of every F1 stewards document beyond penalties reflected in the official result/report."
+    "No exhaustive audit of every F1 stewards document beyond penalties reflected in the official result/report.",
+    "A mobile viewport could not be emulated in the available cloud browser; responsive CSS and overflow checks passed, and desktop was visually inspected."
   ]
 }
