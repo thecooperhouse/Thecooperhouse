@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mann River, 29–30 August 2026 — The Cooperhouse</title>
-    <meta name="description" content="Adventure bike getaway — Cornubia to Mann River Nature Reserve via the Lions Road, and two ways home.">
+    <meta name="description" content="Mann River ride — ridden 29–30 August 2026. Ten photos from the bikes, campsite and river country, plus the original route plan.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -215,6 +215,30 @@
             .stop { padding: 12px 14px; gap: 12px; }
             .stop .tick { width: 52px; }
         }
+
+        /* Ride photos */
+        .trip-nav { margin: 20px 0 32px; }
+        #photos, #ride-plan { scroll-margin-top: 24px; }
+        .photo-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+        .photo-grid figure { margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: var(--card-bg); }
+        .photo-link { display: block; background: #172027; }
+        .photo-link img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+        .photo-grid figcaption { padding: 12px 14px; font-size: 13px; color: var(--ink-soft); }
+        a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+        .archive-note { padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--card-bg); }
+        .archive-note p { font-size: 13px; line-height: 1.6; color: var(--ink-soft); margin-bottom: 0; }
+        .photo-viewer { width: min(1100px, 96vw); max-width: 96vw; max-height: 94vh; padding: 14px; border: 0; border-radius: 12px; background: #151b20; color: #fff; }
+        .photo-viewer::backdrop { background: rgb(0 0 0 / 85%); }
+        .viewer-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .viewer-toolbar button { padding: 10px 14px; min-height: 44px; border: 1px solid #65717b; border-radius: 8px; color: #fff; background: transparent; cursor: pointer; font: inherit; }
+        .viewer-controls { display: flex; gap: 8px; }
+        .viewer-image { display: block; max-width: 100%; width: auto; height: auto; max-height: 70vh; margin: auto; object-fit: contain; }
+        .viewer-caption { text-align: center; margin: 14px 0 4px; font-size: 14px; line-height: 1.5; }
+        @media (max-width: 560px) {
+            .photo-grid { grid-template-columns: 1fr; gap: 14px; }
+            .viewer-toolbar { font-size: 12px; }
+            .viewer-toolbar button { padding: 10px; }
+        }
     </style>
 </head>
 <body>
@@ -223,10 +247,83 @@
 
     <a class="back" href="./">&#8592; All rides</a>
 
-    <p class="eyebrow">Booked · Saturday 29 – Sunday 30 August 2026</p>
+    <p class="eyebrow">Ridden · Saturday 29 – Sunday 30 August 2026</p>
     <h1>Adventure Bike Getaway<br>Mann River</h1>
     <p class="route">Cornubia → Lions Road → Clarence Way → Grafton → Mann River Nature Reserve</p>
-    <p class="lede">Three riders, two days, one cold night. Saturday runs south on the Lions Road, then west at Casino onto the Bruxner and down the Clarence Way through Eighteen Mile and Baryulgil to Grafton. Sunday is one decision made over coffee — the 130 km of unsealed Old Grafton Road east to Grafton, or the sealed loop through Tenterfield.</p>
+    <p class="lede">Three riders, two days, one cold night. Photos from our Mann River adventure — bikes, river country, a night under the stars and a tunnel stop along the way.</p>
+    <div class="links trip-nav"><a class="btn btn--primary" href="#photos">View the photos</a><a class="btn" href="#ride-plan">Original ride plan</a></div>
+
+    <section id="photos" aria-labelledby="photos-heading">
+        <h2 id="photos-heading">Photos from the ride</h2>
+        <p class="h2-sub">Ten moments from Mann River. Tap a photo to view it full size.</p>
+        <div class="photo-grid">
+            <figure>
+                <a class="photo-link" href="images/mann-river/img_2340.webp" aria-label="Enlarge: Bikes beside the rock tunnel">
+                    <img src="images/mann-river/img_2340.webp" alt="Loaded adventure bikes parked on the gravel road beside a tunnel cut through rock" width="1536" height="1152" loading="lazy" decoding="async">
+                </a>
+                <figcaption>Bikes beside the rock tunnel</figcaption>
+            </figure>
+            <figure>
+                <a class="photo-link" href="images/mann-river/img_2322.webp" aria-label="Enlarge: Morning at camp">
+                    <img src="images/mann-river/img_2322.webp" alt="Adventure bikes and small tents in the sunny campground" width="1536" height="1152" loading="lazy" decoding="async">
+                </a>
+                <figcaption>Morning at camp</figcaption>
+            </figure>
+            <figure>
+                <a class="photo-link" href="images/mann-river/img_2323.webp" aria-label="Enlarge: A spot by the river">
+                    <img src="images/mann-river/img_2323.webp" alt="Yellow tent and blue shelter beside the river with hills beyond" width="1536" height="1152" loading="lazy" decoding="async">
+                </a>
+                <figcaption>A spot by the river</figcaption>
+            </figure>
+            <figure>
+                <a class="photo-link" href="images/mann-river/img_2325.webp" aria-label="Enlarge: River country">
+                    <img src="images/mann-river/img_2325.webp" alt="Rocky riverbank and trees beneath a clear blue sky" width="1536" height="1152" loading="lazy" decoding="async">
+                </a>
+                <figcaption>River country</figcaption>
+            </figure>
+            <figure>
+                <a class="photo-link" href="images/mann-river/img_2327.webp" aria-label="Enlarge: Room to breathe">
+                    <img src="images/mann-river/img_2327.webp" alt="Open grassy campground surrounded by trees and hills" width="1536" height="1152" loading="lazy" decoding="async">
+                </a>
+                <figcaption>Room to breathe</figcaption>
+            </figure>
+            <figure>
+                <a class="photo-link" href="images/mann-river/img_2330.webp" aria-label="Enlarge: Camp in the valley">
+                    <img src="images/mann-river/img_2330.webp" alt="Yellow tent in the open campground below wooded hills" width="1536" height="1152" loading="lazy" decoding="async">
+                </a>
+                <figcaption>Camp in the valley</figcaption>
+            </figure>
+            <figure>
+                <a class="photo-link" href="images/mann-river/img_2315.webp" aria-label="Enlarge: Dinner, camp style">
+                    <img src="images/mann-river/img_2315.webp" alt="A bowl of dinner on a wooden picnic table after dark" width="1536" height="1152" loading="lazy" decoding="async">
+                </a>
+                <figcaption>Dinner, camp style</figcaption>
+            </figure>
+            <figure>
+                <a class="photo-link" href="images/mann-river/img_2318.webp" aria-label="Enlarge: Lights on after dark">
+                    <img src="images/mann-river/img_2318.webp" alt="An orange tent glowing beneath a cloudy night sky" width="1536" height="1152" loading="lazy" decoding="async">
+                </a>
+                <figcaption>Lights on after dark</figcaption>
+            </figure>
+            <figure>
+                <a class="photo-link" href="images/mann-river/img_2321.webp" aria-label="Enlarge: Fireside">
+                    <img src="images/mann-river/img_2321.webp" alt="Flames and glowing logs in a campfire at night" width="1152" height="1536" loading="lazy" decoding="async">
+                </a>
+                <figcaption>Fireside</figcaption>
+            </figure>
+            <figure>
+                <a class="photo-link" href="images/mann-river/img_2316.webp" aria-label="Enlarge: A sky full of stars">
+                    <img src="images/mann-river/img_2316.webp" alt="Stars and the Milky Way above the silhouettes of trees" width="1152" height="1536" loading="lazy" decoding="async">
+                </a>
+                <figcaption>A sky full of stars</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <section id="ride-plan" class="archive-note" aria-labelledby="plan-heading">
+        <h2 id="plan-heading">Original ride plan</h2>
+        <p>The itinerary, distances, forecasts and alerts below are the planning notes for August 2026, retained as a record of the trip. They are not current travel information.</p>
+    </section>
 
     <div class="strip">
         <div><div class="k">Saturday</div><div class="v">≈490 km</div><div class="s">Cornubia → camp</div></div>
@@ -460,6 +557,60 @@
     Route revised Friday 28 August 2026 to run Casino → Bruxner Highway → Clarence Way → Grafton. Weather, fire and park alerts re-checked Tuesday 25 August 2026 against the Bureau of Meteorology, NSW National Parks and Wildlife Service, NSW Rural Fire Service, Live Traffic NSW and local council information.<br>
     Distances are planning estimates — confirm in your own navigation. Re-check alerts and fire bans before departure.
 </footer>
+
+
+<dialog class="photo-viewer" aria-label="Mann River photo gallery">
+    <div class="viewer-toolbar">
+        <span class="viewer-counter" aria-live="polite"></span>
+        <div class="viewer-controls">
+            <button type="button" data-photo="prev" aria-label="Previous photo">&#8592;</button>
+            <button type="button" data-photo="next" aria-label="Next photo">&#8594;</button>
+            <button type="button" data-photo="close" autofocus>Close</button>
+        </div>
+    </div>
+    <img class="viewer-image" alt="">
+    <p class="viewer-caption" aria-live="polite"></p>
+</dialog>
+<script>
+(() => {
+    const viewer = document.querySelector('.photo-viewer');
+    if (!viewer || typeof viewer.showModal !== 'function') return;
+    const links = Array.from(document.querySelectorAll('.photo-link'));
+    const image = viewer.querySelector('.viewer-image');
+    let current = 0;
+    let previousOverflow = '';
+    function show(index) {
+        current = (index + links.length) % links.length;
+        const link = links[current];
+        image.src = link.href;
+        image.alt = link.querySelector('img').alt;
+        viewer.querySelector('.viewer-caption').textContent = link.parentElement.querySelector('figcaption').textContent;
+        viewer.querySelector('.viewer-counter').textContent = (current + 1) + ' / ' + links.length;
+    }
+    links.forEach((link, index) => link.addEventListener('click', event => {
+        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        show(index);
+        previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        viewer.showModal();
+    }));
+    viewer.querySelector('[data-photo="prev"]').addEventListener('click', () => show(current - 1));
+    viewer.querySelector('[data-photo="next"]').addEventListener('click', () => show(current + 1));
+    viewer.querySelector('[data-photo="close"]').addEventListener('click', () => viewer.close());
+    viewer.addEventListener('close', () => { document.body.style.overflow = previousOverflow; });
+    viewer.addEventListener('keydown', event => {
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+            event.preventDefault();
+            show(current + (event.key === 'ArrowRight' ? 1 : -1));
+        }
+    });
+    viewer.addEventListener('click', event => {
+        const box = viewer.getBoundingClientRect();
+        if (event.target === viewer && (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom)) viewer.close();
+    });
+})();
+</script>
 
 </body>
 </html>
