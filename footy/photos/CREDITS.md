@@ -1,6 +1,6 @@
 # Photo credits
 
-Both photographs come from Wikimedia Commons and are used under Creative Commons Attribution-ShareAlike licences. Licence metadata was checked on Wikimedia Commons on 30 September 2026. These are archive images, not photos of recent matches.
+Both photographs come from Wikimedia Commons and are used under Creative Commons Attribution-ShareAlike licences. Licence metadata was first checked on Wikimedia Commons on 30 September 2026 and last re-checked on 12 October 2026 (unchanged). These are archive images, not photos of recent matches.
 
 ## Brisbane Broncos line up before the 2026 World Club Challenge
 
