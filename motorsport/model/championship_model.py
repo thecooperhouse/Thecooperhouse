@@ -5,7 +5,7 @@ from datetime import datetime,timezone
 from collections import Counter,defaultdict
 import numpy as np
 
-VERSION='weekend-bootstrap-1.0.1'
+VERSION='weekend-bootstrap-1.0.2'
 RULES={
  'f1':{'race':[25,18,15,12,10,8,6,4,2,1],'sprint':[8,7,6,5,4,3,2,1]},
  'moto':{'race':[25,20,16,13,11,10,9,8,7,6,5,4,3,2,1],'sprint':[12,9,7,6,5,4,3,2,1]}}
@@ -50,7 +50,7 @@ def validate_inputs(data,key):
 
 def entrants(d,key):
     # Regular 2026 grid. Remaining-seat assumptions are explicit in the input file.
-    active=[n for n,t,p in d['standings'] if (n!='Yuki Tsunoda' if key=='f1' else n not in ['Iker Lecuona','Augusto Fernández','Pol Espargaró','Takaaki Nakagami','Somkiat Chantra','Cal Crutchlow','Jonas Folger','Lorenzo Savadori','Michele Pirro'])]
+    active=[n for n,t,p in d['standings'] if (n!='Yuki Tsunoda' if key=='f1' else n not in ['Iker Lecuona','Augusto Fernández','Pol Espargaró','Takaaki Nakagami','Somkiat Chantra','Aleix Espargaró','Cal Crutchlow','Jonas Folger','Lorenzo Savadori','Michele Pirro'])]
     assert len(active)==22
     return active
 
@@ -66,7 +66,7 @@ def map_name(e,key,entries):
             return missing[0]
         if n=='Lorenzo Savadori':
             return 'Ai Ogura' if 'Trackhouse' in e['team'] else n
-        n={'Pol Espargaró':'Maverick Viñales','Jonas Folger':'Maverick Viñales','Takaaki Nakagami':'Joan Mir','Somkiat Chantra':'Joan Mir','Cal Crutchlow':'Johann Zarco'}.get(n,n)
+        n={'Pol Espargaró':'Maverick Viñales','Jonas Folger':'Maverick Viñales','Takaaki Nakagami':'Joan Mir','Somkiat Chantra':'Joan Mir','Aleix Espargaró':'Joan Mir','Cal Crutchlow':'Johann Zarco'}.get(n,n)
     return n
 
 def history_arrays(d,key,names):
@@ -149,7 +149,7 @@ def run_series(data,key,trials,seed,half_life,concentration,batch_size):
             wp=w[:,pool];wp/=wp.sum(axis=1)[:,None];u=rng.random(b)
             choice=(u[:,None]>np.cumsum(wp,axis=1)).sum(axis=1);choice=np.minimum(choice,len(pool)-1);rd=pool[choice]
             pos=mats['race']['positions'][rd].copy()
-            # Motegi's confirmed HRC substitute cannot score for Mir. Chantra is mathematically out.
+            # Confirmed remaining-event absences can force a regular rider's sampled score to zero.
             override=data.get('entry_overrides',{}).get(key,{}).get(str(event['rd']),{})
             if override:
                 for unavailable,replacement in override.items():
@@ -221,3 +221,4 @@ def main():
     print(json.dumps({'model_version':VERSION,'seconds':result['calculation_seconds'],'f1_trials':args.simulations,'moto_trials':args.simulations,'unresolved_ties':[result['f1']['unresolved_tie_trials'],result['moto']['unresolved_tie_trials'],result['f1']['constructors']['unresolved_tie_trials']]}))
 
 if __name__=='__main__':main()
+
