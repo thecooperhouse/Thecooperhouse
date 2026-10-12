@@ -1,7 +1,7 @@
 {
   "model_version": "weekend-bootstrap-1.0.2",
-  "calculated_at_utc": "2026-10-12T02:03:52.673236+00:00",
-  "input_sha256": "e67e2cc4c8424757d90d08a6c05844a235668d27cb8fb20cee73d3099416d540",
+  "calculated_at_utc": "2026-10-12T02:12:12.192624+00:00",
+  "input_sha256": "773c2b9cb0cf3141a3b1a27dccee181ba6602e1f8d253f0cfd909b42f6c1df08",
   "code_sha256": "26017f95bbf0deab59171f328b2f8c75a5fd19e45cc648c90e960703c1afcc8f",
   "python_version": "3.12.14",
   "numpy_version": "2.3.5",
@@ -850,5 +850,5 @@
     "tie_break_self_checks": true,
     "mathematically_eliminated_entrants_have_no_simulated_titles": true
   },
-  "calculation_seconds": 8.592
+  "calculation_seconds": 8.866
 }
