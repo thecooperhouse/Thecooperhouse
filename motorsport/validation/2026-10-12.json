@@ -1,0 +1,50 @@
+{
+  "edition": "v18",
+  "checked_at": "2026-10-12",
+  "prepublication": {
+    "latest_event_ids": {
+      "f1": "f1:2026:singapore:r17",
+      "moto": "moto:2026:ina:r17"
+    },
+    "points_reconciled": {
+      "f1_drivers": 1933,
+      "f1_constructors": 1933,
+      "motogp_riders": 3212
+    },
+    "model": {
+      "version": "weekend-bootstrap-1.0.2",
+      "f1_seed": 20261012,
+      "motogp_seed": 20261013,
+      "simulations_each": 200000,
+      "f1_rounds_observed": 17,
+      "motogp_rounds_observed": 17,
+      "all_recorded_invariants": true,
+      "unresolved_simulated_ties": {
+        "f1_drivers": 0,
+        "f1_constructors": 0,
+        "motogp_riders": 0
+      }
+    },
+    "checks_passed": [
+      "input scoring and standings reconciliation",
+      "unique finishing positions",
+      "point bounds",
+      "champion or explicit unresolved tie per trial",
+      "F1 driver and constructor points conservation",
+      "tie-break self checks",
+      "mathematically eliminated entrants have no simulated titles",
+      "inline JavaScript syntax",
+      "one generated watched checkbox per series",
+      "unique event-specific watched identifiers",
+      "archive link and dated model links",
+      "latest and older result counts",
+      "Brisbane date rollover for the United States GP"
+    ],
+    "limitations": [
+      "The Playwright Chromium binary was unavailable, so prepublication headless visual, layout and keyboard automation could not run.",
+      "Australian MotoGP session starts are provisional: the official event page confirmed the dates but did not expose a complete indexed timetable.",
+      "Existing licensed photos were retained because the cloud path did not provide reliable end-to-end transfer and verification of two new Wikimedia binaries.",
+      "No physical screen-reader test was performed."
+    ]
+  }
+}
