@@ -21,8 +21,8 @@ async function main(){
  assert.equal(await page.locator('input[type=checkbox]').count(),2);
  const gateState=key=>page.evaluate(key=>[...document.querySelectorAll(`[data-latest="${key}"],#spoiler-${key}-standings`)].map(e=>{const v=e.querySelector(':scope > .veil');return {revealed:e.classList.contains('revealed'),hidden:v.hidden,inert:v.inert}}),key);
  for(const key of ['f1','moto'])assert((await gateState(key)).every(x=>!x.revealed&&x.hidden&&x.inert));
- assert.equal(await page.locator('#panel-f1 .race:not(.latest)').count(),14);
- assert.equal(await page.locator('#panel-moto .race:not(.latest)').count(),14);
+ assert.equal(await page.locator('#panel-f1 .race:not(.latest)').count(),16);
+ assert.equal(await page.locator('#panel-moto .race:not(.latest)').count(),16);
  assert.equal(await page.locator('#panel-f1 .race:not(.latest)').first().isVisible(),true);
  await page.screenshot({path:path.join(evidence,'desktop-hidden.png')});
  await page.locator('#watched-f1').focus();await page.keyboard.press('Space');
@@ -82,3 +82,4 @@ async function main(){
  await browser.close();
 }
 main().catch(e=>{console.error(e);process.exit(1)});
+
