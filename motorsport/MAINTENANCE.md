@@ -62,3 +62,12 @@ Report failures or anything requiring my action. Stay quiet if there is no meani
 - Indonesian session times are displayed as provisional because the event page was available but a separately indexed official timetable was not. The latest MotoGP Sprint fastest lap is omitted for lack of independent official-classification verification.
 - Existing licensed photos were retained. The cloud publishing path available to this run did not provide a reliable way to verify and transfer two new individual Wikimedia files end-to-end. Existing archives and photo credits remain intact.
 - Playwright visual automation could not run because its Chromium binary was absent in the cloud runner. Static JavaScript/data/invariant checks and a post-deployment browser inspection were used instead.
+
+## 12 October 2026 update (v18)
+
+- Archived the exact v17 page as `index-v17-2026-10-12-before-maintenance.html` before replacing `index.html`.
+- Added round 17 final classifications and refreshed standings, calendars, Brisbane viewing times and news for both championships. Latest-event watched IDs are `f1:2026:singapore:r17` and `moto:2026:ina:r17`; earlier watched choices cannot unlock them.
+- Model `weekend-bootstrap-1.0.2` adds Aleix Espargaró to the Honda substitute-seat mapping. Seeds: F1 `20261012`, MotoGP `20261013`; 200,000 trials each.
+- Australian MotoGP session starts are displayed as provisional because the official event page confirmed the dates but did not expose a complete indexed timetable. Formula 1 United States GP times were converted from the official event page to Brisbane AEST.
+- Existing licensed photos were retained. The available cloud publishing path still did not provide a reliable end-to-end transfer of two newly verified individual Wikimedia files; existing credits and archived assets remain intact.
+
