@@ -71,3 +71,11 @@ Report failures or anything requiring my action. Stay quiet if there is no meani
 - Australian MotoGP session starts are displayed as provisional because the official event page confirmed the dates but did not expose a complete indexed timetable. Formula 1 United States GP times were converted from the official event page to Brisbane AEST.
 - Existing licensed photos were retained. The available cloud publishing path still did not provide a reliable end-to-end transfer of two newly verified individual Wikimedia files; existing credits and archived assets remain intact.
 
+## 19 October 2026 update (v19)
+
+- Archived the exact v18 page as `index-v18-2026-10-19-before-maintenance.html` before replacing `index.html`.
+- Neither series raced during the week, so the round-17 classifications, standings and watched IDs remain unchanged. Official calendars, results, standings and current news were rechecked.
+- Replaced provisional Australian MotoGP times with the promoter's published timetable and corrected the Sunday warm-up and Grand Prix conversions from Phillip Island AEDT to Brisbane AEST.
+- Reran model `weekend-bootstrap-1.0.2` at 200,000 trials per championship. Seeds: F1 `20261019`, MotoGP `20261020`. The method and scoring inputs are unchanged; the new run records current entry uncertainty without forcing an unconfirmed absence.
+- Existing licensed photos were retained. The connected GitHub text-file publishing tools cannot upload new binary image files end-to-end, so no safe licensed replacement could be published while preserving the archive assets.
+
