@@ -1,0 +1,51 @@
+{
+  "edition": "v19",
+  "checked_at": "2026-10-19",
+  "prepublication": {
+    "latest_event_ids": {
+      "f1": "f1:2026:singapore:r17",
+      "moto": "moto:2026:ina:r17"
+    },
+    "points_reconciled": {
+      "f1_drivers": 1933,
+      "f1_constructors": 1933,
+      "motogp_riders": 3212
+    },
+    "model": {
+      "version": "weekend-bootstrap-1.0.2",
+      "f1_seed": 20261019,
+      "motogp_seed": 20261020,
+      "simulations_each": 200000,
+      "f1_rounds_observed": 17,
+      "motogp_rounds_observed": 17,
+      "all_recorded_invariants": true,
+      "unresolved_simulated_ties": {
+        "f1_drivers": 0,
+        "f1_constructors": 0,
+        "motogp_riders": 0
+      }
+    },
+    "checks_passed": [
+      "official calendars show round 18 as the next event for each series",
+      "latest completed classifications and standings remain unchanged",
+      "input scoring and standings reconciliation",
+      "unique finishing positions and point bounds",
+      "champion or explicit unresolved tie per trial",
+      "F1 driver and constructor points conservation",
+      "tie-break self checks",
+      "mathematically eliminated entrants have no simulated titles",
+      "inline JavaScript syntax",
+      "one generated watched checkbox per series",
+      "event-specific watched identifiers unchanged during the non-race week",
+      "archive link and dated model links",
+      "Phillip Island AEDT to Brisbane AEST conversion",
+      "Austin local-time to Brisbane date rollover"
+    ],
+    "limitations": [
+      "The Playwright Chromium binary was unavailable, so prepublication automated desktop/mobile layout, keyboard and persistence checks could not be rerun; the unchanged spoiler code passed static syntax and event-ID checks.",
+      "Existing licensed photos were retained because the connected GitHub text-file tools cannot upload replacement image binaries end-to-end.",
+      "No physical screen-reader test was performed.",
+      "The Australian GP entry remained unsettled for one recovering rider at the official-news check; the model keeps the regular grid rather than inventing a substitute."
+    ]
+  }
+}
