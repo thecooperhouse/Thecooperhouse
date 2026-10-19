@@ -49,3 +49,11 @@ Tracks are exchangeable; there is no track-specific pace forecast, weather model
 
 Future runs must refresh official inputs, review substitute mappings and calendar/rules changes, rerun at least 200,000 trials per championship, archive dated inputs/outputs, and repeat meaningful checks before publishing.
 
+## 19 October 2026 run
+
+- Model version: `weekend-bootstrap-1.0.2` (method unchanged).
+- Inputs: `inputs-2026-10-19.json`; outputs: `outputs-2026-10-19.json`.
+- Seeds: Formula 1 `20261019`; MotoGP `20261020`; 200,000 trials per championship.
+- The latest completed results and standings are unchanged because neither series raced after 12 October. Official calendars and upcoming timetables were rechecked; the Australian MotoGP schedule is now confirmed and converted from Phillip Island AEDT to Brisbane AEST.
+- The regular MotoGP grid remains the future-entry assumption. Fermín Aldeguer's Australian participation was unconfirmed after his 14 October surgery, so the input records that uncertainty without inventing an absence or replacement.
+
