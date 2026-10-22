@@ -1,0 +1,63 @@
+{
+  "checked_at_utc": "2026-10-22T09:53:46.677Z",
+  "browser": "Chromium 156.0.8078.4",
+  "viewports": [
+    "1280×1000",
+    "390×844",
+    "320×844"
+  ],
+  "checks": [
+    "JavaScript execution",
+    "one checkbox per series",
+    "latest race/Sprint, standings, news and analysis hidden/inert by default",
+    "reveal/hide with keyboard and pointer",
+    "independent series choices",
+    "reload persistence",
+    "new-event protection",
+    "malformed, blocked and legacy storage",
+    "keyboard tabs and Home/End",
+    "earlier results accessible",
+    "images decode",
+    "no page overflow",
+    "hidden accessibility and focus exclusion",
+    "Tab and Shift+Tab reach both watched controls",
+    "visible keyboard focus",
+    "Space reveals and hides both series"
+  ],
+  "images": [
+    {
+      "src": "photos/norris-silverstone-2024-20260930.jpg",
+      "loaded": true,
+      "width": 1280,
+      "height": 743
+    },
+    {
+      "src": "photos/marquez-motegi-2023-20260930.jpg",
+      "loaded": true,
+      "width": 1280,
+      "height": 853
+    }
+  ],
+  "errors": [],
+  "status": "passed",
+  "commit_sha": "fba7b8664e5de9d601af896ff63b181f9b099208",
+  "page_sha256": "0ea8f073055810bda52a801f027bbe1466ca2f4adc25f199540c2a11a4a9f847",
+  "playwright_version": "1.64.1",
+  "workflow_run_url": "https://github.com/thecooperhouse/Thecooperhouse/actions/runs/39758870312",
+  "visual_review": {
+    "files": [
+      "desktop-hidden.png",
+      "mobile-320-hidden.png"
+    ],
+    "finding": "Header, tabs and visible schedule text fit their viewports without overlapping; desktop historical photograph loaded. Revealed-state screenshots were generated but not visually reviewed in this tooling-only update."
+  },
+  "scope": "Tooling validation of the unchanged v19 dashboard; not a new factual motorsport update or photo-licence audit.",
+  "binary_upload_probe": {
+    "date": "2026-10-22",
+    "file": "motorsport/photos/norris-silverstone-2024-20260930.jpg",
+    "bytes": 196934,
+    "encoding": "base64",
+    "expected_and_returned_git_blob_sha": "eadb950104071df4978a76c537537eab87fee065",
+    "branch_mutation": false
+  }
+}
