@@ -39,6 +39,8 @@ Report failures or anything requiring my action. Stay quiet if there is no meani
 
 ## Repository notes for future runs
 
+- For photo transfer and cloud browser testing, read `photos/WORKFLOW.md` and `validation/README.md`. The 22 October tooling update supersedes the earlier assumption that all connected GitHub tools are text-only. Use the base64 Git blob endpoint for JPEG/PNG/WebP files, then a tree, commit and non-forced ref update.
+- Prepare each future dashboard update on a maintenance branch. Wait for **Motorsport browser validation** to pass for that exact commit before advancing `main`; inspect the saved screenshots separately. The workflow does not deploy or automatically merge, and adds no schedule. A failed or missing test run is not a pass.
 - The scheduled task already exists. Update that task if needed; do not create a duplicate. Schedule: Mondays at 12:00 in `Australia/Brisbane` (UTC+10).
 - GitHub Pages publishes `main` automatically. Inspect the latest main and repository instructions, then recheck the remote parent before a non-forced branch update.
 - v16 introduced the first independently executed, saved probability model. See `model/README.md`. Earlier archived percentages are not validated inputs.

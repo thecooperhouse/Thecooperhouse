@@ -1,0 +1,50 @@
+name: Motorsport browser validation
+
+on:
+  push:
+    paths:
+      - 'motorsport/**'
+      - '.github/workflows/motorsport-validation.yml'
+  pull_request:
+    paths:
+      - 'motorsport/**'
+      - '.github/workflows/motorsport-validation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: motorsport-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser:
+    name: Keyboard, spoilers, images and mobile layout
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+      - name: Install pinned Playwright
+        working-directory: motorsport/validation
+        run: npm install --no-save --package-lock=false --ignore-scripts --no-audit --no-fund playwright@1.64.1
+      - name: Install Chromium and system dependencies
+        working-directory: motorsport/validation
+        run: npx --no-install playwright install --with-deps chromium
+      - name: Test prepared dashboard
+        run: timeout 300s node motorsport/validation/check_dashboard.cjs
+        env:
+          RACEBOARD_EVIDENCE: ${{ runner.temp }}/motorsport-evidence
+      - name: Save evidence (screenshots may contain spoilers)
+        if: always()
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: motorsport-checks-${{ github.sha }}
+          path: ${{ runner.temp }}/motorsport-evidence/
+          if-no-files-found: warn
+          retention-days: 30

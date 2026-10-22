@@ -1,52 +1,78 @@
 const fs=require('fs');
 const path=require('path');
 const assert=require('node:assert/strict');
+const crypto=require('node:crypto');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright':'playwright');
 const root=path.resolve(process.env.RACEBOARD_ROOT||path.resolve(__dirname,'../..'));
 const evidence=path.resolve(process.env.RACEBOARD_EVIDENCE||'/tmp/raceboard-browser-evidence');fs.mkdirSync(evidence,{recursive:true});
+let activeBrowser,activePage;
 async function main(){
- const browser=await chromium.launch({headless:true,executablePath:process.env.RACEBOARD_CHROMIUM||undefined});
+ const browser=activeBrowser=await chromium.launch({headless:true,executablePath:process.env.RACEBOARD_CHROMIUM||undefined});
  const context=await browser.newContext({viewport:{width:1280,height:1000}});
+ context.setDefaultTimeout(15000);
  await context.route('**/*',async route=>{
   const u=new URL(route.request().url());
   if(u.hostname!=='raceboard.test')return route.abort();
   const p=path.join(root,decodeURIComponent(u.pathname),u.pathname.endsWith('/')?'index.html':'');
-  if(!p.startsWith(root)||!fs.existsSync(p))return route.fulfill({status:404,body:'missing'});
-  const ext=path.extname(p),mime={'.html':'text/html','.jpg':'image/jpeg','.json':'application/json','.md':'text/plain','.py':'text/plain'}[ext]||'text/plain';
+  if(!p.startsWith(root+path.sep)||!fs.existsSync(p))return route.fulfill({status:404,body:'missing'});
+  const ext=path.extname(p),mime={'.html':'text/html','.jpg':'image/jpeg','.jpeg':'image/jpeg','.png':'image/png','.webp':'image/webp','.json':'application/json','.md':'text/plain','.py':'text/plain'}[ext]||'text/plain';
   return route.fulfill({status:200,contentType:mime,body:fs.readFileSync(p)});
  });
- const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(String(e)));
+ const page=activePage=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(String(e)));
  await page.goto('https://raceboard.test/motorsport/');
  await page.waitForFunction(()=>document.querySelectorAll('[data-watch-series]').length===2);
  assert.equal(await page.locator('input[type=checkbox]').count(),2);
  const gateState=key=>page.evaluate(key=>[...document.querySelectorAll(`[data-latest="${key}"],#spoiler-${key}-standings`)].map(e=>{const v=e.querySelector(':scope > .veil');return {revealed:e.classList.contains('revealed'),hidden:v.hidden,inert:v.inert}}),key);
- for(const key of ['f1','moto'])assert((await gateState(key)).every(x=>!x.revealed&&x.hidden&&x.inert));
- assert.equal(await page.locator('#panel-f1 .race:not(.latest)').count(),16);
- assert.equal(await page.locator('#panel-moto .race:not(.latest)').count(),16);
+ for(const key of ['f1','moto']){
+  const gates=await gateState(key);assert(gates.length>=3,`${key}: missing spoiler gates`);
+  assert(gates.every(x=>!x.revealed&&x.hidden&&x.inert));
+  const count=await page.evaluate(key=>SERIES[key].races.length,key);
+  assert.equal(await page.locator(`#panel-${key} .race.latest`).count(),1);
+  assert.equal(await page.locator(`#panel-${key} .race:not(.latest)`).count(),count-1);
+ }
  assert.equal(await page.locator('#panel-f1 .race:not(.latest)').first().isVisible(),true);
  await page.screenshot({path:path.join(evidence,'desktop-hidden.png')});
- await page.locator('#watched-f1').focus();await page.keyboard.press('Space');
+ // Reach the watched control using the actual Tab order, not programmatic focus.
+ async function tabToWatched(key){
+  await page.locator(`#tab-${key}`).focus();
+  for(let i=0;i<30;i++){
+   await page.keyboard.press('Tab');
+   assert(await page.evaluate(()=>!document.activeElement.closest('[hidden],[inert]')),'Tab entered hidden content');
+   if(await page.locator(`#watched-${key}`).evaluate(e=>e===document.activeElement)){
+    assert(await page.locator(`#watched-${key}`).evaluate(e=>{const s=getComputedStyle(e);return s.outlineStyle!=='none'&&parseFloat(s.outlineWidth)>0}),'Missing visible keyboard focus');
+    await page.keyboard.press('Shift+Tab');
+    assert.equal(await page.locator(`#watched-${key}`).evaluate(e=>e===document.activeElement),false);
+    await page.keyboard.press('Tab');
+    assert(await page.locator(`#watched-${key}`).evaluate(e=>e===document.activeElement));
+    return;
+   }
+  }
+  assert.fail(`${key}: watched control unreachable by Tab`);
+ }
+ await tabToWatched('f1');await page.keyboard.press('Space');
  assert((await gateState('f1')).every(x=>x.revealed&&!x.hidden&&!x.inert));
  assert((await gateState('moto')).every(x=>!x.revealed&&x.hidden&&x.inert));
  await page.reload();assert.equal(await page.locator('#watched-f1').isChecked(),true);
  assert((await gateState('f1')).every(x=>x.revealed&&!x.hidden&&!x.inert));
  await page.locator('#f1-title-summary').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(evidence,'desktop-analysis.png')});
- await page.locator('#watched-f1').uncheck();assert((await gateState('f1')).every(x=>!x.revealed&&x.hidden&&x.inert));
+ await tabToWatched('f1');await page.keyboard.press('Space');assert((await gateState('f1')).every(x=>!x.revealed&&x.hidden&&x.inert));
  await page.reload();assert.equal(await page.locator('#watched-f1').isChecked(),false);
  // A prior event's watched state must not expose the newly completed event.
- await page.evaluate(()=>{state.f1[latestRound('f1').event_id]=true;saveState();latestRound('f1').event_id+=':next-event-fixture';applySeries('f1')});
- assert((await gateState('f1')).every(x=>!x.revealed&&x.hidden&&x.inert));
+ for(const key of ['f1','moto']){
+  await page.evaluate(key=>{state[key][latestRound(key).event_id]=true;saveState();latestRound(key).event_id+=':next-event-fixture';applySeries(key)},key);
+  assert((await gateState(key)).every(x=>!x.revealed&&x.hidden&&x.inert));
+ }
  await page.evaluate(()=>localStorage.clear());await page.reload();
  await page.locator('#tab-f1').focus();await page.keyboard.press('ArrowRight');
  assert.equal(await page.locator('#tab-moto').getAttribute('aria-selected'),'true');
  assert.equal(await page.locator('#panel-f1').isVisible(),false);
  assert.equal(await page.locator('#panel-moto').isVisible(),true);
- await page.locator('#watched-moto').focus();await page.keyboard.press('Space');
+ await tabToWatched('moto');await page.keyboard.press('Space');
  assert((await gateState('moto')).every(x=>x.revealed&&!x.hidden&&!x.inert));
  assert.equal(await page.locator('#watched-f1').isChecked(),false);
  await page.reload();await page.locator('#tab-moto').click();assert.equal(await page.locator('#watched-moto').isChecked(),true);
  await page.locator('#moto-title-summary').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(evidence,'moto-analysis.png')});
- await page.locator('#watched-moto').uncheck();
+ await tabToWatched('moto');await page.keyboard.press('Space');
  await page.locator('#tab-moto').focus();await page.keyboard.press('Home');assert.equal(await page.locator('#tab-f1').getAttribute('aria-selected'),'true');
  await page.keyboard.press('End');assert.equal(await page.locator('#tab-moto').getAttribute('aria-selected'),'true');
  await page.keyboard.press('ArrowLeft');assert.equal(await page.locator('#tab-f1').getAttribute('aria-selected'),'true');
@@ -78,8 +104,18 @@ async function main(){
  }
  assert.deepEqual(errors,[]);
  const result={checked_at_utc:new Date().toISOString(),browser:'Chromium '+browser.version(),viewports:['1280×1000','390×844','320×844'],checks:['JavaScript execution','one checkbox per series','latest race/Sprint, standings, news and analysis hidden/inert by default','reveal/hide with keyboard and pointer','independent series choices','reload persistence','new-event protection','malformed, blocked and legacy storage','keyboard tabs and Home/End','earlier results accessible','images decode','no page overflow','hidden accessibility and focus exclusion'],images:imageResult,errors};
+ result.status='passed';result.commit_sha=process.env.GITHUB_SHA||null;
+ result.page_sha256=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'motorsport/index.html'))).digest('hex');
+ result.playwright_version=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright/package.json':'playwright/package.json').version;
+ result.checks.push('Tab and Shift+Tab reach both watched controls','visible keyboard focus','Space reveals and hides both series');
  fs.writeFileSync(path.join(evidence,'checks.json'),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));
  await browser.close();
 }
-main().catch(e=>{console.error(e);process.exit(1)});
+main().catch(async e=>{
+ console.error(e);
+ fs.writeFileSync(path.join(evidence,'failure.json'),JSON.stringify({status:'failed',checked_at_utc:new Date().toISOString(),commit_sha:process.env.GITHUB_SHA||null,error:String(e.stack||e)},null,2)+'\n');
+ if(activePage)await activePage.screenshot({path:path.join(evidence,'failure.png')}).catch(()=>{});
+ if(activeBrowser)await activeBrowser.close().catch(()=>{});
+ process.exitCode=1;
+});
 
