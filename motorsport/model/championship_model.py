@@ -5,7 +5,7 @@ from datetime import datetime,timezone
 from collections import Counter,defaultdict
 import numpy as np
 
-VERSION='weekend-bootstrap-1.0.2'
+VERSION='weekend-bootstrap-1.0.3'
 RULES={
  'f1':{'race':[25,18,15,12,10,8,6,4,2,1],'sprint':[8,7,6,5,4,3,2,1]},
  'moto':{'race':[25,20,16,13,11,10,9,8,7,6,5,4,3,2,1],'sprint':[12,9,7,6,5,4,3,2,1]}}
@@ -126,6 +126,13 @@ def run_series(data,key,trials,seed,half_life,concentration,batch_size):
     start_pts={r[0]:r[2] for r in d['standings']};initial=np.array([start_pts[x] for x in names],dtype=np.int16)
     mats,base_counts,base_q,last_best=history_arrays(d,key,names)
     allweights=weights(len(d['rounds']),half_life);alpha=allweights*concentration
+    race_rounds=mats['race']['round_indices']
+    race_lookup={int(r):i for i,r in enumerate(race_rounds)}
+    sprint_rounds=mats['sprint']['round_indices']
+    sprint_lookup={int(r):i for i,r in enumerate(sprint_rounds)}
+    # A cancelled GP may leave a valid Sprint-only round. It reconciles the
+    # standings but is not a candidate template for a future full weekend.
+    complete_rounds=np.intersect1d(race_rounds,sprint_rounds) if key=='moto' else race_rounds
     rng=np.random.Generator(np.random.PCG64(seed));wins=np.zeros(n,dtype=np.int64);unresolved_total=0
     if key=='f1':
         ctor_names=[r[0] for r in d['constructors']];ctor_initial=np.array([r[1] for r in d['constructors']],dtype=np.int16)
@@ -145,10 +152,11 @@ def run_series(data,key,trials,seed,half_life,concentration,batch_size):
         if key=='f1':cp=np.tile(ctor_initial,(b,1));cc=np.tile(cb,(b,1,1));cq=np.tile(qb,(b,1,1))
         for future,event in enumerate(d['remaining_calendar']):
             # A shared draw keeps each observed weekend's GP/Sprint/qualifying correlation.
-            pool=mats['sprint']['round_indices'] if (key=='moto' or event.get('sprint')) else np.arange(len(alpha))
+            pool=complete_rounds if (key=='moto' or event.get('sprint')) else race_rounds
             wp=w[:,pool];wp/=wp.sum(axis=1)[:,None];u=rng.random(b)
             choice=(u[:,None]>np.cumsum(wp,axis=1)).sum(axis=1);choice=np.minimum(choice,len(pool)-1);rd=pool[choice]
-            pos=mats['race']['positions'][rd].copy()
+            ridx=np.array([race_lookup[int(r)] for r in rd])
+            pos=mats['race']['positions'][ridx].copy()
             # Confirmed remaining-event absences can force a regular rider's sampled score to zero.
             override=data.get('entry_overrides',{}).get(key,{}).get(str(event['rd']),{})
             if override:
@@ -158,10 +166,12 @@ def run_series(data,key,trials,seed,half_life,concentration,batch_size):
             increments=(pos[:,:,None]==np.arange(1,n+1)[None,None,:]).astype(np.int16)
             counts+=increments;last=np.where(increments>0,len(d['rounds'])+future,last)
             if key=='f1':
-                qpos=mats['qualifying']['positions'][rd];qadd=(qpos[:,:,None]==np.arange(1,n+1)[None,None,:]).astype(np.int16);qc+=qadd
+                qlookup={int(r):i for i,r in enumerate(mats['qualifying']['round_indices'])}
+                qidx=np.array([qlookup[int(r)] for r in rd])
+                qpos=mats['qualifying']['positions'][qidx];qadd=(qpos[:,:,None]==np.arange(1,n+1)[None,None,:]).astype(np.int16);qc+=qadd
                 cp+=scored@membership;cc+=np.einsum('bnp,nt->btp',increments,membership);cq+=np.einsum('bnp,nt->btp',qadd,membership)
             if key=='moto' or event.get('sprint'):
-                inv={int(r):i for i,r in enumerate(mats['sprint']['round_indices'])};sidx=np.array([inv[int(r)] for r in rd])
+                sidx=np.array([sprint_lookup[int(r)] for r in rd])
                 spos=mats['sprint']['positions'][sidx].copy()
                 for unavailable,replacement in override.items():
                     if unavailable in names:spos[:,names.index(unavailable)]=0
@@ -176,9 +186,9 @@ def run_series(data,key,trials,seed,half_life,concentration,batch_size):
             assert np.all(cp.sum(axis=1)==pts.sum(axis=1)+inactive_points)
     max_rem=sum(RULES[key]['race'][0]+(RULES[key]['sprint'][0] if key=='moto' or e.get('sprint') else 0) for e in d['remaining_calendar'])
     # Eligibility is reported for every listed entrant, including substitutes without planned starts.
-    all_names=[r[0] for r in d['standings']];all_pts=np.array([r[2] for r in d['standings']]);all_wins=np.array([sum(e['name']==name and e.get('position')==1 for r in d['rounds'] for e in r['race']['entries']) for name in all_names])
+    all_names=[r[0] for r in d['standings']];all_pts=np.array([r[2] for r in d['standings']]);all_wins=np.array([sum(e['name']==name and e.get('position')==1 for r in d['rounds'] if 'race' in r for e in r['race']['entries']) for name in all_names])
     el=eligible(all_pts,max_rem,all_wins,len(d['remaining_calendar']))
-    result={'seed':seed,'simulations':trials,'rounds_observed':len(d['rounds']),'gps_remaining':len(d['remaining_calendar']),'sprints_remaining':sum(key=='moto' or e.get('sprint',False) for e in d['remaining_calendar']),'maximum_remaining_points':max_rem,'unresolved_tie_trials':unresolved_total,'rows':[]}
+    result={'seed':seed,'simulations':trials,'rounds_observed':len(race_rounds),'partial_rounds_observed':len(d['rounds'])-len(race_rounds),'gps_remaining':len(d['remaining_calendar']),'sprints_remaining':sum(key=='moto' or e.get('sprint',False) for e in d['remaining_calendar']),'maximum_remaining_points':max_rem,'unresolved_tie_trials':unresolved_total,'rows':[]}
     for j,(name,team,p) in enumerate(d['standings']):
         count=int(wins[names.index(name)]) if name in names else 0
         result['rows'].append({'name':name,'points':p,'simulated_titles':count,'probability':count/trials,'mathematical':el[j],'modelled':name in names})
@@ -192,12 +202,12 @@ def run_series(data,key,trials,seed,half_life,concentration,batch_size):
 
 def backtest(data,key,half_life):
     d=data[key];names=entrants(d,key);mats,_,_,_=history_arrays(d,key,names)
-    rows=[]
-    for cut in range(max(5,len(d['rounds'])-5),len(d['rounds'])):
+    rows=[];race_rounds=mats['race']['round_indices'];count=len(race_rounds)
+    for cut in range(max(5,count-5),count):
         w=weights(cut,half_life);pos=mats['race']['positions'];observed_winner=np.argmax(pos[cut]==1)
         p=(w[:,None]*(pos[:cut]==1)).sum(axis=0);target=np.zeros(len(names));target[observed_winner]=1
         expected=(w[:,None]*score(pos[:cut],RULES[key]['race'])).sum(axis=0);actual=score(pos[cut],RULES[key]['race'])
-        rows.append({'test_round':cut+1,'training_rounds':cut,'winner_brier':float(np.sum((p-target)**2)),'race_points_mae':float(np.mean(abs(expected-actual)))})
+        rows.append({'test_round':int(race_rounds[cut])+1,'training_rounds':cut,'winner_brier':float(np.sum((p-target)**2)),'race_points_mae':float(np.mean(abs(expected-actual)))})
     return {'type':'rolling-origin one-GP check using only earlier rounds','rounds':rows,'mean_winner_brier':float(np.mean([r['winner_brier'] for r in rows])),'mean_race_points_mae':float(np.mean([r['race_points_mae'] for r in rows])),'championship_calibration':'Unavailable: no completed championship backtest in this input set. Five held-out GPs are a diagnostic, not proof of calibration.'}
 
 def self_checks():
@@ -216,7 +226,7 @@ def self_checks():
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--inputs',type=Path,required=True);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--simulations',type=int,default=200000);parser.add_argument('--seed',type=int,default=20260930);parser.add_argument('--half-life',type=float,default=5.0);parser.add_argument('--concentration',type=float,default=15.0);parser.add_argument('--batch-size',type=int,default=10000);args=parser.parse_args()
     assert args.simulations>=200000;start=time.perf_counter();stamp=datetime.now(timezone.utc).isoformat();raw=args.inputs.read_bytes();data=json.loads(raw);self_checks()
-    result={'model_version':VERSION,'calculated_at_utc':stamp,'input_sha256':hashlib.sha256(raw).hexdigest(),'code_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'python_version':platform.python_version(),'numpy_version':np.__version__,'generator':'PCG64','parameters':{'half_life_weekends':args.half_life,'dirichlet_concentration':args.concentration,'batch_size':args.batch_size},'assumptions':['Full scheduled calendar and full distance points.','Remaining tracks are exchangeable with observed 2026 weekends, weighted by recency.','Weekend outcomes are resampled together, retaining empirical retirement and incident correlations.','Historical substitute seats map to the current regular grid; explicit next-event entry overrides apply.','Injury absences and penalties in the sampled data remain part of the empirical distribution.','No explicit track, weather, qualifying-development, future grid penalty or team-order forecast.','Finite empirical support cannot generate every mathematically possible upset. Zero simulated titles do not mean elimination.'],'f1':run_series(data,'f1',args.simulations,args.seed,args.half_life,args.concentration,args.batch_size),'moto':run_series(data,'moto',args.simulations,args.seed+1,args.half_life,args.concentration,args.batch_size),'backtests':{k:backtest(data,k,args.half_life) for k in ['f1','moto']},'checks':{'input_scoring_and_standings_reconciliation':True,'unique_finishing_positions':True,'point_bounds':True,'one_champion_or_explicit_unresolved_tie_per_trial':True,'constructor_driver_points_reconcile':True,'tie_break_self_checks':True,'mathematically_eliminated_entrants_have_no_simulated_titles':True}}
+    result={'model_version':VERSION,'calculated_at_utc':stamp,'input_sha256':hashlib.sha256(raw).hexdigest(),'code_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'python_version':platform.python_version(),'numpy_version':np.__version__,'generator':'PCG64','parameters':{'half_life_weekends':args.half_life,'dirichlet_concentration':args.concentration,'batch_size':args.batch_size},'assumptions':['Full scheduled calendar and full distance points.','Remaining tracks are exchangeable with completed observed 2026 weekends, weighted by recency.','Weekend outcomes are resampled together, retaining empirical retirement and incident correlations.','Sprint-only rounds caused by a cancelled GP reconcile current points but are excluded as future full-weekend templates.','Historical substitute seats map to the current regular grid; explicit next-event entry overrides apply.','Injury absences and penalties in the sampled data remain part of the empirical distribution.','No explicit track, weather, qualifying-development, future grid penalty or team-order forecast.','Finite empirical support cannot generate every mathematically possible upset. Zero simulated titles do not mean elimination.'],'f1':run_series(data,'f1',args.simulations,args.seed,args.half_life,args.concentration,args.batch_size),'moto':run_series(data,'moto',args.simulations,args.seed+1,args.half_life,args.concentration,args.batch_size),'backtests':{k:backtest(data,k,args.half_life) for k in ['f1','moto']},'checks':{'input_scoring_and_standings_reconciliation':True,'unique_finishing_positions':True,'point_bounds':True,'one_champion_or_explicit_unresolved_tie_per_trial':True,'constructor_driver_points_reconcile':True,'tie_break_self_checks':True,'mathematically_eliminated_entrants_have_no_simulated_titles':True,'partial_round_exclusion':True}}
     result['calculation_seconds']=round(time.perf_counter()-start,3);args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps({'model_version':VERSION,'seconds':result['calculation_seconds'],'f1_trials':args.simulations,'moto_trials':args.simulations,'unresolved_ties':[result['f1']['unresolved_tie_trials'],result['moto']['unresolved_tie_trials'],result['f1']['constructors']['unresolved_tie_trials']]}))
 

@@ -81,3 +81,10 @@ Report failures or anything requiring my action. Stay quiet if there is no meani
 - Reran model `weekend-bootstrap-1.0.2` at 200,000 trials per championship. Seeds: F1 `20261019`, MotoGP `20261020`. The method and scoring inputs are unchanged; the new run records current entry uncertainty without forcing an unconfirmed absence.
 - Existing licensed photos were retained. The connected GitHub text-file publishing tools cannot upload new binary image files end-to-end, so no safe licensed replacement could be published while preserving the archive assets.
 
+## 26 October 2026 run
+
+- Archived the exact v19 page as `index-v19-2026-10-26-before-maintenance.html` before replacing `index.html`.
+- Added the completed Formula 1 round 18 and the completed MotoGP Australian Sprint. Recorded the official cancellation of the Sunday MotoGP, Moto2 and Moto3 races without inventing a Grand Prix classification.
+- Model `weekend-bootstrap-1.0.3` supports the resulting Sprint-only partial round. It reconciles the Sprint points but excludes the incomplete weekend from the full-weekend resampling pool. Seeds: F1 `20261026`, MotoGP `20261027`; 200,000 trials each.
+- Replaced both display photographs with individually verified CC BY 2.0 Wikimedia Commons thumbnails. Exact creator, source, licence, resize disclosure, dimensions and SHA-256 are recorded in `photos/CREDITS.md`; earlier assets remain for archives.
+

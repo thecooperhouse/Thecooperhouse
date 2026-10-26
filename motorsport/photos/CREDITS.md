@@ -52,3 +52,30 @@ Keep all older images and their credits: archived HTML pages still reference the
 ## 5 October 2026 maintenance note
 
 No photo was replaced in v17. The two v16 images above remain in use with unchanged attribution and modification disclosures. The available cloud publishing path did not support reliable end-to-end verification and transfer of suitable new individual Wikimedia files; no unverified image was introduced. Archived pages retain all earlier assets and credits.
+
+## Added in v20 — 26 October 2026
+
+### Formula 1: British Grand Prix, Silverstone, 2024
+
+- File: `hamilton-silverstone-2024-20261026.jpg` (960 × 560, 95,654 bytes).
+- Creator: **Jen Ross**.
+- Source: [2024 British Grand Prix, Hamilton (1).jpg — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:2024_British_Grand_Prix,_Hamilton_(1).jpg).
+- Exact licence: **Creative Commons Attribution 2.0 Generic (CC BY 2.0)**.
+- Licence: https://creativecommons.org/licenses/by/2.0/
+- The individual Commons file page identifies the creator and licence; its Flickr licence was reviewed by FlickreviewR 2 on 4 November 2024. Checked 26 October 2026.
+- Modifications: Wikimedia 960px thumbnail, proportionally resized; no cropping, recolouring or other edits.
+- SHA-256: `d06ab4564f0afbbe1f8c669096d46e5235b8707ac8e6900409f5c5fabb4108a2`.
+
+### MotoGP: Japanese Grand Prix, Motegi, 2017
+
+- File: `dovizioso-marquez-motegi-2017-20261026.jpg` (960 × 640, 168,854 bytes).
+- Creator: **Box Repsol**.
+- Source: [Andrea Dovizioso and Marc Márquez 2017 Motegi.jpg — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Andrea_Dovizioso_and_Marc_M%C3%A1rquez_2017_Motegi.jpg).
+- Exact licence: **Creative Commons Attribution 2.0 Generic (CC BY 2.0)**.
+- Licence: https://creativecommons.org/licenses/by/2.0/
+- The individual Commons file page identifies the creator and licence; its Flickr licence was reviewed by FlickreviewR 2 on 18 December 2018. Checked 26 October 2026.
+- Modifications: Wikimedia 960px thumbnail, proportionally resized; no cropping, recolouring or other edits.
+- SHA-256: `fd988f77f83c2003836e9cbff71ef52366b28b335cc4d527db5133bf728cebee`.
+
+Keep the v16 photographs and all earlier images: archived HTML pages still reference them. No creator, subject, team or organiser endorsement is implied.
+
