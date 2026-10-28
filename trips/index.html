@@ -23,8 +23,10 @@
             --trip-b: #2f4858;   /* range blue */
 
             --st-proposed: #a8501c;
+            --st-planned:  #0e5e45;
             --st-booked:   #0e5e45;
             --st-ridden:   #6b7280;
+            --st-driven:   #54677d;
         }
 
         * { box-sizing: border-box; }
@@ -189,8 +191,10 @@
             background: linear-gradient(180deg, var(--stripe), var(--trip-b));
         }
         .ride--proposed { --stripe: var(--st-proposed); }
+        .ride--planned  { --stripe: var(--st-planned); }
         .ride--booked   { --stripe: var(--st-booked); }
         .ride--ridden   { --stripe: var(--st-ridden); }
+        .ride--driven   { --stripe: var(--st-driven); }
 
         .ride-head {
             display: flex;
@@ -360,7 +364,7 @@
     <header>
         <p class="eyebrow">Motorcycle trips</p>
         <h1>Rides</h1>
-        <p class="intro">Weekends planned properly — routes, fuel maths, timings and the things worth knowing before you get there. Each ride has a full guide to read at home and a one-page ride card for your pocket.</p>
+        <p class="intro">Weekends planned properly — routes, fuel maths, timings and the things worth knowing before you get there. Ride plans, maps and cards live here, along with what actually happened when the weather had other ideas.</p>
     </header>
 
     <div id="next-ride"></div>
@@ -381,12 +385,22 @@
                 <a class="btn" href="pdf/mann-river-route-sheet.pdf">Route sheet PDF</a>
             </div>
         </div>
-        <div class="ride ride--booked">
-            <h2>Meringandan Weekend — 23–24 October 2026</h2>
-            <p class="blurb">Wellington Point to Meringandan and home over Cunninghams Gap.</p>
+        <div class="ride ride--planned">
+            <p class="status">Planned</p>
+            <h2>Dalby Halloween Ride — 31 October–1 November 2026</h2>
+            <p class="blurb">Simon, Dan and Dave. Out via Fernvale, Esk and Cooyar; return via Blackbutt or the Warrego if wet. Overnight at Dalby Manor Motor Inn.</p>
             <div class="links">
-                <a class="btn btn--primary" href="pdf/meringandan-ride-card.pdf">Ride card PDF</a>
+                <a class="btn btn--primary" href="pdf/dalby-halloween-ride-card-2026.pdf">Two-day ride card PDF</a>
             </div>
+        </div>
+        <div class="ride ride--driven">
+            <p class="status">Driven</p>
+            <h2>Meringandan Weekend — 23–24 October 2026</h2>
+            <p class="blurb">Went by car because of the weather. Meringandan Hotel dinner, Crows Nest Falls walk, and rain on the way home near Esk.</p>
+            <div class="links">
+                <a class="btn" href="pdf/meringandan-ride-card.pdf">Original bike plan (not ridden)</a>
+            </div>
+        </div>
         </div>
     </noscript>
 
@@ -403,13 +417,37 @@
    Copy one block, change the values, drop it at the top of the list.
    Nothing else on the page needs touching.
 
-   status : "proposed" | "booked" | "ridden"
+   status : "proposed" | "planned" | "booked" | "ridden" | "driven"
    days   : one entry per riding day — the bar widths are worked out
             from the km values, so they stay honest automatically.
    links  : { label, href, primary?, ext? }
    ------------------------------------------------------------------ */
 
 const RIDES = [
+  {
+    status: "planned",
+    title: "Dalby Halloween Ride",
+    route: "Wellington Point → Fernvale → Esk → Hampton → Cooyar → Dalby · home via Blackbutt (weather permitting)",
+    start: "2026-10-31",
+    end:   "2026-11-01",
+    blurb: "Three bikes, two days and a country-pub lunch. Simon on the FJR1300, Dan on the 800MT-X and Dave on the R1250GS. Meet at Ampol Mackenzie, stay at Dalby Manor Motor Inn, and choose the Blackbutt scenic return or the direct Warrego route if Sunday is wet. The PDF has full timings and clickable maps.",
+    stats: [
+      ["Distance", "≈650–690 km"],
+      ["Bikes", "FJR · 800MT-X · GS"],
+      ["Surface", "Sealed roads"],
+      ["Stay", "Dalby Manor Motor Inn"]
+    ],
+    days: [
+      { label: "Sat · Esk, Hampton, Cooyar", km: 340 },
+      { label: "Sun · Blackbutt scenic option", km: 330 }
+    ],
+    links: [
+      { label: "Two-day ride card", href: "pdf/dalby-halloween-ride-card-2026.pdf", primary: true, ext: "PDF" },
+      { label: "Saturday Google Maps", href: "https://www.google.com/maps/dir/Wellington+Point+QLD/Ampol+Foodary+Mackenzie/Fernvale+QLD/Esk+QLD/Hampton+QLD/Cooyar+QLD/Maclagan+QLD/Kaimkillenbun+QLD/Dalby+Manor+Motor+Inn/", ext: "MAP" },
+      { label: "Sunday via Blackbutt", href: "https://www.google.com/maps/dir/Dalby+Manor+Motor+Inn/Kaimkillenbun+QLD/Maclagan+QLD/Cooyar+QLD/Yarraman+QLD/Blackbutt+QLD/Moore+QLD/Toogoolawah+QLD/Esk+QLD/Fernvale+QLD/Wellington+Point+QLD/", ext: "MAP" },
+      { label: "Sunday rain option", href: "https://www.google.com/maps/dir/Dalby+Manor+Motor+Inn/Oakey+QLD/Toowoomba+QLD/Helidon+QLD/Plainland+QLD/Wellington+Point+QLD/", ext: "MAP" }
+    ]
+  },
   {
     status: "ridden",
     title: "Mann River",
@@ -435,26 +473,21 @@ const RIDES = [
     ]
   },
   {
-    status: "booked",
-    title: "Meringandan Weekend",
-    route: "Wellington Point → Mt Glorious → Meringandan → Cunninghams Gap",
+    status: "driven",
+    title: "Meringandan Weekend (by car)",
+    route: "Wellington Point → Meringandan → Crows Nest Falls → Esk → home",
     start: "2026-10-23",
     end:   "2026-10-24",
-    blurb: "Three range crossings, no repeated roads and one night at the pub. D'Aguilar on the way out, Ravensbourne into the Downs, and the Main Range at Cunninghams Gap on the way home.",
+    blurb: "The planned motorcycle outing became a car trip because of the forecast. Dinner at the Meringandan Hotel on Friday, a walk at Crows Nest Falls on Saturday, then rain on the drive home near Esk. The original bike route was not ridden.",
     stats: [
-      ["Distance", "532 km"],
-      ["Bike", "FJR1300 two-up"],
-      ["Surface", "All sealed"],
-      ["Nights", "1 · Airbnb"]
+      ["Transport", "Car, not bikes"],
+      ["Distance", "≈400 km"],
+      ["Weather", "Rain on return"],
+      ["Nights", "1 · Meringandan"]
     ],
-    days: [
-      { label: "Fri · to Meringandan", km: 227 },
-      { label: "Sat · home over the Gap", km: 305 }
-    ],
+    days: [],
     links: [
-      /* When the Meringandan HTML page is dropped in beside this file, add:
-         { label: "Read the guide", href: "meringandan-weekend.html", primary: true }, */
-      { label: "Ride card", href: "pdf/meringandan-ride-card.pdf", primary: true, ext: "PDF" }
+      { label: "Original bike plan (not ridden)", href: "pdf/meringandan-ride-card.pdf", ext: "PDF" }
     ]
   }
 ];
@@ -483,10 +516,14 @@ function esc(s) {
 
 function rideHTML(r) {
   const total = r.days.reduce((t, d) => t + d.km, 0);
-  const bar = r.days.map(d =>
-        '<span style="width:' + (d.km / total * 100).toFixed(1) + '%"></span>').join("");
+  const bar = total > 0 ? r.days.map(d =>
+        '<span style="width:' + (d.km / total * 100).toFixed(1) + '%"></span>').join("") : "";
   const key = r.days.map(d =>
         '<div>' + esc(d.label) + ' · ' + d.km + ' km</div>').join("");
+  const split = total > 0
+    ? '<div class="split"><div class="split-bar">' + bar + '</div>' +
+      '<div class="split-key">' + key + '</div></div>'
+    : "";
   const stats = r.stats.map(([k, v]) =>
         '<div class="stat"><div class="k">' + esc(k) + '</div><div class="v">' + esc(v) + '</div></div>').join("");
   const links = r.links.map(l =>
@@ -502,8 +539,7 @@ function rideHTML(r) {
     '<div class="route">' + esc(r.route) + '</div>' +
     '<p class="blurb">' + esc(r.blurb) + '</p>' +
     '<div class="stats">' + stats + '</div>' +
-    '<div class="split"><div class="split-bar">' + bar + '</div>' +
-      '<div class="split-key">' + key + '</div></div>' +
+    split +
     '<div class="links">' + links + '</div>' +
   '</article>';
 }
@@ -544,7 +580,7 @@ if (upcoming) {
 }
 
 /* filters */
-const STATES = [["all","All"],["proposed","Proposed"],["booked","Booked"],["ridden","Ridden"]];
+const STATES = [["all","All"],["planned","Planned"],["proposed","Proposed"],["booked","Booked"],["ridden","Ridden"],["driven","Driven"]].filter(([k]) => k === "all" || RIDES.some(r => r.status === k));
 const bar = document.getElementById("filters");
 bar.innerHTML = STATES.map(([k, lab]) => {
   const c = k === "all" ? RIDES.length : RIDES.filter(r => r.status === k).length;
