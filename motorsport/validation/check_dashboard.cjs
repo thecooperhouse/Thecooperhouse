@@ -21,6 +21,25 @@ async function main(){
  const page=activePage=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(String(e)));
  await page.goto('https://raceboard.test/motorsport/');
  await page.waitForFunction(()=>document.querySelectorAll('[data-watch-series]').length===2);
+ const reference=JSON.parse(fs.readFileSync(path.join(__dirname,'standings-reference.json'),'utf8'));
+ for(const [key,table] of Object.entries(reference.tables)){
+  const id=key==='constructors'?'f1-constructors':key+'-standings';
+  const actual=await page.locator('#'+id+' tr').evaluateAll(rows=>rows.map(r=>[r.querySelector('.name').textContent,Number(r.querySelector('.pts').textContent)]));
+  assert.deepEqual(actual,table.rows,`${key}: official standings order/points mismatch`);
+  const titleId=key==='constructors'?'f1-ctitle':key+'-title';
+  const title=await page.locator('#'+titleId+' tr').evaluateAll(rows=>rows.map(r=>[r.cells[0].textContent,Number(r.cells[1].textContent)]));
+  assert.deepEqual(title,table.rows,`${key}: analysis order/points mismatch`);
+ }
+ assert(await page.evaluate(()=>{
+  const rows=[['low','team',1],['tie-first','team',5],['tie-second','team',5]],before=JSON.stringify(rows);
+  return rankByPoints(rows).map(r=>r[0]).join(',')==='tie-first,tie-second,low'&&JSON.stringify(rows)===before;
+ }),'ranking must be descending, stable for official ties and nonmutating');
+ for(const key of ['f1','moto'])assert(await page.evaluate(key=>{
+  const original=SERIES[key].standings,expected=JSON.stringify(earliestClinch(key));
+  SERIES[key].standings=[...original].reverse();
+  const actual=JSON.stringify(earliestClinch(key));SERIES[key].standings=original;
+  return expected===actual;
+ },key),`${key}: clinch depends on input row order`);
  assert.equal(await page.locator('input[type=checkbox]').count(),2);
  const gateState=key=>page.evaluate(key=>[...document.querySelectorAll(`[data-latest="${key}"],#spoiler-${key}-standings`)].map(e=>{const v=e.querySelector(':scope > .veil');return {revealed:e.classList.contains('revealed'),hidden:v.hidden,inert:v.inert}}),key);
  for(const key of ['f1','moto']){
@@ -72,6 +91,7 @@ async function main(){
  assert.equal(await page.locator('#watched-f1').isChecked(),false);
  await page.reload();await page.locator('#tab-moto').click();assert.equal(await page.locator('#watched-moto').isChecked(),true);
  await page.locator('#moto-title-summary').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(evidence,'moto-analysis.png')});
+ await page.locator('#moto-standings').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(evidence,'moto-standings.png')});
  await tabToWatched('moto');await page.keyboard.press('Space');
  await page.locator('#tab-moto').focus();await page.keyboard.press('Home');assert.equal(await page.locator('#tab-f1').getAttribute('aria-selected'),'true');
  await page.keyboard.press('End');assert.equal(await page.locator('#tab-moto').getAttribute('aria-selected'),'true');
@@ -105,6 +125,7 @@ async function main(){
  assert.deepEqual(errors,[]);
  const result={checked_at_utc:new Date().toISOString(),browser:'Chromium '+browser.version(),viewports:['1280×1000','390×844','320×844'],checks:['JavaScript execution','one checkbox per series','latest race/Sprint, standings, news and analysis hidden/inert by default','reveal/hide with keyboard and pointer','independent series choices','reload persistence','new-event protection','malformed, blocked and legacy storage','keyboard tabs and Home/End','earlier results accessible','images decode','no page overflow','hidden accessibility and focus exclusion'],images:imageResult,errors};
  result.status='passed';result.commit_sha=process.env.GITHUB_SHA||null;
+ result.checks.push('all official standings and analysis rows match reference including tied order','stable nonmutating descending points sort','clinch independent of source row order');
  result.page_sha256=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'motorsport/index.html'))).digest('hex');
  result.playwright_version=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright/package.json':'playwright/package.json').version;
  result.checks.push('Tab and Shift+Tab reach both watched controls','visible keyboard focus','Space reveals and hides both series');

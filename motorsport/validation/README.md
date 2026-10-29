@@ -1,5 +1,7 @@
 # Dashboard validation
 
+`standings-reference.json` is an independently checked official ranking snapshot. Refresh its complete order and points from the official sources whenever standings change, including countback order for ties. The browser suite compares every standings and championship-analysis row against it and checks nonmutating sorting and row-order-independent clinch calculations.
+
 ## Cloud runner
 
 `.github/workflows/motorsport-validation.yml` installs pinned Playwright 1.64.1, Chromium and the required Linux libraries on a GitHub-hosted runner. It runs when motorsport files change on a branch or pull request, and can also be started manually. There is no cron schedule and no dependency on the owner's computer. Its repository permission is read-only; it cannot publish or merge.

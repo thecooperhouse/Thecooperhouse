@@ -1,0 +1,286 @@
+{
+  "verified_date_brisbane": "2026-10-29",
+  "data_as_of": "2026-10-26",
+  "note": "Official ranking snapshot, including equal-point order. Refresh from official standings when updating points; do not generate the expected ranking from the dashboard.",
+  "tables": {
+    "f1": {
+      "source": "https://www.formula1.com/en/results/2026/drivers",
+      "rows": [
+        [
+          "Kimi Antonelli",
+          365
+        ],
+        [
+          "George Russell",
+          242
+        ],
+        [
+          "Lewis Hamilton",
+          241
+        ],
+        [
+          "Max Verstappen",
+          236
+        ],
+        [
+          "Charles Leclerc",
+          233
+        ],
+        [
+          "Lando Norris",
+          211
+        ],
+        [
+          "Oscar Piastri",
+          144
+        ],
+        [
+          "Isack Hadjar",
+          105
+        ],
+        [
+          "Liam Lawson",
+          77
+        ],
+        [
+          "Pierre Gasly",
+          42
+        ],
+        [
+          "Arvid Lindblad",
+          38
+        ],
+        [
+          "Franco Colapinto",
+          27
+        ],
+        [
+          "Oliver Bearman",
+          23
+        ],
+        [
+          "Nico Hülkenberg",
+          13
+        ],
+        [
+          "Gabriel Bortoleto",
+          10
+        ],
+        [
+          "Esteban Ocon",
+          7
+        ],
+        [
+          "Fernando Alonso",
+          7
+        ],
+        [
+          "Carlos Sainz",
+          7
+        ],
+        [
+          "Alexander Albon",
+          5
+        ],
+        [
+          "Yuki Tsunoda",
+          1
+        ],
+        [
+          "Lance Stroll",
+          0
+        ],
+        [
+          "Valtteri Bottas",
+          0
+        ],
+        [
+          "Sergio Pérez",
+          0
+        ]
+      ]
+    },
+    "constructors": {
+      "source": "https://www.formula1.com/en/results/2026/team",
+      "rows": [
+        [
+          "Mercedes",
+          607
+        ],
+        [
+          "Ferrari",
+          474
+        ],
+        [
+          "Red Bull Racing",
+          355
+        ],
+        [
+          "McLaren",
+          355
+        ],
+        [
+          "Racing Bulls",
+          102
+        ],
+        [
+          "Alpine",
+          69
+        ],
+        [
+          "Haas F1 Team",
+          30
+        ],
+        [
+          "Audi",
+          23
+        ],
+        [
+          "Williams",
+          12
+        ],
+        [
+          "Aston Martin",
+          7
+        ],
+        [
+          "Cadillac",
+          0
+        ]
+      ]
+    },
+    "moto": {
+      "source": "https://stats.motogp.com/en/world-standing",
+      "rows": [
+        [
+          "Marc Márquez",
+          365
+        ],
+        [
+          "Jorge Martín",
+          355
+        ],
+        [
+          "Marco Bezzecchi",
+          315
+        ],
+        [
+          "Pedro Acosta",
+          263
+        ],
+        [
+          "Ai Ogura",
+          259
+        ],
+        [
+          "Fabio Di Giannantonio",
+          252
+        ],
+        [
+          "Raúl Fernández",
+          236
+        ],
+        [
+          "Álex Márquez",
+          181
+        ],
+        [
+          "Francesco Bagnaia",
+          166
+        ],
+        [
+          "Fermín Aldeguer",
+          125
+        ],
+        [
+          "Enea Bastianini",
+          122
+        ],
+        [
+          "Luca Marini",
+          108
+        ],
+        [
+          "Brad Binder",
+          108
+        ],
+        [
+          "Diogo Moreira",
+          76
+        ],
+        [
+          "Fabio Quartararo",
+          74
+        ],
+        [
+          "Franco Morbidelli",
+          59
+        ],
+        [
+          "Johann Zarco",
+          51
+        ],
+        [
+          "Joan Mir",
+          33
+        ],
+        [
+          "Jack Miller",
+          31
+        ],
+        [
+          "Álex Rins",
+          25
+        ],
+        [
+          "Toprak Razgatlıoğlu",
+          18
+        ],
+        [
+          "Maverick Viñales",
+          12
+        ],
+        [
+          "Iker Lecuona",
+          10
+        ],
+        [
+          "Augusto Fernández",
+          6
+        ],
+        [
+          "Pol Espargaró",
+          5
+        ],
+        [
+          "Somkiat Chantra",
+          3
+        ],
+        [
+          "Takaaki Nakagami",
+          3
+        ],
+        [
+          "Cal Crutchlow",
+          0
+        ],
+        [
+          "Jonas Folger",
+          0
+        ],
+        [
+          "Lorenzo Savadori",
+          0
+        ],
+        [
+          "Michele Pirro",
+          0
+        ],
+        [
+          "Aleix Espargaró",
+          0
+        ]
+      ]
+    }
+  }
+}
