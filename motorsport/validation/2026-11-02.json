@@ -1,0 +1,49 @@
+{
+  "checked_at_utc": "2026-11-02T02:14:03.580Z",
+  "browser": "Chromium 156.0.8078.4",
+  "viewports": [
+    "1280×1000",
+    "390×844",
+    "320×844"
+  ],
+  "checks": [
+    "JavaScript execution",
+    "one checkbox per series",
+    "latest race/Sprint, standings, news and analysis hidden/inert by default",
+    "reveal/hide with keyboard and pointer",
+    "independent series choices",
+    "reload persistence",
+    "new-event protection",
+    "malformed, blocked and legacy storage",
+    "keyboard tabs and Home/End",
+    "earlier results accessible",
+    "images decode",
+    "no page overflow",
+    "hidden accessibility and focus exclusion",
+    "all official standings and analysis rows match reference including tied order",
+    "stable nonmutating descending points sort",
+    "clinch independent of source row order",
+    "Tab and Shift+Tab reach both watched controls",
+    "visible keyboard focus",
+    "Space reveals and hides both series"
+  ],
+  "images": [
+    {
+      "src": "photos/hamilton-silverstone-2024-20261026.jpg",
+      "loaded": true,
+      "width": 960,
+      "height": 560
+    },
+    {
+      "src": "photos/dovizioso-marquez-motegi-2017-20261026.jpg",
+      "loaded": true,
+      "width": 960,
+      "height": 640
+    }
+  ],
+  "errors": [],
+  "status": "passed",
+  "commit_sha": "842f7a1c4d33fb24302b11f4f891e0615236bf1b",
+  "page_sha256": "eef0caa70d09abee20d792b8412451a37944e220763c0cc53428a4eea9b2267d",
+  "playwright_version": "1.64.1"
+}
