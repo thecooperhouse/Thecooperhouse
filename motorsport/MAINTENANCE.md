@@ -88,3 +88,11 @@ Report failures or anything requiring my action. Stay quiet if there is no meani
 - Model `weekend-bootstrap-1.0.3` supports the resulting Sprint-only partial round. It reconciles the Sprint points but excludes the incomplete weekend from the full-weekend resampling pool. Seeds: F1 `20261026`, MotoGP `20261027`; 200,000 trials each.
 - Replaced both display photographs with individually verified CC BY 2.0 Wikimedia Commons thumbnails. Exact creator, source, licence, resize disclosure, dimensions and SHA-256 are recorded in `photos/CREDITS.md`; earlier assets remain for archives.
 
+## 2 November 2026 run (v21)
+
+- Archived the exact v20.1 page as `index-v20-1-2026-11-02-before-maintenance.html` before replacing `index.html`.
+- Added round 19 final results for both series, incorporated verified post-race changes, refreshed official standings and remaining calendars, and changed watched IDs to the new completed events.
+- Model `weekend-bootstrap-1.0.4` ran 200,000 trials per championship with seeds F1 `20261102` and MotoGP `20261103`. It maps the one-off Haas substitute result to the regular seat and applies Yamaha's confirmed Qatar withdrawal.
+- The indexed official Malaysia Sprint report exposed the nine points finishers but not a complete classification or lap table. The page explicitly limits the Sprint table and omits its fastest lap rather than inventing data.
+- Existing licensed photographs were retained because no two suitable replacement files were individually verified and transferred end-to-end during this run. Existing credits and archived assets remain unchanged.
+

@@ -1,0 +1,869 @@
+{
+  "model_version": "weekend-bootstrap-1.0.4",
+  "calculated_at_utc": "2026-11-02T02:08:25.925142+00:00",
+  "input_sha256": "074e964289ad839e2778684184fea5f66db2f4ce46fc7334505749e297a06691",
+  "code_sha256": "9355d0a66251197d72922bd9de70d7311642c9fe8e59f47767012187217242f3",
+  "python_version": "3.12.14",
+  "numpy_version": "2.3.5",
+  "generator": "PCG64",
+  "parameters": {
+    "half_life_weekends": 5.0,
+    "dirichlet_concentration": 15.0,
+    "batch_size": 10000
+  },
+  "assumptions": [
+    "Full scheduled calendar and full distance points.",
+    "Remaining tracks are exchangeable with completed observed 2026 weekends, weighted by recency.",
+    "Weekend outcomes are resampled together, retaining empirical retirement and incident correlations.",
+    "Sprint-only rounds caused by a cancelled GP reconcile current points but are excluded as future full-weekend templates.",
+    "Historical substitute seats map to the current regular grid; explicit next-event entry overrides apply.",
+    "Injury absences and penalties in the sampled data remain part of the empirical distribution.",
+    "No explicit track, weather, qualifying-development, future grid penalty or team-order forecast.",
+    "Finite empirical support cannot generate every mathematically possible upset. Zero simulated titles do not mean elimination."
+  ],
+  "f1": {
+    "seed": 20261102,
+    "simulations": 200000,
+    "rounds_observed": 19,
+    "partial_rounds_observed": 0,
+    "gps_remaining": 4,
+    "sprints_remaining": 0,
+    "maximum_remaining_points": 100,
+    "unresolved_tie_trials": 0,
+    "rows": [
+      {
+        "name": "Kimi Antonelli",
+        "points": 380,
+        "simulated_titles": 200000,
+        "probability": 1.0,
+        "mathematical": {
+          "max_points": 480,
+          "status": "Clinched"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Max Verstappen",
+        "points": 261,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 361,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Lewis Hamilton",
+        "points": 259,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 359,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "George Russell",
+        "points": 250,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 350,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Charles Leclerc",
+        "points": 245,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 345,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Lando Norris",
+        "points": 221,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 321,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Oscar Piastri",
+        "points": 144,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 244,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Isack Hadjar",
+        "points": 107,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 207,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Liam Lawson",
+        "points": 83,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 183,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Pierre Gasly",
+        "points": 42,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 142,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Arvid Lindblad",
+        "points": 38,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 138,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Franco Colapinto",
+        "points": 27,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 127,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Oliver Bearman",
+        "points": 23,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 123,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Gabriel Bortoleto",
+        "points": 14,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 114,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Nico Hülkenberg",
+        "points": 13,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 113,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Esteban Ocon",
+        "points": 7,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 107,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Fernando Alonso",
+        "points": 7,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 107,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Carlos Sainz",
+        "points": 7,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 107,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Alexander Albon",
+        "points": 5,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 105,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Yuki Tsunoda",
+        "points": 1,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 101,
+          "status": "No"
+        },
+        "modelled": false
+      },
+      {
+        "name": "Ryo Hirakawa",
+        "points": 1,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 101,
+          "status": "No"
+        },
+        "modelled": false
+      },
+      {
+        "name": "Lance Stroll",
+        "points": 0,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 100,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Valtteri Bottas",
+        "points": 0,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 100,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Sergio Pérez",
+        "points": 0,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 100,
+          "status": "No"
+        },
+        "modelled": true
+      }
+    ],
+    "constructors": {
+      "maximum_remaining_points": 172,
+      "unresolved_tie_trials": 0,
+      "rows": [
+        {
+          "name": "Mercedes",
+          "points": 630,
+          "simulated_titles": 200000,
+          "probability": 1.0,
+          "mathematical": {
+            "max_points": 802,
+            "status": "Yes"
+          }
+        },
+        {
+          "name": "Ferrari",
+          "points": 504,
+          "simulated_titles": 0,
+          "probability": 0.0,
+          "mathematical": {
+            "max_points": 676,
+            "status": "Yes"
+          }
+        },
+        {
+          "name": "Red Bull Racing",
+          "points": 382,
+          "simulated_titles": 0,
+          "probability": 0.0,
+          "mathematical": {
+            "max_points": 554,
+            "status": "No"
+          }
+        },
+        {
+          "name": "McLaren",
+          "points": 365,
+          "simulated_titles": 0,
+          "probability": 0.0,
+          "mathematical": {
+            "max_points": 537,
+            "status": "No"
+          }
+        },
+        {
+          "name": "Racing Bulls",
+          "points": 108,
+          "simulated_titles": 0,
+          "probability": 0.0,
+          "mathematical": {
+            "max_points": 280,
+            "status": "No"
+          }
+        },
+        {
+          "name": "Alpine",
+          "points": 69,
+          "simulated_titles": 0,
+          "probability": 0.0,
+          "mathematical": {
+            "max_points": 241,
+            "status": "No"
+          }
+        },
+        {
+          "name": "Haas F1 Team",
+          "points": 31,
+          "simulated_titles": 0,
+          "probability": 0.0,
+          "mathematical": {
+            "max_points": 203,
+            "status": "No"
+          }
+        },
+        {
+          "name": "Audi",
+          "points": 27,
+          "simulated_titles": 0,
+          "probability": 0.0,
+          "mathematical": {
+            "max_points": 199,
+            "status": "No"
+          }
+        },
+        {
+          "name": "Williams",
+          "points": 12,
+          "simulated_titles": 0,
+          "probability": 0.0,
+          "mathematical": {
+            "max_points": 184,
+            "status": "No"
+          }
+        },
+        {
+          "name": "Aston Martin",
+          "points": 7,
+          "simulated_titles": 0,
+          "probability": 0.0,
+          "mathematical": {
+            "max_points": 179,
+            "status": "No"
+          }
+        },
+        {
+          "name": "Cadillac",
+          "points": 0,
+          "simulated_titles": 0,
+          "probability": 0.0,
+          "mathematical": {
+            "max_points": 172,
+            "status": "No"
+          }
+        }
+      ]
+    }
+  },
+  "moto": {
+    "seed": 20261103,
+    "simulations": 200000,
+    "rounds_observed": 18,
+    "partial_rounds_observed": 1,
+    "gps_remaining": 3,
+    "sprints_remaining": 3,
+    "maximum_remaining_points": 111,
+    "unresolved_tie_trials": 0,
+    "rows": [
+      {
+        "name": "Marc Márquez",
+        "points": 399,
+        "simulated_titles": 194317,
+        "probability": 0.971585,
+        "mathematical": {
+          "max_points": 510,
+          "status": "Yes"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Jorge Martín",
+        "points": 355,
+        "simulated_titles": 5683,
+        "probability": 0.028415,
+        "mathematical": {
+          "max_points": 466,
+          "status": "Yes"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Marco Bezzecchi",
+        "points": 332,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 443,
+          "status": "Yes"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Pedro Acosta",
+        "points": 295,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 406,
+          "status": "Yes"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Ai Ogura",
+        "points": 278,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 389,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Fabio Di Giannantonio",
+        "points": 265,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 376,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Raúl Fernández",
+        "points": 236,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 347,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Álex Márquez",
+        "points": 197,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 308,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Francesco Bagnaia",
+        "points": 173,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 284,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Enea Bastianini",
+        "points": 134,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 245,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Fermín Aldeguer",
+        "points": 125,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 236,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Brad Binder",
+        "points": 118,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 229,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Luca Marini",
+        "points": 117,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 228,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Fabio Quartararo",
+        "points": 79,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 190,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Diogo Moreira",
+        "points": 78,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 189,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Franco Morbidelli",
+        "points": 65,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 176,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Johann Zarco",
+        "points": 51,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 162,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Joan Mir",
+        "points": 33,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 144,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Jack Miller",
+        "points": 31,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 142,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Álex Rins",
+        "points": 29,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 140,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Toprak Razgatlıoğlu",
+        "points": 18,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 129,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Maverick Viñales",
+        "points": 14,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 125,
+          "status": "No"
+        },
+        "modelled": true
+      },
+      {
+        "name": "Iker Lecuona",
+        "points": 11,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 122,
+          "status": "No"
+        },
+        "modelled": false
+      },
+      {
+        "name": "Augusto Fernández",
+        "points": 6,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 117,
+          "status": "No"
+        },
+        "modelled": false
+      },
+      {
+        "name": "Pol Espargaró",
+        "points": 5,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 116,
+          "status": "No"
+        },
+        "modelled": false
+      },
+      {
+        "name": "Somkiat Chantra",
+        "points": 3,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 114,
+          "status": "No"
+        },
+        "modelled": false
+      },
+      {
+        "name": "Takaaki Nakagami",
+        "points": 3,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 114,
+          "status": "No"
+        },
+        "modelled": false
+      },
+      {
+        "name": "Cal Crutchlow",
+        "points": 0,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 111,
+          "status": "No"
+        },
+        "modelled": false
+      },
+      {
+        "name": "Jonas Folger",
+        "points": 0,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 111,
+          "status": "No"
+        },
+        "modelled": false
+      },
+      {
+        "name": "Lorenzo Savadori",
+        "points": 0,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 111,
+          "status": "No"
+        },
+        "modelled": false
+      },
+      {
+        "name": "Michele Pirro",
+        "points": 0,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 111,
+          "status": "No"
+        },
+        "modelled": false
+      },
+      {
+        "name": "Aleix Espargaró",
+        "points": 0,
+        "simulated_titles": 0,
+        "probability": 0.0,
+        "mathematical": {
+          "max_points": 111,
+          "status": "No"
+        },
+        "modelled": false
+      }
+    ]
+  },
+  "backtests": {
+    "f1": {
+      "type": "rolling-origin one-GP check using only earlier rounds",
+      "rounds": [
+        {
+          "test_round": 15,
+          "training_rounds": 14,
+          "winner_brier": 1.1976979922393725,
+          "race_points_mae": 3.6827697821826537
+        },
+        {
+          "test_round": 16,
+          "training_rounds": 15,
+          "winner_brier": 1.3200206056585875,
+          "race_points_mae": 2.9099615430645285
+        },
+        {
+          "test_round": 17,
+          "training_rounds": 16,
+          "winner_brier": 0.9643902385886699,
+          "race_points_mae": 2.8571527436798037
+        },
+        {
+          "test_round": 18,
+          "training_rounds": 17,
+          "winner_brier": 0.5415380491363373,
+          "race_points_mae": 1.5116861227016931
+        },
+        {
+          "test_round": 19,
+          "training_rounds": 18,
+          "winner_brier": 0.82491763897021,
+          "race_points_mae": 2.181780484711997
+        }
+      ],
+      "mean_winner_brier": 0.9697129049186355,
+      "mean_race_points_mae": 2.628670135268135,
+      "championship_calibration": "Unavailable: no completed championship backtest in this input set. Five held-out GPs are a diagnostic, not proof of calibration."
+    },
+    "moto": {
+      "type": "rolling-origin one-GP check using only earlier rounds",
+      "rounds": [
+        {
+          "test_round": 14,
+          "training_rounds": 13,
+          "winner_brier": 0.3800673210410504,
+          "race_points_mae": 4.224241264430079
+        },
+        {
+          "test_round": 15,
+          "training_rounds": 14,
+          "winner_brier": 1.3215203805218112,
+          "race_points_mae": 4.215955893468538
+        },
+        {
+          "test_round": 16,
+          "training_rounds": 15,
+          "winner_brier": 0.3626392852160035,
+          "race_points_mae": 3.220730678526999
+        },
+        {
+          "test_round": 17,
+          "training_rounds": 16,
+          "winner_brier": 1.1090857374394116,
+          "race_points_mae": 3.2357315310689283
+        },
+        {
+          "test_round": 19,
+          "training_rounds": 17,
+          "winner_brier": 0.3771296995238296,
+          "race_points_mae": 4.166664430210203
+        }
+      ],
+      "mean_winner_brier": 0.7100884847484212,
+      "mean_race_points_mae": 3.8126647595409495,
+      "championship_calibration": "Unavailable: no completed championship backtest in this input set. Five held-out GPs are a diagnostic, not proof of calibration."
+    }
+  },
+  "checks": {
+    "input_scoring_and_standings_reconciliation": true,
+    "unique_finishing_positions": true,
+    "point_bounds": true,
+    "one_champion_or_explicit_unresolved_tie_per_trial": true,
+    "constructor_driver_points_reconcile": true,
+    "tie_break_self_checks": true,
+    "mathematically_eliminated_entrants_have_no_simulated_titles": true,
+    "partial_round_exclusion": true
+  },
+  "calculation_seconds": 6.356
+}

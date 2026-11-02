@@ -5,7 +5,7 @@ from datetime import datetime,timezone
 from collections import Counter,defaultdict
 import numpy as np
 
-VERSION='weekend-bootstrap-1.0.3'
+VERSION='weekend-bootstrap-1.0.4'
 RULES={
  'f1':{'race':[25,18,15,12,10,8,6,4,2,1],'sprint':[8,7,6,5,4,3,2,1]},
  'moto':{'race':[25,20,16,13,11,10,9,8,7,6,5,4,3,2,1],'sprint':[12,9,7,6,5,4,3,2,1]}}
@@ -18,7 +18,8 @@ def eligible(points,max_remaining,base_wins,future_gps):
     leader=int(max(points));leader_index=int(np.argmax(points));out=[]
     for i,p in enumerate(points):
         maximum=int(p)+max_remaining
-        if maximum>leader:status='Yes'
+        if i==leader_index and int(p)>max(int(x) for j,x in enumerate(points) if j!=i)+max_remaining:status='Clinched'
+        elif maximum>leader:status='Yes'
         elif maximum<leader:status='No'
         elif int(base_wins[i])+future_gps>int(base_wins[leader_index]):status='Yes (GP wins tie-break)'
         elif int(base_wins[i])+future_gps<int(base_wins[leader_index]):status='No (GP wins tie-break)'
@@ -50,13 +51,14 @@ def validate_inputs(data,key):
 
 def entrants(d,key):
     # Regular 2026 grid. Remaining-seat assumptions are explicit in the input file.
-    active=[n for n,t,p in d['standings'] if (n!='Yuki Tsunoda' if key=='f1' else n not in ['Iker Lecuona','Augusto Fernández','Pol Espargaró','Takaaki Nakagami','Somkiat Chantra','Aleix Espargaró','Cal Crutchlow','Jonas Folger','Lorenzo Savadori','Michele Pirro'])]
+    active=[n for n,t,p in d['standings'] if (n not in ['Yuki Tsunoda','Ryo Hirakawa'] if key=='f1' else n not in ['Iker Lecuona','Augusto Fernández','Pol Espargaró','Takaaki Nakagami','Somkiat Chantra','Aleix Espargaró','Cal Crutchlow','Jonas Folger','Lorenzo Savadori','Michele Pirro'])]
     assert len(active)==22
     return active
 
 def map_name(e,key,entries):
     n=e['name']
     if key=='f1':
+        if n=='Ryo Hirakawa' and e.get('team')=='Haas F1 Team':return 'Esteban Ocon'
         if n=='Liam Lawson' and e.get('team')=='Red Bull Racing':return 'Isack Hadjar'
         if n=='Yuki Tsunoda':return 'Liam Lawson'
     else:

@@ -1,5 +1,11 @@
 # Reproducible championship estimates
 
+## 2 November 2026 calculation
+
+Run `weekend-bootstrap-1.0.4` with `inputs-2026-11-02.json`, 200,000 trials per championship and seeds `20261102` (Formula 1) and `20261103` (MotoGP). The input adds the latest completed round for each series, reconciles final standings, maps the one-off Haas substitute result to the regular seat for future sampling, and applies Yamaha's confirmed Qatar withdrawal. `prepare_2026_11_02.cjs` records the mechanical input construction from the previously verified snapshot; `outputs-2026-11-02.json` records hashes, runtime, probabilities and invariants.
+
+The Malaysia Sprint input includes the nine officially reported point scorers. The indexed official report did not expose a complete Sprint classification or lap table, so non-scoring positions and a Sprint fastest lap were not invented. This is a documented limitation of the empirical sample.
+
 v20 uses the independently executed **experimental empirical Bayesian weekend bootstrap**, version `weekend-bootstrap-1.0.3`. Version 1.0.3 supports a points-scoring Sprint followed by a cancelled Grand Prix: the Sprint reconciles current points, while the incomplete weekend is excluded as a template for a future full weekend.
 
 The estimates are conditional on the documented model and entry assumptions. They have not been calibrated against completed historical championships. Finite observed outcomes cannot represent every mathematically possible upset. **Zero simulated titles is not mathematical elimination.**
