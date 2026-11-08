@@ -1,6 +1,6 @@
 # Photo credits
 
-The two photographs on the current page come from Wikimedia Commons. One is used under a Creative Commons Attribution-ShareAlike licence; the other has been dedicated to the public domain under CC0. Licence, author and date were first checked on each file's own Wikimedia Commons page (its licence template and information record) on 22 October 2026, and re-checked through the Commons API on 26 October and 2 November 2026 (unchanged both times). These are archive images, not photos of recent matches.
+The two photographs on the current page come from Wikimedia Commons. One is used under a Creative Commons Attribution-ShareAlike licence; the other has been dedicated to the public domain under CC0. Licence, author and date were first checked on each file's own Wikimedia Commons page (its licence template and information record) on 22 October 2026, and re-checked through the Commons API on 26 October, 2 November and 9 November 2026 (unchanged each time). These are archive images, not photos of recent matches.
 
 ## Reece Walsh meets fans after the 2026 World Club Challenge
 
