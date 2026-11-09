@@ -87,7 +87,6 @@ Report failures or anything requiring my action. Stay quiet if there is no meani
 - Added the completed Formula 1 round 18 and the completed MotoGP Australian Sprint. Recorded the official cancellation of the Sunday MotoGP, Moto2 and Moto3 races without inventing a Grand Prix classification.
 - Model `weekend-bootstrap-1.0.3` supports the resulting Sprint-only partial round. It reconciles the Sprint points but excludes the incomplete weekend from the full-weekend resampling pool. Seeds: F1 `20261026`, MotoGP `20261027`; 200,000 trials each.
 - Replaced both display photographs with individually verified CC BY 2.0 Wikimedia Commons thumbnails. Exact creator, source, licence, resize disclosure, dimensions and SHA-256 are recorded in `photos/CREDITS.md`; earlier assets remain for archives.
-
 ## 2 November 2026 run (v21)
 
 - Archived the exact v20.1 page as `index-v20-1-2026-11-02-before-maintenance.html` before replacing `index.html`.
@@ -104,4 +103,5 @@ Report failures or anything requiring my action. Stay quiet if there is no meani
 - The official Formula 1 summary standings initially lagged the final Leclerc/Lawson penalty swap. The dashboard reconciles the preceding verified totals with FIA final classification document 81; total driver and constructor points remain conserved.
 - The indexed Qatar Sprint report exposed the nine point scorers and confirmed three retirements but not the complete non-scoring order or lap table. The page omits unsupported positions and the Sprint fastest lap.
 - Replaced both display photographs with individually verified CC BY 2.0 Wikimedia Commons thumbnails. Exact creator, source, licence, resize disclosure, dimensions and SHA-256 are recorded in `photos/CREDITS.md`; earlier assets remain for archives.
+- Live visual inspection found one older circuit-record year rendering as `undefined` and two stale 2 November source-check labels. Archived v22 exactly, corrected those display labels in v22.1, and reran the browser gate before republishing.
 
