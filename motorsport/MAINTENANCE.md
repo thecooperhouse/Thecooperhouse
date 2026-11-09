@@ -96,3 +96,12 @@ Report failures or anything requiring my action. Stay quiet if there is no meani
 - The indexed official Malaysia Sprint report exposed the nine points finishers but not a complete classification or lap table. The page explicitly limits the Sprint table and omits its fastest lap rather than inventing data.
 - Existing licensed photographs were retained because no two suitable replacement files were individually verified and transferred end-to-end during this run. Existing credits and archived assets remain unchanged.
 
+## 9 November 2026 run (v22)
+
+- Archived the exact v21 page as `index-v21-2026-11-09-before-maintenance.html` before replacing `index.html`.
+- Added round 20 final results for both series, incorporated the final Formula 1 penalty order and confirmed MotoGP non-starts, refreshed standings, remaining calendars, Brisbane viewing times and official news, and changed watched IDs to the new completed events.
+- Model `weekend-bootstrap-1.0.5` ran 200,000 trials per championship with seeds F1 `20261109` and MotoGP `20261110`. It maps Rafael Câmara’s one-off Haas result and Jake Dixon’s Honda substitute result to the regular seats for future resampling. Mathematical eligibility remains separate from simulated chances.
+- The official Formula 1 summary standings initially lagged the final Leclerc/Lawson penalty swap. The dashboard reconciles the preceding verified totals with FIA final classification document 81; total driver and constructor points remain conserved.
+- The indexed Qatar Sprint report exposed the nine point scorers and confirmed three retirements but not the complete non-scoring order or lap table. The page omits unsupported positions and the Sprint fastest lap.
+- Replaced both display photographs with individually verified CC BY 2.0 Wikimedia Commons thumbnails. Exact creator, source, licence, resize disclosure, dimensions and SHA-256 are recorded in `photos/CREDITS.md`; earlier assets remain for archives.
+

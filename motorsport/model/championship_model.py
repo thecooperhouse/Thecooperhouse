@@ -5,7 +5,7 @@ from datetime import datetime,timezone
 from collections import Counter,defaultdict
 import numpy as np
 
-VERSION='weekend-bootstrap-1.0.4'
+VERSION='weekend-bootstrap-1.0.5'
 RULES={
  'f1':{'race':[25,18,15,12,10,8,6,4,2,1],'sprint':[8,7,6,5,4,3,2,1]},
  'moto':{'race':[25,20,16,13,11,10,9,8,7,6,5,4,3,2,1],'sprint':[12,9,7,6,5,4,3,2,1]}}
@@ -51,14 +51,14 @@ def validate_inputs(data,key):
 
 def entrants(d,key):
     # Regular 2026 grid. Remaining-seat assumptions are explicit in the input file.
-    active=[n for n,t,p in d['standings'] if (n not in ['Yuki Tsunoda','Ryo Hirakawa'] if key=='f1' else n not in ['Iker Lecuona','Augusto Fernández','Pol Espargaró','Takaaki Nakagami','Somkiat Chantra','Aleix Espargaró','Cal Crutchlow','Jonas Folger','Lorenzo Savadori','Michele Pirro'])]
+    active=[n for n,t,p in d['standings'] if (n not in ['Yuki Tsunoda','Ryo Hirakawa','Rafael Câmara'] if key=='f1' else n not in ['Iker Lecuona','Augusto Fernández','Pol Espargaró','Takaaki Nakagami','Somkiat Chantra','Aleix Espargaró','Cal Crutchlow','Jonas Folger','Lorenzo Savadori','Michele Pirro','Jake Dixon'])]
     assert len(active)==22
     return active
 
 def map_name(e,key,entries):
     n=e['name']
     if key=='f1':
-        if n=='Ryo Hirakawa' and e.get('team')=='Haas F1 Team':return 'Esteban Ocon'
+        if n in ['Ryo Hirakawa','Rafael Câmara'] and e.get('team')=='Haas F1 Team':return 'Esteban Ocon'
         if n=='Liam Lawson' and e.get('team')=='Red Bull Racing':return 'Isack Hadjar'
         if n=='Yuki Tsunoda':return 'Liam Lawson'
     else:
@@ -68,7 +68,7 @@ def map_name(e,key,entries):
             return missing[0]
         if n=='Lorenzo Savadori':
             return 'Ai Ogura' if 'Trackhouse' in e['team'] else n
-        n={'Pol Espargaró':'Maverick Viñales','Jonas Folger':'Maverick Viñales','Takaaki Nakagami':'Joan Mir','Somkiat Chantra':'Joan Mir','Aleix Espargaró':'Joan Mir','Cal Crutchlow':'Johann Zarco'}.get(n,n)
+        n={'Pol Espargaró':'Maverick Viñales','Jonas Folger':'Maverick Viñales','Takaaki Nakagami':'Joan Mir','Somkiat Chantra':'Joan Mir','Aleix Espargaró':'Joan Mir','Jake Dixon':'Joan Mir','Cal Crutchlow':'Johann Zarco'}.get(n,n)
     return n
 
 def history_arrays(d,key,names):

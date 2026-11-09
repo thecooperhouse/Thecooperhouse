@@ -79,3 +79,29 @@ No photo was replaced in v17. The two v16 images above remain in use with unchan
 
 Keep the v16 photographs and all earlier images: archived HTML pages still reference them. No creator, subject, team or organiser endorsement is implied.
 
+## Added in v22 — 9 November 2026
+
+### Formula 1: British Grand Prix, Silverstone, 2024
+
+- File: `hamilton-silverstone-2024-20261109.jpg` (960 × 554, 105,839 bytes).
+- Creator: **Jen Ross**.
+- Source: [2024 British Grand Prix, Hamilton (5).jpg — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:2024_British_Grand_Prix,_Hamilton_(5).jpg).
+- Exact licence: **Creative Commons Attribution 2.0 Generic (CC BY 2.0)**.
+- Licence: https://creativecommons.org/licenses/by/2.0/
+- The individual Commons file page identifies the creator and licence; its Flickr licence was reviewed by FlickreviewR 2 on 10 November 2024. Checked 9 November 2026.
+- Modifications: Wikimedia 960px thumbnail, proportionally resized; no cropping, recolouring or other edits.
+- SHA-256: `b1a11e343a1d28923c8717baa77d4487f2bd83e9059933a130d8ef4b6ac19166`.
+
+### MotoGP: French Grand Prix, Le Mans, 2021
+
+- File: `marquez-rabat-le-mans-2021-20261109.jpg` (960 × 640, 107,066 bytes).
+- Creator: **Box Repsol**.
+- Source: [Marc Márquez and Tito Rabat 2021 Le Mans.jpg — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Marc_M%C3%A1rquez_and_Tito_Rabat_2021_Le_Mans.jpg).
+- Exact licence: **Creative Commons Attribution 2.0 Generic (CC BY 2.0)**.
+- Licence: https://creativecommons.org/licenses/by/2.0/
+- The individual Commons file page identifies the creator and licence; its Flickr licence was reviewed by FlickreviewR 2 on 22 June 2021. Checked 9 November 2026.
+- Modifications: Wikimedia 960px thumbnail, proportionally resized; no cropping, recolouring or other edits.
+- SHA-256: `79715366d950afa42d74530272b19c6612e5e7f976b2bce30922bb417ceae777`.
+
+Keep every older image and its credit: archived HTML pages still reference them. Historical photographs are labelled with their event and year and do not depict the latest race result. No creator, subject, team or organiser endorsement is implied.
+
