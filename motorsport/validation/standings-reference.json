@@ -1,7 +1,7 @@
 {
-  "verified_date_brisbane": "2026-11-09",
-  "data_as_of": "2026-11-09",
-  "note": "Official ranking snapshot, including equal-point order. Formula 1 totals are reconciled from the last official table plus the final post-penalty São Paulo classification because the summary table initially lagged the Leclerc/Lawson swap.",
+  "verified_date_brisbane": "2026-11-16",
+  "data_as_of": "2026-11-16",
+  "note": "Official ranking snapshot rechecked 16 November, including equal-point order. No championship round was held after the São Paulo and Qatar results. Formula 1 totals remain reconciled to the final post-penalty São Paulo classification.",
   "tables": {
     "f1": {
       "source": "https://www.fia.com/system/files/decision-document/2026_sao_paulo_grand_prix_-_championship_points.pdf",

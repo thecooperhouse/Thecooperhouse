@@ -105,3 +105,29 @@ Keep the v16 photographs and all earlier images: archived HTML pages still refer
 
 Keep every older image and its credit: archived HTML pages still reference them. Historical photographs are labelled with their event and year and do not depict the latest race result. No creator, subject, team or organiser endorsement is implied.
 
+## Added in v23 — 16 November 2026
+
+### Formula 1: British Grand Prix, Silverstone, 2024
+
+- File: `leclerc-silverstone-2024-20261116.jpg` (960 × 483, 110,427 bytes).
+- Creator: **Jen Ross**.
+- Source: [2024 British Grand Prix, Leclerc (1).jpg — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:2024_British_Grand_Prix,_Leclerc_(1).jpg).
+- Exact licence: **Creative Commons Attribution 2.0 Generic (CC BY 2.0)**.
+- Licence: https://creativecommons.org/licenses/by/2.0/
+- The individual Commons file page identifies the creator and licence; its Flickr licence was reviewed by FlickreviewR 2 on 11 November 2024. Checked 16 November 2026.
+- Modifications: Wikimedia 960px thumbnail, proportionally resized; no cropping, recolouring or other edits.
+- SHA-256: `63e43527a64542d778bba5866adf3bcac4591d1b8a2b79fe78869f6eb963b07e`.
+
+### MotoGP: German Grand Prix, Sachsenring, 2021
+
+- File: `espargaro-martin-sachsenring-2021-20261116.jpg` (960 × 640, 104,786 bytes).
+- Creator: **Box Repsol**.
+- Source: [Pol Espargaró and Jorge Martín 2021 Sachsenring.jpg — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Pol_Espargar%C3%B3_and_Jorge_Mart%C3%ADn_2021_Sachsenring.jpg).
+- Exact licence: **Creative Commons Attribution 2.0 Generic (CC BY 2.0)**.
+- Licence: https://creativecommons.org/licenses/by/2.0/
+- The individual Commons file page identifies the creator and licence; its Flickr licence was reviewed by FlickreviewR 2 on 4 July 2021. Checked 16 November 2026.
+- Modifications: Wikimedia 960px thumbnail, proportionally resized; no cropping, recolouring or other edits.
+- SHA-256: `140314422b8fb4ba25ecf1be729d50135328cd3174f2c55eb9860aff78c2acdf`.
+
+Keep every older image and its credit: archived HTML pages still reference them. Historical photographs are labelled with their event and year and do not depict the latest race result. No creator, subject, team or organiser endorsement is implied.
+

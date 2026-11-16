@@ -1,5 +1,11 @@
 # Reproducible championship estimates
 
+## 16 November 2026 calculation
+
+Run `weekend-bootstrap-1.0.5` with `inputs-2026-11-16.json`, 200,000 trials per championship and seeds `20261116` (Formula 1) and `20261117` (MotoGP). No championship round was held after the 9 November snapshot, so the verified results, official standings, scoring rules and remaining calendars are unchanged. `prepare_2026_11_16.cjs` copies that factual snapshot, advances the source-check date and records the latest entry uncertainty; `outputs-2026-11-16.json` records code/input hashes, runtime, probabilities and all invariant results.
+
+The regular grid remains the future-entry assumption. MotoGP confirmed successful surgery for Francesco Bagnaia on 10 November, but said recovery progress would determine his return timeline. The checked Portugal event page had not published a definitive entry list, so the model does not invent an absence or replacement. The Qatar Sprint limitation remains: only the nine official point scorers and three confirmed retirements were available in indexed official material, so no unsupported non-scoring order or fastest lap is added.
+
 ## 9 November 2026 calculation
 
 Run `weekend-bootstrap-1.0.5` with `inputs-2026-11-09.json`, 200,000 trials per championship and seeds `20261109` (Formula 1) and `20261110` (MotoGP). The input adds the completed São Paulo and Qatar weekends, reconciles the final post-penalty Formula 1 order, records the confirmed Qatar medical withdrawals and maps the one-off Rafael Câmara and Jake Dixon substitute results to the regular Haas and Honda seats for future sampling. `prepare_2026_11_09.cjs` records the mechanical construction from the previously verified snapshot; `outputs-2026-11-09.json` records hashes, runtime, probabilities and invariants.
@@ -22,10 +28,10 @@ Use Python 3.12.14 and NumPy 2.3.5 for the recorded environment. From this direc
 
 ```bash
 python -m pip install -r requirements.txt
-python championship_model.py --inputs inputs-2026-11-09.json --output reproduced.json --simulations 200000 --seed 20261109 --half-life 5 --concentration 15 --batch-size 10000
+python championship_model.py --inputs inputs-2026-11-16.json --output reproduced.json --simulations 200000 --seed 20261116 --half-life 5 --concentration 15 --batch-size 10000
 ```
 
-F1 uses seed `20261109`; MotoGP uses `20261110`. Each championship runs 200,000 trials. F1 constructors use the same 200,000 driver-outcome paths. The generator is NumPy `PCG64`; batch size is part of the reproducibility parameters. Calculation timestamps and elapsed time change on a rerun; entrant title counts, probabilities, eligibility and diagnostics must match for the recorded environment and inputs.
+F1 uses seed `20261116`; MotoGP uses `20261117`. Each championship runs 200,000 trials. F1 constructors use the same 200,000 driver-outcome paths. The generator is NumPy `PCG64`; batch size is part of the reproducibility parameters. Calculation timestamps and elapsed time change on a rerun; entrant title counts, probabilities, eligibility and diagnostics must match for the recorded environment and inputs.
 
 The output records model version, UTC calculation time, elapsed seconds, Python/NumPy versions, code and input SHA-256 hashes, seeds, simulation count, parameters, checks and results. Inputs preserve result facts, official source URLs, downloaded-source hashes, calendars, scoring-rule references, viewing-time conversions and entry assumptions. Full organiser pages and PDFs are not republished.
 

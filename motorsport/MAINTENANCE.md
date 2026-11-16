@@ -105,3 +105,11 @@ Report failures or anything requiring my action. Stay quiet if there is no meani
 - Replaced both display photographs with individually verified CC BY 2.0 Wikimedia Commons thumbnails. Exact creator, source, licence, resize disclosure, dimensions and SHA-256 are recorded in `photos/CREDITS.md`; earlier assets remain for archives.
 - Live visual inspection found one older circuit-record year rendering as `undefined` and two stale 2 November source-check labels. Archived v22 exactly, corrected those display labels in v22.1, and reran the browser gate before republishing.
 
+## 16 November 2026 run (v23)
+
+- Archived the exact v22.1 page as `index-v22-1-2026-11-16-before-maintenance.html` before replacing `index.html`.
+- No championship round was held during the week. Official results and standings were rechecked and retained; the Las Vegas and Portugal calendars, Brisbane viewing times and current official news were refreshed without changing the São Paulo or Qatar watched IDs.
+- Model `weekend-bootstrap-1.0.5` reran 200,000 trials per championship with seeds F1 `20261116` and MotoGP `20261117`. The current regular-grid assumption records Bagnaia's successful 10 November surgery and unconfirmed return timeline without inventing a Portugal absence. Mathematical eligibility remains separate from simulated chances.
+- Replaced both display photographs with individually verified CC BY 2.0 Wikimedia Commons thumbnails. Exact creator, source, licence, resize disclosure, dimensions and SHA-256 are recorded in `photos/CREDITS.md`; every earlier asset remains for archived pages.
+- The indexed Qatar Sprint limitation remains unchanged: unsupported non-scoring positions and a Sprint fastest lap are omitted.
+
