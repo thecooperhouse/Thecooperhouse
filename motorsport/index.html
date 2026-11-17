@@ -204,9 +204,15 @@
   .circuit-record{flex-wrap:wrap}
   .next-sessions{margin-top:10px}
   .next-sessions td:last-child{white-space:nowrap}
-  .classification{font-size:.78rem}
+  .classification{font-size:.78rem;table-layout:fixed}
   .classification td,.classification th{padding:8px 6px}
   .classification th{letter-spacing:.06em}
+  .classification th:nth-child(1){width:12%}
+  .classification th:nth-child(2){width:40%}
+  .classification th:nth-child(3){width:32%}
+  .classification th:nth-child(4){width:16%}
+  .classification td{overflow-wrap:anywhere}
+  .classification td.team{font-size:.75rem}
   .classification td.pts{width:auto}
   .classification .result-detail{display:block;color:var(--ink-dim);font-size:.72rem;white-space:nowrap;margin-top:3px}
   @media(max-width:600px){
@@ -216,7 +222,7 @@
     .title-table td.pct{white-space:normal;max-width:90px}
     .title-table td.pts{width:auto}
   }
-  @media(max-width:360px){.races{grid-template-columns:minmax(0,1fr)}}
+  @media(max-width:360px){.races{grid-template-columns:minmax(0,1fr)}.classification td,.classification th{padding:8px 4px}.classification th{font-size:.58rem;letter-spacing:0}.classification td:first-child{font-size:.72rem}}
 </style>
 </head>
 <body>
