@@ -1,5 +1,15 @@
 # Reproducible championship estimates
 
+## 17 November 2026 corrective calculation
+
+Version `weekend-bootstrap-1.0.6` adds classification/status consistency checks; the bootstrap method is unchanged. `correct_2026_11_17.cjs prepare` constructs the corrected inputs from the preserved 16 November snapshot. Run the command below, then `node motorsport/model/correct_2026_11_17.cjs apply` from the repository root. The preparation script refuses to overwrite its exact prior-page archive.
+
+The official [Qatar Sprint timing sheet](https://resources.motogp.com/files/results/2026/QAT/MotoGP/SPR/Classification.pdf), retrieved 17 November, supplies all 16 classified finishers, one DNF, one DNS, total times/gaps, fastest lap and penalty log for the restarted 10-lap Sprint. Its SHA-256 is saved with the input. Aldeguer finished 11th after serving both long laps; Bagnaia did not start the restart. Earlier statements below about three confirmed retirements were incorrect and are superseded by this correction; old snapshots remain preserved for audit. The nine scoring places and championship points are unchanged. The Sprint fastest lap is not the Grand Prix race-lap record.
+
+[Ducati's official 16 November announcement via MotoGP](https://www.motogp.com/en/news/2026/11/16/lecuona-to-stand-in-for-injured-bagnaia-in-portugal/1185490) confirms Lecuona replaces Bagnaia in Portugal. The existing override zeroes Bagnaia's scores without promoting other riders: the substitute occupies the sampled seat position. This is a regular-seat performance proxy, not a rider-specific Lecuona forecast; the mathematically eliminated substitute is not simulated individually. Valencia assumes a regular grid, with Bagnaia's return conditional on fitness. Maximum mathematical points remain participation-independent upper bounds. Other championship facts are retained from 16 November, not newly reverified.
+
+Seeds: F1 `20261117`, MotoGP `20261118`; 200,000 trials each. Saved output includes timestamps, runtime, hashes, invariants and five held-out GP diagnostics. No completed-championship calibration is available. The corrected full non-scoring Sprint order and updated entry assumptions replace the incomplete prior empirical input.
+
 ## 16 November 2026 calculation
 
 Run `weekend-bootstrap-1.0.5` with `inputs-2026-11-16.json`, 200,000 trials per championship and seeds `20261116` (Formula 1) and `20261117` (MotoGP). No championship round was held after the 9 November snapshot, so the verified results, official standings, scoring rules and remaining calendars are unchanged. `prepare_2026_11_16.cjs` copies that factual snapshot, advances the source-check date and records the latest entry uncertainty; `outputs-2026-11-16.json` records code/input hashes, runtime, probabilities and all invariant results.
@@ -28,10 +38,10 @@ Use Python 3.12.14 and NumPy 2.3.5 for the recorded environment. From this direc
 
 ```bash
 python -m pip install -r requirements.txt
-python championship_model.py --inputs inputs-2026-11-16.json --output reproduced.json --simulations 200000 --seed 20261116 --half-life 5 --concentration 15 --batch-size 10000
+python championship_model.py --inputs inputs-2026-11-17.json --output reproduced.json --simulations 200000 --seed 20261117 --half-life 5 --concentration 15 --batch-size 10000
 ```
 
-F1 uses seed `20261116`; MotoGP uses `20261117`. Each championship runs 200,000 trials. F1 constructors use the same 200,000 driver-outcome paths. The generator is NumPy `PCG64`; batch size is part of the reproducibility parameters. Calculation timestamps and elapsed time change on a rerun; entrant title counts, probabilities, eligibility and diagnostics must match for the recorded environment and inputs.
+F1 uses seed `20261117`; MotoGP uses `20261118`. Each championship runs 200,000 trials. F1 constructors use the same 200,000 driver-outcome paths. The generator is NumPy `PCG64`; batch size is part of the reproducibility parameters. Calculation timestamps and elapsed time change on a rerun; entrant title counts, probabilities, eligibility and diagnostics must match for the recorded environment and inputs.
 
 The output records model version, UTC calculation time, elapsed seconds, Python/NumPy versions, code and input SHA-256 hashes, seeds, simulation count, parameters, checks and results. Inputs preserve result facts, official source URLs, downloaded-source hashes, calendars, scoring-rule references, viewing-time conversions and entry assumptions. Full organiser pages and PDFs are not republished.
 
@@ -49,7 +59,7 @@ The output records model version, UTC calculation time, elapsed seconds, Python/
 2. Map historical substitute outcomes to the regular seat for future scenarios. F1 Lawson/Red Bull maps to Hadjar; Tsunoda/Racing Bulls maps to Lawson. Gresini replacements map to the absent regular Gresini rider in that session. The code explicitly maps the other observed substitutes. Wildcards without a regular seat are removed and the remaining classified places compacted. A regular rider absent without a substitute remains a non-scoring sampled outcome. This introduces uncertainty when injury recovery differs from the observed season.
 3. Give recent weekends more weight, with a five-weekend half-life. For each simulated remainder, draw one vector of weekend weights from a Dirichlet distribution with concentration 15. This produces persistent form uncertainty across that simulated season.
 4. Draw each future weekend from those weights. GP/Sprint/qualifying results from the same observed weekend stay linked, preserving empirical retirement and incident correlations. Ordinary F1 GPs draw from all twenty observed weekends. MotoGP draws from the nineteen complete linked GP/Sprint weekends; the Australian Sprint-only round affects current points but is not treated as a full future-weekend template.
-5. Apply official points and countbacks. MotoGP substitute results from Somkiat Chantra at Motegi and Aleix Espargaró in Indonesia map to Joan Mir’s regular seat only for future-scenario sampling; their actual points remain with the named substitutes. Remaining rounds assume the regular grid because no future absence was confirmed in the checked sources.
+5. Apply official points and countbacks. MotoGP substitute results from Somkiat Chantra at Motegi and Aleix Espargaró in Indonesia map to Joan Mir’s regular seat only for future-scenario sampling; their actual points remain with the named substitutes. Explicit confirmed absence overrides apply as documented in the latest calculation above; other remaining entries assume the regular grid.
 
 ## Mathematical eligibility
 

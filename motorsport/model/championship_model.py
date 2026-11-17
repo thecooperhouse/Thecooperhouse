@@ -5,7 +5,7 @@ from datetime import datetime,timezone
 from collections import Counter,defaultdict
 import numpy as np
 
-VERSION='weekend-bootstrap-1.0.5'
+VERSION='weekend-bootstrap-1.0.6'
 RULES={
  'f1':{'race':[25,18,15,12,10,8,6,4,2,1],'sprint':[8,7,6,5,4,3,2,1]},
  'moto':{'race':[25,20,16,13,11,10,9,8,7,6,5,4,3,2,1],'sprint':[12,9,7,6,5,4,3,2,1]}}
@@ -36,12 +36,18 @@ def validate_inputs(data,key):
             for e in entries:
                 assert e['name'] not in seen,(key,r['round'],session,'duplicate entrant')
                 seen.add(e['name']);p=e.get('position');pts=e['points']
+                if key=='moto':
+                    assert bool(p)==e['classified'],(key,r['round'],session,e['name'],'classification status mismatch')
+                    if e.get('status') in ['DNS','DNF']:
+                        assert p is None and pts==0 and not e['classified']
                 assert pts>=0
                 expected=RULES[key][session][p-1] if p and p<=len(RULES[key][session]) else 0
                 assert pts==expected,(key,r['round'],session,e['name'],pts,expected)
                 if p:positions.append(p)
                 totals[e['name']]+=pts;teams[e['team']]+=pts
             assert len(set(positions))==len(positions)
+            if r[session].get('classification_complete'):
+                assert sorted(positions)==list(range(1,len(positions)+1)), 'complete classification has gaps'
             assert sum(e['points'] for e in entries)<=sum(RULES[key][session])
     assert all(totals[n]==p for n,t,p in d['standings']),(key,'standings reconciliation')
     assert set(totals)<=set(n for n,t,p in d['standings']),(key,'unlisted entrants')

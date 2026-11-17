@@ -1,5 +1,14 @@
 # Motorsport website maintenance
 
+## 17 November 2026 corrective publication (v23.1)
+
+- Corrects the Qatar restarted Sprint from both pages of the official timing PDF: all 16 finishers, DNF/DNS distinction, timings, fastest lap and served penalties. The earlier claim of three retirements was wrong: Aldeguer finished 11th and Bagnaia did not start the restart. The current page and dated model input supersede that mistake; historical archives remain untouched.
+- Archives exact v23 bytes as `index-v23-2026-11-17-before-qatar-correction.html`. Retains both 16 November licensed photos and their credits; this is a focused correction, not another weekly photo change.
+- Adds visible time/gap/status beneath each entrant and checks the rendered Qatar Sprint against an independent reference, including the restart statuses and fastest lap. Do not treat a report about the abandoned start as the final restarted classification.
+- Uses model `weekend-bootstrap-1.0.6`, adding status-consistency assertions, 200,000 simulations per championship, seeds 20261117/20261118. Portugal Bagnaia/Lecuona override follows the official 16 November announcement; see model README for the seat-proxy limitation.
+- Updates Portugal warm-up to Sunday 22 November 19:00 Brisbane and GP to Sunday 22 November 23:00 Brisbane. The direct official 16 November timetable fetched on 17 November supersedes stale indexed warm-up variants; the revised timing is corroborated by the 16 November schedule-change report. Other factual checks retain their 16 November date.
+- Preserve the exact latest-event watched IDs. Stage and inspect the full cloud browser gate before moving main. Validation evidence is stored under `validation/2026-11-17.json` after the candidate run.
+
 The following owner-authorised instructions are the durable operating brief. Use the current repository and connected cloud access on every run. Do not depend on a previous chat or local user credentials.
 
 Maintain my Formula 1 and MotoGP website every Monday at 12:00 noon in Australia/Brisbane (AEST, UTC+10).

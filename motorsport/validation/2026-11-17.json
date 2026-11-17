@@ -1,0 +1,77 @@
+{
+  "checked_at_utc": "2026-11-17T07:04:58.998Z",
+  "browser": "Chromium 156.0.8078.4",
+  "viewports": [
+    "1280×1000",
+    "390×844",
+    "320×844"
+  ],
+  "checks": [
+    "JavaScript execution",
+    "one checkbox per series",
+    "latest race/Sprint, standings, news and analysis hidden/inert by default",
+    "reveal/hide with keyboard and pointer",
+    "independent series choices",
+    "reload persistence",
+    "new-event protection",
+    "malformed, blocked and legacy storage",
+    "keyboard tabs and Home/End",
+    "earlier results accessible",
+    "images decode",
+    "no page overflow",
+    "hidden accessibility and focus exclusion",
+    "all official standings and analysis rows match reference including tied order",
+    "stable nonmutating descending points sort",
+    "clinch independent of source row order",
+    "Tab and Shift+Tab reach both watched controls",
+    "visible keyboard focus",
+    "Space reveals and hides both series",
+    "Qatar restarted Sprint complete order, points, timings and DNF/DNS match official reference",
+    "Qatar Sprint fastest lap distinct from GP record",
+    "input/page/forecast consistency and source-time arithmetic",
+    "exact prior-page archive hash"
+  ],
+  "images": [
+    {
+      "src": "photos/leclerc-silverstone-2024-20261116.jpg",
+      "loaded": true,
+      "width": 960,
+      "height": 483
+    },
+    {
+      "src": "photos/espargaro-martin-sachsenring-2021-20261116.jpg",
+      "loaded": true,
+      "width": 960,
+      "height": 640
+    }
+  ],
+  "errors": [],
+  "status": "passed",
+  "commit_sha": "94c9260ed9e44873efea4d3c3ea4c03379d8264a",
+  "page_sha256": "f335c43ab3862adfbccedc6ccd4805b4da1c5b23f676f21515e8c253d10a65a9",
+  "playwright_version": "1.64.1",
+  "review": {
+    "scope": "Qatar Sprint correction and newly confirmed Portugal entry/timetable updates; other factual checks remain dated 16 November.",
+    "screenshots_reviewed": [
+      "qatar-sprint-mobile-320.png",
+      "qatar-sprint-desktop.png",
+      "mobile-320-hidden.png"
+    ],
+    "visual_review": "Complete restarted Sprint table and status/timings readable; no page/table clipping at tested sizes. Initial candidate layout failure was corrected before publication.",
+    "source_pdf": {
+      "url": "https://resources.motogp.com/files/results/2026/QAT/MotoGP/SPR/Classification.pdf",
+      "sha256": "5058e91ecd14404f8f866670d155f29ef7cc368c9598da2631bcc44118828fcc",
+      "checked": "2026-11-17",
+      "pages": 2
+    },
+    "reproducibility": "Second 200,000-trial run per championship reproduced all title results, eligibility, checks and backtests exactly.",
+    "negative_tests": "Invalid DNS classified flag, finishing position and points each rejected by input validation.",
+    "photos": "16 November licensed images and credits retained unchanged.",
+    "limitations": [
+      "No physical screen-reader audit.",
+      "Experimental empirical model has no completed-championship calibration; substitute seat performance is a proxy.",
+      "No fresh exhaustive audit of unrelated races/news or all steward decisions."
+    ],
+    "workflow_url": "https://github.com/thecooperhouse/Thecooperhouse/actions/runs/44035876094"
+  }
+}

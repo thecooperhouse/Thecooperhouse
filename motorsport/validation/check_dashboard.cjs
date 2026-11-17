@@ -7,6 +7,7 @@ const root=path.resolve(process.env.RACEBOARD_ROOT||path.resolve(__dirname,'../.
 const evidence=path.resolve(process.env.RACEBOARD_EVIDENCE||'/tmp/raceboard-browser-evidence');fs.mkdirSync(evidence,{recursive:true});
 let activeBrowser,activePage;
 async function main(){
+ require('./check_qatar_2026.cjs').check(root);
  const browser=activeBrowser=await chromium.launch({headless:true,executablePath:process.env.RACEBOARD_CHROMIUM||undefined});
  const context=await browser.newContext({viewport:{width:1280,height:1000}});
  context.setDefaultTimeout(15000);
@@ -90,6 +91,13 @@ async function main(){
  assert((await gateState('moto')).every(x=>x.revealed&&!x.hidden&&!x.inert));
  assert.equal(await page.locator('#watched-f1').isChecked(),false);
  await page.reload();await page.locator('#tab-moto').click();assert.equal(await page.locator('#watched-moto').isChecked(),true);
+ const qatar=page.locator('#moto-races .race').filter({has:page.locator('.gp',{hasText:'Qatar GP'})});
+ const sprintTable=qatar.locator('table.classification').first();
+ const sprintRows=await sprintTable.locator('tbody tr').evaluateAll(rows=>rows.map(r=>[r.cells[0].textContent,r.querySelector('.entrant-name').textContent,Number(r.cells[3].textContent),r.querySelector('.result-detail').textContent]));
+ assert.deepEqual(sprintRows,require('./check_qatar_2026.cjs').expected.map(([p,n,pts,s])=>[p?String(p):s,n,pts,s]));
+ await qatar.locator('details').first().locator('summary').click();
+ await sprintTable.scrollIntoViewIfNeeded();await sprintTable.screenshot({path:path.join(evidence,'qatar-sprint-desktop.png')});
+ assert((await qatar.locator('.flrow').first().innerText()).includes('1:52.218'));
  await page.locator('#moto-title-summary').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(evidence,'moto-analysis.png')});
  await page.locator('#moto-standings').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(evidence,'moto-standings.png')});
  await tabToWatched('moto');await page.keyboard.press('Space');
@@ -109,6 +117,9 @@ async function main(){
   await page.locator('#f1-title-summary').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(evidence,`mobile-${width}-analysis.png`)});
   await page.locator('#watched-f1').uncheck();await page.locator('#tab-moto').click();await page.locator('#watched-moto').check();
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`Moto revealed overflow at ${width}`);
+  await sprintTable.scrollIntoViewIfNeeded();
+  assert(await sprintTable.evaluate(e=>e.scrollWidth<=e.parentElement.clientWidth),`Qatar Sprint table overflow at ${width}`);
+  await sprintTable.screenshot({path:path.join(evidence,`qatar-sprint-mobile-${width}.png`)});
   await page.locator('#moto-title-summary').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(evidence,`mobile-${width}-moto.png`)});
   await page.locator('#watched-moto').uncheck();
  }
@@ -129,6 +140,7 @@ async function main(){
  result.page_sha256=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'motorsport/index.html'))).digest('hex');
  result.playwright_version=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright/package.json':'playwright/package.json').version;
  result.checks.push('Tab and Shift+Tab reach both watched controls','visible keyboard focus','Space reveals and hides both series');
+ result.checks.push('Qatar restarted Sprint complete order, points, timings and DNF/DNS match official reference','Qatar Sprint fastest lap distinct from GP record','input/page/forecast consistency and source-time arithmetic','exact prior-page archive hash');
  fs.writeFileSync(path.join(evidence,'checks.json'),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));
  await browser.close();
 }
