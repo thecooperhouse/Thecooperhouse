@@ -1,0 +1,124 @@
+# Motorsport website maintenance
+
+## 17 November 2026 corrective publication (v23.1)
+
+- Corrects the Qatar restarted Sprint from both pages of the official timing PDF: all 16 finishers, DNF/DNS distinction, timings, fastest lap and served penalties. The earlier claim of three retirements was wrong: Aldeguer finished 11th and Bagnaia did not start the restart. The current page and dated model input supersede that mistake; historical archives remain untouched.
+- Archives exact v23 bytes as `index-v23-2026-11-17-before-qatar-correction.html`. Retains both 16 November licensed photos and their credits; this is a focused correction, not another weekly photo change.
+- Adds a visible time/gap/status column and checks the rendered Qatar Sprint against an independent reference, including the restart statuses and fastest lap. Do not treat a report about the abandoned start as the final restarted classification.
+- Uses model `weekend-bootstrap-1.0.6`, adding status-consistency assertions, 200,000 simulations per championship, seeds 20261117/20261118. Portugal Bagnaia/Lecuona override follows the official 16 November announcement; see model README for the seat-proxy limitation.
+- Updates Portugal warm-up to Sunday 22 November 19:00 Brisbane and GP to Sunday 22 November 23:00 Brisbane. The direct official 16 November timetable fetched on 17 November supersedes stale indexed warm-up variants; the revised timing is corroborated by the 16 November schedule-change report. Other factual checks retain their 16 November date.
+- Preserve the exact latest-event watched IDs. Stage and inspect the full cloud browser gate before moving main. Validation evidence is stored under `validation/2026-11-17.json` after the candidate run.
+
+The following owner-authorised instructions are the durable operating brief. Use the current repository and connected cloud access on every run. Do not depend on a previous chat or local user credentials.
+
+Maintain my Formula 1 and MotoGP website every Monday at 12:00 noon in Australia/Brisbane (AEST, UTC+10).
+
+Repository: https://github.com/thecooperhouse/Thecooperhouse
+Branch: main
+Main page: motorsport/index.html
+Published website: https://thecooperhouse.xyz/motorsport/
+
+Run entirely in the cloud using connected GitHub access and available cloud tools. Do not depend on my computer, its files, or credentials stored locally. Treat the repository and these instructions as the durable source of context.
+
+I authorise the recurring research, corrections, photo changes, probability recalculation, archiving, commits and pushes necessary to maintain this website. Make routine decisions independently. Observe platform permissions and report any access or approval that prevents completion.
+
+On every run:
+
+1. Inspect the current repository and fetch the latest main before making changes. Read any repository instructions. Preserve unrelated changes and existing archives. Never force-push. Confirm that the available GitHub tools can write to this repository; if they cannot, complete the research and prepare downloadable updated files, then explain the missing capability.
+
+2. Verify and update both series using current official sources wherever possible: race and Sprint results, final classifications, penalties, podiums, fastest laps, championship standings, points, calendars, remaining events, teams, drivers/riders and upcoming session times. Convert viewing times to Australia/Brisbane and show the correct date and day. Identify the current season and latest completed weekend independently for each series. Check points arithmetic and distinguish official race lap records from other records.
+
+3. Refresh the news with concise original summaries and direct source links. Prefer official organiser and team announcements. Check publication dates and whether earlier reports have been superseded. Clearly distinguish confirmed facts, reporting and rumours. Resolve discrepancies using additional reliable sources. Mark or omit facts that cannot be verified. Do not claim that all details were checked unless they actually were.
+
+4. Replace one Formula 1 photo and one MotoGP photo each week when suitable, verifiably licensed alternatives are available. Prefer Wikimedia Commons images with CC0 or CC BY licences. Check each individual image’s licence and creator; a search result alone is insufficient. Include visible creator credit, source link, exact licence name/version and licence link, plus any modification disclosure. Honour all applicable licence conditions. Label historical photographs with their event and year. Use modest image sizes and unique filenames, update motorsport/photos/CREDITS.md, and preserve images and credits needed by archived pages. If no suitable replacement is available, retain the existing licensed photograph and report the exception.
+
+5. Actually recalculate the championship probabilities using executable, reproducible code. The earlier page contained inherited percentages that had not been independently validated; do not treat those as a working simulation. Inspect the repository for an existing model. Validate and reuse it when credible. Otherwise implement a documented model using reliable historical/current inputs, the remaining calendar, current scoring rules including Sprints, retirements and championship tie-breaks. Explain assumptions and uncertainty. Run at least 200,000 simulations per championship with a recorded seed. Save the code, inputs, model version, seed, simulation count, calculation time and outputs in the repository so future runs can reproduce them. Check model invariants and historical performance where sufficient data exists. Calculate mathematical eligibility and maximum possible points separately from simulated chances. Do not equate zero simulated wins with mathematical elimination. Avoid false precision. If a credible calculation cannot be completed, clearly label the probabilities unavailable or last calculated, and report why; never invent percentages or claim a simulation was run when it was not.
+
+6. Preserve the simple layout and one “watched” checkbox per series. By default, protect the latest completed weekend’s race and Sprint results, standings, championship analysis and revealing news until the visitor marks that series as watched. Keep older race results accessible. Store the watched choice against the specific event so a previous choice cannot reveal a newly completed race. Check photo captions, headings, footer, notes, tooltips and accessibility text for spoiler leaks. During weeks without a race, continue protecting the existing latest weekend.
+
+7. Before replacing the page, archive the exact previous index under a unique version/date filename within motorsport. Preserve its referenced assets and existing archives. Update the version/date and provide an archive link with a warning about spoilers and superseded information. Limit changes to the dashboard and its necessary supporting files.
+
+8. Validate the update before publishing: source consistency, points arithmetic, probability calculations, JavaScript, image loading, licence credits, links, desktop/mobile layout, keyboard navigation, tabs and spoiler defaults/reveal/hide/persistence. Use available automated checks and visual inspection where supported. Report material checks that could not be performed.
+
+9. Commit and push verified changes to main. Recheck the remote branch before pushing to avoid overwriting concurrent work. Confirm the remote commit, deployment status and live page/assets. If validation fails, leave the last working publication intact. If deployment fails after the push, report the failure accurately and preserve the work for recovery.
+
+After publication, give me a concise update with the live link, the main changes, the probability model’s calculation date and any unresolved limitations. Keep the notification spoiler-free: do not disclose winners, podiums, championship leaders or revealing headlines in it.
+
+Report failures or anything requiring my action. Stay quiet if there is no meaningful change and no required action. Do not create additional schedules or message other people.
+
+## Repository notes for future runs
+
+- For photo transfer and cloud browser testing, read `photos/WORKFLOW.md` and `validation/README.md`. The 22 October tooling update supersedes the earlier assumption that all connected GitHub tools are text-only. Use the base64 Git blob endpoint for JPEG/PNG/WebP files, then a tree, commit and non-forced ref update.
+- Prepare each future dashboard update on a maintenance branch. Wait for **Motorsport browser validation** to pass for that exact commit before advancing `main`; inspect the saved screenshots separately. The workflow does not deploy or automatically merge, and adds no schedule. A failed or missing test run is not a pass.
+- The scheduled task already exists. Update that task if needed; do not create a duplicate. Schedule: Mondays at 12:00 in `Australia/Brisbane` (UTC+10).
+- GitHub Pages publishes `main` automatically. Inspect the latest main and repository instructions, then recheck the remote parent before a non-forced branch update.
+- v16 introduced the first independently executed, saved probability model. See `model/README.md`. Earlier archived percentages are not validated inputs.
+- `model/inputs-2026-09-30.json` preserves the verified result facts, source URLs and downloaded source hashes used in this edition. Refresh the factual inputs and review model assumptions on every future run.
+- The watched storage key is `raceboard:watched:v3`; choices are boolean values under the exact series, season and event identifier. New events must have new identifiers. Keep one checkbox per series and retain protection in non-race weeks.
+- Preserve old photos, credits and all archived pages. Before replacing `index.html`, archive its exact bytes under a new unique filename; the existing v15 archive is an exact copy of the prior published blob.
+- Keep all maintenance changes within `motorsport/` and its necessary supporting files. Verify deployment and the public page/assets before reporting publication.
+
+## Known limitations of v16
+
+- F1 Sprint fastest laps were not independently verified; they are explicitly omitted. GP fastest laps and MotoGP GP/Sprint fastest laps were checked.
+- Penalties reflected by the final result sheets and the explicitly cited announcements were checked. There was no separate exhaustive audit of every stewards' decision.
+- The empirical probability model has five rolling held-out GP diagnostics, but no completed-season championship calibration. Its finite observed outcomes, injury/entry assumptions and exchangeable-track assumption limit interpretation.
+
+
+## 5 October 2026 update (v17)
+
+- Archived the exact v16 page as `index-v16-2026-10-05-before-maintenance.html` before replacing `index.html`.
+- Added round 16 final classifications and refreshed standings/calendars/news for both championships. Latest-event watched IDs are `f1:2026:bahrain-malaysia:r16` and `moto:2026:jpn:r16`; earlier watched choices do not unlock them.
+- Model `weekend-bootstrap-1.0.1` adds Somkiat Chantra to the MotoGP substitute-seat mapping and applies the confirmed Mir absence override for Indonesia. Seeds: F1 `20261005`, MotoGP `20261006`; 200,000 trials each.
+- Indonesian session times are displayed as provisional because the event page was available but a separately indexed official timetable was not. The latest MotoGP Sprint fastest lap is omitted for lack of independent official-classification verification.
+- Existing licensed photos were retained. The cloud publishing path available to this run did not provide a reliable way to verify and transfer two new individual Wikimedia files end-to-end. Existing archives and photo credits remain intact.
+- Playwright visual automation could not run because its Chromium binary was absent in the cloud runner. Static JavaScript/data/invariant checks and a post-deployment browser inspection were used instead.
+
+## 12 October 2026 update (v18)
+
+- Archived the exact v17 page as `index-v17-2026-10-12-before-maintenance.html` before replacing `index.html`.
+- Added round 17 final classifications and refreshed standings, calendars, Brisbane viewing times and news for both championships. Latest-event watched IDs are `f1:2026:singapore:r17` and `moto:2026:ina:r17`; earlier watched choices cannot unlock them.
+- Model `weekend-bootstrap-1.0.2` adds Aleix Espargaró to the Honda substitute-seat mapping. Seeds: F1 `20261012`, MotoGP `20261013`; 200,000 trials each.
+- Australian MotoGP session starts are displayed as provisional because the official event page confirmed the dates but did not expose a complete indexed timetable. Formula 1 United States GP times were converted from the official event page to Brisbane AEST.
+- Existing licensed photos were retained. The available cloud publishing path still did not provide a reliable end-to-end transfer of two newly verified individual Wikimedia files; existing credits and archived assets remain intact.
+
+## 19 October 2026 update (v19)
+
+- Archived the exact v18 page as `index-v18-2026-10-19-before-maintenance.html` before replacing `index.html`.
+- Neither series raced during the week, so the round-17 classifications, standings and watched IDs remain unchanged. Official calendars, results, standings and current news were rechecked.
+- Replaced provisional Australian MotoGP times with the promoter's published timetable and corrected the Sunday warm-up and Grand Prix conversions from Phillip Island AEDT to Brisbane AEST.
+- Reran model `weekend-bootstrap-1.0.2` at 200,000 trials per championship. Seeds: F1 `20261019`, MotoGP `20261020`. The method and scoring inputs are unchanged; the new run records current entry uncertainty without forcing an unconfirmed absence.
+- Existing licensed photos were retained. The connected GitHub text-file publishing tools cannot upload new binary image files end-to-end, so no safe licensed replacement could be published while preserving the archive assets.
+
+## 26 October 2026 run
+
+- Archived the exact v19 page as `index-v19-2026-10-26-before-maintenance.html` before replacing `index.html`.
+- Added the completed Formula 1 round 18 and the completed MotoGP Australian Sprint. Recorded the official cancellation of the Sunday MotoGP, Moto2 and Moto3 races without inventing a Grand Prix classification.
+- Model `weekend-bootstrap-1.0.3` supports the resulting Sprint-only partial round. It reconciles the Sprint points but excludes the incomplete weekend from the full-weekend resampling pool. Seeds: F1 `20261026`, MotoGP `20261027`; 200,000 trials each.
+- Replaced both display photographs with individually verified CC BY 2.0 Wikimedia Commons thumbnails. Exact creator, source, licence, resize disclosure, dimensions and SHA-256 are recorded in `photos/CREDITS.md`; earlier assets remain for archives.
+## 2 November 2026 run (v21)
+
+- Archived the exact v20.1 page as `index-v20-1-2026-11-02-before-maintenance.html` before replacing `index.html`.
+- Added round 19 final results for both series, incorporated verified post-race changes, refreshed official standings and remaining calendars, and changed watched IDs to the new completed events.
+- Model `weekend-bootstrap-1.0.4` ran 200,000 trials per championship with seeds F1 `20261102` and MotoGP `20261103`. It maps the one-off Haas substitute result to the regular seat and applies Yamaha's confirmed Qatar withdrawal.
+- The indexed official Malaysia Sprint report exposed the nine points finishers but not a complete classification or lap table. The page explicitly limits the Sprint table and omits its fastest lap rather than inventing data.
+- Existing licensed photographs were retained because no two suitable replacement files were individually verified and transferred end-to-end during this run. Existing credits and archived assets remain unchanged.
+
+## 9 November 2026 run (v22)
+
+- Archived the exact v21 page as `index-v21-2026-11-09-before-maintenance.html` before replacing `index.html`.
+- Added round 20 final results for both series, incorporated the final Formula 1 penalty order and confirmed MotoGP non-starts, refreshed standings, remaining calendars, Brisbane viewing times and official news, and changed watched IDs to the new completed events.
+- Model `weekend-bootstrap-1.0.5` ran 200,000 trials per championship with seeds F1 `20261109` and MotoGP `20261110`. It maps Rafael Câmara’s one-off Haas result and Jake Dixon’s Honda substitute result to the regular seats for future resampling. Mathematical eligibility remains separate from simulated chances.
+- The official Formula 1 summary standings initially lagged the final Leclerc/Lawson penalty swap. The dashboard reconciles the preceding verified totals with FIA final classification document 81; total driver and constructor points remain conserved.
+- The indexed Qatar Sprint report exposed the nine point scorers and confirmed three retirements but not the complete non-scoring order or lap table. The page omits unsupported positions and the Sprint fastest lap.
+- Replaced both display photographs with individually verified CC BY 2.0 Wikimedia Commons thumbnails. Exact creator, source, licence, resize disclosure, dimensions and SHA-256 are recorded in `photos/CREDITS.md`; earlier assets remain for archives.
+- Live visual inspection found one older circuit-record year rendering as `undefined` and two stale 2 November source-check labels. Archived v22 exactly, corrected those display labels in v22.1, and reran the browser gate before republishing.
+
+## 16 November 2026 run (v23)
+
+- Archived the exact v22.1 page as `index-v22-1-2026-11-16-before-maintenance.html` before replacing `index.html`.
+- No championship round was held during the week. Official results and standings were rechecked and retained; the Las Vegas and Portugal calendars, Brisbane viewing times and current official news were refreshed without changing the São Paulo or Qatar watched IDs.
+- Model `weekend-bootstrap-1.0.5` reran 200,000 trials per championship with seeds F1 `20261116` and MotoGP `20261117`. The current regular-grid assumption records Bagnaia's successful 10 November surgery and unconfirmed return timeline without inventing a Portugal absence. Mathematical eligibility remains separate from simulated chances.
+- Replaced both display photographs with individually verified CC BY 2.0 Wikimedia Commons thumbnails. Exact creator, source, licence, resize disclosure, dimensions and SHA-256 are recorded in `photos/CREDITS.md`; every earlier asset remains for archived pages.
+- The indexed Qatar Sprint limitation remains unchanged: unsupported non-scoring positions and a Sprint fastest lap are omitted.
+
