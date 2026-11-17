@@ -93,10 +93,10 @@ async function main(){
  await page.reload();await page.locator('#tab-moto').click();assert.equal(await page.locator('#watched-moto').isChecked(),true);
  const qatar=page.locator('#moto-races .race').filter({has:page.locator('.gp',{hasText:'Qatar GP'})});
  const sprintTable=qatar.locator('table.classification').first();
- const sprintRows=await sprintTable.locator('tbody tr').evaluateAll(rows=>rows.map(r=>[r.cells[0].textContent,r.cells[1].textContent,Number(r.cells[3].textContent),r.cells[4].textContent]));
+ const sprintRows=await sprintTable.locator('tbody tr').evaluateAll(rows=>rows.map(r=>[r.cells[0].textContent,r.querySelector('.entrant-name').textContent,Number(r.cells[3].textContent),r.querySelector('.result-detail').textContent]));
  assert.deepEqual(sprintRows,require('./check_qatar_2026.cjs').expected.map(([p,n,pts,s])=>[p?String(p):s,n,pts,s]));
  await qatar.locator('details').first().locator('summary').click();
- await sprintTable.scrollIntoViewIfNeeded();await page.screenshot({path:path.join(evidence,'qatar-sprint-desktop.png')});
+ await sprintTable.scrollIntoViewIfNeeded();await sprintTable.screenshot({path:path.join(evidence,'qatar-sprint-desktop.png')});
  assert((await qatar.locator('.flrow').first().innerText()).includes('1:52.218'));
  await page.locator('#moto-title-summary').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(evidence,'moto-analysis.png')});
  await page.locator('#moto-standings').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(evidence,'moto-standings.png')});
@@ -117,7 +117,9 @@ async function main(){
   await page.locator('#f1-title-summary').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(evidence,`mobile-${width}-analysis.png`)});
   await page.locator('#watched-f1').uncheck();await page.locator('#tab-moto').click();await page.locator('#watched-moto').check();
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`Moto revealed overflow at ${width}`);
-  await sprintTable.scrollIntoViewIfNeeded();await page.screenshot({path:path.join(evidence,`qatar-sprint-mobile-${width}.png`)});
+  await sprintTable.scrollIntoViewIfNeeded();
+  assert(await sprintTable.evaluate(e=>e.scrollWidth<=e.parentElement.clientWidth),`Qatar Sprint table overflow at ${width}`);
+  await sprintTable.screenshot({path:path.join(evidence,`qatar-sprint-mobile-${width}.png`)});
   await page.locator('#moto-title-summary').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(evidence,`mobile-${width}-moto.png`)});
   await page.locator('#watched-moto').uncheck();
  }

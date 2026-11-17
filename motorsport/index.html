@@ -205,6 +205,10 @@
   .next-sessions{margin-top:10px}
   .next-sessions td:last-child{white-space:nowrap}
   .classification{font-size:.78rem}
+  .classification td,.classification th{padding:8px 6px}
+  .classification th{letter-spacing:.06em}
+  .classification td.pts{width:auto}
+  .classification .result-detail{display:block;color:var(--ink-dim);font-size:.72rem;white-space:nowrap;margin-top:3px}
   @media(max-width:600px){
     .title-table th:last-child,.title-table td:last-child{display:none}
     .title-table td{padding:8px 5px;font-size:.73rem}
@@ -392,7 +396,7 @@ function setGate(el,show){el.classList.toggle('revealed',show);const veil=el.que
 function podiumHTML(list){return '<div class="podium">'+list.map((p,i)=>`<div class="step"><span class="medal m${i+1}">${i+1}</span><span class="who">${esc(p[0])}</span><span class="tm">${esc(p[1])}</span>${p[2]?`<span class="chip ${i?'gap':'wintime'}">${esc(p[2])}</span>`:''}</div>`).join('')+'</div>';}
 function flHTML(fl){return fl?`<div class="flrow"><span class="flbadge">FL</span><span>Fastest lap: <strong>${esc(fl.who)}</strong> ${fl.t?esc(fl.t):''} ${fl.extra?'— '+esc(fl.extra):''}</span></div>`:'';}
 function recordHTML(records){return (records||[]).map(r=>`<div class="circuit-record"><span class="lbl">${esc(r.label)}</span><span class="val"><strong>${esc(r.t)}</strong> — ${esc(r.who)}, ${esc(r.ev||String(r.extra||'').split(';')[0])}</span></div>`).join('');}
-function classificationHTML(entries){return `<details class="secondary"><summary>Full published classification</summary><div class="board"><table class="classification"><thead><tr><th>Pos</th><th>Entrant</th><th>Team</th><th>Points</th><th>Time / gap / status</th></tr></thead><tbody>${entries.map(e=>`<tr><td>${e.position||(/DNS/.test(e.status||'')?'DNS':/DNF/.test(e.status||'')?'DNF':'NC')}</td><td>${esc(e.name)}</td><td class="team">${esc(e.team)}</td><td class="pts">${e.points}</td><td>${esc(e.status||'Not recorded')}</td></tr>`).join('')}</tbody></table></div></details>`;}
+function classificationHTML(entries){return `<details class="secondary"><summary>Full published classification</summary><div class="board"><table class="classification"><thead><tr><th>Pos</th><th>Entrant</th><th>Team</th><th>Points</th></tr></thead><tbody>${entries.map(e=>`<tr><td>${e.position||(/DNS/.test(e.status||'')?'DNS':/DNF/.test(e.status||'')?'DNF':'NC')}</td><td><span class="entrant-name">${esc(e.name)}</span><span class="result-detail">${esc(e.status||'Time / status not recorded')}</span></td><td class="team">${esc(e.team)}</td><td class="pts">${e.points}</td></tr>`).join('')}</tbody></table></div></details>`;}
 function raceCard(r,key){const latest=r.event_id===latestRound(key).event_id;const inner=`<div class="race-head"><div><div class="rd">ROUND ${r.rd}</div><div class="gp">${esc(r.gp)}</div></div><div class="date">${esc(r.circuit)}<br>${esc(r.date)} ${r.season}</div></div><div class="race-body">${['sprint','race'].filter(s=>r[s]).map(s=>`<div><div class="block-label ${s==='sprint'?'sprint':''}">${s==='race'?'Grand Prix':'Sprint'}</div>${podiumHTML(r[s].podium)}${flHTML(r[s].fl)}${classificationHTML(r[s].classification)}</div>`).join('')}${recordHTML(r.records)}${r.note?`<p class="fn">${esc(r.note)}</p>`:''}<p class="source-line">${r.checked_at?'Checked '+esc(r.checked_at):latest?'Checked 16 November 2026':'Previously verified source'} · ${r.sources.map(([label,url])=>`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>`).join(' · ')}</p></div>`;return `<article class="race ${latest?'latest':''}">${latest?gate(inner,`data-latest="${key}"`,`${esc(r.gp)} results hidden — tick the watched box above to reveal`):inner}</article>`;}
 // Source arrays retain the official countback order for equal points. Refresh ties
 // against the official standings on every data update; never alphabetise them.
