@@ -1,38 +1,38 @@
 {
-  "verified_date_brisbane": "2026-11-16",
-  "data_as_of": "2026-11-16",
-  "note": "Official ranking snapshot rechecked 16 November, including equal-point order. No championship round was held after the São Paulo and Qatar results. Formula 1 totals remain reconciled to the final post-penalty São Paulo classification.",
+  "verified_date_brisbane": "2026-11-23",
+  "data_as_of": "2026-11-22",
+  "note": "Independent official ranking snapshot after the Las Vegas Formula 1 and Portugal MotoGP weekends. Equal-point order is preserved from the official tables; total points reconcile to the published session classifications.",
   "tables": {
     "f1": {
-      "source": "https://www.fia.com/system/files/decision-document/2026_sao_paulo_grand_prix_-_championship_points.pdf",
+      "source": "https://www.fia.com/system/files/decision-document/2026_las_vegas_grand_prix_-_championship_points.pdf",
       "rows": [
         [
           "Kimi Antonelli",
-          390
+          402
         ],
         [
           "Max Verstappen",
-          279
-        ],
-        [
-          "George Russell",
-          262
+          304
         ],
         [
           "Lewis Hamilton",
-          261
+          267
         ],
         [
-          "Charles Leclerc",
-          249
+          "George Russell",
+          264
         ],
         [
           "Lando Norris",
-          246
+          264
+        ],
+        [
+          "Charles Leclerc",
+          250
         ],
         [
           "Oscar Piastri",
-          152
+          167
         ],
         [
           "Isack Hadjar",
@@ -44,7 +44,7 @@
         ],
         [
           "Pierre Gasly",
-          42
+          52
         ],
         [
           "Arvid Lindblad",
@@ -52,7 +52,7 @@
         ],
         [
           "Franco Colapinto",
-          27
+          35
         ],
         [
           "Oliver Bearman",
@@ -67,15 +67,15 @@
           14
         ],
         [
+          "Carlos Sainz",
+          11
+        ],
+        [
           "Esteban Ocon",
           7
         ],
         [
           "Fernando Alonso",
-          7
-        ],
-        [
-          "Carlos Sainz",
           7
         ],
         [
@@ -91,10 +91,6 @@
           1
         ],
         [
-          "Rafael Câmara",
-          0
-        ],
-        [
           "Lance Stroll",
           0
         ],
@@ -105,27 +101,31 @@
         [
           "Sergio Pérez",
           0
+        ],
+        [
+          "Rafael Câmara",
+          0
         ]
       ]
     },
     "constructors": {
-      "source": "https://www.fia.com/system/files/decision-document/2026_sao_paulo_grand_prix_-_championship_points.pdf",
+      "source": "https://www.fia.com/system/files/decision-document/2026_las_vegas_grand_prix_-_championship_points.pdf",
       "rows": [
         [
           "Mercedes",
-          652
+          666
         ],
         [
           "Ferrari",
-          510
+          517
         ],
         [
           "Red Bull Racing",
-          415
+          440
         ],
         [
           "McLaren",
-          398
+          431
         ],
         [
           "Racing Bulls",
@@ -133,7 +133,7 @@
         ],
         [
           "Alpine",
-          69
+          87
         ],
         [
           "Haas F1 Team",
@@ -145,7 +145,7 @@
         ],
         [
           "Williams",
-          12
+          16
         ],
         [
           "Aston Martin",
@@ -158,39 +158,39 @@
       ]
     },
     "moto": {
-      "source": "https://stats.motogp.com/en/world-standing",
+      "source": "https://stats.motogp.com/en/world-standing/2026/MotoGP/RidersChampionship",
       "rows": [
         [
           "Marc Márquez",
-          431
+          439
         ],
         [
           "Jorge Martín",
-          371
+          396
         ],
         [
           "Marco Bezzecchi",
-          357
+          394
         ],
         [
           "Pedro Acosta",
-          309
+          315
         ],
         [
           "Ai Ogura",
-          294
+          309
         ],
         [
           "Fabio Di Giannantonio",
-          282
+          298
         ],
         [
           "Raúl Fernández",
-          258
+          283
         ],
         [
           "Álex Márquez",
-          197
+          204
         ],
         [
           "Francesco Bagnaia",
@@ -198,23 +198,23 @@
         ],
         [
           "Enea Bastianini",
-          147
+          152
         ],
         [
           "Fermín Aldeguer",
-          129
+          139
         ],
         [
           "Brad Binder",
-          118
+          127
         ],
         [
           "Luca Marini",
-          117
+          124
         ],
         [
           "Fabio Quartararo",
-          79
+          85
         ],
         [
           "Diogo Moreira",
@@ -222,27 +222,27 @@
         ],
         [
           "Franco Morbidelli",
-          70
+          71
         ],
         [
           "Johann Zarco",
           63
         ],
         [
+          "Jack Miller",
+          34
+        ],
+        [
           "Joan Mir",
           33
         ],
         [
-          "Jack Miller",
+          "Álex Rins",
           31
         ],
         [
-          "Álex Rins",
-          29
-        ],
-        [
           "Iker Lecuona",
-          18
+          25
         ],
         [
           "Toprak Razgatlıoğlu",

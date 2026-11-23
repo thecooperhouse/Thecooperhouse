@@ -5,7 +5,7 @@ from datetime import datetime,timezone
 from collections import Counter,defaultdict
 import numpy as np
 
-VERSION='weekend-bootstrap-1.0.6'
+VERSION='weekend-bootstrap-1.0.7'
 RULES={
  'f1':{'race':[25,18,15,12,10,8,6,4,2,1],'sprint':[8,7,6,5,4,3,2,1]},
  'moto':{'race':[25,20,16,13,11,10,9,8,7,6,5,4,3,2,1],'sprint':[12,9,7,6,5,4,3,2,1]}}
@@ -72,8 +72,12 @@ def map_name(e,key,entries):
             present={x['name'] for x in entries};missing=[x for x in ['Álex Márquez','Fermín Aldeguer'] if x not in present]
             assert len(missing)==1, 'ambiguous Gresini substitute seat'
             return missing[0]
+        if n=='Iker Lecuona' and 'Ducati Lenovo' in e['team']:
+            return 'Francesco Bagnaia'
         if n=='Lorenzo Savadori':
             return 'Ai Ogura' if 'Trackhouse' in e['team'] else n
+        if n=='Augusto Fernández' and 'Toprak Razgatlıoğlu' not in {x['name'] for x in entries}:
+            return 'Toprak Razgatlıoğlu'
         n={'Pol Espargaró':'Maverick Viñales','Jonas Folger':'Maverick Viñales','Takaaki Nakagami':'Joan Mir','Somkiat Chantra':'Joan Mir','Aleix Espargaró':'Joan Mir','Jake Dixon':'Joan Mir','Cal Crutchlow':'Johann Zarco'}.get(n,n)
     return n
 

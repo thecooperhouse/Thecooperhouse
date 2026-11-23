@@ -1,6 +1,6 @@
 # Photo credits
 
-Both photographs are licensed under [Creative Commons Attribution 2.0 Generic (CC BY 2.0)](https://creativecommons.org/licenses/by/2.0/). Licence metadata checked on Wikimedia Commons on 30 September 2026. These are archive images, not photos of the 2026 races.
+Each entry below records its individual creator, source page, exact Creative Commons licence/version, modification disclosure and check date. These are historical archive images, not photographs of the latest races.
 
 ## Max Verstappen at Silverstone, 2024
 
@@ -104,6 +104,32 @@ Keep the v16 photographs and all earlier images: archived HTML pages still refer
 - SHA-256: `79715366d950afa42d74530272b19c6612e5e7f976b2bce30922bb417ceae777`.
 
 Keep every older image and its credit: archived HTML pages still reference them. Historical photographs are labelled with their event and year and do not depict the latest race result. No creator, subject, team or organiser endorsement is implied.
+
+## Added in v24 — 23 November 2026
+
+### Formula 1: Singapore Grand Prix practice, 2024
+
+- File: `zhou-singapore-2024-20261123.jpg` (960 × 640, 135,377 bytes).
+- Creator: **Henrikkoh333**.
+- Source: [Zhou Guanyu on track, Singapore Grand Prix 2024.jpg — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Zhou_Guanyu_on_track,_Singapore_Grand_Prix_2024.jpg).
+- Exact licence: **Creative Commons Attribution 4.0 International (CC BY 4.0)**.
+- Licence: https://creativecommons.org/licenses/by/4.0/
+- The individual Commons file page identifies the creator, event, year and licence. Checked 23 November 2026.
+- Modifications: Wikimedia 960px thumbnail, proportionally resized; no cropping, recolouring or other edits.
+- SHA-256: `005be3293d16266c3d8e80f2d27e36611d7ba82dec757b4f7a6223f30a1e94a1`.
+
+### MotoGP: Catalan Grand Prix, 2022
+
+- File: `dovizioso-fernandez-espargaro-catalunya-2022-20261123.jpg` (960 × 640, 201,495 bytes).
+- Creator: **Box Repsol**.
+- Source: [Andrea Dovizioso, Raúl Fernández and Pol Espargaró 2022 Catalunya.jpg — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Andrea_Dovizioso,_Ra%C3%BAl_Fern%C3%A1ndez_and_Pol_Espargar%C3%B3_2022_Catalunya.jpg).
+- Exact licence: **Creative Commons Attribution 2.0 Generic (CC BY 2.0)**.
+- Licence: https://creativecommons.org/licenses/by/2.0/
+- The individual Commons file page identifies the creator, event, year and licence; its Flickr licence was confirmed by FlickreviewR 2 on 4 January 2024. Checked 23 November 2026.
+- Modifications: Wikimedia 960px thumbnail, proportionally resized; no cropping, recolouring or other edits.
+- SHA-256: `ff9c3047d483de2b18b9d88c857c122380cf02e7c4a7cd9ba6e45dc346925c39`.
+
+Every prior image and credit remains in place because archived dashboard pages still reference those files. No creator, subject, team or organiser endorsement is implied.
 
 ## Added in v23 — 16 November 2026
 

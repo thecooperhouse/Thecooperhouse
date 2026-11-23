@@ -1,5 +1,13 @@
 # Motorsport website maintenance
 
+## 23 November 2026 run (v24)
+
+- Archived the exact v23.1 page as `index-v23-1-2026-11-23-before-maintenance.html` before replacing `index.html`.
+- Added the newly completed Formula 1 and MotoGP weekends from the FIA and MotoGP classification sheets, refreshed official standings, remaining calendars, Brisbane viewing times and confirmed news, and advanced each watched-state key to the new event.
+- Model `weekend-bootstrap-1.0.7` ran 200,000 trials per championship with seeds F1 `20261123` and MotoGP `20261124`. It adds the observed Ducati/Yamaha substitute mappings and applies the confirmed remaining absences. Mathematical eligibility and maximum possible points remain independent of the simulation.
+- Replaced both display photographs with individually checked Wikimedia Commons thumbnails (CC BY 4.0 and CC BY 2.0). Exact creator, source, licence, resizing disclosure, dimensions and SHA-256 are recorded in `photos/CREDITS.md`; all older assets remain for archives.
+- The cloud browser gate must pass on the complete candidate before `main` advances. Its artifact is the keyboard, spoiler, persistence, image and mobile-layout evidence for this edition.
+
 ## 17 November 2026 corrective publication (v23.1)
 
 - Corrects the Qatar restarted Sprint from both pages of the official timing PDF: all 16 finishers, DNF/DNS distinction, timings, fastest lap and served penalties. The earlier claim of three retirements was wrong: Aldeguer finished 11th and Bagnaia did not start the restart. The current page and dated model input supersede that mistake; historical archives remain untouched.

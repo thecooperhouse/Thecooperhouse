@@ -1,0 +1,42 @@
+const fs = require('fs');
+const path = require('path');
+
+const reference = {
+  verified_date_brisbane:'2026-11-23',
+  data_as_of:'2026-11-22',
+  note:'Independent official ranking snapshot after the Las Vegas Formula 1 and Portugal MotoGP weekends. Equal-point order is preserved from the official tables; total points reconcile to the published session classifications.',
+  tables:{
+    f1:{
+      source:'https://www.fia.com/system/files/decision-document/2026_las_vegas_grand_prix_-_championship_points.pdf',
+      rows:[
+        ['Kimi Antonelli',402],['Max Verstappen',304],['Lewis Hamilton',267],['George Russell',264],
+        ['Lando Norris',264],['Charles Leclerc',250],['Oscar Piastri',167],['Isack Hadjar',122],
+        ['Liam Lawson',89],['Pierre Gasly',52],['Arvid Lindblad',38],['Franco Colapinto',35],
+        ['Oliver Bearman',23],['Gabriel Bortoleto',14],['Nico Hülkenberg',14],['Carlos Sainz',11],
+        ['Esteban Ocon',7],['Fernando Alonso',7],['Alexander Albon',5],['Yuki Tsunoda',1],
+        ['Ryo Hirakawa',1],['Lance Stroll',0],['Valtteri Bottas',0],['Sergio Pérez',0],['Rafael Câmara',0]
+      ]
+    },
+    constructors:{
+      source:'https://www.fia.com/system/files/decision-document/2026_las_vegas_grand_prix_-_championship_points.pdf',
+      rows:[['Mercedes',666],['Ferrari',517],['Red Bull Racing',440],['McLaren',431],['Racing Bulls',114],['Alpine',87],['Haas F1 Team',31],['Audi',28],['Williams',16],['Aston Martin',7],['Cadillac',0]]
+    },
+    moto:{
+      source:'https://stats.motogp.com/en/world-standing/2026/MotoGP/RidersChampionship',
+      rows:[
+        ['Marc Márquez',439],['Jorge Martín',396],['Marco Bezzecchi',394],['Pedro Acosta',315],
+        ['Ai Ogura',309],['Fabio Di Giannantonio',298],['Raúl Fernández',283],['Álex Márquez',204],
+        ['Francesco Bagnaia',173],['Enea Bastianini',152],['Fermín Aldeguer',139],['Brad Binder',127],
+        ['Luca Marini',124],['Fabio Quartararo',85],['Diogo Moreira',78],['Franco Morbidelli',71],
+        ['Johann Zarco',63],['Jack Miller',34],['Joan Mir',33],['Álex Rins',31],['Iker Lecuona',25],
+        ['Toprak Razgatlıoğlu',18],['Maverick Viñales',17],['Augusto Fernández',6],['Pol Espargaró',5],
+        ['Somkiat Chantra',3],['Takaaki Nakagami',3],['Jake Dixon',2],['Cal Crutchlow',0],
+        ['Jonas Folger',0],['Lorenzo Savadori',0],['Michele Pirro',0],['Aleix Espargaró',0]
+      ]
+    }
+  }
+};
+
+const target = path.join(__dirname, 'standings-reference.json');
+fs.writeFileSync(target, JSON.stringify(reference, null, 2) + '\n');
+console.log(`Updated ${target}`);

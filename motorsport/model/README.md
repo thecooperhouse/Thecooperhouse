@@ -1,5 +1,21 @@
 # Reproducible championship estimates
 
+## 23 November 2026 calculation
+
+Version `weekend-bootstrap-1.0.7` adds the completed Las Vegas Formula 1 and Portugal MotoGP weekends and maps the newly observed Ducati Lenovo and Pramac Yamaha substitute rides to their regular seats for future empirical resampling. Official standings, penalties and complete classifications reconcile before any trial runs. Formula 1 has two Grands Prix and no Sprints remaining; MotoGP has one Grand Prix and one Sprint remaining.
+
+Both riders' championships, and the Formula 1 constructors' championship, are mathematically clinched in the verified input. The program still executed 200,000 trials for each championship as required, with seeds F1 `20261123` and MotoGP `20261124`; each clinched entrant won all 200,000 model paths. Maximum possible points and eligibility are calculated separately from the Monte Carlo result.
+
+Haas confirmed Rafael Câmara for the final two Formula 1 rounds, and Yamaha confirmed Toprak Razgatlıoğlu's Valencia absence with Augusto Fernández planned as replacement. The unavailable regular entrants are forced to zero; substitutes are not individually forecast. The checked Valencia page had not published a definitive entry list for other conditional returns, so those seats retain the documented regular-grid assumption. These assumptions cannot change an already-clinched riders' title.
+
+Run:
+
+```bash
+python championship_model.py --inputs inputs-2026-11-23.json --output reproduced.json --simulations 200000 --seed 20261123 --half-life 5 --concentration 15 --batch-size 10000
+```
+
+The saved output records model/code/input hashes, environment versions, timestamps, runtime, five rolling held-out GP diagnostics and every invariant. No completed-championship calibration is available; the diagnostics do not prove predictive calibration.
+
 ## 17 November 2026 corrective calculation
 
 Version `weekend-bootstrap-1.0.6` adds classification/status consistency checks; the bootstrap method is unchanged. `correct_2026_11_17.cjs prepare` constructs the corrected inputs from the preserved 16 November snapshot. Run the command below, then `node motorsport/model/correct_2026_11_17.cjs apply` from the repository root. The preparation script refuses to overwrite its exact prior-page archive.
