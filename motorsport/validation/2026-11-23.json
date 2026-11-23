@@ -1,0 +1,80 @@
+{
+  "checked_at_utc": "2026-11-23T02:29:23.612Z",
+  "browser": "Chromium 156.0.8078.4",
+  "viewports": [
+    "1280×1000",
+    "390×844",
+    "320×844"
+  ],
+  "checks": [
+    "JavaScript execution",
+    "one checkbox per series",
+    "latest race/Sprint, standings, news and analysis hidden/inert by default",
+    "reveal/hide with keyboard and pointer",
+    "independent series choices",
+    "reload persistence",
+    "new-event protection",
+    "malformed, blocked and legacy storage",
+    "keyboard tabs and Home/End",
+    "earlier results accessible",
+    "images decode",
+    "no page overflow",
+    "hidden accessibility and focus exclusion",
+    "all official standings and analysis rows match reference including tied order",
+    "stable nonmutating descending points sort",
+    "clinch independent of source row order",
+    "Tab and Shift+Tab reach both watched controls",
+    "visible keyboard focus",
+    "Space reveals and hides both series",
+    "Qatar restarted Sprint regression remains correct",
+    "Las Vegas final race order, points, statuses and fastest lap match official reference",
+    "Portugal complete Sprint and GP order, points, timings, DNF and NC match official reference",
+    "Sprint/GP fastest laps remain distinct from official race and qualifying records",
+    "standings totals, input/page/forecast consistency and Brisbane date rollovers",
+    "new photo hashes, licence labels and image decoding",
+    "exact prior-page archive hash"
+  ],
+  "images": [
+    {
+      "src": "photos/zhou-singapore-2024-20261123.jpg",
+      "loaded": true,
+      "width": 960,
+      "height": 640
+    },
+    {
+      "src": "photos/dovizioso-fernandez-espargaro-catalunya-2022-20261123.jpg",
+      "loaded": true,
+      "width": 960,
+      "height": 640
+    }
+  ],
+  "errors": [],
+  "status": "passed",
+  "candidate_head_sha": "7cb8af81d6b957cada2ec8c4c27c39f6b5beb760",
+  "pull_request_test_sha": "ec4a3a16dd8eeeff828236538b812c24586f4b6b",
+  "page_sha256": "bad498fee01a83572c67cdf85ce079975ad438f3d72bec8a23e5926781141a45",
+  "playwright_version": "1.64.1",
+  "review": {
+    "scope": "Complete 23 November 2026 Formula 1 and MotoGP update, including the newly completed weekends, current standings, future sessions, photos, archive and model output.",
+    "screenshots_reviewed": [
+      "desktop-hidden.png",
+      "mobile-320-hidden.png",
+      "las-vegas-race-desktop.png",
+      "portugal-sprint-mobile-320.png",
+      "portugal-race-desktop.png",
+      "moto-standings.png"
+    ],
+    "visual_review": "Spoiler-safe initial desktop/mobile views, full newest classifications, current standings and both 320 px tables were readable without clipping or horizontal page overflow.",
+    "reproducibility": "A second 200,000-trial run per championship reproduced every title result, eligibility result, invariant and backtest exactly; only the calculation timestamp and elapsed seconds differed.",
+    "photos": "Both new 960 × 640 local images decoded in Chromium. Individual Commons creator and licence pages were checked; visible credits, exact licence/version links, modification disclosures, dimensions and hashes are recorded.",
+    "limitations": [
+      "No physical screen-reader audit; keyboard operation, focus visibility, hidden/inert behaviour and accessibility-tree exclusion were tested in Chromium.",
+      "The empirical model has limited historical validation and no completed-championship calibration; its saved five-race rolling diagnostics are not proof of predictive calibration.",
+      "This run did not freshly re-audit every older result, archived claim or historical steward decision unrelated to the new weekends."
+    ],
+    "workflow_url": "https://github.com/thecooperhouse/Thecooperhouse/actions/runs/45100396340",
+    "artifact_id": 14785121515,
+    "artifact_digest": "sha256:a02e409ad1f7f773cc35077457a394c8bc3454ec39895808f1dc07a60a09059b",
+    "artifact_retention_until": "2026-12-23"
+  }
+}
