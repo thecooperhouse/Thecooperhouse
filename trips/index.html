@@ -374,6 +374,16 @@
     <main id="rides"></main>
 
     <noscript>
+        <div class="ride ride--planned">
+            <p class="status">Planned</p>
+            <h2>Tenterfield Ride &amp; Drive — 5–6 December 2026</h2>
+            <p class="blurb">Wellington Point to Tenterfield via Lions Road. Home via Liston and Queen Mary Falls. Approximately 626 km over two days.</p>
+            <div class="links">
+                <a class="btn btn--primary" href="pdf/tenterfield-ride-card-2026.pdf">Download ride card</a>
+                <a class="btn" href="https://www.google.com/maps/dir/?api=1&amp;origin=Wellington+Point+QLD&amp;destination=Tenterfield+NSW&amp;waypoints=Beaudesert+QLD%7CRathdowney+Store+QLD%7CAndrew+Drynan+Park%2C+Running+Creek+QLD%7CBorder+Loop+lookout+and+picnic+area+NSW%7CExchange+Hotel+Kyogle+NSW%7CCasino+NSW%7CBruxner+Highway+and+Bulmers+Road%2C+Mallanganee+NSW%7CTabulam+NSW%7CLunatic+Hotel+Drake+NSW&amp;travelmode=driving">🗺️ Saturday Google Maps</a>
+                <a class="btn" href="https://www.google.com/maps/dir/?api=1&amp;origin=Tenterfield+NSW&amp;destination=Wellington+Point+QLD&amp;waypoints=Liston+NSW%7CLegume+NSW%7CKillarney+QLD%7CQueen+Mary+Falls+Picnic+Area+QLD%7CTeviot+Falls+Lookout+QLD%7CDugandan+Hotel+QLD%7CBeaudesert+QLD&amp;travelmode=driving">🗺️ Sunday Google Maps</a>
+            </div>
+        </div>
         <div class="ride ride--ridden">
             <p class="status">Ridden</p>
             <h2>Mann River — 29–30 August 2026</h2>
@@ -426,6 +436,56 @@
    ------------------------------------------------------------------ */
 
 const RIDES = [
+  {
+    "status": "planned",
+    "title": "Tenterfield Ride & Drive",
+    "route": "Wellington Point → Lions Road → Tenterfield · home via Liston and Queen Mary Falls",
+    "start": "2026-12-05",
+    "end": "2026-12-06",
+    "blurb": "Simon on the Yamaha FJR1300 and Shaun in the Porsche GT3, heading for the bends. Saturday starts with coffee in Rathdowney, a stop at Border Loop Lookout and lunch in Kyogle before the Bruxner Highway climb to Tenterfield. On Sunday we’ll head through Liston and Killarney for coffee at Queen Mary Falls, then descend Head Road for lunch at the Dugandan Hotel.",
+    "stats": [
+      [
+        "Distance",
+        "≈626 km"
+      ],
+      [
+        "Surface",
+        "Sealed roads"
+      ],
+      [
+        "Stay",
+        "1 night · Tenterfield"
+      ]
+    ],
+    "days": [
+      {
+        "label": "Sat · Lions Road and the Bruxner",
+        "km": 334
+      },
+      {
+        "label": "Sun · Liston and the Falls",
+        "km": 292
+      }
+    ],
+    "links": [
+      {
+        "label": "Download ride card",
+        "href": "pdf/tenterfield-ride-card-2026.pdf",
+        "primary": true,
+        "ext": "PDF"
+      },
+      {
+        "label": "🗺️ Saturday Google Maps",
+        "href": "https://www.google.com/maps/dir/?api=1&origin=Wellington+Point+QLD&destination=Tenterfield+NSW&waypoints=Beaudesert+QLD%7CRathdowney+Store+QLD%7CAndrew+Drynan+Park%2C+Running+Creek+QLD%7CBorder+Loop+lookout+and+picnic+area+NSW%7CExchange+Hotel+Kyogle+NSW%7CCasino+NSW%7CBruxner+Highway+and+Bulmers+Road%2C+Mallanganee+NSW%7CTabulam+NSW%7CLunatic+Hotel+Drake+NSW&travelmode=driving",
+        "ext": "MAP"
+      },
+      {
+        "label": "🗺️ Sunday Google Maps",
+        "href": "https://www.google.com/maps/dir/?api=1&origin=Tenterfield+NSW&destination=Wellington+Point+QLD&waypoints=Liston+NSW%7CLegume+NSW%7CKillarney+QLD%7CQueen+Mary+Falls+Picnic+Area+QLD%7CTeviot+Falls+Lookout+QLD%7CDugandan+Hotel+QLD%7CBeaudesert+QLD&travelmode=driving",
+        "ext": "MAP"
+      }
+    ]
+  },
   {
     status: "ridden",
     title: "Dalby Halloween Ride",
